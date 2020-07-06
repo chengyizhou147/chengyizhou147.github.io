@@ -1,0 +1,1698 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#00FFFF">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-corner-indicator.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#00FFFF">
+
+
+
+
+
+  <meta name="keywords" content="XSS," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;前面总结了一些xss的基础知识，这一篇准备完成xss-challenges平台的一些题目。xss-challenges是一个模仿真实xss挖洞的情景，在XSS Challenges练习过程中，我们需要用浏览器中的f12中搜索（），找出我们控制的代码所在的位置，然后思考那些个位置哪个或哪几个位置可以被注入">
+<meta name="keywords" content="XSS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="XSS-challenges">
+<meta property="og:url" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;04&#x2F;XSS-challenges&#x2F;index.html">
+<meta property="og:site_name" content="CyzCc&#39;s blog">
+<meta property="og:description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;前面总结了一些xss的基础知识，这一篇准备完成xss-challenges平台的一些题目。xss-challenges是一个模仿真实xss挖洞的情景，在XSS Challenges练习过程中，我们需要用浏览器中的f12中搜索（），找出我们控制的代码所在的位置，然后思考那些个位置哪个或哪几个位置可以被注入">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;04&#x2F;XSS-challenges&#x2F;1.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;04&#x2F;XSS-challenges&#x2F;2.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;04&#x2F;XSS-challenges&#x2F;3.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;04&#x2F;XSS-challenges&#x2F;4.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;04&#x2F;XSS-challenges&#x2F;5.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;04&#x2F;XSS-challenges&#x2F;6.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;04&#x2F;XSS-challenges&#x2F;7.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;04&#x2F;XSS-challenges&#x2F;8.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;04&#x2F;XSS-challenges&#x2F;9.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;04&#x2F;XSS-challenges&#x2F;10.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;04&#x2F;XSS-challenges&#x2F;11.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;04&#x2F;XSS-challenges&#x2F;12.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;04&#x2F;XSS-challenges&#x2F;13.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;04&#x2F;XSS-challenges&#x2F;14.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;04&#x2F;XSS-challenges&#x2F;15.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;04&#x2F;XSS-challenges&#x2F;16.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;04&#x2F;XSS-challenges&#x2F;17.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;04&#x2F;XSS-challenges&#x2F;18.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;04&#x2F;XSS-challenges&#x2F;19.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;04&#x2F;XSS-challenges&#x2F;20.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;04&#x2F;XSS-challenges&#x2F;21.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;04&#x2F;XSS-challenges&#x2F;22.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;04&#x2F;XSS-challenges&#x2F;23.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;04&#x2F;XSS-challenges&#x2F;24.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;04&#x2F;XSS-challenges&#x2F;25.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;04&#x2F;XSS-challenges&#x2F;26.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;04&#x2F;XSS-challenges&#x2F;27.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;04&#x2F;XSS-challenges&#x2F;28.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;04&#x2F;XSS-challenges&#x2F;29.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;04&#x2F;XSS-challenges&#x2F;30.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;04&#x2F;XSS-challenges&#x2F;31.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;04&#x2F;XSS-challenges&#x2F;32.png">
+<meta property="og:updated_time" content="2020-03-09T01:41:36.678Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;04&#x2F;XSS-challenges&#x2F;1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://cyzcc.vip/2020/03/04/XSS-challenges/"/>
+
+
+
+
+<!--留言-->
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "9e261f4f"
+    });
+  daovoice('update');
+  </script>
+
+
+  <title>XSS-challenges | CyzCc's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CyzCc's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">♫日常学习笔记整理♬♬</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-主页|随笔">
+          <a href="/home/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            主页|随笔
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-一些知识点">
+          <a href="/guestbook/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-comments"></i> <br />
+            
+            一些知识点
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于我">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于我
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br />
+            
+            友链
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cyzcc.vip/2020/03/04/XSS-challenges/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="CyzCc">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CyzCc's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">XSS-challenges</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-04T20:55:15+08:00">
+                2020-03-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2020/03/04/XSS-challenges/" class="leancloud_visitors" data-flag-title="XSS-challenges">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.8k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  6
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;前面总结了一些xss的基础知识，这一篇准备完成xss-challenges平台的一些题目。xss-challenges是一个模仿真实xss挖洞的情景，在XSS Challenges练习过程中，我们需要用浏览器中的f12中搜索（），找出我们控制的代码所在的位置，然后思考那些个位置哪个或哪几个位置可以被注入我们想要的代码，然后结合上下文进行各种脑洞绕过。<a id="more"></a></p>
+<h1 id="xss-challenges"><a href="#xss-challenges" class="headerlink" title="xss-challenges"></a>xss-challenges</h1><h2 id="Stage-1"><a href="#Stage-1" class="headerlink" title="Stage #1"></a>Stage #1</h2><p>第一关没有什么过滤，直接输入payload</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript">alert(<span class="built_in">document</span>.domain)</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/03/04/XSS-challenges/1.png" alt="img"></p>
+<h2 id="Stage-2"><a href="#Stage-2" class="headerlink" title="Stage #2"></a>Stage #2</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">在我们输入<span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript">alert(<span class="built_in">document</span>.domain)</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>的时候并没有弹窗</span><br></pre></td></tr></table></figure>
+
+<p>f12查看元素<br><img src="/2020/03/04/XSS-challenges/2.png" alt="img"><br>发现输入的语句在value中，这是我们需要将前后的双引号闭合，输入</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">123"&gt;<span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript">alert(<span class="built_in">document</span>.domain)</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span><span class="tag">&lt;<span class="name">"</span></span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/03/04/XSS-challenges/3.png" alt="img"></p>
+<h2 id="Stage-3"><a href="#Stage-3" class="headerlink" title="Stage #3"></a>Stage #3</h2><p><img src="/2020/03/04/XSS-challenges/4.png" alt="img"><br>第四关发现有两个参数，第一个参数尝试后无果，直接在元素中修改第二个元素<br><img src="/2020/03/04/XSS-challenges/5.png" alt="img"><br>修改后在上方选择该语句并提交，成功弹窗<br><img src="/2020/03/04/XSS-challenges/6.png" alt="img"><br><img src="/2020/03/04/XSS-challenges/7.png" alt="img"></p>
+<h2 id="Stage-4"><a href="#Stage-4" class="headerlink" title="Stage #4"></a>Stage #4</h2><p>在尝试几种方法无果后，抓包发现有三个参数<br><img src="/2020/03/04/XSS-challenges/8.png" alt="img"><br>修改第三个参数</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript">alert(<span class="built_in">document</span>.domain)</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>但是并没有弹窗，查看源代码发现没有闭合引号</p>
+<p><img src="/2020/03/04/XSS-challenges/9.png" alt="img"></p>
+<p>于是构造</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">12"&gt;<span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript">alert(<span class="built_in">document</span>.domain)</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span><span class="tag">&lt;<span class="name">"123</span></span></span><br></pre></td></tr></table></figure>
+
+<p>成功弹窗<br><img src="/2020/03/04/XSS-challenges/10.png" alt="img"></p>
+<h2 id="Stage-5"><a href="#Stage-5" class="headerlink" title="Stage #5"></a>Stage #5</h2><p>当我输入payload时，发现输入框限制了输入长度，于是在元素中尝试修改输入长度<br><img src="/2020/03/04/XSS-challenges/11.png" alt><br>再次输入payload成功弹窗,这里也要闭合前面的引号</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">123"&gt;<span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript">alert(<span class="built_in">document</span>.domain)</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span><span class="tag">&lt;<span class="name">"</span></span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/03/04/XSS-challenges/12.png" alt></p>
+<h2 id="Stage-6"><a href="#Stage-6" class="headerlink" title="Stage #6"></a>Stage #6</h2><p>当我们输入payload的时候发现&lt;&gt;被替换成&amp;gt;这时我们可以构造on事件<br><img src="/2020/03/04/XSS-challenges/13.png" alt><br>on事件介绍：<br>在现代浏览器中都内置有大量的事件处理器。这些处理器会监视特定的条件或用户行为，例如鼠标单击或浏览器窗口中完成加载某个图像。通过使用客户端的JavaScript，可以将某些特定的事件处理器作为属性添加给特定的标签，并可以在事件发生时执行一个或多个JavaScript命令或函数。下面是一些常见的on事件</p>
+<table>
+<thead>
+<tr>
+<th><a href="https://www.w3school.com.cn/tags/event_onclick.asp" target="_blank" rel="noopener">onclick</a></th>
+<th>script</th>
+<th>元素上发生鼠标点击时触发。</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="https://www.w3school.com.cn/tags/event_ondblclick.asp" target="_blank" rel="noopener">ondblclick</a></td>
+<td>script</td>
+<td>元素上发生鼠标双击时触发。</td>
+</tr>
+<tr>
+<td>ondrag</td>
+<td>script</td>
+<td>元素被拖动时运行的脚本。</td>
+</tr>
+<tr>
+<td>ondragend</td>
+<td>script</td>
+<td>在拖动操作末端运行的脚本。</td>
+</tr>
+<tr>
+<td>ondragenter</td>
+<td>script</td>
+<td>当元素元素已被拖动到有效拖放区域时运行的脚本。</td>
+</tr>
+<tr>
+<td>ondragleave</td>
+<td>script</td>
+<td>当元素离开有效拖放目标时运行的脚本。</td>
+</tr>
+<tr>
+<td>ondragover</td>
+<td>script</td>
+<td>当元素在有效拖放目标上正在被拖动时运行的脚本。</td>
+</tr>
+<tr>
+<td>ondragstart</td>
+<td>script</td>
+<td>在拖动操作开端运行的脚本。</td>
+</tr>
+<tr>
+<td>ondrop</td>
+<td>script</td>
+<td>当被拖元素正在被拖放时运行的脚本。</td>
+</tr>
+<tr>
+<td><a href="https://www.w3school.com.cn/tags/event_onmousedown.asp" target="_blank" rel="noopener">onmousedown</a></td>
+<td>script</td>
+<td>当元素上按下鼠标按钮时触发。</td>
+</tr>
+<tr>
+<td><a href="https://www.w3school.com.cn/tags/event_onmousemove.asp" target="_blank" rel="noopener">onmousemove</a></td>
+<td>script</td>
+<td>当鼠标指针移动到元素上时触发。</td>
+</tr>
+<tr>
+<td><a href="https://www.w3school.com.cn/tags/event_onmouseout.asp" target="_blank" rel="noopener">onmouseout</a></td>
+<td>script</td>
+<td>当鼠标指针移出元素时触发。</td>
+</tr>
+<tr>
+<td><a href="https://www.w3school.com.cn/tags/event_onmouseover.asp" target="_blank" rel="noopener">onmouseover</a></td>
+<td>script</td>
+<td>当鼠标指针移动到元素上时触发。</td>
+</tr>
+<tr>
+<td><a href="https://www.w3school.com.cn/tags/event_onmouseup.asp" target="_blank" rel="noopener">onmouseup</a></td>
+<td>script</td>
+<td>当在元素上释放鼠标按钮时触发。</td>
+</tr>
+<tr>
+<td>onmousewheel</td>
+<td>script</td>
+<td>当鼠标滚轮正在被滚动时运行的脚本。</td>
+</tr>
+<tr>
+<td>onscroll</td>
+<td>script</td>
+<td>当元素滚动条被滚动时运行的脚本。</td>
+</tr>
+</tbody></table>
+<p>构造payload</p>
+<figure class="highlight isbl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"onmouseover="</span><span class="function"><span class="title">alert</span>(<span class="variable">document.domain</span>)</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/03/04/XSS-challenges/14.png" alt><br>当我们鼠标移动到输入框时触发事件<br><img src="/2020/03/04/XSS-challenges/15.png" alt><br>还可以使用其他的事件进行触发xss如:</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1561513</span><span class="string">"onclick ="</span>alert(<span class="built_in">document</span>.domain)<span class="comment">#当我们点击输入框是就会弹出对话框</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Stage-7"><a href="#Stage-7" class="headerlink" title="Stage #7"></a>Stage #7</h2><p>在使用前面的事件或闭合标签都不起作用是时，我们尝试在文本框中输入空格，发现空格后面的内容会在后面作为标签出现<br>当我们输入111时<br><img src="/2020/03/04/XSS-challenges/16.png" alt><br>当我们输入111    222时<br><img src="/2020/03/04/XSS-challenges/17.png" alt><br>Payload：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">111 </span>onmouseover=alert(document.domain);</span><br></pre></td></tr></table></figure>
+
+<p>当我们输入111 onmouseover=”alert(document.domain);”时，发现多了一对双引号使我们的JavaScript代码变为了字符串，所以我们的payload中应该去掉双引号<br>成功弹框<br><img src="/2020/03/04/XSS-challenges/18.png" alt></p>
+<h2 id="Stage-8"><a href="#Stage-8" class="headerlink" title="Stage #8"></a>Stage #8</h2><p>我们在输入框中输入一段字符串，发现该字符串在&lt;a href&gt;中显示，这时可以使用JavaScript伪协议</p>
+<p>JavaScript伪协议：<br>将JavaScript代码添加到客户端的方法是把它放置在伪协议说明符JavaScript;后面的url中的JavaScript代码含有多个语句，必须使用这些语句分隔开。</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">javascript:var </span>now=new Date()<span class="comment">;"&lt;h1&gt;The time is&lt;/h1&gt;"+now;</span></span><br><span class="line">		<span class="keyword">javascript </span>URL还可以含有只执行动作，但不返回值的<span class="keyword">JavaScript语句。</span></span><br><span class="line"><span class="keyword">javascript:alert("hello </span>world<span class="string">")</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/03/04/XSS-challenges/19.png" alt="img"></p>
+<p>Payload触发xss漏洞</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">Payload</span><span class="selector-pseudo">:javascript</span><span class="selector-pseudo">:alert(document.domain)</span>;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/03/04/XSS-challenges/20.png" alt="img"></p>
+<p>当我们点击下面的url时，就会触发弹窗</p>
+<p><img src="/2020/03/04/XSS-challenges/21.png" alt="img"></p>
+<h2 id="Stage-9"><a href="#Stage-9" class="headerlink" title="Stage #9"></a>Stage #9</h2><p>这一个是utf-7的xss漏洞，直接输入</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">onclick</span>=<span class="string">"alert(document.domain)"</span></span><br></pre></td></tr></table></figure>
+
+<p>便能成功触发事件并弹窗，但是这个仅限于在IE环境中</p>
+<h2 id="Stage-10"><a href="#Stage-10" class="headerlink" title="Stage #10"></a>Stage #10</h2><p>一般思路可以闭合value：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">"&gt;undefined<span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript">alert(<span class="built_in">document</span>.domain)</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>但是并没有弹窗<br>我们找到我们输入代码的位置，发现其中的domain为空，被过滤了<br><img src="/2020/03/04/XSS-challenges/22.png" alt="img"><br>所以我们要考虑绕过<br>1.寻找过滤内容<br>2.思考绕过策略<br>    双写绕过<br>        dodomainmain，这样中间的domain就会被过滤从而从新连接成domain</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">"&gt;<span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript">alert(<span class="built_in">document</span>.dodomainmain);</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/03/04/XSS-challenges/23.png" alt="img"><br>成功弹窗<br>  编码绕过<br>可以将domain进行可以被JavaScript可以识别的编码加密<br>Payload：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">"&gt;undefined<span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"><span class="built_in">eval</span>(atob(<span class="string">'YWxlcnQoZG9jdW1lbnQuZG9tYWluKQ=='</span>));</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>eval是JavaScript中执行字符串的函数<br>atob函数是将加密的base64转换为原文进行执行<br>我们输入payload，成功弹窗</p>
+<p><img src="/2020/03/04/XSS-challenges/24.png" alt="img"></p>
+<h2 id="Stage-11"><a href="#Stage-11" class="headerlink" title="Stage #11"></a>Stage #11</h2><figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">当我们输入xxx<span class="string">"&gt;onmouseover="</span>alert(document.domain)<span class="string">"时，我们发现onmouseover被替换</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/03/04/XSS-challenges/25.png" alt="img"></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">当输入xxx"&gt;undefined<span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript">alert(<span class="built_in">document</span>.domain);</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>时，发现script也被替换</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/03/04/XSS-challenges/26.png" alt="img"></p>
+<p>这时候我们考虑伪协议绕过<br>Payload：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">111</span><span class="string">"&gt;&lt;a href="</span>javascrip<span class="variable">t:alert</span>(document.domain)<span class="comment">"&gt;xss&lt;/a&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>但是script依然被替换了</p>
+<p><img src="/2020/03/04/XSS-challenges/27.png" alt="img"><br>空格绕过<br>Payload：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">"&gt;<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"javas&amp;#09;cript:alert(document.domain);"</span>&gt;</span>here<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;<span class="name">"</span></span></span><br></pre></td></tr></table></figure>
+
+<p>我们可以在JavaScript中间加上tab的 Unicode编码&amp;#09;进行绕过，这时就不会识别为script，但是依然可以当做script执行</p>
+<p><img src="/2020/03/04/XSS-challenges/28.png" alt="img"></p>
+<p><img src="/2020/03/04/XSS-challenges/29.png" alt="img"></p>
+<h2 id="Stage-12"><a href="#Stage-12" class="headerlink" title="Stage #12"></a>Stage #12</h2><p>1.我们考虑用html事件来触发xss漏洞</p>
+<p>Payload：</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">111</span><span class="string">"&gt;onclick="</span>alert(<span class="name">document</span>.domain)<span class="string">"</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/03/04/XSS-challenges/30.png" alt="img"></p>
+<p>我们发现并没有触发事件并且双引号和空格均被过滤掉<br>2.然后我们考虑闭合input，利用外部标签触发xss<br>Payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">111&quot;&gt;undefinedundefinedundefined&lt;script&gt;alert(document.domain);&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/03/04/XSS-challenges/31.png" alt="img"></p>
+<p>结果双引号和尖括号依然被过滤，是的我们无法触发xss漏洞<br>3.IE浏览器特性<br>    在IE中，两个反引号``可以闭合一个左边的双引号<br> Payload:</p>
+<figure class="highlight isbl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">``<span class="variable">onmousemove</span>=<span class="function"><span class="title">alert</span>(<span class="variable">document.domain</span>)</span></span><br></pre></td></tr></table></figure>
+
+<p>成功在IE浏览器中触发xss事件</p>
+<p><img src="/2020/03/04/XSS-challenges/32.png" alt="img"></p>
+<hr>
+<p>xss-challenges一共20关，暂时就先做到12关，后面由于浏览器版本问题难以复现，所以便没有继续做下去。<br>参考链接：<a href="https://www.cnblogs.com/r00tuser/p/7413526.html" target="_blank" rel="noopener">https://www.cnblogs.com/r00tuser/p/7413526.html</a>    ——2020.3.5</p>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
+  <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
+  <span>文章作者:</span><a href="/" title="访问 CyzCc 的个人博客">CyzCc</a><br>
+  <span>最后更新:</span>2020年03月09日 09:03:36<br>
+  <span>原始链接:</span><a href="/2020/03/04/XSS-challenges/" title="XSS-challenges">https://cyzcc.vip/2020/03/04/XSS-challenges/</a><br>
+  <span>版权声明:</span>转载请注明出处！<br>  
+</div>
+
+      
+</div>
+	
+	
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持就是我的动力！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="CyzCc Thanks"/>
+        <p>Thanks</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        
+          <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------　　　　本文结束　<i class="fa fa-heart"></i>　感谢您的阅读　　　　-------------</div>
+    
+</div>
+
+        
+      </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/XSS/" rel="tag"><i class="fa fa-tag"></i> XSS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/03/04/xss-summary/" rel="next" title="初探XSS">
+                <i class="fa fa-chevron-left"></i> 初探XSS
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/03/07/vulnhub-DC5/" rel="prev" title="vulnhub靶机DC5">
+                vulnhub靶机DC5 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="CyzCc" />
+            
+              <p class="site-author-name" itemprop="name">CyzCc</p>
+              <p class="site-description motion-element" itemprop="description">卍~~黑玫瑰将再次绽放~~卐</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yourname" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="1643277253@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.heibanke.com/lesson/crawler_ex00/" target="_blank" title="爬虫闯关">
+                      
+                        <i class="fa fa-fw fa-globe"></i>爬虫闯关</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://adworld.xctf.org.cn/" target="_blank" title="攻防世界">
+                      
+                        <i class="fa fa-fw fa-globe"></i>攻防世界</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://buuoj.cn/" target="_blank" title="BUUCTF">
+                      
+                        <i class="fa fa-fw fa-globe"></i>BUUCTF</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://ctf.bugku.com/" target="_blank" title="BUGKU">
+                      
+                        <i class="fa fa-fw fa-globe"></i>BUGKU</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://xss-quiz.int21h.jp/" target="_blank" title="XSS-challenges">
+                      
+                        <i class="fa fa-fw fa-globe"></i>XSS-challenges</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://ctf.hutc.xyz/" target="_blank" title="HUCTF">
+                      
+                        <i class="fa fa-fw fa-globe"></i>HUCTF</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://paper.seebug.org/" target="_blank" title="Paper">
+                      
+                        <i class="fa fa-fw fa-globe"></i>Paper</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://hkyx.myhack58.com/" target="_blank" title="黑客闯关游戏">
+                      
+                        <i class="fa fa-fw fa-globe"></i>黑客闯关游戏</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.freebuf.com/" target="_blank" title="FreeBuf">
+                      
+                        <i class="fa fa-fw fa-globe"></i>FreeBuf</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-globe"></i>CSDN</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://wiki.0-sec.org/#/dashboard" target="_blank" title="Zero Security">
+                      
+                        <i class="fa fa-fw fa-globe"></i>Zero Security</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          <div id="days"></div>
+<script>
+function show_date_time(){
+window.setTimeout("show_date_time()", 1000);
+BirthDay=new Date("10/30/2019 15:13:14");
+today=new Date();
+timeold=(today.getTime()-BirthDay.getTime());
+sectimeold=timeold/1000
+secondsold=Math.floor(sectimeold);
+msPerDay=24*60*60*1000
+e_daysold=timeold/msPerDay
+daysold=Math.floor(e_daysold);
+e_hrsold=(e_daysold-daysold)*24;
+hrsold=setzero(Math.floor(e_hrsold));
+e_minsold=(e_hrsold-hrsold)*60;
+minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+seconds=setzero(Math.floor((e_minsold-minsold)*60));
+document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+}
+function setzero(i){
+if (i<10)
+{i="0" + i};
+return i;
+}
+show_date_time();
+</script>
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#xss-challenges"><span class="nav-number">1.</span> <span class="nav-text">xss-challenges</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Stage-1"><span class="nav-number">1.1.</span> <span class="nav-text">Stage #1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Stage-2"><span class="nav-number">1.2.</span> <span class="nav-text">Stage #2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Stage-3"><span class="nav-number">1.3.</span> <span class="nav-text">Stage #3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Stage-4"><span class="nav-number">1.4.</span> <span class="nav-text">Stage #4</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Stage-5"><span class="nav-number">1.5.</span> <span class="nav-text">Stage #5</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Stage-6"><span class="nav-number">1.6.</span> <span class="nav-text">Stage #6</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Stage-7"><span class="nav-number">1.7.</span> <span class="nav-text">Stage #7</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Stage-8"><span class="nav-number">1.8.</span> <span class="nav-text">Stage #8</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Stage-9"><span class="nav-number">1.9.</span> <span class="nav-text">Stage #9</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Stage-10"><span class="nav-number">1.10.</span> <span class="nav-text">Stage #10</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Stage-11"><span class="nav-number">1.11.</span> <span class="nav-text">Stage #11</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Stage-12"><span class="nav-number">1.12.</span> <span class="nav-text">Stage #12</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">cyzCc</span>
+
+ <!-- 
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">150.4k</span>
+  
+
+</div>
+
+-->
+
+
+
+
+
+
+<!-- 新增访客统计代码 -->
+<!--<div class="busuanzi-count">
+    <script async="" src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      访问用户： <span class="busuanzi-value" id="busuanzi_value_site_uv"></span> 人
+    </span>
+    <div class="powered-by"></div>
+    <span class="site-uv">
+      <i class="fa fa-eye"></i>
+      访问次数： <span class="busuanzi-value" id="busuanzi_value_site_pv"></span> 次
+    </span>
+    <!-- 博客字数统计 -->
+    <span class="site-pv">
+      <i class="fa fa-pencil"></i>
+      博客全站共： <span class="post-count">150.4k</span> 字
+    </span>
+	  <a href="http://www.beian.miit.gov.cn" target="_blank" rel="noopener">蜀ICP备20017267号</a>
+</div>
+<!-- 新增访客统计代码 END-->
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("TSaUMM9qwI423iWuECxQWDDh-gzGzoHsz", "2DucY6TQAx8iNNnjFYelMbXV");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+  <script type="text/javascript" src="/js/src/exturl.js?v=5.1.4"></script>
+
+
+  
+  
+ <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+ <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+ <script type="text/javascript" src="/js/src/fireworks.js"></script>
+
+
+<div class="bg_content">
+<canvas id="canvas"></canvas>
+</div>
+<!-- 雪花特效 -->
+<!--<script type="text/javascript">
+
+    document.write('<script type="text/javascript" src="/js/src/snow2.js"><\/script>');
+
+</script>-->
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":100,"height":200},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
+<script type="text/javascript" src="/js/src/dynamic_bg.js"></script>

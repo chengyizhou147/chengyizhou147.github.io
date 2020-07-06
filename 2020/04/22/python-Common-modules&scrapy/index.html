@@ -1,0 +1,1804 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#00FFFF">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-corner-indicator.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#00FFFF">
+
+
+
+
+
+  <meta name="keywords" content="python爬虫,python学习," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="本文记录了一些python常用模块和Scrapy框架的简单利用，最后还写了一个爬取糗事百科图片的小例子。学习爬虫的目的主要是想锻炼一下自己的编程能力，因为真的很菜，后面还会不断加强练习。">
+<meta name="keywords" content="python爬虫,python学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="了解python常用模块和Scrapy框架">
+<meta property="og:url" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;04&#x2F;22&#x2F;python-Common-modules&amp;scrapy&#x2F;index.html">
+<meta property="og:site_name" content="CyzCc&#39;s blog">
+<meta property="og:description" content="本文记录了一些python常用模块和Scrapy框架的简单利用，最后还写了一个爬取糗事百科图片的小例子。学习爬虫的目的主要是想锻炼一下自己的编程能力，因为真的很菜，后面还会不断加强练习。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;04&#x2F;22&#x2F;python-Common-modules&amp;scrapy&#x2F;1586935637208.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;04&#x2F;22&#x2F;python-Common-modules&amp;scrapy&#x2F;1586935683083.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;04&#x2F;22&#x2F;python-Common-modules&amp;scrapy&#x2F;1586938317494.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;04&#x2F;22&#x2F;python-Common-modules&amp;scrapy&#x2F;1586940858265.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;04&#x2F;22&#x2F;python-Common-modules&amp;scrapy&#x2F;1586941302815.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;04&#x2F;22&#x2F;python-Common-modules&amp;scrapy&#x2F;1587043014158.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;04&#x2F;22&#x2F;python-Common-modules&amp;scrapy&#x2F;1587043470016.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;04&#x2F;22&#x2F;python-Common-modules&amp;scrapy&#x2F;1587093368730.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;04&#x2F;22&#x2F;python-Common-modules&amp;scrapy&#x2F;1587045300562.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;04&#x2F;22&#x2F;python-Common-modules&amp;scrapy&#x2F;1587047252371.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;04&#x2F;22&#x2F;python-Common-modules&amp;scrapy&#x2F;1587087583702.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;04&#x2F;22&#x2F;python-Common-modules&amp;scrapy&#x2F;1587088448436.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;04&#x2F;22&#x2F;python-Common-modules&amp;scrapy&#x2F;1587089962889.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;04&#x2F;22&#x2F;python-Common-modules&amp;scrapy&#x2F;1587346595821.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;04&#x2F;%E5%8D%8E%E7%A1%95&#x2F;Desktop&#x2F;%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0&#x2F;python%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9D%97&amp;&amp;Scrapy.assets&#x2F;1587352324661.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;04&#x2F;22&#x2F;python-Common-modules&amp;scrapy&#x2F;1587352752912.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;04&#x2F;22&#x2F;python-Common-modules&amp;scrapy&#x2F;1587354524402.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;04&#x2F;22&#x2F;python-Common-modules&amp;scrapy&#x2F;1587345780960.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;04&#x2F;22&#x2F;python-Common-modules&amp;scrapy&#x2F;1587355817193.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;04&#x2F;22&#x2F;python-Common-modules&amp;scrapy&#x2F;1587355912357.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;04&#x2F;22&#x2F;python-Common-modules&amp;scrapy&#x2F;1587361444742.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;04&#x2F;22&#x2F;python-Common-modules&amp;scrapy&#x2F;1587362020076.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;04&#x2F;22&#x2F;python-Common-modules&amp;scrapy&#x2F;1587362259064.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;04&#x2F;22&#x2F;python-Common-modules&amp;scrapy&#x2F;1587362414480.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;04&#x2F;22&#x2F;python-Common-modules&amp;scrapy&#x2F;1587364478448.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;04&#x2F;22&#x2F;python-Common-modules&amp;scrapy&#x2F;1587369012879.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;04&#x2F;22&#x2F;python-Common-modules&amp;scrapy&#x2F;1587369204875.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;04&#x2F;22&#x2F;python-Common-modules&amp;scrapy&#x2F;1587392020790.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;04&#x2F;22&#x2F;python-Common-modules&amp;scrapy&#x2F;1587392216106.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;04&#x2F;22&#x2F;python-Common-modules&amp;scrapy&#x2F;1587394691297.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;04&#x2F;22&#x2F;python-Common-modules&amp;scrapy&#x2F;1587396149614.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;04&#x2F;22&#x2F;python-Common-modules&amp;scrapy&#x2F;1587525885405.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;04&#x2F;22&#x2F;python-Common-modules&amp;scrapy&#x2F;1587526178097.png">
+<meta property="og:updated_time" content="2020-04-22T05:59:28.780Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;04&#x2F;22&#x2F;python-Common-modules&amp;scrapy&#x2F;1586935637208.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://cyzcc.vip/2020/04/22/python-Common-modules&scrapy/"/>
+
+
+
+
+<!--留言-->
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "9e261f4f"
+    });
+  daovoice('update');
+  </script>
+
+
+  <title>了解python常用模块和Scrapy框架 | CyzCc's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CyzCc's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">♫日常学习笔记整理♬♬</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-主页|随笔">
+          <a href="/home/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            主页|随笔
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-一些知识点">
+          <a href="/guestbook/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-comments"></i> <br />
+            
+            一些知识点
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于我">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于我
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br />
+            
+            友链
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cyzcc.vip/2020/04/22/python-Common-modules&scrapy/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="CyzCc">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CyzCc's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">了解python常用模块和Scrapy框架</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-22T12:00:11+08:00">
+                2020-04-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2020/04/22/python-Common-modules&scrapy/" class="leancloud_visitors" data-flag-title="了解python常用模块和Scrapy框架">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.6k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  16
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文记录了一些python常用模块和Scrapy框架的简单利用，最后还写了一个爬取糗事百科图片的小例子。学习爬虫的目的主要是想锻炼一下自己的编程能力，因为真的很菜，后面还会不断加强练习。<a id="more"></a></p>
+<h1 id="python常用模块"><a href="#python常用模块" class="headerlink" title="python常用模块"></a>python常用模块</h1><h2 id="random"><a href="#random" class="headerlink" title="random"></a>random</h2><p>此模块提供了随机数获取相关方法：</p>
+<ul>
+<li>random.random():获取[0.0,1.0)范围的浮点数</li>
+<li>random.randint(a,b):获取[a,b]范围内的一个整数</li>
+<li>random.uniform(a,b):获取[a,b]范围内的一个浮点数</li>
+<li>random.shuffle(x):把参数指定的数据中的元素打乱混洗，参数必须是一个可变的数据类型</li>
+<li>ramdom.sample(x,k):从x中随机抽取k个数据，组成一个列表返回。<br><img src="/2020/04/22/python-Common-modules&scrapy/1586935637208.png" alt="1586935637208"><h2 id="time"><a href="#time" class="headerlink" title="time"></a>time</h2>#获取时间戳#时间戳：从时间元年（1970.1.1 00:00:00）到现在经过的秒数</li>
+</ul>
+<blockquote>
+<p>print(time.time())</p>
+</blockquote>
+<p>#获取格式化时间对象</p>
+<blockquote>
+<p>print(time.gmtime())<br>print(time.localtime())<br>print(time.gmtime(1))    #时间元年过一秒后，对应的时间对象</p>
+</blockquote>
+<p>格式化时间对象和字符串之间的转换</p>
+<blockquote>
+<p>s = time.strftime(“year:%Y %m %d %H:%M:%S”)<br>print(s)</p>
+</blockquote>
+<p>吧时间字符串转换成时间对象</p>
+<blockquote>
+<p>time_obj = time.strptime(“2020 10 10”,”%Y %m %d”)<br>print(time_obj)</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> timeprint(time.time())</span><br><span class="line">print(time.gmtime())</span><br><span class="line">print(time.localtime())</span><br><span class="line">print(time.gmtime(<span class="number">1</span>))    </span><br><span class="line">s= time.strftime(<span class="string">"year:%Y %m %d %H:%M:%S"</span>)print(s)</span><br><span class="line">time_obj = time.strptime(<span class="string">"2020 10 10"</span>,<span class="string">"%Y %m %d"</span>)</span><br><span class="line">print(time_obj)</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/04/22/python-Common-modules&scrapy/1586935683083.png" alt="1586935683083"><br>#暂停当前程序，睡眠xxx秒</p>
+<blockquote>
+<p>time.sleep(3)</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">5</span>):</span><br><span class="line">    print(time.strftime(<span class="string">'%Y %m %d %H:%M:%S'</span>))</span><br><span class="line">    time.sleep(<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+
+<p>datatime</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line"><span class="comment">#date 类</span></span><br><span class="line">d = datetime.date(<span class="number">2020</span>,<span class="number">10</span>,<span class="number">10</span>)</span><br><span class="line">print(d)</span><br><span class="line"><span class="comment">#time类</span></span><br><span class="line">b = datetime.time(<span class="number">10</span>,<span class="number">42</span>,<span class="number">32</span>)</span><br><span class="line">print(b)</span><br><span class="line"><span class="comment">#time 类的属性</span></span><br><span class="line">print(b.hour)</span><br><span class="line">print(b.minute)</span><br><span class="line">print(b.second)</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2020</span><span class="number">-10</span><span class="number">-10</span></span><br><span class="line"><span class="number">10</span>:<span class="number">42</span>:<span class="number">32</span></span><br><span class="line"><span class="number">10</span></span><br><span class="line"><span class="number">42</span></span><br><span class="line"><span class="number">32</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line">c = datetime.datetime(<span class="number">2020</span>,<span class="number">11</span>,<span class="number">11</span>,<span class="number">11</span>,<span class="number">11</span>,<span class="number">11</span>)</span><br><span class="line">print(c)</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/04/22/python-Common-modules&scrapy/1586938317494.png" alt="1586938317494"></p>
+<p>时间运算，只能和date,datetime,timedelta进行运算</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line">c = datetime.datetime(<span class="number">2020</span>,<span class="number">11</span>,<span class="number">11</span>,<span class="number">11</span>,<span class="number">11</span>,<span class="number">11</span>)</span><br><span class="line">b = datetime.timedelta(seconds=<span class="number">6</span>)</span><br><span class="line">print(b+c)</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/04/22/python-Common-modules&scrapy/1586940858265.png" alt="1586940858265"></p>
+<p>练习：计算某一年的二月份有多少天<br>方法：首先创建出指定的年份的3月1日，然后往前走一天</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line">year = int(input(<span class="string">"输入年份:"</span>))</span><br><span class="line">d = datetime.date(year,<span class="number">3</span>,<span class="number">1</span>)</span><br><span class="line">td = datetime.timedelta(days=<span class="number">1</span>)</span><br><span class="line">print(d-td)</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/04/22/python-Common-modules&scrapy/1586941302815.png" alt="1586941302815"></p>
+<h2 id="OS"><a href="#OS" class="headerlink" title="OS"></a>OS</h2><p>OS： 和操作系统相关的操作</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="comment">#删除文件</span></span><br><span class="line">os.remove(<span class="string">"a.txt"</span>)</span><br><span class="line"><span class="comment">#从命名</span></span><br><span class="line">os.rename(<span class="string">'a.txt'</span>,<span class="string">'b.txt'</span>)</span><br><span class="line"><span class="comment">#删除目录</span></span><br><span class="line">os.removedirs(<span class="string">'aa'</span>)</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>os.mkdir</th>
+<th align="left">创建目录</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>os.rmdir</td>
+<td align="left">删除目录</td>
+</tr>
+<tr>
+<td>os.rename</td>
+<td align="left">重命名</td>
+</tr>
+<tr>
+<td>os.remove</td>
+<td align="left">删除文件</td>
+</tr>
+<tr>
+<td>os.getcwd</td>
+<td align="left">获取当前工作路径</td>
+</tr>
+<tr>
+<td>os.walk</td>
+<td align="left">遍历目录</td>
+</tr>
+<tr>
+<td>os.path.join</td>
+<td align="left">连接目录与文件名</td>
+</tr>
+<tr>
+<td>os.path.split</td>
+<td align="left">分割文件名与目录</td>
+</tr>
+<tr>
+<td>os.path.abspath</td>
+<td align="left">获取绝对路径</td>
+</tr>
+<tr>
+<td>os.path.dirname</td>
+<td align="left">获取路径</td>
+</tr>
+<tr>
+<td>os.path.basename</td>
+<td align="left">获取文件名或文件夹名</td>
+</tr>
+<tr>
+<td>os.path.splitext</td>
+<td align="left">分离文件名与扩展名</td>
+</tr>
+<tr>
+<td>os.path.isfile</td>
+<td align="left">判断给出的路径是否是一个文件</td>
+</tr>
+<tr>
+<td>os.path.isdir</td>
+<td align="left">判断给出的路径是否是一个目录</td>
+</tr>
+</tbody></table>
+<h2 id="sys"><a href="#sys" class="headerlink" title="sys"></a>sys</h2><p>和python解释器相关的模块</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">print(<span class="string">"The list of command line arguments:\n"</span>, sys.argv)</span><br><span class="line">print(<span class="string">"第一个参数名："</span>,sys.argv[<span class="number">1</span>])</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>C:\Users\华硕\PycharmProjects\python\python安全应用编程&gt;python sys.py a1 a2 a3<br>The list of command line arguments:<br> [‘sys.py’, ‘a1’, ‘a2’, ‘a3’]<br>第一个参数名： a1</p>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">模块方法    解释说明</span><br><span class="line">sys.argv    传递到Python脚本的命令行参数列表，第一个元素是程序本身路径</span><br><span class="line">sys.executable  返回Python解释器在当前系统中的绝对路径</span><br><span class="line">sys.<span class="built_in">exit</span>([arg]) 程序中间的退出，arg=<span class="number">0</span>为正常退出</span><br><span class="line">sys.path    返回模块的搜索路径，初始化时使用PYTHONPATH环境变量的值</span><br><span class="line">sys.platform    返回操作系统平台名称，Linux是linux2，Windows是win32</span><br><span class="line">sys.<span class="built_in">stdout</span>.write(str)   输出的时候把换行符\n去掉</span><br><span class="line">val = sys.<span class="built_in">stdin</span>.readline()[:<span class="number">-1</span>] 拿到的值去掉\n换行符</span><br><span class="line">sys.version 获取Python解释程序的版本信息</span><br></pre></td></tr></table></figure>
+
+<h2 id="json"><a href="#json" class="headerlink" title="json"></a>json</h2><p>javascript对象标记语言，与序列化和反序列化相关<br>序列化</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> json</span><br><span class="line">a = json.dumps((<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">5</span>))   <span class="comment">#把指定的字符串转换为json格式字符串</span></span><br><span class="line">print(a)</span><br><span class="line">print(type(a))</span><br><span class="line">res = json.dumps(<span class="number">10.5</span>)</span><br><span class="line">print(res)</span><br><span class="line">print(type(res))</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/04/22/python-Common-modules&scrapy/1587043014158.png" alt="1587043014158"></p>
+<p>反序列化</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> json</span><br><span class="line">res = json.dumps([<span class="number">2</span>,<span class="number">5</span>,<span class="number">6</span>])</span><br><span class="line">lst = json.loads(res)</span><br><span class="line">print(type(lst))</span><br><span class="line">print(lst)</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/04/22/python-Common-modules&scrapy/1587043470016.png" alt="1587043470016"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#从文件中反序列化</span></span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'b.txt'</span>,encoding=<span class="string">'utf-8'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    res = json.load(f)</span><br><span class="line">    print(res)</span><br><span class="line">    print(type(res))</span><br></pre></td></tr></table></figure>
+
+<h2 id="pickle"><a href="#pickle" class="headerlink" title="pickle"></a>pickle</h2><p>将python中所有的数据类型直接转换成字节串—序列化<br>将字节串转换成python中数据类型—反序列化</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pickle</span><br><span class="line">bys = pickle.dumps((<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>))</span><br><span class="line">print(type(bys))</span><br><span class="line">print(bys)</span><br><span class="line">res = pickle.loads(bys)</span><br><span class="line">print(type(res))</span><br><span class="line">print(res)</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/04/22/python-Common-modules&scrapy/1587093368730.png" alt="1587093368730"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#吧pickle序列化后的内容写入文件中</span></span><br><span class="line"><span class="keyword">import</span> pickle</span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'c.txt'</span>,mode=<span class="string">'wb'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    pickle.dump([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">60</span>],f)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#从文件中反序列化</span></span><br><span class="line"><span class="keyword">import</span> pickle</span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'c.txt'</span>,mode=<span class="string">'rb'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    res = pickle.load(f)</span><br><span class="line">    print(res)</span><br></pre></td></tr></table></figure>
+
+<p>pickle常用场景：和json一样，一次写入，一次读取<br>json不是所有的字符串都能序列化，并且不能多次对同一个文件序列化</p>
+<h2 id="hashlib"><a href="#hashlib" class="headerlink" title="hashlib"></a>hashlib</h2><p>给一个数据加密的三大步骤</p>
+<p>1.获取一个加密对象<br>2.使用加密对象的update进行加密，update方法可以调用多次<br>3.通过hexdigest获取加密结果，或者使用digest(),后者获取的是字节串</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"><span class="comment">#获取一个加密对象</span></span><br><span class="line">m = hashlib.md5()</span><br><span class="line"><span class="comment">#使用加密对象的update进行加密</span></span><br><span class="line">m.update(<span class="string">'asdds'</span>.encode(<span class="string">'utf-8'</span>))</span><br><span class="line"><span class="comment">#通过hexdigest获取加密结果</span></span><br><span class="line">res = m.hexdigest()</span><br><span class="line">res2 = m.digest()</span><br><span class="line">print(res)</span><br><span class="line">print(res2)</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/04/22/python-Common-modules&scrapy/1587045300562.png" alt="1587045300562"></p>
+<p>例子：注册登录</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_md5</span><span class="params">(username,password)</span>:</span></span><br><span class="line">    m = hashlib.md5()</span><br><span class="line">    m.update(username.encode(<span class="string">'utf-8'</span>))</span><br><span class="line">    m.update(password.encode(<span class="string">'utf-8'</span>))</span><br><span class="line">    <span class="keyword">return</span> m.hexdigest()</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">register</span><span class="params">(username,password)</span>:</span></span><br><span class="line">    <span class="comment">#加密</span></span><br><span class="line">    res = get_md5(username,password)</span><br><span class="line">    <span class="comment">#写入文件</span></span><br><span class="line">    <span class="keyword">with</span> open(<span class="string">'login'</span>,mode=<span class="string">'at'</span>,encoding=<span class="string">'utf-8'</span>) <span class="keyword">as</span> f:</span><br><span class="line">        f.write(res)</span><br><span class="line">        f.write(‘\n’)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">login</span><span class="params">(username,password)</span>:</span></span><br><span class="line">    <span class="comment">#获取当前登录信息的加密结果</span></span><br><span class="line">    res = get_md5(username,password)</span><br><span class="line">    <span class="comment">#读取文件，和其中的数据进行比较</span></span><br><span class="line">    <span class="keyword">with</span> open(<span class="string">'login'</span>,mode=<span class="string">'rt'</span>,encoding=<span class="string">'utf-8'</span>) <span class="keyword">as</span> f:</span><br><span class="line">        <span class="keyword">for</span> line <span class="keyword">in</span> f:</span><br><span class="line">            <span class="keyword">if</span> res == line.strip():</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    op = int(input(<span class="string">'1.注册 2.登录 3.退出'</span>))</span><br><span class="line">    <span class="keyword">if</span> op == <span class="number">1</span>:</span><br><span class="line">        username = input(<span class="string">'请输入用户名'</span>)</span><br><span class="line">        password = input(<span class="string">'请输入密码'</span>)</span><br><span class="line">        register(username,password)</span><br><span class="line">    <span class="keyword">if</span> op == <span class="number">2</span>:</span><br><span class="line">        username = input(<span class="string">'请输入用户名'</span>)</span><br><span class="line">        password = input(<span class="string">'请输入密码'</span>)</span><br><span class="line">        res = login(username,password)</span><br><span class="line">        <span class="keyword">if</span> res:</span><br><span class="line">            print(<span class="string">'登陆成功'</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            print(<span class="string">'登录失败'</span>)</span><br><span class="line">    <span class="keyword">if</span> op == <span class="number">3</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/04/22/python-Common-modules&scrapy/1587047252371.png" alt="1587047252371"></p>
+<h2 id="bs4-BeautifulSoup"><a href="#bs4-BeautifulSoup" class="headerlink" title="bs4.BeautifulSoup"></a>bs4.BeautifulSoup</h2><p>导入模块</p>
+<blockquote>
+<p>from bs4 import BeautifulSoup</p>
+<p>#创建一个beautifulsoup对象</p>
+<p>soup = BeautifulSoup(html)</p>
+</blockquote>
+<p>创建 beautifulsoup 对象</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line">res = requests.get(<span class="string">"http://cyzcc.vip"</span>)</span><br><span class="line">html = res.text</span><br><span class="line">soup = BeautifulSoup(html,<span class="string">'lxml'</span>)</span><br><span class="line">print(soup)</span><br></pre></td></tr></table></figure>
+
+<p>我们还可以用本地 HTML 文件来创建对象，例如</p>
+<blockquote>
+<p>soup = BeautifulSoup(open(‘index.html’),’lxml’)</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line">soup = BeautifulSoup(open(<span class="string">'index.html'</span>),<span class="string">'lxml'</span>)</span><br><span class="line">print(soup.prettify())</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/04/22/python-Common-modules&scrapy/1587087583702.png" alt="1587087583702"></p>
+<p>常用方法</p>
+<blockquote>
+<figure class="highlight golo"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">print</span>(soup.a)</span><br><span class="line">  <span class="comment"># 拿到soup中的第一个a标签</span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">  <span class="keyword">print</span>(soup.a.name)</span><br><span class="line">  <span class="comment"># 获取a标签的名称</span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">  <span class="keyword">print</span>(soup.a.string)</span><br><span class="line">  <span class="comment"># 获取a标签的文本内容</span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">  <span class="keyword">print</span>(soup.a.text)</span><br><span class="line">  <span class="comment"># 获取a标签的文本内容</span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">  <span class="keyword">print</span>(soup.a[<span class="string">"href"</span>])</span><br><span class="line">  <span class="comment"># 获取a标签的href属性的值</span></span><br><span class="line"> </span><br><span class="line">  <span class="keyword">print</span>(soup.a.get(<span class="string">"href"</span>))</span><br><span class="line">  <span class="comment"># 查找第一个a标签的href的属性</span></span><br><span class="line"> </span><br><span class="line">  <span class="keyword">print</span>(soup.a.attrs)</span><br><span class="line">  <span class="comment"># 获取a标签的所有的属性，返回一个字典</span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">  <span class="keyword">print</span>(soup.<span class="keyword">find</span>(<span class="string">"a"</span>))</span><br><span class="line">  <span class="comment"># 查找第一个a标签</span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">  <span class="keyword">print</span>(soup.find_all(<span class="string">"a"</span>))</span><br><span class="line">  <span class="comment"># 查找所有的a标签</span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">  <span class="keyword">print</span>(soup.find_all(id=<span class="string">"a1"</span>))</span><br><span class="line">  <span class="comment"># 查找所有的的id为a1的标签</span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">  <span class="keyword">print</span>(soup.find_all(class_=<span class="string">"sistex"</span>))</span><br><span class="line">  <span class="comment"># 这里需要注意，如果需要通过class去查找，则需要一个下划线</span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">  <span class="keyword">print</span>(soup.find_all([<span class="string">"a"</span>,<span class="string">"p"</span>,<span class="string">"br"</span>]))</span><br><span class="line">  <span class="comment"># 查找所有的啊标签，p标签和br标签</span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">  soup.<span class="keyword">find</span>(<span class="string">"a"</span>).attrs[<span class="string">"class"</span>] =<span class="string">"2b"</span></span><br><span class="line">  <span class="comment"># 修改某个标签的属性值</span></span><br><span class="line"> </span><br><span class="line">  delsoup.<span class="keyword">find</span>(id=<span class="string">"a1"</span>).attrs[<span class="string">"class"</span>]</span><br><span class="line">  <span class="comment"># 删除某个标签的class属性</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<p><img src="/2020/04/22/python-Common-modules&scrapy/1587088448436.png" alt="1587088448436"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 找到标签内的文本为story的文本内容</span></span><br><span class="line">print(soup.find_all(text=<span class="string">'story'</span>))</span><br><span class="line"><span class="comment"># 找到标签内的文本含有story的文本内容</span></span><br><span class="line">print(soup.find_all(text=re.compile(<span class="string">r'.*?story.*?'</span>)))</span><br></pre></td></tr></table></figure>
+
+<h1 id="XPath表达式"><a href="#XPath表达式" class="headerlink" title="XPath表达式"></a>XPath表达式</h1><p>xpath表达式效率比正则表达式高，但是功能比正则表达式少</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/   逐层提取</span><br><span class="line"><span class="function"><span class="title">text</span><span class="params">()</span></span>   提取标签下面的文本</span><br><span class="line"><span class="comment">//标签名div	提取所有名为div的标签</span></span><br><span class="line"><span class="comment">//标签名[@属性='属性值']  提取属性为xx的标签</span></span><br><span class="line">@属性名			代表取某个属性值</span><br></pre></td></tr></table></figure>
+
+<p>实例：<br>提取标题</p>
+<blockquote>
+<p>/html/head/title/text()</p>
+</blockquote>
+<p>提取所有div标签</p>
+<blockquote>
+<p>//div</p>
+</blockquote>
+<p>提取div标签中<code>&lt;div class=&#39;tools&#39;&gt;</code>标签</p>
+<blockquote>
+<p>div[@class=’tools’]</p>
+</blockquote>
+<p>在Urllib模块下使用XPath表达式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#在Urllib模块下使用XPath表达式</span></span><br><span class="line"><span class="keyword">import</span> urllib.request</span><br><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br><span class="line">data=urllib.request.urlopen(<span class="string">"http://www.baidu.com"</span>).read().decode(<span class="string">"utf-8"</span>,<span class="string">"ignore"</span>)</span><br><span class="line">treedata=etree.HTML(data)</span><br><span class="line">title=treedata.xpath(<span class="string">"//title/text()"</span>)</span><br><span class="line"><span class="keyword">if</span>(str(type(title))==<span class="string">"&lt;class 'list'&gt;"</span>):</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    title=[i <span class="keyword">for</span> i <span class="keyword">in</span> title]</span><br><span class="line">print(title[<span class="number">0</span>])</span><br></pre></td></tr></table></figure>
+
+<h1 id="Scrapy框架"><a href="#Scrapy框架" class="headerlink" title="Scrapy框架"></a>Scrapy框架</h1><h2 id="scrapy常用指令"><a href="#scrapy常用指令" class="headerlink" title="scrapy常用指令"></a>scrapy常用指令</h2><p><img src="/2020/04/22/python-Common-modules&scrapy/1587089962889.png" alt="1587089962889"></p>
+<h3 id="fetch命令"><a href="#fetch命令" class="headerlink" title="fetch命令"></a>fetch命令</h3><p>　　fetch命令主要用来显示爬虫爬取的过程，如果在scrapy项目目录之外使用该命令，则会调用scrapy默认的爬虫来进行网页的爬取，如果在scrapy的某个项目目录内使用该命令，则会调用该项目中的爬虫来进行网页的爬取</p>
+<blockquote>
+<p>scrapy fetch <a href="http://www.baidu.com" target="_blank" rel="noopener">http://www.baidu.com</a></p>
+</blockquote>
+<p><img src="/2020/04/22/python-Common-modules&scrapy/1587346595821.png" alt="1587346595821"></p>
+<blockquote>
+<p>　　–headers 控制显示对象的爬虫爬取网站的头信息</p>
+<p>　　–nolog 控制不显示日志信息</p>
+<p>　　–logfile==FILE 存储日志文字信息</p>
+<p>　　–spider=SPIDER 控制使用哪个爬虫</p>
+<p>　　–loglevel=LEVEL控制日志级别</p>
+<p>　　　　日志等级常见值：</p>
+<p>　　　　　　CRITICAL 　　发生严重的错误</p>
+<p>　　　　　　ERROR 　　   发生了必须立即处理的错误</p>
+<p>　　　　　　WARNING        出现一些警告信息</p>
+<p>　　　　　　INFO                输出一些提示信息</p>
+<p>　　　　　　DEBUG            输出一些调试信息，常用于开发阶段</p>
+</blockquote>
+<h3 id="runspider命令"><a href="#runspider命令" class="headerlink" title="runspider命令"></a>runspider命令</h3><p>　　可以实现不依托scrapy的爬虫项目，直接运行一个爬虫文件运行独立的爬虫文件</p>
+<p>在scrapy里创建一个独立的爬虫文件：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> scrapy.spiders <span class="keyword">import</span> Spider</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FirstSpider</span><span class="params">(Spider)</span>:</span></span><br><span class="line">    name = <span class="string">"First"</span></span><br><span class="line">    allowed_domains = [<span class="string">"baidu.com"</span>]  <span class="comment">#允许的域名</span></span><br><span class="line">    start_urls = [<span class="string">"http://www.baidu.com"</span>]   <span class="comment">#开始的网址</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse</span><span class="params">(self, response)</span>:</span>  <span class="comment">#定义一个回调函数</span></span><br><span class="line">        <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+
+<p>使用runspider运行：</p>
+<blockquote>
+<p>scrapy runspider book.py</p>
+</blockquote>
+<p><img src="/2020/04/22/python-Common-modules&scrapy/../../%E5%8D%8E%E7%A1%95/Desktop/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/python%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9D%97&&Scrapy.assets/1587352324661.png" alt="1587352324661"></p>
+<h3 id="setting命令"><a href="#setting命令" class="headerlink" title="setting命令"></a>setting命令</h3><p>　　查看scrapy对应的配置信息，如果在项目目录内使用，查看的是对应项目的配置信息，如果在项目外使用查看的是scrapy默认配置信息<br>查看设置文件某一项的设置信息：</p>
+<blockquote>
+<p>scrapy settings –get BOT_NAME</p>
+</blockquote>
+<p><img src="/2020/04/22/python-Common-modules&scrapy/1587352752912.png" alt="1587352752912"></p>
+<h3 id="shell命令"><a href="#shell命令" class="headerlink" title="shell命令"></a>shell命令</h3><p>　　shell命令可以启动scrapy的交互终端，scrapy的交互终端经常在开发以及跳水的时候用到，使用scrapy的交互终端可以实现在不启动scrapy爬虫的情况下，对网站响应进行调试<br><img src="/2020/04/22/python-Common-modules&scrapy/1587354524402.png" alt="1587354524402"></p>
+<h3 id="startproject命令"><a href="#startproject命令" class="headerlink" title="startproject命令"></a>startproject命令</h3><p>　　用于创建项目<br>再cmd中输入scrapy startproject firstspider [parm]<img src="/2020/04/22/python-Common-modules&scrapy/1587345780960.png" alt="1587345780960"></p>
+<h3 id="version命令"><a href="#version命令" class="headerlink" title="version命令"></a>version命令</h3><p>　　通过version命令可以直接显示scrapy的版本相关信息<br><img src="/2020/04/22/python-Common-modules&scrapy/1587355817193.png" alt="1587355817193"></p>
+<h3 id="view命令"><a href="#view命令" class="headerlink" title="view命令"></a>view命令</h3><p>　　实现下载某个网页并用浏览器查看的功能<br><img src="/2020/04/22/python-Common-modules&scrapy/1587355912357.png" alt="1587355912357"></p>
+<h3 id="genspider"><a href="#genspider" class="headerlink" title="genspider"></a>genspider</h3><p>创建爬虫文件</p>
+<blockquote>
+<p>scrapy genspider -l</p>
+</blockquote>
+<p>查看又那些爬虫模板</p>
+<p><img src="/2020/04/22/python-Common-modules&scrapy/1587361444742.png" alt="1587361444742"></p>
+<p>scrapy genspider -t 模板名  文件名  域名</p>
+<blockquote>
+<p>scrapy genspider -t basic  firstspider  cyzcc.vip</p>
+</blockquote>
+<p><img src="/2020/04/22/python-Common-modules&scrapy/1587362020076.png" alt="1587362020076"></p>
+<h3 id="check"><a href="#check" class="headerlink" title="check"></a>check</h3><p>测试爬虫文件<br>scrapy check firstspider<br><img src="/2020/04/22/python-Common-modules&scrapy/1587362259064.png" alt="1587362259064"></p>
+<h3 id="crawl"><a href="#crawl" class="headerlink" title="crawl"></a>crawl</h3><p>运行爬虫文件(项目中的)<br>scrapy check firstspider</p>
+<h3 id="–onlog"><a href="#–onlog" class="headerlink" title="–onlog"></a>–onlog</h3><p>不显示日志</p>
+<h3 id="list"><a href="#list" class="headerlink" title="list"></a>list</h3><p>查看当前项目下又那些可用的爬虫文件<br>scrapy list<br><img src="/2020/04/22/python-Common-modules&scrapy/1587362414480.png" alt="1587362414480"></p>
+<h2 id="大致流程"><a href="#大致流程" class="headerlink" title="大致流程"></a>大致流程</h2><p>首先从intens.py定义目标，然后运行spiders文件，进入pipelines进行数据处理，然后进行下一次爬取。</p>
+<h2 id="爬取当当网商品"><a href="#爬取当当网商品" class="headerlink" title="爬取当当网商品"></a>爬取当当网商品</h2><p>爬取商品名称、链接、评论数<img src="/2020/04/22/python-Common-modules&scrapy/1587364478448.png" alt="1587364478448"></p>
+<p>先创建一个爬虫项目</p>
+<blockquote>
+<p>scrapy startproject dangdang</p>
+</blockquote>
+<p>然后创建一个爬虫模板</p>
+<blockquote>
+<p>scrapy genspider -t basic dd dangdang.com</p>
+</blockquote>
+<p><img src="/2020/04/22/python-Common-modules&scrapy/1587369012879.png" alt="1587369012879"></p>
+<p>之后定义item.py<br>创建我们需要爬取的东西</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DangdangItem</span><span class="params">(scrapy.Item)</span>:</span></span><br><span class="line">    <span class="comment"># define the fields for your item here like:</span></span><br><span class="line">    <span class="comment"># name = scrapy.Field()</span></span><br><span class="line">    title = scrapy.Field()  <span class="comment">#存储标题</span></span><br><span class="line">    link = scrapy.Field()   <span class="comment">#存储链接</span></span><br><span class="line">    comment = scrapy.Field() <span class="comment">#存储评论数</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/04/22/python-Common-modules&scrapy/1587369204875.png" alt="1587369140655"></p>
+<p> 接着编写我们的爬虫文件dangdang.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"><span class="keyword">from</span> dangdang.items <span class="keyword">import</span> DangdangItem <span class="comment">#导入dangdang下面的items.py里面的DangdangItem类</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DdSpider</span><span class="params">(scrapy.Spider)</span>:</span></span><br><span class="line">    name = <span class="string">'dd'</span></span><br><span class="line">    allowed_domains = [<span class="string">'dangdang.com'</span>]</span><br><span class="line">    start_urls = [<span class="string">'http://category.dangdang.com/pg5-cid4008123.html'</span>] <span class="comment">#第一页</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse</span><span class="params">(self, response)</span>:</span>  <span class="comment">#自动爬取，所有的信息都在response里面</span></span><br><span class="line">        item = DangdangItem()  <span class="comment">#实例化一个类</span></span><br><span class="line">        item[<span class="string">"title"</span>] = response.xpath(<span class="string">"//a[@name='itemlist-title']/@title"</span>).extract() <span class="comment">#从response中通过xpath表达式获取相关信息并且extract解压</span></span><br><span class="line">        item[<span class="string">"link"</span>] = response.xpath(<span class="string">"//a[@name='itemlist-title']/@href"</span>).extract()</span><br><span class="line">        item[<span class="string">"comment"</span>] = response.xpath(<span class="string">"//a[@name='itemlist-review']/text()"</span>).extract()</span><br><span class="line">        <span class="comment">#print(item['link'])</span></span><br><span class="line">        <span class="keyword">yield</span> item  <span class="comment">#将item获得的数据提交到popelines.py</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/04/22/python-Common-modules&scrapy/1587392020790.png" alt="1587392020790"></p>
+<p>还需要将settings.py的<code>ROBOTSTXT_OBEY = True</code>改为<code>ROBOTSTXT_OBEY = False</code><br>运行一下：</p>
+<blockquote>
+<p>scrapy crawl dd –nolog</p>
+</blockquote>
+<p><img src="/2020/04/22/python-Common-modules&scrapy/1587392216106.png" alt="1587392216106"></p>
+<p>接着处理内容并写入文件中，在pipelines.py中编写，在此之前要在setting中开启</p>
+<p>pipelines.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DangdangPipeline</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span><span class="params">(self, item, spider)</span>:</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,len(item[<span class="string">"title"</span>])):</span><br><span class="line">            title = item[<span class="string">"title"</span>][i]</span><br><span class="line">            link = item[<span class="string">"link"</span>][i]</span><br><span class="line">            comment = item[<span class="string">"comment"</span>][i]</span><br><span class="line">            res = str(i)+<span class="string">":"</span>+title+<span class="string">":"</span>+link+<span class="string">":"</span>+comment</span><br><span class="line">            print(res)</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                <span class="keyword">with</span> open(<span class="string">"C:\\Users\\华硕\\Desktop\\dangdang.txt"</span>, <span class="string">'a'</span>) <span class="keyword">as</span> file_object:</span><br><span class="line">                    file_object.write(res + <span class="string">"\n"</span>)</span><br><span class="line">            <span class="keyword">except</span> Exception <span class="keyword">as</span> err:        <span class="comment">#使用异常处理</span></span><br><span class="line">                print(err)</span><br><span class="line">        <span class="keyword">return</span> item</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/04/22/python-Common-modules&scrapy/1587394691297.png" alt="1587394691297"></p>
+<p>最后处理多页<br>在dd.py里面编写：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"><span class="keyword">from</span> dangdang.items <span class="keyword">import</span> DangdangItem <span class="comment">#导入dangdang下面的items.py里面的DangdangItem类</span></span><br><span class="line"><span class="keyword">from</span> scrapy.http <span class="keyword">import</span> Request     <span class="comment">#导入scrapy下的request模块</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DdSpider</span><span class="params">(scrapy.Spider)</span>:</span></span><br><span class="line">    name = <span class="string">'dd'</span></span><br><span class="line">    allowed_domains = [<span class="string">'dangdang.com'</span>]</span><br><span class="line">    start_urls = [<span class="string">'http://category.dangdang.com/pg5-cid4008123.html'</span>] <span class="comment">#第一页</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse</span><span class="params">(self, response)</span>:</span>  <span class="comment">#自动爬取，所有的信息都在response里面</span></span><br><span class="line">        item = DangdangItem()  <span class="comment">#实例化一个类</span></span><br><span class="line">        item[<span class="string">"title"</span>] = response.xpath(<span class="string">"//a[@name='itemlist-title']/@title"</span>).extract() <span class="comment">#从response中通过xpath表达式获取相关信息并且extract解压</span></span><br><span class="line">        item[<span class="string">"link"</span>] = response.xpath(<span class="string">"//a[@name='itemlist-title']/@href"</span>).extract()</span><br><span class="line">        item[<span class="string">"comment"</span>] = response.xpath(<span class="string">"//a[@name='itemlist-review']/text()"</span>).extract()</span><br><span class="line">        <span class="comment">#print(item['link'])</span></span><br><span class="line">        <span class="keyword">yield</span> item  <span class="comment">#将item获得的数据提交到popelines.py</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">81</span>):</span><br><span class="line">            url = <span class="string">"http://category.dangdang.com/pg"</span>+str(i)+<span class="string">"-cid4008123.html"</span> <span class="comment">#构造url</span></span><br><span class="line">            <span class="keyword">yield</span> Request(url,callback=self.parse)     <span class="comment">#使用yield返回,并设置url和回调函数</span></span><br></pre></td></tr></table></figure>
+
+<p>最后在运行</p>
+<p><img src="/2020/04/22/python-Common-modules&scrapy/1587396149614.png" alt="1587396149614"></p>
+<h1 id="用户代理池构建"><a href="#用户代理池构建" class="headerlink" title="用户代理池构建"></a>用户代理池构建</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#用户代理池的构建</span></span><br><span class="line"><span class="keyword">import</span> urllib.request</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line">uapools = [</span><br><span class="line">        <span class="string">"Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Win64; x64; Trident/6.0)"</span>,</span><br><span class="line">        <span class="string">"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.153 Safari/537.36"</span>,</span><br><span class="line">        <span class="string">"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:75.0) Gecko/20100101 Firefox/75.0"</span></span><br><span class="line">    ]</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">ua</span><span class="params">(uapools)</span>:</span></span><br><span class="line">    thisua = random.choice(uapools)</span><br><span class="line">    print(thisua)</span><br><span class="line">    headers = (<span class="string">"User-Agent"</span>,thisua)</span><br><span class="line">    opener = urllib.request.build_opener()</span><br><span class="line">    opener.addheaders=[header]</span><br><span class="line">    <span class="comment">#安装为全局</span></span><br><span class="line">    urllib.request.install_opener(opener)</span><br><span class="line">    <span class="comment">#在使用的时候直接调用ua(uapools)即可</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="使用代理池爬取糗事百科搞笑图片"><a href="#使用代理池爬取糗事百科搞笑图片" class="headerlink" title="使用代理池爬取糗事百科搞笑图片"></a>使用代理池爬取糗事百科搞笑图片</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#用户代理池的构建</span></span><br><span class="line"><span class="keyword">import</span> urllib.request</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">uapools = [</span><br><span class="line">        <span class="string">"Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Win64; x64; Trident/6.0)"</span>,</span><br><span class="line">        <span class="string">"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.153 Safari/537.36"</span>,</span><br><span class="line">        <span class="string">"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:75.0) Gecko/20100101 Firefox/75.0"</span></span><br><span class="line">    ]</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">ua</span><span class="params">(uapools)</span>:</span></span><br><span class="line">    thisua = random.choice(uapools)</span><br><span class="line">    print(thisua)</span><br><span class="line">    headers = (<span class="string">"User-Agent"</span>,thisua)</span><br><span class="line">    opener = urllib.request.build_opener()</span><br><span class="line">    opener.addheaders=[headers]</span><br><span class="line">    <span class="comment">#安装为全局</span></span><br><span class="line">    urllib.request.install_opener(opener)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">35</span>):</span><br><span class="line">    ua(uapools)</span><br><span class="line">    url= <span class="string">"https://www.qiushibaike.com/imgrank/page/"</span>+str(i)+<span class="string">"/"</span></span><br><span class="line">    res = requests.get(url = url).text</span><br><span class="line">    <span class="comment">#print(res)</span></span><br><span class="line">    <span class="comment">#print(url)</span></span><br><span class="line">    pat = <span class="string">'&lt;img src="(.*?)" alt='</span></span><br><span class="line">    result=re.compile(pat).findall(res)</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(len(result)):</span><br><span class="line">        imgurl = <span class="string">"https:"</span>+result[j]</span><br><span class="line">        print(imgurl)</span><br><span class="line">        downloadimg = requests.get(imgurl)</span><br><span class="line">        <span class="comment">#下载图片</span></span><br><span class="line">        dir = <span class="string">'C:\\Users\\华硕\\PycharmProjects\\python\\picture\\gaoxiao\\'</span>+str(i)+<span class="string">"_"</span>+str(j)+<span class="string">'.jpg'</span></span><br><span class="line">        <span class="keyword">with</span> open(dir,<span class="string">'wb'</span>) <span class="keyword">as</span> f:</span><br><span class="line">            f.write(downloadimg.content)</span><br><span class="line">            f.close()</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/04/22/python-Common-modules&scrapy/1587525885405.png" alt="1587525885405"></p>
+<p><img src="/2020/04/22/python-Common-modules&scrapy/1587526178097.png" alt="1587526178097"></p>
+<p>这个路图片路径是真的很难匹配，xpath和bs4都有点问题，最后还是正则表达式才匹配成功，所以以后要加强对这几个表达式的训练。这次练手先爬一些搞笑图片，下次爬妹子图片了，再下次…嘿嘿</p>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
+  <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
+  <span>文章作者:</span><a href="/" title="访问 CyzCc 的个人博客">CyzCc</a><br>
+  <span>最后更新:</span>2020年04月22日 13:04:28<br>
+  <span>原始链接:</span><a href="/2020/04/22/python-Common-modules&scrapy/" title="了解python常用模块和Scrapy框架">https://cyzcc.vip/2020/04/22/python-Common-modules&scrapy/</a><br>
+  <span>版权声明:</span>转载请注明出处！<br>  
+</div>
+
+      
+</div>
+	
+	
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持就是我的动力！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="CyzCc Thanks"/>
+        <p>Thanks</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        
+          <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------　　　　本文结束　<i class="fa fa-heart"></i>　感谢您的阅读　　　　-------------</div>
+    
+</div>
+
+        
+      </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python%E7%88%AC%E8%99%AB/" rel="tag"><i class="fa fa-tag"></i> python爬虫</a>
+          
+            <a href="/tags/python%E5%AD%A6%E4%B9%A0/" rel="tag"><i class="fa fa-tag"></i> python学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/04/19/CTFstudy/" rel="next" title="CTF刷题1">
+                <i class="fa fa-chevron-left"></i> CTF刷题1
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/04/29/CTF-WEB/" rel="prev" title="HackPack&NPUCTF&安恒四月">
+                HackPack&NPUCTF&安恒四月 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="CyzCc" />
+            
+              <p class="site-author-name" itemprop="name">CyzCc</p>
+              <p class="site-description motion-element" itemprop="description">卍~~黑玫瑰将再次绽放~~卐</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yourname" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="1643277253@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.heibanke.com/lesson/crawler_ex00/" target="_blank" title="爬虫闯关">
+                      
+                        <i class="fa fa-fw fa-globe"></i>爬虫闯关</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://adworld.xctf.org.cn/" target="_blank" title="攻防世界">
+                      
+                        <i class="fa fa-fw fa-globe"></i>攻防世界</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://buuoj.cn/" target="_blank" title="BUUCTF">
+                      
+                        <i class="fa fa-fw fa-globe"></i>BUUCTF</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://ctf.bugku.com/" target="_blank" title="BUGKU">
+                      
+                        <i class="fa fa-fw fa-globe"></i>BUGKU</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://xss-quiz.int21h.jp/" target="_blank" title="XSS-challenges">
+                      
+                        <i class="fa fa-fw fa-globe"></i>XSS-challenges</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://ctf.hutc.xyz/" target="_blank" title="HUCTF">
+                      
+                        <i class="fa fa-fw fa-globe"></i>HUCTF</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://paper.seebug.org/" target="_blank" title="Paper">
+                      
+                        <i class="fa fa-fw fa-globe"></i>Paper</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://hkyx.myhack58.com/" target="_blank" title="黑客闯关游戏">
+                      
+                        <i class="fa fa-fw fa-globe"></i>黑客闯关游戏</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.freebuf.com/" target="_blank" title="FreeBuf">
+                      
+                        <i class="fa fa-fw fa-globe"></i>FreeBuf</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-globe"></i>CSDN</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://wiki.0-sec.org/#/dashboard" target="_blank" title="Zero Security">
+                      
+                        <i class="fa fa-fw fa-globe"></i>Zero Security</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          <div id="days"></div>
+<script>
+function show_date_time(){
+window.setTimeout("show_date_time()", 1000);
+BirthDay=new Date("10/30/2019 15:13:14");
+today=new Date();
+timeold=(today.getTime()-BirthDay.getTime());
+sectimeold=timeold/1000
+secondsold=Math.floor(sectimeold);
+msPerDay=24*60*60*1000
+e_daysold=timeold/msPerDay
+daysold=Math.floor(e_daysold);
+e_hrsold=(e_daysold-daysold)*24;
+hrsold=setzero(Math.floor(e_hrsold));
+e_minsold=(e_hrsold-hrsold)*60;
+minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+seconds=setzero(Math.floor((e_minsold-minsold)*60));
+document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+}
+function setzero(i){
+if (i<10)
+{i="0" + i};
+return i;
+}
+show_date_time();
+</script>
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#python常用模块"><span class="nav-number">1.</span> <span class="nav-text">python常用模块</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#random"><span class="nav-number">1.1.</span> <span class="nav-text">random</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#time"><span class="nav-number">1.2.</span> <span class="nav-text">time</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OS"><span class="nav-number">1.3.</span> <span class="nav-text">OS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sys"><span class="nav-number">1.4.</span> <span class="nav-text">sys</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#json"><span class="nav-number">1.5.</span> <span class="nav-text">json</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pickle"><span class="nav-number">1.6.</span> <span class="nav-text">pickle</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hashlib"><span class="nav-number">1.7.</span> <span class="nav-text">hashlib</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bs4-BeautifulSoup"><span class="nav-number">1.8.</span> <span class="nav-text">bs4.BeautifulSoup</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#XPath表达式"><span class="nav-number">2.</span> <span class="nav-text">XPath表达式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Scrapy框架"><span class="nav-number">3.</span> <span class="nav-text">Scrapy框架</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#scrapy常用指令"><span class="nav-number">3.1.</span> <span class="nav-text">scrapy常用指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#fetch命令"><span class="nav-number">3.1.1.</span> <span class="nav-text">fetch命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#runspider命令"><span class="nav-number">3.1.2.</span> <span class="nav-text">runspider命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#setting命令"><span class="nav-number">3.1.3.</span> <span class="nav-text">setting命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#shell命令"><span class="nav-number">3.1.4.</span> <span class="nav-text">shell命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#startproject命令"><span class="nav-number">3.1.5.</span> <span class="nav-text">startproject命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#version命令"><span class="nav-number">3.1.6.</span> <span class="nav-text">version命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#view命令"><span class="nav-number">3.1.7.</span> <span class="nav-text">view命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#genspider"><span class="nav-number">3.1.8.</span> <span class="nav-text">genspider</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#check"><span class="nav-number">3.1.9.</span> <span class="nav-text">check</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#crawl"><span class="nav-number">3.1.10.</span> <span class="nav-text">crawl</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#–onlog"><span class="nav-number">3.1.11.</span> <span class="nav-text">–onlog</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#list"><span class="nav-number">3.1.12.</span> <span class="nav-text">list</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#大致流程"><span class="nav-number">3.2.</span> <span class="nav-text">大致流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#爬取当当网商品"><span class="nav-number">3.3.</span> <span class="nav-text">爬取当当网商品</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用户代理池构建"><span class="nav-number">4.</span> <span class="nav-text">用户代理池构建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用代理池爬取糗事百科搞笑图片"><span class="nav-number">4.1.</span> <span class="nav-text">使用代理池爬取糗事百科搞笑图片</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">cyzCc</span>
+
+ <!-- 
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">150.4k</span>
+  
+
+</div>
+
+-->
+
+
+
+
+
+
+<!-- 新增访客统计代码 -->
+<!--<div class="busuanzi-count">
+    <script async="" src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      访问用户： <span class="busuanzi-value" id="busuanzi_value_site_uv"></span> 人
+    </span>
+    <div class="powered-by"></div>
+    <span class="site-uv">
+      <i class="fa fa-eye"></i>
+      访问次数： <span class="busuanzi-value" id="busuanzi_value_site_pv"></span> 次
+    </span>
+    <!-- 博客字数统计 -->
+    <span class="site-pv">
+      <i class="fa fa-pencil"></i>
+      博客全站共： <span class="post-count">150.4k</span> 字
+    </span>
+	  <a href="http://www.beian.miit.gov.cn" target="_blank" rel="noopener">蜀ICP备20017267号</a>
+</div>
+<!-- 新增访客统计代码 END-->
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("TSaUMM9qwI423iWuECxQWDDh-gzGzoHsz", "2DucY6TQAx8iNNnjFYelMbXV");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+  <script type="text/javascript" src="/js/src/exturl.js?v=5.1.4"></script>
+
+
+  
+  
+ <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+ <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+ <script type="text/javascript" src="/js/src/fireworks.js"></script>
+
+
+<div class="bg_content">
+<canvas id="canvas"></canvas>
+</div>
+<!-- 雪花特效 -->
+<!--<script type="text/javascript">
+
+    document.write('<script type="text/javascript" src="/js/src/snow2.js"><\/script>');
+
+</script>-->
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":100,"height":200},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
+<script type="text/javascript" src="/js/src/dynamic_bg.js"></script>

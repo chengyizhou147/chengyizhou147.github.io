@@ -1,0 +1,1641 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#00FFFF">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-corner-indicator.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#00FFFF">
+
+
+
+
+
+  <meta name="keywords" content="upload-labs," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="upload-labs是一个使用php语言编写的，专门收集渗透测试和CTF中遇到的各种上传漏洞的靶场。旨在帮助大家对上传漏洞有一个全面的了解。目前一共20关，每一关都包含着不同上传方式。现在准备通过uploads-labs来巩固以前的知识并学习一些上传绕过的新知识。">
+<meta name="keywords" content="upload-labs">
+<meta property="og:type" content="article">
+<meta property="og:title" content="upload-labs">
+<meta property="og:url" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;08&#x2F;upload-labs&#x2F;index.html">
+<meta property="og:site_name" content="CyzCc&#39;s blog">
+<meta property="og:description" content="upload-labs是一个使用php语言编写的，专门收集渗透测试和CTF中遇到的各种上传漏洞的靶场。旨在帮助大家对上传漏洞有一个全面的了解。目前一共20关，每一关都包含着不同上传方式。现在准备通过uploads-labs来巩固以前的知识并学习一些上传绕过的新知识。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;08&#x2F;upload-labs&#x2F;1.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;08&#x2F;upload-labs&#x2F;2.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;08&#x2F;upload-labs&#x2F;3.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;08&#x2F;upload-labs&#x2F;4.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;08&#x2F;upload-labs&#x2F;5.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;08&#x2F;upload-labs&#x2F;6.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;08&#x2F;upload-labs&#x2F;7.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;08&#x2F;upload-labs&#x2F;8.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;08&#x2F;upload-labs&#x2F;9.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;08&#x2F;upload-labs&#x2F;10.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;08&#x2F;upload-labs&#x2F;14.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;08&#x2F;upload-labs&#x2F;11.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;08&#x2F;upload-labs&#x2F;12.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;08&#x2F;upload-labs&#x2F;13.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;08&#x2F;upload-labs&#x2F;15.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;08&#x2F;upload-labs&#x2F;16.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;08&#x2F;upload-labs&#x2F;17.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;08&#x2F;upload-labs&#x2F;18.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;08&#x2F;upload-labs&#x2F;19.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;08&#x2F;upload-labs&#x2F;20.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;08&#x2F;upload-labs&#x2F;21.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;08&#x2F;upload-labs&#x2F;22.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;08&#x2F;upload-labs&#x2F;23.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;08&#x2F;upload-labs&#x2F;24.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;08&#x2F;upload-labs&#x2F;25.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;08&#x2F;upload-labs&#x2F;26.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;08&#x2F;upload-labs&#x2F;27.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;08&#x2F;upload-labs&#x2F;1.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;08&#x2F;upload-labs&#x2F;2.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;08&#x2F;upload-labs&#x2F;3.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;08&#x2F;upload-labs&#x2F;4.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;08&#x2F;upload-labs&#x2F;5.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;08&#x2F;upload-labs&#x2F;6.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;08&#x2F;upload-labs&#x2F;7.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;08&#x2F;upload-labs&#x2F;8.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;08&#x2F;upload-labs&#x2F;9.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;08&#x2F;upload-labs&#x2F;10.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;08&#x2F;upload-labs&#x2F;11.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;08&#x2F;upload-labs&#x2F;13.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;08&#x2F;upload-labs&#x2F;14.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;08&#x2F;upload-labs&#x2F;15.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;08&#x2F;upload-labs&#x2F;16.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;08&#x2F;upload-labs&#x2F;17.jpg">
+<meta property="og:updated_time" content="2020-04-16T15:33:51.803Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;03&#x2F;08&#x2F;upload-labs&#x2F;1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://cyzcc.vip/2020/03/08/upload-labs/"/>
+
+
+
+
+<!--留言-->
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "9e261f4f"
+    });
+  daovoice('update');
+  </script>
+
+
+  <title>upload-labs | CyzCc's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CyzCc's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">♫日常学习笔记整理♬♬</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-主页|随笔">
+          <a href="/home/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            主页|随笔
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-一些知识点">
+          <a href="/guestbook/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-comments"></i> <br />
+            
+            一些知识点
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于我">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于我
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br />
+            
+            友链
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cyzcc.vip/2020/03/08/upload-labs/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="CyzCc">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CyzCc's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">upload-labs</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-08T10:39:14+08:00">
+                2020-03-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2020/03/08/upload-labs/" class="leancloud_visitors" data-flag-title="upload-labs">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4.6k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  21
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>upload-labs是一个使用php语言编写的，专门收集渗透测试和CTF中遇到的各种上传漏洞的靶场。旨在帮助大家对上传漏洞有一个全面的了解。目前一共20关，每一关都包含着不同上传方式。现在准备通过uploads-labs来巩固以前的知识并学习一些上传绕过的新知识。<a id="more"></a></p>
+<p><img src="/2020/03/08/upload-labs/1.png" alt></p>
+<h1 id="pass-01"><a href="#pass-01" class="headerlink" title="pass-01"></a>pass-01</h1><p>直接上传PHP木马，发现弹窗报错<br><img src="/2020/03/08/upload-labs/2.png" alt><br>然后发现是前端js验证，于是抓包修改后缀进行绕过<br><img src="/2020/03/08/upload-labs/3.png" alt><br>上传成功并成功连接shell<br><img src="/2020/03/08/upload-labs/4.png" alt><br><img src="/2020/03/08/upload-labs/5.png" alt></p>
+<h1 id="pass-02"><a href="#pass-02" class="headerlink" title="pass-02"></a>pass-02</h1><p>查看源码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">$is_upload = <span class="keyword">false</span>;</span><br><span class="line">$msg = <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>($_POST[<span class="string">'submit'</span>])) &#123;</span><br><span class="line">    <span class="keyword">if</span> (file_exists(UPLOAD_PATH)) &#123;</span><br><span class="line">        <span class="keyword">if</span> (($_FILES[<span class="string">'upload_file'</span>][<span class="string">'type'</span>] == <span class="string">'image/jpeg'</span>) || ($_FILES[<span class="string">'upload_file'</span>][<span class="string">'type'</span>] == <span class="string">'image/png'</span>) || ($_FILES[<span class="string">'upload_file'</span>][<span class="string">'type'</span>] == <span class="string">'image/gif'</span>)) &#123;</span><br><span class="line">            $temp_file = $_FILES[<span class="string">'upload_file'</span>][<span class="string">'tmp_name'</span>];</span><br><span class="line">            $img_path = UPLOAD_PATH . <span class="string">'/'</span> . $_FILES[<span class="string">'upload_file'</span>][<span class="string">'name'</span>]            </span><br><span class="line">            <span class="keyword">if</span> (move_uploaded_file($temp_file, $img_path)) &#123;</span><br><span class="line">                $is_upload = <span class="keyword">true</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                $msg = <span class="string">'上传出错！'</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            $msg = <span class="string">'文件类型不正确，请重新上传！'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        $msg = UPLOAD_PATH.<span class="string">'文件夹不存在,请手工创建！'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>发现限制的是文件的mime类型<br>mime类型：MIME(Multipurpose Internet Mail Extensions)多用途互联网邮件扩展类型。是设定某种扩展名的文件用一种应用程序来打开的方式类型，当该扩展名文件被访问的时候，浏览器会自动使用指定应用程序来打开。多用于指定一些客户端自定义的文件名，以及一些媒体文件打开方式。只有jpg的mime类型是image/jpeg</p>
+<p>然后上传PHP文件，抓包修改mime类型为image/jpeg即可<br><img src="/2020/03/08/upload-labs/6.png" alt><br>上传成功，并成功利用<br><img src="/2020/03/08/upload-labs/7.png" alt><br><img src="/2020/03/08/upload-labs/8.png" alt></p>
+<h1 id="pass-03"><a href="#pass-03" class="headerlink" title="pass-03"></a>pass-03</h1><p>黑名单绕过<br>查看源码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">$is_upload = <span class="keyword">false</span>;</span><br><span class="line">$msg = <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>($_POST[<span class="string">'submit'</span>])) &#123;</span><br><span class="line">    <span class="keyword">if</span> (file_exists(UPLOAD_PATH)) &#123;</span><br><span class="line">        $deny_ext = <span class="keyword">array</span>(<span class="string">'.asp'</span>,<span class="string">'.aspx'</span>,<span class="string">'.php'</span>,<span class="string">'.jsp'</span>);</span><br><span class="line">        $file_name = trim($_FILES[<span class="string">'upload_file'</span>][<span class="string">'name'</span>]);</span><br><span class="line">        $file_name = deldot($file_name);<span class="comment">//删除文件名末尾的点</span></span><br><span class="line">        $file_ext = strrchr($file_name, <span class="string">'.'</span>);</span><br><span class="line">        $file_ext = strtolower($file_ext); <span class="comment">//转换为小写</span></span><br><span class="line">        $file_ext = str_ireplace(<span class="string">'::$DATA'</span>, <span class="string">''</span>, $file_ext);<span class="comment">//去除字符串::$DATA</span></span><br><span class="line">        $file_ext = trim($file_ext); <span class="comment">//收尾去空</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(!in_array($file_ext, $deny_ext)) &#123;</span><br><span class="line">            $temp_file = $_FILES[<span class="string">'upload_file'</span>][<span class="string">'tmp_name'</span>];</span><br><span class="line">            $img_path = UPLOAD_PATH.<span class="string">'/'</span>.date(<span class="string">"YmdHis"</span>).rand(<span class="number">1000</span>,<span class="number">9999</span>).$file_ext;            </span><br><span class="line">            <span class="keyword">if</span> (move_uploaded_file($temp_file,$img_path)) &#123;</span><br><span class="line">                 $is_upload = <span class="keyword">true</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                $msg = <span class="string">'上传出错！'</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            $msg = <span class="string">'不允许上传.asp,.aspx,.php,.jsp后缀文件！'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        $msg = UPLOAD_PATH . <span class="string">'文件夹不存在,请手工创建！'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这次直接限制了不允许上传PHP文件，但是这个过滤不严谨，php中，如果默认状态下.php3,.php4,.php5,.phtml 都是会被解析为php的<br>一些常见的能被解析的文件扩展名</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">jsp </span> <span class="keyword">jspx </span> <span class="keyword">jspf </span> asp  asa  cer   aspx  PHP  php3   php4  exe   exee</span><br></pre></td></tr></table></figure>
+
+<p>这里我们只需要上传php3或者phtml文件即可<br><img src="/2020/03/08/upload-labs/9.png" alt><br><img src="/2020/03/08/upload-labs/10.png" alt><br><img src="/2020/03/08/upload-labs/14.png" alt></p>
+<h1 id="pass-04"><a href="#pass-04" class="headerlink" title="pass-04"></a>pass-04</h1><p>查看源码，发现过滤了极大多数后缀名<br><img src="/2020/03/08/upload-labs/11.png" alt><br>但是没有过滤.htaccess，上传一个.htaccess内容 SetHandler application/x-httpd-php 这样所有文件都会解析为php。但是由于直接创建txt文档会显示必须键入文件名，所以可以采用cmd命令方式生成</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">echo</span> SetHandler application/x-httpd-php  &gt; <span class="string">.htaccess</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/03/08/upload-labs/12.png" alt><br>上传之后再上传写有木马的txt文件，txt文件也可被解析。<br><img src="/2020/03/08/upload-labs/13.png" alt></p>
+<h1 id="pass-05"><a href="#pass-05" class="headerlink" title="pass-05"></a>pass-05</h1><p>查看源码，发现其残忍的过滤了.htaccess</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">$is_upload = <span class="keyword">false</span>;</span><br><span class="line">$msg = <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>($_POST[<span class="string">'submit'</span>])) &#123;</span><br><span class="line">    <span class="keyword">if</span> (file_exists(UPLOAD_PATH)) &#123;</span><br><span class="line">        $deny_ext = <span class="keyword">array</span>(<span class="string">".php"</span>,<span class="string">".php5"</span>,<span class="string">".php4"</span>,<span class="string">".php3"</span>,<span class="string">".php2"</span>,<span class="string">".html"</span>,<span class="string">".htm"</span>,<span class="string">".phtml"</span>,<span class="string">".pht"</span>,<span class="string">".pHp"</span>,<span class="string">".pHp5"</span>,<span class="string">".pHp4"</span>,<span class="string">".pHp3"</span>,<span class="string">".pHp2"</span>,<span class="string">".Html"</span>,<span class="string">".Htm"</span>,<span class="string">".pHtml"</span>,<span class="string">".jsp"</span>,<span class="string">".jspa"</span>,<span class="string">".jspx"</span>,<span class="string">".jsw"</span>,<span class="string">".jsv"</span>,<span class="string">".jspf"</span>,<span class="string">".jtml"</span>,<span class="string">".jSp"</span>,<span class="string">".jSpx"</span>,<span class="string">".jSpa"</span>,<span class="string">".jSw"</span>,<span class="string">".jSv"</span>,<span class="string">".jSpf"</span>,<span class="string">".jHtml"</span>,<span class="string">".asp"</span>,<span class="string">".aspx"</span>,<span class="string">".asa"</span>,<span class="string">".asax"</span>,<span class="string">".ascx"</span>,<span class="string">".ashx"</span>,<span class="string">".asmx"</span>,<span class="string">".cer"</span>,<span class="string">".aSp"</span>,<span class="string">".aSpx"</span>,<span class="string">".aSa"</span>,<span class="string">".aSax"</span>,<span class="string">".aScx"</span>,<span class="string">".aShx"</span>,<span class="string">".aSmx"</span>,<span class="string">".cEr"</span>,<span class="string">".sWf"</span>,<span class="string">".swf"</span>,<span class="string">".htaccess"</span>);</span><br><span class="line">        $file_name = trim($_FILES[<span class="string">'upload_file'</span>][<span class="string">'name'</span>]);</span><br><span class="line">        $file_name = deldot($file_name);<span class="comment">//删除文件名末尾的点</span></span><br><span class="line">        $file_ext = strrchr($file_name, <span class="string">'.'</span>);</span><br><span class="line">        $file_ext = str_ireplace(<span class="string">'::$DATA'</span>, <span class="string">''</span>, $file_ext);<span class="comment">//去除字符串::$DATA</span></span><br><span class="line">        $file_ext = trim($file_ext); <span class="comment">//首尾去空</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!in_array($file_ext, $deny_ext)) &#123;</span><br><span class="line">            $temp_file = $_FILES[<span class="string">'upload_file'</span>][<span class="string">'tmp_name'</span>];</span><br><span class="line">            $img_path = UPLOAD_PATH.<span class="string">'/'</span>.date(<span class="string">"YmdHis"</span>).rand(<span class="number">1000</span>,<span class="number">9999</span>).$file_ext;</span><br><span class="line">            <span class="keyword">if</span> (move_uploaded_file($temp_file, $img_path)) &#123;</span><br><span class="line">                $is_upload = <span class="keyword">true</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                $msg = <span class="string">'上传出错！'</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            $msg = <span class="string">'此文件类型不允许上传！'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        $msg = UPLOAD_PATH . <span class="string">'文件夹不存在,请手工创建！'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>但是源代码中没有<code>$file_ext = strtolower($file_ext); //转换为小写</code>这一行代码，可以使用大小写绕过。<br><img src="/2020/03/08/upload-labs/15.png" alt><br><img src="/2020/03/08/upload-labs/16.png" alt></p>
+<h1 id="pass-06"><a href="#pass-06" class="headerlink" title="pass-06"></a>pass-06</h1><p>查看源代码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">$is_upload = <span class="keyword">false</span>;</span><br><span class="line">$msg = <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>($_POST[<span class="string">'submit'</span>])) &#123;</span><br><span class="line">    <span class="keyword">if</span> (file_exists(UPLOAD_PATH)) &#123;</span><br><span class="line">        $deny_ext = <span class="keyword">array</span>(<span class="string">".php"</span>,<span class="string">".php5"</span>,<span class="string">".php4"</span>,<span class="string">".php3"</span>,<span class="string">".php2"</span>,<span class="string">".html"</span>,<span class="string">".htm"</span>,<span class="string">".phtml"</span>,<span class="string">".pht"</span>,<span class="string">".pHp"</span>,<span class="string">".pHp5"</span>,<span class="string">".pHp4"</span>,<span class="string">".pHp3"</span>,<span class="string">".pHp2"</span>,<span class="string">".Html"</span>,<span class="string">".Htm"</span>,<span class="string">".pHtml"</span>,<span class="string">".jsp"</span>,<span class="string">".jspa"</span>,<span class="string">".jspx"</span>,<span class="string">".jsw"</span>,<span class="string">".jsv"</span>,<span class="string">".jspf"</span>,<span class="string">".jtml"</span>,<span class="string">".jSp"</span>,<span class="string">".jSpx"</span>,<span class="string">".jSpa"</span>,<span class="string">".jSw"</span>,<span class="string">".jSv"</span>,<span class="string">".jSpf"</span>,<span class="string">".jHtml"</span>,<span class="string">".asp"</span>,<span class="string">".aspx"</span>,<span class="string">".asa"</span>,<span class="string">".asax"</span>,<span class="string">".ascx"</span>,<span class="string">".ashx"</span>,<span class="string">".asmx"</span>,<span class="string">".cer"</span>,<span class="string">".aSp"</span>,<span class="string">".aSpx"</span>,<span class="string">".aSa"</span>,<span class="string">".aSax"</span>,<span class="string">".aScx"</span>,<span class="string">".aShx"</span>,<span class="string">".aSmx"</span>,<span class="string">".cEr"</span>,<span class="string">".sWf"</span>,<span class="string">".swf"</span>,<span class="string">".htaccess"</span>);</span><br><span class="line">        $file_name = $_FILES[<span class="string">'upload_file'</span>][<span class="string">'name'</span>];</span><br><span class="line">        $file_name = deldot($file_name);<span class="comment">//删除文件名末尾的点</span></span><br><span class="line">        $file_ext = strrchr($file_name, <span class="string">'.'</span>);</span><br><span class="line">        $file_ext = strtolower($file_ext); <span class="comment">//转换为小写</span></span><br><span class="line">        $file_ext = str_ireplace(<span class="string">'::$DATA'</span>, <span class="string">''</span>, $file_ext);<span class="comment">//去除字符串::$DATA</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (!in_array($file_ext, $deny_ext)) &#123;</span><br><span class="line">            $temp_file = $_FILES[<span class="string">'upload_file'</span>][<span class="string">'tmp_name'</span>];</span><br><span class="line">            $img_path = UPLOAD_PATH.<span class="string">'/'</span>.date(<span class="string">"YmdHis"</span>).rand(<span class="number">1000</span>,<span class="number">9999</span>).$file_ext;</span><br><span class="line">            <span class="keyword">if</span> (move_uploaded_file($temp_file,$img_path)) &#123;</span><br><span class="line">                $is_upload = <span class="keyword">true</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                $msg = <span class="string">'上传出错！'</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            $msg = <span class="string">'此文件不允许上传'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        $msg = UPLOAD_PATH . <span class="string">'文件夹不存在,请手工创建！'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>发现其没有对首尾去除空格，于是我们可以用bp截断，然后再文件明后面添加空格进行绕过<br><img src="/2020/03/08/upload-labs/17.png" alt><br><img src="/2020/03/08/upload-labs/18.png" alt><br>成功getshell</p>
+<h1 id="pass-7"><a href="#pass-7" class="headerlink" title="pass-7"></a>pass-7</h1><p>查看源码还是黑名单没有对后缀名进行去.操作利用Windows特性会自动去掉后缀名中最后的.可在后缀名中加 . 绕过。<br><img src="/2020/03/08/upload-labs/19.png" alt><br>上传成功并利用<br><img src="/2020/03/08/upload-labs/20.png" alt></p>
+<h1 id="pass-8"><a href="#pass-8" class="headerlink" title="pass-8"></a>pass-8</h1><p>查看源代码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">$is_upload = <span class="keyword">false</span>;</span><br><span class="line">$msg = <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>($_POST[<span class="string">'submit'</span>])) &#123;</span><br><span class="line">    <span class="keyword">if</span> (file_exists(UPLOAD_PATH)) &#123;</span><br><span class="line">        $deny_ext = <span class="keyword">array</span>(<span class="string">".php"</span>,<span class="string">".php5"</span>,<span class="string">".php4"</span>,<span class="string">".php3"</span>,<span class="string">".php2"</span>,<span class="string">".html"</span>,<span class="string">".htm"</span>,<span class="string">".phtml"</span>,<span class="string">".pht"</span>,<span class="string">".pHp"</span>,<span class="string">".pHp5"</span>,<span class="string">".pHp4"</span>,<span class="string">".pHp3"</span>,<span class="string">".pHp2"</span>,<span class="string">".Html"</span>,<span class="string">".Htm"</span>,<span class="string">".pHtml"</span>,<span class="string">".jsp"</span>,<span class="string">".jspa"</span>,<span class="string">".jspx"</span>,<span class="string">".jsw"</span>,<span class="string">".jsv"</span>,<span class="string">".jspf"</span>,<span class="string">".jtml"</span>,<span class="string">".jSp"</span>,<span class="string">".jSpx"</span>,<span class="string">".jSpa"</span>,<span class="string">".jSw"</span>,<span class="string">".jSv"</span>,<span class="string">".jSpf"</span>,<span class="string">".jHtml"</span>,<span class="string">".asp"</span>,<span class="string">".aspx"</span>,<span class="string">".asa"</span>,<span class="string">".asax"</span>,<span class="string">".ascx"</span>,<span class="string">".ashx"</span>,<span class="string">".asmx"</span>,<span class="string">".cer"</span>,<span class="string">".aSp"</span>,<span class="string">".aSpx"</span>,<span class="string">".aSa"</span>,<span class="string">".aSax"</span>,<span class="string">".aScx"</span>,<span class="string">".aShx"</span>,<span class="string">".aSmx"</span>,<span class="string">".cEr"</span>,<span class="string">".sWf"</span>,<span class="string">".swf"</span>,<span class="string">".htaccess"</span>);</span><br><span class="line">        $file_name = trim($_FILES[<span class="string">'upload_file'</span>][<span class="string">'name'</span>]);</span><br><span class="line">        $file_name = deldot($file_name);<span class="comment">//删除文件名末尾的点</span></span><br><span class="line">        $file_ext = strrchr($file_name, <span class="string">'.'</span>);</span><br><span class="line">        $file_ext = strtolower($file_ext); <span class="comment">//转换为小写</span></span><br><span class="line">        $file_ext = trim($file_ext); <span class="comment">//首尾去空</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (!in_array($file_ext, $deny_ext)) &#123;</span><br><span class="line">            $temp_file = $_FILES[<span class="string">'upload_file'</span>][<span class="string">'tmp_name'</span>];</span><br><span class="line">            $img_path = UPLOAD_PATH.<span class="string">'/'</span>.date(<span class="string">"YmdHis"</span>).rand(<span class="number">1000</span>,<span class="number">9999</span>).$file_ext;</span><br><span class="line">            <span class="keyword">if</span> (move_uploaded_file($temp_file, $img_path)) &#123;</span><br><span class="line">                $is_upload = <span class="keyword">true</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                $msg = <span class="string">'上传出错！'</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            $msg = <span class="string">'此文件类型不允许上传！'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        $msg = UPLOAD_PATH . <span class="string">'文件夹不存在,请手工创建！'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>源代码缺少<code>$file_ext = str_ireplace(&#39;::$DATA&#39;, &#39;&#39;, $file_ext);//去除字符串::$DATA</code>限制，可以文件名后缀增加<code>::$DATA</code>绕过</p>
+<ul>
+<li>Windows下NTFS文件系统的一个特性，即NTFS文件系统的存储数据流的一个属性 DATA 时，就是请求 <code>a.asp</code> 本身的数据，如果a.asp 还包含了其他的数据流，比如 <code>a.asp:lake2.asp</code>，请求 <code>a.asp:lake2.asp::$DATA</code>，则是请求<code>a.asp</code>中的流数据<code>lake2.asp</code>的流数据内容。</li>
+</ul>
+<p><a href="https://www.freebuf.com/column/143101.html" target="_blank" rel="noopener">NTFS文件流实际应用</a></p>
+<ul>
+<li>NTFS文件系统包括对备用数据流的支持。这不是众所周知的功能，主要包括提供与Macintosh文件系统中的文件的兼容性。备用数据流允许文件包含多个数据流。每个文件至少有一个数据流。在Windows中，此默认数据流称为：<code>$DATA</code>。访问时去除后缀</li>
+</ul>
+<p><img src="/2020/03/08/upload-labs/21.png" alt><br><img src="/2020/03/08/upload-labs/22.png" alt></p>
+<h1 id="pass-9"><a href="#pass-9" class="headerlink" title="pass-9"></a>pass-9</h1><p>查看源代码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">$is_upload = <span class="keyword">false</span>;</span><br><span class="line">$msg = <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>($_POST[<span class="string">'submit'</span>])) &#123;</span><br><span class="line">    <span class="keyword">if</span> (file_exists(UPLOAD_PATH)) &#123;</span><br><span class="line">        $deny_ext = <span class="keyword">array</span>(<span class="string">".php"</span>,<span class="string">".php5"</span>,<span class="string">".php4"</span>,<span class="string">".php3"</span>,<span class="string">".php2"</span>,<span class="string">".html"</span>,<span class="string">".htm"</span>,<span class="string">".phtml"</span>,<span class="string">".pht"</span>,<span class="string">".pHp"</span>,<span class="string">".pHp5"</span>,<span class="string">".pHp4"</span>,<span class="string">".pHp3"</span>,<span class="string">".pHp2"</span>,<span class="string">".Html"</span>,<span class="string">".Htm"</span>,<span class="string">".pHtml"</span>,<span class="string">".jsp"</span>,<span class="string">".jspa"</span>,<span class="string">".jspx"</span>,<span class="string">".jsw"</span>,<span class="string">".jsv"</span>,<span class="string">".jspf"</span>,<span class="string">".jtml"</span>,<span class="string">".jSp"</span>,<span class="string">".jSpx"</span>,<span class="string">".jSpa"</span>,<span class="string">".jSw"</span>,<span class="string">".jSv"</span>,<span class="string">".jSpf"</span>,<span class="string">".jHtml"</span>,<span class="string">".asp"</span>,<span class="string">".aspx"</span>,<span class="string">".asa"</span>,<span class="string">".asax"</span>,<span class="string">".ascx"</span>,<span class="string">".ashx"</span>,<span class="string">".asmx"</span>,<span class="string">".cer"</span>,<span class="string">".aSp"</span>,<span class="string">".aSpx"</span>,<span class="string">".aSa"</span>,<span class="string">".aSax"</span>,<span class="string">".aScx"</span>,<span class="string">".aShx"</span>,<span class="string">".aSmx"</span>,<span class="string">".cEr"</span>,<span class="string">".sWf"</span>,<span class="string">".swf"</span>,<span class="string">".htaccess"</span>);</span><br><span class="line">        $file_name = trim($_FILES[<span class="string">'upload_file'</span>][<span class="string">'name'</span>]);</span><br><span class="line">        $file_name = deldot($file_name);<span class="comment">//删除文件名末尾的点</span></span><br><span class="line">        $file_ext = strrchr($file_name, <span class="string">'.'</span>);</span><br><span class="line">        $file_ext = strtolower($file_ext); <span class="comment">//转换为小写</span></span><br><span class="line">        $file_ext = str_ireplace(<span class="string">'::$DATA'</span>, <span class="string">''</span>, $file_ext);<span class="comment">//去除字符串::$DATA</span></span><br><span class="line">        $file_ext = trim($file_ext); <span class="comment">//首尾去空</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (!in_array($file_ext, $deny_ext)) &#123;</span><br><span class="line">            $temp_file = $_FILES[<span class="string">'upload_file'</span>][<span class="string">'tmp_name'</span>];</span><br><span class="line">            $img_path = UPLOAD_PATH.<span class="string">'/'</span>.$file_name;</span><br><span class="line">            <span class="keyword">if</span> (move_uploaded_file($temp_file, $img_path)) &#123;</span><br><span class="line">                $is_upload = <span class="keyword">true</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                $msg = <span class="string">'上传出错！'</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            $msg = <span class="string">'此文件类型不允许上传！'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        $msg = UPLOAD_PATH . <span class="string">'文件夹不存在,请手工创建！'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>经过对比发现15行和之前不太一样，路径拼接的是处理后的文件名，于是构造phpinfo.php. . </p>
+<p> （点+空格+点），经过处理后，文件名变成phpinfo.php. .即可绕过。<br><img src="/2020/03/08/upload-labs/23.png" alt><br>上传成功<br><img src="/2020/03/08/upload-labs/24.png" alt></p>
+<h1 id="pass-10"><a href="#pass-10" class="headerlink" title="pass-10"></a>pass-10</h1><p>查看源代码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">$is_upload = <span class="keyword">false</span>;</span><br><span class="line">$msg = <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>($_POST[<span class="string">'submit'</span>])) &#123;</span><br><span class="line">    <span class="keyword">if</span> (file_exists(UPLOAD_PATH)) &#123;</span><br><span class="line">        $deny_ext = <span class="keyword">array</span>(<span class="string">"php"</span>,<span class="string">"php5"</span>,<span class="string">"php4"</span>,<span class="string">"php3"</span>,<span class="string">"php2"</span>,<span class="string">"html"</span>,<span class="string">"htm"</span>,<span class="string">"phtml"</span>,<span class="string">"pht"</span>,<span class="string">"jsp"</span>,<span class="string">"jspa"</span>,<span class="string">"jspx"</span>,<span class="string">"jsw"</span>,<span class="string">"jsv"</span>,<span class="string">"jspf"</span>,<span class="string">"jtml"</span>,<span class="string">"asp"</span>,<span class="string">"aspx"</span>,<span class="string">"asa"</span>,<span class="string">"asax"</span>,<span class="string">"ascx"</span>,<span class="string">"ashx"</span>,<span class="string">"asmx"</span>,<span class="string">"cer"</span>,<span class="string">"swf"</span>,<span class="string">"htaccess"</span>);</span><br><span class="line"></span><br><span class="line">        $file_name = trim($_FILES[<span class="string">'upload_file'</span>][<span class="string">'name'</span>]);</span><br><span class="line">        $file_name = str_ireplace($deny_ext,<span class="string">""</span>, $file_name);</span><br><span class="line">        $temp_file = $_FILES[<span class="string">'upload_file'</span>][<span class="string">'tmp_name'</span>];</span><br><span class="line">        $img_path = UPLOAD_PATH.<span class="string">'/'</span>.$file_name;        </span><br><span class="line">        <span class="keyword">if</span> (move_uploaded_file($temp_file, $img_path)) &#123;</span><br><span class="line">            $is_upload = <span class="keyword">true</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            $msg = <span class="string">'上传出错！'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        $msg = UPLOAD_PATH . <span class="string">'文件夹不存在,请手工创建！'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>$file_name = str_ireplace($deny_ext,&quot;&quot;, $file_name);</code>只对文件后缀名进行一次过滤，双写文件名绕过。<br><img src="/2020/03/08/upload-labs/25.png" alt><br>上传成功<br><img src="/2020/03/08/upload-labs/26.png" alt><br><img src="/2020/03/08/upload-labs/27.png" alt></p>
+<p>今天就先做一半，剩下的明天解决。</p>
+<h1 id="pass-11"><a href="#pass-11" class="headerlink" title="pass-11"></a>pass-11</h1><p>查看源代码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$is_upload = <span class="keyword">false</span>;</span><br><span class="line">$msg = <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($_POST[<span class="string">'submit'</span>]))&#123;</span><br><span class="line">    $ext_arr = <span class="keyword">array</span>(<span class="string">'jpg'</span>,<span class="string">'png'</span>,<span class="string">'gif'</span>);</span><br><span class="line">    $file_ext = substr($_FILES[<span class="string">'upload_file'</span>][<span class="string">'name'</span>],strrpos($_FILES[<span class="string">'upload_file'</span>][<span class="string">'name'</span>],<span class="string">"."</span>)+<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">if</span>(in_array($file_ext,$ext_arr))&#123;</span><br><span class="line">        $temp_file = $_FILES[<span class="string">'upload_file'</span>][<span class="string">'tmp_name'</span>];</span><br><span class="line">        $img_path = $_GET[<span class="string">'save_path'</span>].<span class="string">"/"</span>.rand(<span class="number">10</span>, <span class="number">99</span>).date(<span class="string">"YmdHis"</span>).<span class="string">"."</span>.$file_ext;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(move_uploaded_file($temp_file,$img_path))&#123;</span><br><span class="line">            $is_upload = <span class="keyword">true</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            $msg = <span class="string">'上传出错！'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span>&#123;</span><br><span class="line">        $msg = <span class="string">"只允许上传.jpg|.png|.gif类型文件！"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>白名单判断，但$img_path是直接拼接，因此可以利用%00截断绕过。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$img_path = $_GET[<span class="string">'save_path'</span>].<span class="string">"/"</span>.rand(<span class="number">10</span>, <span class="number">99</span>).date(<span class="string">"YmdHis"</span>).<span class="string">"."</span>.$file_ext;</span><br></pre></td></tr></table></figure>
+
+<p>截断条件：php版本小于5.3.4，php的magic_quotes_gpc为OFF状态<br><img src="/2020/03/08/upload-labs/1.jpg" alt></p>
+<p>但是我们PHP版本太高，多以没有办法复现</p>
+<h1 id="pass-12"><a href="#pass-12" class="headerlink" title="pass-12"></a>pass-12</h1><p>查看源码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$is_upload = <span class="keyword">false</span>;</span><br><span class="line">$msg = <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($_POST[<span class="string">'submit'</span>]))&#123;</span><br><span class="line">    $ext_arr = <span class="keyword">array</span>(<span class="string">'jpg'</span>,<span class="string">'png'</span>,<span class="string">'gif'</span>);</span><br><span class="line">    $file_ext = substr($_FILES[<span class="string">'upload_file'</span>][<span class="string">'name'</span>],strrpos($_FILES[<span class="string">'upload_file'</span>][<span class="string">'name'</span>],<span class="string">"."</span>)+<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">if</span>(in_array($file_ext,$ext_arr))&#123;</span><br><span class="line">        $temp_file = $_FILES[<span class="string">'upload_file'</span>][<span class="string">'tmp_name'</span>];</span><br><span class="line">        $img_path = $_POST[<span class="string">'save_path'</span>].<span class="string">"/"</span>.rand(<span class="number">10</span>, <span class="number">99</span>).date(<span class="string">"YmdHis"</span>).<span class="string">"."</span>.$file_ext;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(move_uploaded_file($temp_file,$img_path))&#123;</span><br><span class="line">            $is_upload = <span class="keyword">true</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            $msg = <span class="string">"上传失败"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        $msg = <span class="string">"只允许上传.jpg|.png|.gif类型文件！"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>save_path参数通过POST方式传递，还是利用00截断，因为POST不会像GET对%00进行自动解码，所以需要在二进制中进行修改。<br><img src="/2020/03/08/upload-labs/2.jpg" alt></p>
+<h1 id="pass-13"><a href="#pass-13" class="headerlink" title="pass-13"></a>pass-13</h1><p>源码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getReailFileType</span><span class="params">($filename)</span></span>&#123;</span><br><span class="line">    $file = fopen($filename, <span class="string">"rb"</span>);</span><br><span class="line">    $bin = fread($file, <span class="number">2</span>); <span class="comment">//只读2字节</span></span><br><span class="line">    fclose($file);</span><br><span class="line">    $strInfo = @unpack(<span class="string">"C2chars"</span>, $bin);    </span><br><span class="line">    $typeCode = intval($strInfo[<span class="string">'chars1'</span>].$strInfo[<span class="string">'chars2'</span>]);    </span><br><span class="line">    $fileType = <span class="string">''</span>;    </span><br><span class="line">    <span class="keyword">switch</span>($typeCode)&#123;      </span><br><span class="line">        <span class="keyword">case</span> <span class="number">255216</span>:            </span><br><span class="line">            $fileType = <span class="string">'jpg'</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">13780</span>:            </span><br><span class="line">            $fileType = <span class="string">'png'</span>;</span><br><span class="line">            <span class="keyword">break</span>;        </span><br><span class="line">        <span class="keyword">case</span> <span class="number">7173</span>:            </span><br><span class="line">            $fileType = <span class="string">'gif'</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">default</span>:            </span><br><span class="line">            $fileType = <span class="string">'unknown'</span>;</span><br><span class="line">        &#125;    </span><br><span class="line">        <span class="keyword">return</span> $fileType;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$is_upload = <span class="keyword">false</span>;</span><br><span class="line">$msg = <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($_POST[<span class="string">'submit'</span>]))&#123;</span><br><span class="line">    $temp_file = $_FILES[<span class="string">'upload_file'</span>][<span class="string">'tmp_name'</span>];</span><br><span class="line">    $file_type = getReailFileType($temp_file);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>($file_type == <span class="string">'unknown'</span>)&#123;</span><br><span class="line">        $msg = <span class="string">"文件未知，上传失败！"</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        $img_path = UPLOAD_PATH.<span class="string">"/"</span>.rand(<span class="number">10</span>, <span class="number">99</span>).date(<span class="string">"YmdHis"</span>).<span class="string">"."</span>.$file_type;</span><br><span class="line">        <span class="keyword">if</span>(move_uploaded_file($temp_file,$img_path))&#123;</span><br><span class="line">            $is_upload = <span class="keyword">true</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            $msg = <span class="string">"上传出错！"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过读文件的前2个字节判断文件类型，因此直接上传图片马即可</p>
+<p><img src="/2020/03/08/upload-labs/3.jpg" alt></p>
+<p>最后保存的时候的路径是不可操作的，所以传上去还是个图片文件，不能解析。这里需要我们自己写个文件包含的代码来配合一下。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##include.php</span></span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">本页面存在文件包含漏洞，用于测试图片马是否能正常运行！</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">header(<span class="string">"Content-Type:text/html;charset=utf-8"</span>);</span><br><span class="line">$file = $_GET[<span class="string">'file'</span>];</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($file))&#123;</span><br><span class="line">    <span class="keyword">include</span> $file;</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    show_source(<span class="keyword">__file__</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/03/08/upload-labs/4.jpg" alt><br><img src="/2020/03/08/upload-labs/5.jpg" alt></p>
+<p>成功解析</p>
+<h1 id="pass-14"><a href="#pass-14" class="headerlink" title="pass-14"></a>pass-14</h1><p>源码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isImage</span><span class="params">($filename)</span></span>&#123;</span><br><span class="line">    $types = <span class="string">'.jpeg|.png|.gif'</span>;</span><br><span class="line">    <span class="keyword">if</span>(file_exists($filename))&#123;</span><br><span class="line">        $info = getimagesize($filename);</span><br><span class="line">        $ext = image_type_to_extension($info[<span class="number">2</span>]);</span><br><span class="line">        <span class="keyword">if</span>(stripos($types,$ext))&#123;</span><br><span class="line">            <span class="keyword">return</span> $ext;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$is_upload = <span class="keyword">false</span>;</span><br><span class="line">$msg = <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($_POST[<span class="string">'submit'</span>]))&#123;</span><br><span class="line">    $temp_file = $_FILES[<span class="string">'upload_file'</span>][<span class="string">'tmp_name'</span>];</span><br><span class="line">    $res = isImage($temp_file);</span><br><span class="line">    <span class="keyword">if</span>(!$res)&#123;</span><br><span class="line">        $msg = <span class="string">"文件未知，上传失败！"</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        $img_path = UPLOAD_PATH.<span class="string">"/"</span>.rand(<span class="number">10</span>, <span class="number">99</span>).date(<span class="string">"YmdHis"</span>).$res;</span><br><span class="line">        <span class="keyword">if</span>(move_uploaded_file($temp_file,$img_path))&#123;</span><br><span class="line">            $is_upload = <span class="keyword">true</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            $msg = <span class="string">"上传出错！"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>发现多了一个getimagesize函数，getimagesize就是个获取图片信息的文件。同样我们也可以通过上面的方法绕过,也成功解析<br><img src="/2020/03/08/upload-labs/6.jpg" alt></p>
+<h1 id="pass-15"><a href="#pass-15" class="headerlink" title="pass-15"></a>pass-15</h1><p>源码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isImage</span><span class="params">($filename)</span></span>&#123;</span><br><span class="line">    <span class="comment">//需要开启php_exif模块</span></span><br><span class="line">    $image_type = exif_imagetype($filename);</span><br><span class="line">    <span class="keyword">switch</span> ($image_type) &#123;</span><br><span class="line">        <span class="keyword">case</span> IMAGETYPE_GIF:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"gif"</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> IMAGETYPE_JPEG:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"jpg"</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> IMAGETYPE_PNG:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"png"</span>;</span><br><span class="line">            <span class="keyword">break</span>;    </span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$is_upload = <span class="keyword">false</span>;</span><br><span class="line">$msg = <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($_POST[<span class="string">'submit'</span>]))&#123;</span><br><span class="line">    $temp_file = $_FILES[<span class="string">'upload_file'</span>][<span class="string">'tmp_name'</span>];</span><br><span class="line">    $res = isImage($temp_file);</span><br><span class="line">    <span class="keyword">if</span>(!$res)&#123;</span><br><span class="line">        $msg = <span class="string">"文件未知，上传失败！"</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        $img_path = UPLOAD_PATH.<span class="string">"/"</span>.rand(<span class="number">10</span>, <span class="number">99</span>).date(<span class="string">"YmdHis"</span>).<span class="string">"."</span>.$res;</span><br><span class="line">        <span class="keyword">if</span>(move_uploaded_file($temp_file,$img_path))&#123;</span><br><span class="line">            $is_upload = <span class="keyword">true</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            $msg = <span class="string">"上传出错！"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>发现开启了php_exif模块检测文件信息<br>用上面的文件包含依然可以解析图片</p>
+<h1 id="pass-16"><a href="#pass-16" class="headerlink" title="pass-16"></a>pass-16</h1><p>源码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line">$is_upload = <span class="keyword">false</span>;</span><br><span class="line">$msg = <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>($_POST[<span class="string">'submit'</span>]))&#123;</span><br><span class="line">    <span class="comment">// 获得上传文件的基本信息，文件名，类型，大小，临时文件路径</span></span><br><span class="line">    $filename = $_FILES[<span class="string">'upload_file'</span>][<span class="string">'name'</span>];</span><br><span class="line">    $filetype = $_FILES[<span class="string">'upload_file'</span>][<span class="string">'type'</span>];</span><br><span class="line">    $tmpname = $_FILES[<span class="string">'upload_file'</span>][<span class="string">'tmp_name'</span>];</span><br><span class="line"></span><br><span class="line">    $target_path=UPLOAD_PATH.basename($filename);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获得上传文件的扩展名</span></span><br><span class="line">    $fileext= substr(strrchr($filename,<span class="string">"."</span>),<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//判断文件后缀与类型，合法才进行上传操作</span></span><br><span class="line">    <span class="keyword">if</span>(($fileext == <span class="string">"jpg"</span>) &amp;&amp; ($filetype==<span class="string">"image/jpeg"</span>))&#123;</span><br><span class="line">        <span class="keyword">if</span>(move_uploaded_file($tmpname,$target_path))</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//使用上传的图片生成新的图片</span></span><br><span class="line">            $im = imagecreatefromjpeg($target_path);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span>($im == <span class="keyword">false</span>)&#123;</span><br><span class="line">                $msg = <span class="string">"该文件不是jpg格式的图片！"</span>;</span><br><span class="line">                @unlink($target_path);</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="comment">//给新图片指定文件名</span></span><br><span class="line">                srand(time());</span><br><span class="line">                $newfilename = strval(rand()).<span class="string">".jpg"</span>;</span><br><span class="line">                $newimagepath = UPLOAD_PATH.$newfilename;</span><br><span class="line">                imagejpeg($im,$newimagepath);</span><br><span class="line">                <span class="comment">//显示二次渲染后的图片（使用用户上传图片生成的新图片）</span></span><br><span class="line">                $img_path = UPLOAD_PATH.$newfilename;</span><br><span class="line">                @unlink($target_path);</span><br><span class="line">                $is_upload = <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            $msg = <span class="string">"上传出错！"</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(($fileext == <span class="string">"png"</span>) &amp;&amp; ($filetype==<span class="string">"image/png"</span>))&#123;</span><br><span class="line">        <span class="keyword">if</span>(move_uploaded_file($tmpname,$target_path))</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//使用上传的图片生成新的图片</span></span><br><span class="line">            $im = imagecreatefrompng($target_path);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span>($im == <span class="keyword">false</span>)&#123;</span><br><span class="line">                $msg = <span class="string">"该文件不是png格式的图片！"</span>;</span><br><span class="line">                @unlink($target_path);</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                 <span class="comment">//给新图片指定文件名</span></span><br><span class="line">                srand(time());</span><br><span class="line">                $newfilename = strval(rand()).<span class="string">".png"</span>;</span><br><span class="line">                $newimagepath = UPLOAD_PATH.$newfilename;</span><br><span class="line">                imagepng($im,$newimagepath);</span><br><span class="line">                <span class="comment">//显示二次渲染后的图片（使用用户上传图片生成的新图片）</span></span><br><span class="line">                $img_path = UPLOAD_PATH.$newfilename;</span><br><span class="line">                @unlink($target_path);</span><br><span class="line">                $is_upload = <span class="keyword">true</span>;               </span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            $msg = <span class="string">"上传出错！"</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(($fileext == <span class="string">"gif"</span>) &amp;&amp; ($filetype==<span class="string">"image/gif"</span>))&#123;</span><br><span class="line">        <span class="keyword">if</span>(move_uploaded_file($tmpname,$target_path))</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//使用上传的图片生成新的图片</span></span><br><span class="line">            $im = imagecreatefromgif($target_path);</span><br><span class="line">            <span class="keyword">if</span>($im == <span class="keyword">false</span>)&#123;</span><br><span class="line">                $msg = <span class="string">"该文件不是gif格式的图片！"</span>;</span><br><span class="line">                @unlink($target_path);</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="comment">//给新图片指定文件名</span></span><br><span class="line">                srand(time());</span><br><span class="line">                $newfilename = strval(rand()).<span class="string">".gif"</span>;</span><br><span class="line">                $newimagepath = UPLOAD_PATH.$newfilename;</span><br><span class="line">                imagegif($im,$newimagepath);</span><br><span class="line">                <span class="comment">//显示二次渲染后的图片（使用用户上传图片生成的新图片）</span></span><br><span class="line">                $img_path = UPLOAD_PATH.$newfilename;</span><br><span class="line">                @unlink($target_path);</span><br><span class="line">                $is_upload = <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            $msg = <span class="string">"上传出错！"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        $msg = <span class="string">"只允许上传后缀为.jpg|.png|.gif的图片文件！"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面获取了图片的各种信息，下面只是对图片的不同类型进行了相应的处理，过滤的非常严了，还使用了imagecreatefromjpeg()、imagecreatefrompng()、imagecreatefromgif()对图片进行二次渲染重新创建，那么我们传上去的图片可能和这些函数创建出来的图片有所差别，所以在插马的时候需要寻找二次渲染之后不会被修改的地方。<br>如果想要绕过二次渲染的话，就要搞清楚二次渲染后，源文件哪些区域不会被修改或压缩。这里因为gif、jpg、png三种不同图片文件的文件格式不同，所以图片马的构造方法也不同</p>
+<p>参考链接:<a href="https://links.jianshu.com/go?to=https%3A%2F%2Fxz.aliyun.com%2Ft%2F2657" target="_blank" rel="noopener">https://xz.aliyun.com/t/2657</a></p>
+<p>于是我们可以将木马写在没有被更改的地方，然后使用文件包含</p>
+<h1 id="pass-17"><a href="#pass-17" class="headerlink" title="pass-17"></a>pass-17</h1><p>源码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">$is_upload = <span class="keyword">false</span>;</span><br><span class="line">$msg = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($_POST[<span class="string">'submit'</span>]))&#123;</span><br><span class="line">    $ext_arr = <span class="keyword">array</span>(<span class="string">'jpg'</span>,<span class="string">'png'</span>,<span class="string">'gif'</span>);</span><br><span class="line">    $file_name = $_FILES[<span class="string">'upload_file'</span>][<span class="string">'name'</span>];</span><br><span class="line">    $temp_file = $_FILES[<span class="string">'upload_file'</span>][<span class="string">'tmp_name'</span>];</span><br><span class="line">    $file_ext = substr($file_name,strrpos($file_name,<span class="string">"."</span>)+<span class="number">1</span>);</span><br><span class="line">    $upload_file = UPLOAD_PATH . <span class="string">'/'</span> . $file_name;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(move_uploaded_file($temp_file, $upload_file))&#123;</span><br><span class="line">        <span class="keyword">if</span>(in_array($file_ext,$ext_arr))&#123;</span><br><span class="line">             $img_path = UPLOAD_PATH . <span class="string">'/'</span>. rand(<span class="number">10</span>, <span class="number">99</span>).date(<span class="string">"YmdHis"</span>).<span class="string">"."</span>.$file_ext;</span><br><span class="line">             rename($upload_file, $img_path);</span><br><span class="line">             $is_upload = <span class="keyword">true</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            $msg = <span class="string">"只允许上传.jpg|.png|.gif类型文件！"</span>;</span><br><span class="line">            unlink($upload_file);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        $msg = <span class="string">'上传出错！'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里是先move_uploaded_file函数将上传文件临时保存，再进行判断，如果不在白名单里则unlink删除，在的话就rename重命名，所以这里存在条件竞争。</p>
+<p>可以使用条件竞争进行绕过</p>
+<p>我们上传的文件是有缓存的，move_uploaded_file(a,b)就是把a移到b，所以move_uploaded_file($temp_file, $upload_file)就是把缓存移动到UPLOAD_PATH . ‘/’ . $file_name，紧接着会判断我们的文件的后缀了，如果不是规定的后缀就会被unlink(删除)。</p>
+<p>条件竞争就是我们不断传上去php木马文件，在被移动到UPLOAD_PATH . ‘/’ . $file_name之后，在没有来得及被unlink处理之前去访问这个文件。</p>
+<p>用burp开启两个intruder模块，一个用于重复上传，另一个用于重复访问。<br>1、先设置上传请求,记住此处的文件名，等下要用来拼接访问请求的url<br><img src="/2020/03/08/upload-labs/7.jpg" alt><br>2、因为此处没有什么参数需要爆破，只是需要重复发起请求，所以payload设置为Null payloads,设置访问次数5000次，线程50个<br><img src="/2020/03/08/upload-labs/8.jpg" alt></p>
+<p>接下来设置访问请求<br> 1、浏览器构造请求url：<a href="http://39.106.13.91:7091/upload/phpinfo.php`,进行访问，然后用burp抓包" target="_blank" rel="noopener">http://39.106.13.91:7091/upload/phpinfo.php`,进行访问，然后用burp抓包</a><br> 2、burp抓包后发送至intruder模块，然后设置payload，这一步和上传请求设置差不多,都是Null payloads、5000次、50个线程<br><img src="/2020/03/08/upload-labs/9.jpg" alt><br><img src="/2020/03/08/upload-labs/10.jpg" alt><br>最后有三个成功上传<br><img src="/2020/03/08/upload-labs/11.jpg" alt></p>
+<h1 id="pass-18"><a href="#pass-18" class="headerlink" title="pass-18"></a>pass-18</h1><p>部分源码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">$ret = <span class="keyword">$this</span>-&gt;move();</span><br><span class="line">   <span class="keyword">if</span>( $ret != <span class="number">1</span> )&#123;</span><br><span class="line">     <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;resultUpload( $ret );    </span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">// check if we need to rename the file</span></span><br><span class="line"></span><br><span class="line">   <span class="keyword">if</span>( <span class="keyword">$this</span>-&gt;cls_rename_file == <span class="number">1</span> )&#123;</span><br><span class="line">     $ret = <span class="keyword">$this</span>-&gt;renameFile();</span><br><span class="line">     <span class="keyword">if</span>( $ret != <span class="number">1</span> )&#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;resultUpload( $ret );    </span><br><span class="line">     &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   <span class="comment">// if we are here, everything worked as planned :)</span></span><br><span class="line"></span><br><span class="line">   <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;resultUpload( <span class="string">"SUCCESS"</span> );</span><br></pre></td></tr></table></figure>
+
+<p>这里先将上传的文件保存（move函数），再rename重命名一下。所以也存在条件竞争，绕过方法和上面Pass-17差不多<br>不过这题对文件后缀名做了白名单判断，然后会一步一步检查文件大小、文件是否存在等等，因此可以通过不断上传图片马，由于条件竞争可能来不及重命名，从而上传成功。</p>
+<h1 id="pass-19"><a href="#pass-19" class="headerlink" title="pass-19"></a>pass-19</h1><p>源码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">$is_upload = <span class="keyword">false</span>;</span><br><span class="line">$msg = <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>($_POST[<span class="string">'submit'</span>])) &#123;</span><br><span class="line">    <span class="keyword">if</span> (file_exists(UPLOAD_PATH)) &#123;</span><br><span class="line">        $deny_ext = <span class="keyword">array</span>(<span class="string">"php"</span>,<span class="string">"php5"</span>,<span class="string">"php4"</span>,<span class="string">"php3"</span>,<span class="string">"php2"</span>,<span class="string">"html"</span>,<span class="string">"htm"</span>,<span class="string">"phtml"</span>,<span class="string">"pht"</span>,<span class="string">"jsp"</span>,<span class="string">"jspa"</span>,<span class="string">"jspx"</span>,<span class="string">"jsw"</span>,<span class="string">"jsv"</span>,<span class="string">"jspf"</span>,<span class="string">"jtml"</span>,<span class="string">"asp"</span>,<span class="string">"aspx"</span>,<span class="string">"asa"</span>,<span class="string">"asax"</span>,<span class="string">"ascx"</span>,<span class="string">"ashx"</span>,<span class="string">"asmx"</span>,<span class="string">"cer"</span>,<span class="string">"swf"</span>,<span class="string">"htaccess"</span>);</span><br><span class="line"></span><br><span class="line">        $file_name = $_POST[<span class="string">'save_name'</span>];</span><br><span class="line">        $file_ext = pathinfo($file_name,PATHINFO_EXTENSION);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(!in_array($file_ext,$deny_ext)) &#123;</span><br><span class="line">            $temp_file = $_FILES[<span class="string">'upload_file'</span>][<span class="string">'tmp_name'</span>];</span><br><span class="line">            $img_path = UPLOAD_PATH . <span class="string">'/'</span> .$file_name;</span><br><span class="line">            <span class="keyword">if</span> (move_uploaded_file($temp_file, $img_path)) &#123; </span><br><span class="line">                $is_upload = <span class="keyword">true</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                $msg = <span class="string">'上传出错！'</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            $msg = <span class="string">'禁止保存为该类型文件！'</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        $msg = UPLOAD_PATH . <span class="string">'文件夹不存在,请手工创建！'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>move_uploaded_file会忽略掉文件末尾的/.<br> 所以可以构造save_path=1.php/.,这样file_ext值就为空，就能绕过黑名单，而move_uploaded_file函数忽略文件末尾的/.可以实现保存文件为.php。最后通过文件包含访问</p>
+<p><img src="/2020/03/08/upload-labs/13.jpg" alt><br><img src="/2020/03/08/upload-labs/14.jpg" alt></p>
+<h1 id="pass-20"><a href="#pass-20" class="headerlink" title="pass-20"></a>pass-20</h1><p>源码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">$is_upload = <span class="keyword">false</span>;</span><br><span class="line">$msg = <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">if</span>(!<span class="keyword">empty</span>($_FILES[<span class="string">'upload_file'</span>]))&#123;</span><br><span class="line">    <span class="comment">//检查MIME</span></span><br><span class="line">    $allow_type = <span class="keyword">array</span>(<span class="string">'image/jpeg'</span>,<span class="string">'image/png'</span>,<span class="string">'image/gif'</span>);</span><br><span class="line">    <span class="keyword">if</span>(!in_array($_FILES[<span class="string">'upload_file'</span>][<span class="string">'type'</span>],$allow_type))&#123;</span><br><span class="line">        $msg = <span class="string">"禁止上传该类型文件!"</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="comment">//检查文件名</span></span><br><span class="line">        $file = <span class="keyword">empty</span>($_POST[<span class="string">'save_name'</span>]) ? $_FILES[<span class="string">'upload_file'</span>][<span class="string">'name'</span>] : $_POST[<span class="string">'save_name'</span>];</span><br><span class="line">        <span class="keyword">if</span> (!is_array($file)) &#123;</span><br><span class="line">            $file = explode(<span class="string">'.'</span>, strtolower($file));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        $ext = end($file);</span><br><span class="line">        $allow_suffix = <span class="keyword">array</span>(<span class="string">'jpg'</span>,<span class="string">'png'</span>,<span class="string">'gif'</span>);</span><br><span class="line">        <span class="keyword">if</span> (!in_array($ext, $allow_suffix)) &#123;</span><br><span class="line">            $msg = <span class="string">"禁止上传该后缀文件!"</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            $file_name = reset($file) . <span class="string">'.'</span> . $file[count($file) - <span class="number">1</span>];</span><br><span class="line">            $temp_file = $_FILES[<span class="string">'upload_file'</span>][<span class="string">'tmp_name'</span>];</span><br><span class="line">            $img_path = UPLOAD_PATH . <span class="string">'/'</span> .$file_name;</span><br><span class="line">            <span class="keyword">if</span> (move_uploaded_file($temp_file, $img_path)) &#123;</span><br><span class="line">                $msg = <span class="string">"文件上传成功！"</span>;</span><br><span class="line">                $is_upload = <span class="keyword">true</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                $msg = <span class="string">"文件上传失败！"</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    $msg = <span class="string">"请选择要上传的文件！"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>$file为数组的话，就不用经过explode处理再变成数组，我们直接上传数组的话，增加了我么的控制性。<br>end($file)会经过后缀名检测，所以数组最后一个一定是白名单中的后缀。<br>$file_name = reset($file) . ‘.’ . $file[count($file) - 1];通常$file[count($file) - 1]和end($file)都指向数组最后一个元素，但是在这里如果这样，那么上传上去的将只能是图片,所以我们可以抓包这样修改<br><img src="/2020/03/08/upload-labs/15.jpg" alt><br>上传成功<br><img src="/2020/03/08/upload-labs/16.jpg" alt><br><img src="/2020/03/08/upload-labs/17.jpg" alt></p>
+<p>upload-labs这个靶场到这来算是完成了，%00截断由于版本问题没有复现成功。做完之后比之前第一遍做的时候学到了更多，还是颇有收获~~</p>
+<p>参考链接：<a href="https://www.jianshu.com/p/290f1d1b6e44" target="_blank" rel="noopener">https://www.jianshu.com/p/290f1d1b6e44</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
+  <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
+  <span>文章作者:</span><a href="/" title="访问 CyzCc 的个人博客">CyzCc</a><br>
+  <span>最后更新:</span>2020年04月16日 23:04:51<br>
+  <span>原始链接:</span><a href="/2020/03/08/upload-labs/" title="upload-labs">https://cyzcc.vip/2020/03/08/upload-labs/</a><br>
+  <span>版权声明:</span>转载请注明出处！<br>  
+</div>
+
+      
+</div>
+	
+	
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持就是我的动力！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="CyzCc Thanks"/>
+        <p>Thanks</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        
+          <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------　　　　本文结束　<i class="fa fa-heart"></i>　感谢您的阅读　　　　-------------</div>
+    
+</div>
+
+        
+      </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/upload-labs/" rel="tag"><i class="fa fa-tag"></i> upload-labs</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/03/07/vulnhub-DC9/" rel="next" title="vulnhub靶机DC9">
+                <i class="fa fa-chevron-left"></i> vulnhub靶机DC9
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/03/09/zzbds/" rel="prev" title="爬虫--正则表达式&&浏览器伪装">
+                爬虫--正则表达式&&浏览器伪装 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="CyzCc" />
+            
+              <p class="site-author-name" itemprop="name">CyzCc</p>
+              <p class="site-description motion-element" itemprop="description">卍~~黑玫瑰将再次绽放~~卐</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yourname" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="1643277253@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.heibanke.com/lesson/crawler_ex00/" target="_blank" title="爬虫闯关">
+                      
+                        <i class="fa fa-fw fa-globe"></i>爬虫闯关</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://adworld.xctf.org.cn/" target="_blank" title="攻防世界">
+                      
+                        <i class="fa fa-fw fa-globe"></i>攻防世界</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://buuoj.cn/" target="_blank" title="BUUCTF">
+                      
+                        <i class="fa fa-fw fa-globe"></i>BUUCTF</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://ctf.bugku.com/" target="_blank" title="BUGKU">
+                      
+                        <i class="fa fa-fw fa-globe"></i>BUGKU</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://xss-quiz.int21h.jp/" target="_blank" title="XSS-challenges">
+                      
+                        <i class="fa fa-fw fa-globe"></i>XSS-challenges</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://ctf.hutc.xyz/" target="_blank" title="HUCTF">
+                      
+                        <i class="fa fa-fw fa-globe"></i>HUCTF</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://paper.seebug.org/" target="_blank" title="Paper">
+                      
+                        <i class="fa fa-fw fa-globe"></i>Paper</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://hkyx.myhack58.com/" target="_blank" title="黑客闯关游戏">
+                      
+                        <i class="fa fa-fw fa-globe"></i>黑客闯关游戏</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.freebuf.com/" target="_blank" title="FreeBuf">
+                      
+                        <i class="fa fa-fw fa-globe"></i>FreeBuf</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-globe"></i>CSDN</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://wiki.0-sec.org/#/dashboard" target="_blank" title="Zero Security">
+                      
+                        <i class="fa fa-fw fa-globe"></i>Zero Security</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          <div id="days"></div>
+<script>
+function show_date_time(){
+window.setTimeout("show_date_time()", 1000);
+BirthDay=new Date("10/30/2019 15:13:14");
+today=new Date();
+timeold=(today.getTime()-BirthDay.getTime());
+sectimeold=timeold/1000
+secondsold=Math.floor(sectimeold);
+msPerDay=24*60*60*1000
+e_daysold=timeold/msPerDay
+daysold=Math.floor(e_daysold);
+e_hrsold=(e_daysold-daysold)*24;
+hrsold=setzero(Math.floor(e_hrsold));
+e_minsold=(e_hrsold-hrsold)*60;
+minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+seconds=setzero(Math.floor((e_minsold-minsold)*60));
+document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+}
+function setzero(i){
+if (i<10)
+{i="0" + i};
+return i;
+}
+show_date_time();
+</script>
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#pass-01"><span class="nav-number">1.</span> <span class="nav-text">pass-01</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pass-02"><span class="nav-number">2.</span> <span class="nav-text">pass-02</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pass-03"><span class="nav-number">3.</span> <span class="nav-text">pass-03</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pass-04"><span class="nav-number">4.</span> <span class="nav-text">pass-04</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pass-05"><span class="nav-number">5.</span> <span class="nav-text">pass-05</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pass-06"><span class="nav-number">6.</span> <span class="nav-text">pass-06</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pass-7"><span class="nav-number">7.</span> <span class="nav-text">pass-7</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pass-8"><span class="nav-number">8.</span> <span class="nav-text">pass-8</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pass-9"><span class="nav-number">9.</span> <span class="nav-text">pass-9</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pass-10"><span class="nav-number">10.</span> <span class="nav-text">pass-10</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pass-11"><span class="nav-number">11.</span> <span class="nav-text">pass-11</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pass-12"><span class="nav-number">12.</span> <span class="nav-text">pass-12</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pass-13"><span class="nav-number">13.</span> <span class="nav-text">pass-13</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pass-14"><span class="nav-number">14.</span> <span class="nav-text">pass-14</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pass-15"><span class="nav-number">15.</span> <span class="nav-text">pass-15</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pass-16"><span class="nav-number">16.</span> <span class="nav-text">pass-16</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pass-17"><span class="nav-number">17.</span> <span class="nav-text">pass-17</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pass-18"><span class="nav-number">18.</span> <span class="nav-text">pass-18</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pass-19"><span class="nav-number">19.</span> <span class="nav-text">pass-19</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pass-20"><span class="nav-number">20.</span> <span class="nav-text">pass-20</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">cyzCc</span>
+
+ <!-- 
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">150.4k</span>
+  
+
+</div>
+
+-->
+
+
+
+
+
+
+<!-- 新增访客统计代码 -->
+<!--<div class="busuanzi-count">
+    <script async="" src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      访问用户： <span class="busuanzi-value" id="busuanzi_value_site_uv"></span> 人
+    </span>
+    <div class="powered-by"></div>
+    <span class="site-uv">
+      <i class="fa fa-eye"></i>
+      访问次数： <span class="busuanzi-value" id="busuanzi_value_site_pv"></span> 次
+    </span>
+    <!-- 博客字数统计 -->
+    <span class="site-pv">
+      <i class="fa fa-pencil"></i>
+      博客全站共： <span class="post-count">150.4k</span> 字
+    </span>
+	  <a href="http://www.beian.miit.gov.cn" target="_blank" rel="noopener">蜀ICP备20017267号</a>
+</div>
+<!-- 新增访客统计代码 END-->
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("TSaUMM9qwI423iWuECxQWDDh-gzGzoHsz", "2DucY6TQAx8iNNnjFYelMbXV");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+  <script type="text/javascript" src="/js/src/exturl.js?v=5.1.4"></script>
+
+
+  
+  
+ <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+ <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+ <script type="text/javascript" src="/js/src/fireworks.js"></script>
+
+
+<div class="bg_content">
+<canvas id="canvas"></canvas>
+</div>
+<!-- 雪花特效 -->
+<!--<script type="text/javascript">
+
+    document.write('<script type="text/javascript" src="/js/src/snow2.js"><\/script>');
+
+</script>-->
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":100,"height":200},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
+<script type="text/javascript" src="/js/src/dynamic_bg.js"></script>
