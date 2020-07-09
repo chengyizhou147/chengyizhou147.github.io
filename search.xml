@@ -4584,8 +4584,8 @@ SELECT语句中被使用的列名称也被用于结果的列名称。</code><br>
 <p>这个路图片路径是真的很难匹配，xpath和bs4都有点问题，最后还是正则表达式才匹配成功，所以以后要加强对这几个表达式的训练。这次练手先爬一些搞笑图片，下次爬妹子图片了，再下次…嘿嘿</p>
 ]]></content>
       <tags>
-        <tag>python爬虫</tag>
         <tag>python学习</tag>
+        <tag>python爬虫</tag>
       </tags>
   </entry>
   <entry>
