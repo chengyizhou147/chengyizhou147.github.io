@@ -134,7 +134,7 @@
 <meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;07&#x2F;14&#x2F;buu-web-7&#x2F;10.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;07&#x2F;14&#x2F;buu-web-7&#x2F;11.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;07&#x2F;14&#x2F;buu-web-7&#x2F;1593775347092.png">
-<meta property="og:updated_time" content="2020-07-14T13:39:40.480Z">
+<meta property="og:updated_time" content="2020-07-18T07:26:25.883Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;07&#x2F;14&#x2F;buu-web-7&#x2F;1593336739916.png">
 
@@ -485,8 +485,6 @@
 <p><strong>[网鼎杯2018]Unfinish</strong><br>知识点：异或注入</p>
 <a id="more"></a>
 
-
-
 <h1 id="bestphp’s-revenge"><a href="#bestphp’s-revenge" class="headerlink" title="bestphp’s revenge"></a>bestphp’s revenge</h1><p>考点：SESSION反序列化、SSRF、PHP原生类利用</p>
 <p>源码：</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"> <span class="meta">&lt;?php</span></span><br><span class="line">highlight_file(<span class="keyword">__FILE__</span>);</span><br><span class="line">$b = <span class="string">'implode'</span>;</span><br><span class="line">call_user_func($_GET[<span class="string">'f'</span>], $_POST);</span><br><span class="line">session_start();</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>($_GET[<span class="string">'name'</span>])) &#123;</span><br><span class="line">    $_SESSION[<span class="string">'name'</span>] = $_GET[<span class="string">'name'</span>];</span><br><span class="line">&#125;</span><br><span class="line">var_dump($_SESSION);</span><br><span class="line">$a = <span class="keyword">array</span>(reset($_SESSION), <span class="string">'welcome_to_the_lctf2018'</span>);</span><br><span class="line">call_user_func($b, $a);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
@@ -725,7 +723,7 @@
   <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
   <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
   <span>文章作者:</span><a href="/" title="访问 CyzCc 的个人博客">CyzCc</a><br>
-  <span>最后更新:</span>2020年07月14日 21:07:40<br>
+  <span>最后更新:</span>2020年07月18日 15:07:25<br>
   <span>原始链接:</span><a href="/2020/07/14/buu-web-7/" title="BUU-web七">https://cyzcc.vip/2020/07/14/buu-web-7/</a><br>
   <span>版权声明:</span>转载请注明出处！<br>  
 </div>
